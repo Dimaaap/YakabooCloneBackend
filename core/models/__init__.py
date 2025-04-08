@@ -4,7 +4,9 @@ __all__ = (
     "Sidebar",
     "Knowledge",
     "EmailSubs",
-    "Banner"
+    "Banner",
+    "User",
+    "Wishlist"
 )
 
 
@@ -14,3 +16,5 @@ from .sidebar import Sidebar
 from .knowledges import Knowledge
 from .email_subs import EmailSubs
 from .banners import Banner
+from .user import User
+from .wishlists import Wishlist
