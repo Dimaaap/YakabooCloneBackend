@@ -8,6 +8,7 @@ from banners import router as banners_router
 from sidebar import router as sidebars_router
 from email_subs import router as subs_router
 from knowledges import router as knowledge_router
+from users import router as auth_router
 
 
 @asynccontextmanager
@@ -20,6 +21,7 @@ app.include_router(banners_router)
 app.include_router(sidebars_router)
 app.include_router(subs_router)
 app.include_router(knowledge_router)
+app.include_router(auth_router)
 
 app.add_middleware(
     CORSMiddleware,

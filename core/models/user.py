@@ -20,6 +20,7 @@ class User(Base):
     is_staff: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    is_subscribed_to_news: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     birth_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True, default=None, server_default=None)
 
     date_joined: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))

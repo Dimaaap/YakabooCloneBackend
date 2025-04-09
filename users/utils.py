@@ -23,10 +23,10 @@ conf = ConnectionConfig(
     MAIL_FROM=os.getenv("MAIL_FROM"),
     MAIL_PORT=int(os.getenv("MAIL_PORT")),
     MAIL_SERVER=os.getenv("MAIL_SERVER"),
-    MAIL_STARTTLS=os.getenv("MAIL_TLS") == "True",
-    MAIL_SSL_TLS=os.getenv("MAIL_SSL") == "True",
+    MAIL_STARTTLS=os.getenv("MAIL_STARTTLS") == "True",
+    MAIL_SSL_TLS=os.getenv("MAIL_SSL_TLS") == "True",
     USE_CREDENTIALS=True,
-    TEMPLTE_FOLDER=str(Path(__file__).parent / "templates" / "email_templates")
+    TEMPLATE_FOLDER=str(Path(__file__).parent / "templates" / "email_templates")
 )
 
 
@@ -113,3 +113,4 @@ def hash_password(password: str) -> bytes:
 
 def validate_password(password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(password.encode(), hashed_password)
+
