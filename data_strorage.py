@@ -291,7 +291,7 @@ SUB_CATEGORIES = [
     {
         "title": "Сучасна проза",
         "slug": "suchasna-proza",
-        "categpry_id": 4
+        "category_id": 4
     },
     {
         "title": "Фантастика та фентезі",

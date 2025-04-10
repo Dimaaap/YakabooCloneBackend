@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
 class Wishlist(Base):
 
+    id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(100))
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
 

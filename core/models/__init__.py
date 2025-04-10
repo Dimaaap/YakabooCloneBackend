@@ -5,7 +5,7 @@ __all__ = (
     "Book",
     "AuthorBookAssociation",
     "SubcategoryBookAssociation",
-    "WishlistBookAssociation",
+    #"WishlistBookAssociation",
     "BookInfo",
     "Category",
     "Sidebar",

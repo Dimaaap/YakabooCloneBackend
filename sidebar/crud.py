@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Sidebar, db_helper
 from data_strorage import SIDEBAR
-from .schemas import Sidebar as SchemasSidebar
+from schemas import Sidebar as SchemasSidebar
 
 
 async def create_sidebar(session: AsyncSession, title: str,

@@ -5,7 +5,7 @@ from sqlalchemy import select, Result, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Author, db_helper
-from .schemas import AuthorSchema, AuthorCreate
+from schemas import AuthorSchema, AuthorCreate
 from data_strorage import AUTHORS
 
 
