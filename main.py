@@ -9,6 +9,8 @@ from sidebar import router as sidebars_router
 from email_subs import router as subs_router
 from knowledges import router as knowledge_router
 from users import router as auth_router
+from wishlists import router as wishlist_router
+from authors import router as authors_router
 
 
 @asynccontextmanager
@@ -22,6 +24,8 @@ app.include_router(sidebars_router)
 app.include_router(subs_router)
 app.include_router(knowledge_router)
 app.include_router(auth_router)
+app.include_router(wishlist_router)
+app.include_router(authors_router)
 
 app.add_middleware(
     CORSMiddleware,
