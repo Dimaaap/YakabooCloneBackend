@@ -1,13 +1,12 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result
-from sqlalchemy.orm import selectinload
+from sqlalchemy import select, Result, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Category, Subcategory, db_helper
 from data_strorage import CATEGORIES, SUB_CATEGORIES
-from schemas import CategoryCreate, SubCategoryBase
+from .schemas import CategoryCreate, SubCategoryBase
 
 
 async def create_category(session: AsyncSession, category: CategoryCreate) -> Category:
@@ -30,6 +29,30 @@ async def create_sub_category(session: AsyncSession, sub_category: SubCategoryBa
     return sub_category
 
 
+async def delete_category_by_id(session: AsyncSession, category_id: int):
+    statement = delete(Category).where(Category.id == category_id)
+    try:
+        await session.execute(statement)
+        await session.commit()
+        return True
+    except Exception as e:
+        print(e)
+        await session.rollback()
+        return False
+
+
+async def delete_subcategory_by_id(session: AsyncSession, subcategory_id: int):
+    statement = delete(Subcategory).where(Subcategory.id == subcategory_id)
+    try:
+        await session.execute(statement)
+        await session.commit()
+        return True
+    except Exception as e:
+        print(e)
+        await session.rollback()
+        return False
+
+
 async def get_all_subcategories(session: AsyncSession) -> list[Subcategory]:
     statement = select(Subcategory).order_by(Subcategory.id)
     result: Result = await session.execute(statement)
@@ -47,11 +70,11 @@ async def get_all_subcategories_by_category_id(session: AsyncSession, category_i
     return subcategories
 
 
-async def get_all_categories_with_subcategories(session: AsyncSession) -> list[Category]:
-    statement = select(Category).options(selectinload(Category.subcategories)).order_by(Category.id)
+async def get_all_categories(session: AsyncSession) -> list[Category]:
+    statement = select(Category).order_by(Category.id)
     result: Result = await session.execute(statement)
     categories = result.scalars().all()
-    return list[categories]
+    return list(categories)
 
 
 async def main():

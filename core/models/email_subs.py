@@ -15,6 +15,3 @@ class EmailSubs(Base):
 
     def __str__(self):
         return f"{self.__class__.__name__}(subscribe_email={self.email})"
-
-    def __repr__(self):
-        return str(self)

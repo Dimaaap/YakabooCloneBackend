@@ -5,7 +5,7 @@ __all__ = (
     "Book",
     "AuthorBookAssociation",
     "SubcategoryBookAssociation",
-    #"WishlistBookAssociation",
+    "WishlistBookAssociation",
     "BookInfo",
     "Category",
     "Sidebar",
@@ -15,6 +15,9 @@ __all__ = (
     "Banner",
     "User",
     "Wishlist",
+    "Promotion",
+    "PromoCategories",
+    "PromoCategoryAssociation",
 )
 
 
@@ -34,3 +37,6 @@ from .email_subs import EmailSubs
 from .banners import Banner
 from .user import User
 from .wishlists import Wishlist
+from .promotions import Promotion
+from .promo_categories import PromoCategories
+from .promo_category_association import PromoCategoryAssociation

@@ -11,6 +11,3 @@ class Banner(Base):
 
     def __str__(self):
         return f"{self.__class__.__name__}(id={self.id}, visible={self.visible}, link={self.link})"
-
-    def __repr__(self):
-        return str(self)

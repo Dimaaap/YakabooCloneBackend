@@ -29,6 +29,3 @@ class AuthorBookAssociation(Base):
 
     def __str__(self):
         return f"{self.author.get_full_name}, {self.book.title}"
-
-    def __repr__(self):
-        return str(self)

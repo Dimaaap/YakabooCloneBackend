@@ -2468,7 +2468,8 @@ PROMOS = [
                 </p>
             </div
         """,
-        "end_date": datetime.datetime(2025, 2, 20)
+        "end_date": datetime.datetime(2025, 2, 20),
+        "category_ids": [1, 3, 2]
     },
     {
         "title": "Видавництво тижня! До -40% на книжки ВГ «Основа» та 4Mamas",
@@ -2532,7 +2533,8 @@ PROMOS = [
                 </p>
             </div>
         """,
-        "end_date": datetime.datetime(2025, 2, 23)
+        "end_date": datetime.datetime(2025, 2, 23),
+        "category_ids": [1]
     },
     {
         "title": "Розіграш комплектів Yaka Школа до Міжнародного дня рідної мови",
@@ -2596,7 +2598,8 @@ PROMOS = [
                 </p>
             </div>
         """,
-        "end_date": datetime.datetime(2025, 2, 23)
+        "end_date": datetime.datetime(2025, 2, 23),
+        "category_ids": [5, 3]
     },
     {
         "title": "До -60% на книжки до Місяця Книгодарування",
@@ -2659,7 +2662,8 @@ PROMOS = [
                 </p>
             </div>
         """,
-        "end_date": datetime.datetime(2025, 2, 28)
+        "end_date": datetime.datetime(2025, 2, 28),
+        "category_ids": [1, 4, 2, 3]
     },
     {
         "title": "Видавництво тижня! До -30% на книжки від ВД 'Школа'",
@@ -2722,7 +2726,8 @@ PROMOS = [
                 </p>
             </div>
         """,
-        "end_date": datetime.datetime(2025, 3, 2)
+        "end_date": datetime.datetime(2025, 3, 2),
+        "category_ids": [1, 2, 3, 4, 5]
     },
     {
         "title": "E-видавництво тижня! До -30% на е-книжки видавництва 'Фабула'",
@@ -2783,7 +2788,8 @@ PROMOS = [
                 </p>
             </div>
         """,
-        "end_date": datetime.datetime(2025, 3, 2)
+        "end_date": datetime.datetime(2025, 3, 2),
+        "category_ids": [2]
     },
     {
         "title": "Підписка 2в1 READERPACK",
@@ -2844,7 +2850,8 @@ PROMOS = [
                 </p>
             </div>
         """,
-        "end_date": None
+        "end_date": None,
+        "category_ids": [3, 4]
     },
     {
         "title": "Електронні новинки лютого",

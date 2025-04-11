@@ -15,6 +15,3 @@ class Sidebar(Base):
     def __str__(self):
         return (f"{self.__class__.__name__}(id={self.id}, title={self.title}, slug={self.slug}, "
                 f"is_visible={self.visible}")
-
-    def __repr__(self):
-        return str(self)

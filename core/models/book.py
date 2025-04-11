@@ -61,6 +61,3 @@ class Book(Base):
 
     def __str__(self):
         return f"{self.__class__.__name__}(title={self.title})"
-
-    def __repr__(self):
-        return str(self)

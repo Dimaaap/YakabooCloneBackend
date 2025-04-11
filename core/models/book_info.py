@@ -54,6 +54,3 @@ class BookInfo(Base):
 
     def __str__(self):
         return f"{self.book.title}"
-
-    def __repr__(self):
-        return str(self)

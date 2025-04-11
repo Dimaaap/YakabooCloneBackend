@@ -12,6 +12,3 @@ class Knowledge(Base):
 
     def __str__(self):
         return f"{self.__class__.__name__}(title={self.title}, slug={self.slug}, is_active={self.is_active})"
-
-    def __repr__(self):
-        return str(self)

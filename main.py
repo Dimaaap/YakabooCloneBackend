@@ -11,6 +11,9 @@ from knowledges import router as knowledge_router
 from users import router as auth_router
 from wishlists import router as wishlist_router
 from authors import router as authors_router
+from categories import router as categories_router
+from promotion_categories import router as promo_categories_router
+from promotions import router as promo_router
 
 
 @asynccontextmanager
@@ -26,6 +29,9 @@ app.include_router(knowledge_router)
 app.include_router(auth_router)
 app.include_router(wishlist_router)
 app.include_router(authors_router)
+app.include_router(categories_router)
+app.include_router(promo_categories_router)
+app.include_router(promo_router)
 
 app.add_middleware(
     CORSMiddleware,
