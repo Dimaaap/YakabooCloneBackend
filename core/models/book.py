@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from .authors import Author
     from .wishlists import Wishlist
     from .subcategories import Subcategory
+    from .publishing import Publishing
 
 
 class Book(Base):
@@ -37,6 +38,12 @@ class Book(Base):
         back_populates="books",
         overlaps="books_details"
     )
+
+    publishing_id: Mapped[int] = mapped_column(
+        ForeignKey("publishings.id", name="fk_book_publishing")
+    )
+
+    publishing: Mapped["Publishing"] = relationship("Publishing", back_populates="books")
 
     subcategories_details: Mapped[list["SubcategoryBookAssociation"]] = relationship(
         back_populates="book",

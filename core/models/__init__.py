@@ -18,6 +18,8 @@ __all__ = (
     "Promotion",
     "PromoCategories",
     "PromoCategoryAssociation",
+    "Publishing",
+    "AuthorImage"
 )
 
 
@@ -40,3 +42,5 @@ from .wishlists import Wishlist
 from .promotions import Promotion
 from .promo_categories import PromoCategories
 from .promo_category_association import PromoCategoryAssociation
+from .publishing import Publishing
+from .author_images import AuthorImage

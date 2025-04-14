@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base
 
 if TYPE_CHECKING:
+    from .author_images import AuthorImage
     from .book import Book
     from .author_book_association import AuthorBookAssociation
 
@@ -20,6 +21,8 @@ class Author(Base):
     description: Mapped[str] = mapped_column(Text, default="", server_default="")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     short_description: Mapped[str] = mapped_column(Text, default="", server_default="")
+
+    images: Mapped[list["AuthorImage"]] = relationship("AuthorImage", back_populates="author")
 
     book: Mapped[list["Book"]] = relationship(
         secondary="author_book_association",

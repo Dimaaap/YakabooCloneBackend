@@ -24,3 +24,14 @@ class AuthorSchema(AuthorBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class ImageBase(BaseModel):
+    image_path: str = ""
+    author_id: int
+
+
+class ImageSchema(ImageBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int

@@ -14,6 +14,7 @@ from authors import router as authors_router
 from categories import router as categories_router
 from promotion_categories import router as promo_categories_router
 from promotions import router as promo_router
+from publishing import router as publishing_router
 
 
 @asynccontextmanager
@@ -32,6 +33,7 @@ app.include_router(authors_router)
 app.include_router(categories_router)
 app.include_router(promo_categories_router)
 app.include_router(promo_router)
+app.include_router(publishing_router)
 
 app.add_middleware(
     CORSMiddleware,

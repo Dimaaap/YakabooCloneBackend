@@ -13,26 +13,27 @@ async def get_all_promotions(session: AsyncSession = Depends(db_helper.scoped_se
     return await crud.get_all_promotions(session)
 
 
-@router.get("/{promotion_slug}", response_model=PromotionSchema)
+@router.get("/by-slug/{promotion_slug}", response_model=PromotionSchema)
 async def get_promotion_by_slug(promotion_slug: str,
                                 session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     return await crud.get_promotions_by_slug(promotion_slug, session)
 
 
-@router.get("/{promotion_id}", response_model=PromotionSchema)
+@router.get("/by-id/{promotion_id}", response_model=PromotionSchema)
 async def get_promotion_by_id(promotion_id: int,
                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    print(promotion_id)
     return await crud.get_promotion_by_id(promotion_id, session)
 
 
-@router.get("/category/{category_id}", response_model=list[PromotionSchema])
+@router.get("/category/by-id/{category_id}", response_model=list[PromotionSchema])
 async def get_all_promotions_by_category_id(category_id: int,
                                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     print("here")
     return await crud.get_all_promotions_by_category_id(session, category_id)
 
 
-@router.get("/category/{category_slug}", response_model=list[PromotionSchema])
+@router.get("/category/by-slug/{category_slug}", response_model=list[PromotionSchema])
 async def get_all_promotions_by_category_slug(category_slug: str,
                                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     return await crud.get_all_promotions_by_category_slug(session, category_slug)

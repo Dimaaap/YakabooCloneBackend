@@ -66,10 +66,10 @@ async def get_promotion_by_id(promotion_id: int,
 async def get_all_promotions_by_category_id(
         session: AsyncSession, category_id: int
 ) -> list[Promotion]:
-    statement = select(Promotion).join(
-        PromoCategoryAssociation,
-        PromoCategoryAssociation.promotion_id == category_id
-    ).filter(PromoCategoryAssociation.promotion_id == category_id)
+    statement = (
+        select(Promotion)
+        .join(PromoCategoryAssociation, PromoCategoryAssociation.promotion_id == Promotion.id)
+        .filter(PromoCategoryAssociation.category_id == category_id))
     result: Result = await session.execute(statement)
     promotions = result.scalars().all()
     return list(promotions)
