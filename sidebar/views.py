@@ -10,6 +10,8 @@ from config import redis_client
 
 router = APIRouter(tags=["sidebar"])
 
+SIX_DAYS = 24 * 3600 * 6
+
 
 @router.get("/all", response_model=list[Sidebar])
 async def get_all_sidebars(
@@ -19,7 +21,8 @@ async def get_all_sidebars(
     if cached_sidebars:
         return json.loads(cached_sidebars)
     sidebars = await crud.get_all_sidebars(session)
-    await redis_client.set("sidebars", json.dumps([sidebar.model_dump() for sidebar in sidebars]))
+    await redis_client.set("sidebars", json.dumps([sidebar.model_dump() for sidebar in sidebars]),
+                           ex=SIX_DAYS)
     return sidebars
 
 

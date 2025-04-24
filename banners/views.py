@@ -10,6 +10,8 @@ from config import redis_client
 
 router = APIRouter(tags=["banners"])
 
+SIX_DAYS = 24 * 3600 * 6
+
 
 @router.get("/all", response_model=list[BannerSchema])
 async def get_all_banners(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
@@ -17,7 +19,8 @@ async def get_all_banners(session: AsyncSession = Depends(db_helper.scoped_sessi
     if cached_banners:
         return json.loads(cached_banners)
     banners = await crud.get_all_banners(session)
-    await redis_client.set("banners", json.dumps([banner.model_dump() for banner in banners]))
+    await redis_client.set("banners", json.dumps([banner.model_dump() for banner in banners]),
+                           ex=SIX_DAYS)
     return banners
 
 

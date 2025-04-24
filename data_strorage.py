@@ -1,6 +1,8 @@
 import datetime
 from datetime import date
 
+from core.models.footer import FooterCategory
+
 CATEGORIES = [
     {
         "title": "Добірки Yakaboo",
@@ -345,89 +347,127 @@ SIDEBAR = [
         "title": "Акції",
         "slug": "promo",
         "visible": True,
+        "order_number": 1,
     },
     {
         "title": "Сертифікати",
         "slug": "podarunkovi-sertyfikaty",
         "visible": True,
+        "order_number": 2,
     },
     {
         "title": "Програма лояльності",
         "slug": "programa-loyalnosti",
         "visible": True,
+        "order_number": 3
     },
     {
         "title": "Остання ціна",
         "slug": "ostannia-tsina",
         "visible": True,
+        "order_number": 4
     },
     {
-        "title": "Творчість, хобі",
-        "slug": "tvorchist-hobbi",
+        "title": "Друковані книги",
+        "slug": "books",
         "visible": True,
+        "icon": "/icons/book.svg",
+        "order_number": 5
+    },
+    {
+        "title": "Електронні книги",
+        "slug": "ebooks",
+        "visible": True,
+        "icon": "/icons/mobile.svg",
+        "order_number": 6
+    },
+    {
+        "title": "Аудіокниги",
+        "slug": "audiobooks",
+        "visible": True,
+        "icon": "/icons/audio.svg",
+        "order_number": 7,
     },
     {
         "title": "Настільні ігри",
-        "slug": "nastilni-ihry",
+        "slug": "table-games",
         "visible": True,
+        "icon": "/icons/table-games.svg",
+        "order_number": 8,
     },
     {
-        "title": "Блокноти",
-        "slug": "bloknoty",
+        "title": "Творчість, хобі",
+        "slug": "hobby",
         "visible": True,
+        "icon": "/icons/art.svg",
+        "order_number": 9
     },
     {
         "title": "Книжкові аксесуари",
-        "slug": "knuzhkovi-aksesuary",
+        "slug": "book-souvenirs",
         "visible": True,
+        "icon": "/icons/accessouris.svg",
+        "order_number": 10
+    },
+    {
+        "title": "Блокноти",
+        "slug": "notes",
+        "visible": True,
+        "icon": "/icons/notes.svg",
+        "order_number": 11
     },
     {
         "title": "Подарунки",
-        "slug": "podarunky",
+        "slug": "gifts",
         "visible": True,
+        "icon": "/icons/gift.svg",
+        "order_number": 12
     },
     {
         "title": "Активний відпочинок",
-        "slug": "aktyvnyi-vidpochynok",
+        "slug": "active-rest",
         "visible": True,
+        "icon": "/icons/active-rest.svg",
+        "order_number": 13
     },
     {
         "title": "Видавництва",
-        "slug": "vudavnutstva",
+        "slug": "publishing",
         "visible": True,
-    },
-    {
-        "title": "Автори",
-        "slug": "avtory",
-        "visible": True,
+        "order_number": 14
     }
 ]
 
 BANNERS = [
     {
-        "image_src": "https://static.yakaboo.ua/media/banner/image/1200012234565679.jpg",
+        "image_src": "https://static.yakaboo.ua/media/banner/image/120021042025443.jpg",
         "visible": True,
-        "link": "/misatc-knygodaruvannia"
+        "link": "/knyzhkovi-mrii"
     },
     {
-        "image_src": "https://static.yakaboo.ua/media/banner/image/12002521.jpg",
+        "image_src": "https://static.yakaboo.ua/media/banner/image/120011002104253.jpg",
         "visible": True,
-        "link": "/do-60-na-knyzhky"
+        "link": "/do-20-na-knyzhky"
     },
     {
-        "image_src": "https://static.yakaboo.ua/media/banner/image/1200200125119.jpg",
+        "image_src": "https://static.yakaboo.ua/media/banner/image/1200144821042511.jpg",
         "visible": True,
-        "link": "/pidpyska-na-yakaboo"
-    },
-    {
-        "image_src": "https://static.yakaboo.ua/media/banner/image/1207890223176.jpg",
-        "visible": True,
-        "link": "/e-pidtrymka"
+        "link": "/flree-delivery"
     },
     {
         "image_src": "https://static.yakaboo.ua/media/banner/image/1200670991529.jpg",
         "visible": True,
-        "link": "/nacionalnyi-cashback"
+        "link": "/cachback"
+    },
+    {
+        "image_src": "https://static.yakaboo.ua/media/banner/image/12002104251142.jpg",
+        "visible": True,
+        "link": "/rozigrash-sertyfikativ"
+    },
+    {
+        "image_src": 'https://static.yakaboo.ua/media/banner/image/1200X1200_400_400_.png',
+        "visible": True,
+        "link": "/knyzhkova-kraina"
     }
 ]
 
@@ -3472,5 +3512,98 @@ PUBLISHING = [
     {
         "title": "Аванта+",
         "slug": "Avanta"
+    }
+]
+
+INTERESTING = [
+    {
+        "title": "Акції 🔥",
+        "slug": "/promotions"
+    },
+    {
+        "title": "Зимова єПідтримка ❄",
+        "slug": "/promotion/zimova-epidtrymka"
+    },
+    {
+        "title": "єКнига 📲",
+        "slug": "/promotion/free-delivery"
+    },
+    {
+        "title": "Комплекти до 1000₴ 🎁",
+        "slug": "/knygy/komplekty-1000-grn"
+    },
+    {
+        "title": "Комплекти єКнига 📚",
+        "slug": "/knygy/dobirky-yakaboo/komplekty-eknyga"
+    },
+    {
+        "title": 'Новинки квітня 🌼',
+        "slug": "/promotion/novynky-kvitnia"
+    },
+    {
+        "title": "Електронні новинки квітня",
+        "slug": "/promotion/e-novynky-knitnia"
+    },
+    {
+        "title": "Бажані знижки до -50%",
+        "slug": "/promotion/do-50-na-knyzhky"
+    },
+    {
+        "title": "Yakaboo Publishing ",
+        "slug": "/book-publisher/yakaboo-publishing"
+    }
+]
+
+FOOTERS = [
+    {
+        "title": "Про магазин",
+        "link": "/about-us",
+    },
+    {
+        "title": "Програма лояльності",
+        "link": "/bonus"
+    },
+    {
+        "title": "Вакансії",
+        "link": "/vacancies"
+    },
+    {
+        "title": "Контакти",
+        "link": "/contact"
+    },
+    {
+        "title": "Доставка та оплата",
+        "link": "/delivery",
+        "category": FooterCategory.INFO
+    },
+    {
+        "title": "Подарункові сертифікати",
+        "link": "/certificates",
+        "category": FooterCategory.INFO
+    },
+    {
+        "title": "Повернення товару",
+        "link": "/returns",
+        "category": FooterCategory.INFO
+    },
+    {
+        "title": "Блог",
+        "link": "/blog",
+        "category": FooterCategory.INFO
+    },
+    {
+        "title": "Часто шукають",
+        "link": "/popular",
+        "category": FooterCategory.INFO
+    },
+    {
+        "title": "Серія книг",
+        "link": "/book-series/view/all",
+        "category": FooterCategory.INFO
+    },
+    {
+        "title": "Автори",
+        "link": "author/view/all",
+        "category": FooterCategory.INFO
     }
 ]

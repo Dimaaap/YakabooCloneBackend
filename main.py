@@ -15,6 +15,7 @@ from categories import router as categories_router
 from promotion_categories import router as promo_categories_router
 from promotions import router as promo_router
 from publishing import router as publishing_router
+from interesting import router as interesting_router
 
 
 @asynccontextmanager
@@ -34,10 +35,11 @@ app.include_router(categories_router)
 app.include_router(promo_categories_router)
 app.include_router(promo_router)
 app.include_router(publishing_router)
+app.include_router(interesting_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://loclahost:3000"],
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
