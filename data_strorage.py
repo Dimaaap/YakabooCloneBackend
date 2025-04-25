@@ -136,13 +136,53 @@ CATEGORIES = [
 
 SUB_CATEGORIES = [
     {
-        "title": "Книга року BBC: короткий список",
-        "slug": "knyga-roku-bbc-korotkyi-spysok",
+        "title": "Подих весни: душевне читання для гарного настрою",
+        "slug": "podyh-vesny-dushevne-chytannia",
         "category_id": 1
     },
     {
-        "title": "Найвідоміші історії кохання - класичні та сучасні",
-        "slug": "naividimishi-istorii-kohannia",
+        "title": "Вибрана українська класика",
+        "slug": "Vybrana-ukrainska-klasyka",
+        "category_id": 1
+    },
+    {
+        "title": "70 мастрідів до Дня детективного роману",
+        "slug": "70-mastridiv",
+        "category_id": 1
+    },
+    {
+        "title": "Головні англомовні релізи сезон",
+        "slug": "holovni-anglomovni-relizy",
+        "category_id": 1
+    },
+    {
+        "title": "Хітова манга: класика та бестселери",
+        "slug": "hitova-manga",
+        "category_id": 1
+    },
+    {
+        "title": "Квітневі промінчики: дітям про весну",
+        "slug": "kvitnevi prominchyky",
+        "category_id": 1
+    },
+    {
+        "title": "Екранізації 2025",
+        "slug": "ekranizatcii-2025",
+        "category_id": 1
+    },
+    {
+        "title": "День довкілля - плекаємо Землю разом!",
+        "slug": "den-dovkillya",
+        "category_id": 1
+    },
+    {
+        "title": "Книги про українських митців та їх художній доробок",
+        "slug": "knygy-pro-ukrainskych-mytciv",
+        "category_id": 1
+    },
+    {
+        "title": "Вперед до зірок! Книги про космос і космонавтів",
+        "slug": "vpered-do-zirok",
         "category_id": 1
     },
     {
@@ -151,194 +191,319 @@ SUB_CATEGORIES = [
         "category_id": 1
     },
     {
-        "title": "Екранізації 2025",
-        "slug": "ekranizatsii-2025",
-        "category_id": 1
-    },
-    {
-        "title": "Зима у світі пригод: Подорожі та відкриття",
-        "slug": "zyma-u-sviti-pruhod",
-        "category_id": 1
-    },
-    {
-        "title": "Шевченківська премія-2025: усі номінанти",
-        "slug": "shevchenkivska-premia-2025",
-        "category_id": 1
-    },
-    {
-        "title": "Час змін. Професія та кар'єра",
-        "slug": "chas-zmin",
-        "category_id": 1
-    },
-    {
-        "title": "На захисті України:и книги про армію та військовиків",
-        "slug": "na-zahusti-ukrainy",
-        "category_id": 1
-    },
-    {
-        "title": "Книжкові комплекти до 1000₴",
-        "slug": "knyzhkovi-komplekty-do-1000",
-        "category_id": 1
-    },
-    {
-        "title": "Бестселери Amazon 2024",
-        "slug": "bestselery-amazon-2024",
-        "category_id": 1
-    },
-    {
-        "title": "Бізнес-література: рекомендації лідерів",
-        "slug": "biznes-literatura",
-        "category_id": 1
-    },
-    {
-        "title": "Затишне зимове читання",
-        "slug": "zatyshne-symove-chytannia",
-        "category_id": 1
-    },
-    {
-        "title": "Премія Goodreads Choice Awards 2024",
-        "slug": "goodreads-choice-awards-2024",
-        "category_id": 1
-    },
-    {
-        "title": "Мороз по шкірі: трилери, детективи, містика",
-        "slug": "moroz-po-shkiri",
-        "category_id": 1
-    },
-    {
-        "title": "Почати з нуля - історії для натхнення",
-        "slug": "pochaty-z-nulia",
-        "category_id": 1
-    },
-    {
-        "title": "Романтика для сніжних днів: любовні романи",
-        "slug": "romantika-oseni-ljubovni-romani",
-        "category_id": 1
-    },
-    {
-        "title": "Новорічні книгодарунки малим читунам",
-        "slug": "novorichni-knygodarunky-malym-chytunam",
-        "category_id": 1
-    },
-    {
-        "title": "Товсті книжки для довгих зимових вечорів",
-        "slug": "tovsti-knyzhky-dlja-dovgish-zimivich-vechoriv",
-        "category_id": 1
-    },
-    {
-        "title": "Вибір The Economist: найкращий нонфікшн 2024 року",
-        "slug": "vybir-the-economist-best-nonfikshn",
-        "category_id": 1
-    },
-    {
-        "title": "Активна зима: книги про здоров'я і спорт",
-        "slug": "aktyvna-zyma",
-        "category_id": 1
-    },
-    {
-        "title": "Естетичні дарунки книголюбам: артбуки та ілюстровані видання",
-        "slug": "estetuchni-darunky-knyholiubam",
-        "category_id": 1
-    },
-    {
         "title": "Англійська",
-        "slug": "angliyska",
+        "slug": "english",
         "category_id": 3
     },
     {
         "title": "Німецька",
-        "slug": "nimecka",
+        "slug": "german",
         "category_id": 3
     },
     {
         "title": "Іспанська",
-        "slug": "ispanska",
+        "slug": "spanish",
         "category_id": 3
     },
     {
         "title": "Французька",
-        "slug": "francuzka",
+        "slug": "french",
         "category_id": 3
     },
     {
         "title": "Італійська",
-        "slug": "italiyska",
+        "slug": "italian",
         "category_id": 3
     },
     {
         "title": "Польська",
-        "slug": "polska",
+        "slug": "polish",
         "category_id": 3
     },
     {
         "title": "Арабська",
-        "slug": "arabska",
+        "slug": "arabian",
         "category_id": 3
     },
     {
         "title": "Китайська",
-        "slug": "kytaiska",
+        "slug": "chinese",
         "category_id": 3
     },
     {
-        "title": "Португальська",
-        "slug": "portugalska",
+        "title": "Португальска",
+        "slug": "portugal",
         "category_id": 3
     },
     {
         "title": "Турецька",
-        "slug": "turetska",
+        "slug": "turkish",
         "category_id": 3
     },
     {
-        "title": "Сучасна проза",
+        "title": "Сучасна проза за вибором читачів",
+        "slug": "suchasna-proza-za-vyborom-chytachiv",
+        "category_id": 4
+    },
+    {
+        "title": "Фантастичні та фентезі книги за вибором читачів",
+        "slug": "fantastychni-ta-fentezi-knygy",
+        "category_id": 4
+    },
+    {
+        "title": "Дитячі та підліткові книги за вибором читачів",
+        "slug": "dytiachi-ta-pidlitkovi-knygy",
+        "category_id": 4
+    },
+    {
+        "title": "Книги англійською мовою за вибором читачів",
+        "slug": "knygy-anhlijskoy-movoju",
+        "category_id": 4
+    },
+    {
+        "title": "Книги афоризмів і цитат",
+        "slug": "knygy-aforyzmiv-i-cytat",
+        "category_id": 5
+    },
+    {
+        "title": "Книги детективи",
+        "slug": "knygy-detektyvy",
+        "category_id": 5
+    },
+    {
+        "title": "Книги жанру трилер",
+        "slug": "knygy-zhnaru-thriller",
+        "category_id": 5
+    },
+    {
+        "title": "Книги жанру бойовик",
+        "slug": "knygy-zhanry-bojovyk",
+        "category_id": 5
+    },
+    {
+        "title": "П'єси",
+        "slug": "pjesy",
+        "category_id": 5
+    },
+    {
+        "title": "Книги про середньовіччя",
+        "slug": "knygy-pro-seredniovicchia",
+        "category_id": 5
+    },
+    {
+        "title": "Романтична проза",
         "slug": "suchasna-proza",
-        "category_id": 4
+        "category_id": 5
     },
     {
-        "title": "Фантастика та фентезі",
-        "slug": "fantastyka-ta-fentezi",
-        "category_id": 4
+        "title": "Кіноромани і екранізації",
+        "slug": "kinoromany-i-ekranizatcii",
+        "category_id": 5
     },
     {
-        "title": "Дитячі та підліткові книжки",
-        "slug": "dytiachi-ta-pidlitkove-knyzhky",
-        "category_id": 4
+        "title": "Класична проза",
+        "slug": "klasychna-proza",
+        "category_id": 5
     },
     {
-        "title": "Книжки про виховання",
-        "slug": "knyzhky-pro-vyhovannia",
-        "category_id": 4
+        "title": "Книги казок, міфи і фольклор",
+        "slug": "knygy-kazok-mifiv",
+        "category_id": 5
     },
     {
-        "title": "Персональні трансформації",
-        "slug": "personalni-transformatsii",
-        "category_id": 4
+        "title": "Поезія, збірки віршів",
+        "slug": "poezia-zbirky-virshiv",
+        "category_id": 5
     },
     {
-        "title": "Менеджмент та лідерство",
-        "slug": "management-ta-liderstvo",
-        "category_id": 4
+        "title": "Книги проза",
+        "slug": "knygy-proza",
+        "category_id": 5
     },
     {
-        "title": "Саморозвиток і мотивація",
-        "slug": "samorozvutok-i-motyvatsia",
-        "category_id": 4
+        "title": "Алкоголь і тютюн",
+        "slug": "alkohol-i-tjutjun",
+        "category_id": 6
     },
     {
-        "title": "Здоровий спосіб життя",
-        "slug": "zdorovyi-sposib-zhyttia",
-        "category_id": 4
+        "title": "Бізнес література",
+        "slug": "biznes-literatura",
+        "category_id": 6
     },
     {
-        "title": "Психологія та взаємини",
-        "slug": "psyhologia-ta-vzaemyny",
-        "category_id": 4
+        "title": "Біографії й мемуари",
+        "slug": "biografii-i-memuary",
+        "category_id": 6
     },
     {
-        "title": "Книжки англійською мовою",
-        "slug": "knyzhky-anhliyskoy-movoy",
-        "category_id": 4
+        "title": "Міста і країни",
+        "slug": "mista-i-krainy",
+        "category_id": 6
+    },
+    {
+        "title": "Історія",
+        "slug": "istoriya",
+        "category_id": 6
+    },
+    {
+        "title": "Кулінарія",
+        "slug": "kulinariya",
+        "category_id": 6
+    },
+    {
+        "title": "Релігія",
+        "slug": "religia",
+        "category_id": 6
+    },
+    {
+        "title": "Спорт",
+        "slug": "sport",
+        "category_id": 6
+    },
+    {
+        "title": "Бухгалтерія, податки, аудит",
+        "slug": "buchgalteriya-podatky-audyt",
+        "category_id": 7
+    },
+    {
+        "title": "Життя бізнесмена",
+        "slug": "zhuttia-bisnesmena",
+        "category_id": 7
+    },
+    {
+        "title": "Економіка",
+        "slug": "ekonomika",
+        "category_id": 7
+    },
+    {
+        "title": "Галузі і професії",
+        "slug": "galuzi-i-profesii",
+        "category_id": 7
+    },
+    {
+        "title": "Маркетинг і реклама",
+        "slug": "marketyng-i-reklama",
+        "category_id": 7
+    },
+    {
+        "title": "Антистрес",
+        "slug": "antystres",
+        "category_id": 8
+    },
+    {
+        "title": "Тайм-менеджмент",
+        "slug": "taim-menedzhment",
+        "category_id": 8
+    },
+    {
+        "title": "Страхи і фобії",
+        "slug": "strahy-i-fobii",
+        "category_id": 8
+    },
+    {
+        "title": "Смерть",
+        "slug": "smert",
+        "category_id": 8
+    },
+    {
+        "title": "Мета.Мрія",
+        "slug": "meta-mriya",
+        "category_id": 8
+    },
+    {
+        "title": "Щастя",
+        "slug": "schastya",
+        "category_id": 8
+    },
+    {
+        "title": "Пригодницькі романи для дітей",
+        "slug": "pryhodnytski-romany-dlya-ditei",
+        "category_id": 9
+    },
+    {
+        "title": "Дитячі книги про творчість і хобі",
+        "slug": "dytyachi-knygy-pro-tvorchist-i-hobi",
+        "category_id": 9
+    },
+    {
+        "title": "Альбом малюка",
+        "slug": "albom-maluka",
+        "category_id": 10
+    },
+    {
+        "title": "Дозвілля і творчість дітей",
+        "slug": "dozvillya-i-tvorchist-ditey",
+        "category_id": 10
+    },
+    {
+        "title": "Здоров'я дитини",
+        "slug": "zdorovya-dytyny",
+        "category_id": 10
+    },
+    {
+        "title": "Книги для дошкільнят",
+        "slug": "knygy-dlya-doshilnyat",
+        "category_id": 11
+    },
+    {
+        "title": "Книги школярам і абітурієнтам",
+        "slug": "knygy-shkolyaram-i-abiturientam",
+        "category_id": 11
+    },
+    {
+        "title": "Нова українська школа",
+        "slug": "nova-ukrainska-shkola",
+        "category_id": 11
+    },
+    {
+        "title": "Філософія",
+        "slug": "filisofiya",
+        "category_id": 12
+    },
+    {
+        "title": "Політика. Держава",
+        "slug": "polityka-derzhava",
+        "category_id": 12
+    },
+    {
+        "title": "Соціологія",
+        "slug": "sociologiya",
+        "category_id": 12
+    },
+    {
+        "title": "ЗМІ.Книжкова справа",
+        "slug": "zmi-knyshkova-sprava",
+        "category_id": 12
+    },
+    {
+        "title": "Статистика. Демографія",
+        "slug": "statystyka-demographiya",
+        "category_id": 12
+    },
+    {
+        "title": "Африка",
+        "slug": 'afryka',
+        "category_id": 13
+    },
+    {
+        "title": "Південна Америка",
+        "slug": "pivdenna-ameryka",
+        "category_id": 13
+    },
+    {
+        "title": "Північна Америка",
+        "slug": "pivnichna-ameryka",
+        "category_id": 13
+    },
+    {
+        "title": "Азія",
+        "slug": "aziya",
+        "category_id": 13
+    },
+    {
+        "title": "Австралія й Океанія",
+        "slug": "avstraliya-i-okeaniya",
+        "category_id": 13
     }
 ]
 
