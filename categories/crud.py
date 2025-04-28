@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Category, Subcategory, db_helper
 from data_strorage import CATEGORIES, SUB_CATEGORIES
-from .schemas import CategoryCreate, SubCategoryBase
+from categories.schemas import CategoryCreate, SubCategoryBase, CategorySchema, SubCategorySchema
 
 
 async def create_category(session: AsyncSession, category: CategoryCreate) -> Category:
@@ -53,28 +53,28 @@ async def delete_subcategory_by_id(session: AsyncSession, subcategory_id: int):
         return False
 
 
-async def get_all_subcategories(session: AsyncSession) -> list[Subcategory]:
+async def get_all_subcategories(session: AsyncSession) -> list[SubCategorySchema]:
     statement = select(Subcategory).order_by(Subcategory.id)
     result: Result = await session.execute(statement)
     subcategories = result.scalars().all()
-    return subcategories
+    return [SubCategorySchema.model_validate(subcategory) for subcategory in subcategories]
 
 
-async def get_all_subcategories_by_category_id(session: AsyncSession, category_id: int) -> list[Subcategory]:
-    statement = select(Subcategory).where(Subcategory.category_id == category_id).order_by(Subcategory.id)
+async def get_all_subcategories_by_category_id(session: AsyncSession, category_id: int) -> list[SubCategorySchema]:
+    statement = select(Subcategory).where(Subcategory.category_id == category_id).order_by(Subcategory.title)
     try:
         result: Result = await session.execute(statement)
         subcategories = result.scalars().all()
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
-    return subcategories
+    return [SubCategorySchema.model_validate(subcategory) for subcategory in subcategories]
 
 
-async def get_all_categories(session: AsyncSession) -> list[Category]:
+async def get_all_categories(session: AsyncSession) -> list[CategorySchema]:
     statement = select(Category).order_by(Category.id)
     result: Result = await session.execute(statement)
     categories = result.scalars().all()
-    return list(categories)
+    return [CategorySchema.model_validate(category) for category in categories]
 
 
 async def main():

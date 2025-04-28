@@ -504,7 +504,187 @@ SUB_CATEGORIES = [
         "title": "Австралія й Океанія",
         "slug": "avstraliya-i-okeaniya",
         "category_id": 13
-    }
+    },
+    {
+        "title": "Європа",
+        "slug": "evropa",
+        "category_id": 13
+    },
+    {
+        "title": "Архітектори, художники і фотографи",
+        "slug": "architectory-fotography",
+        "category_id": 14
+    },
+    {
+        "title": "Бізнес-акули, підприємці, економісти",
+        "slug": "bisnes-akuly-pidpryemtsi-ekonomisty",
+        "category_id": 14
+    },
+    {
+        "title": "Історичні діячі",
+        "slug": "istorychni-diyachi",
+        "category_id": 14
+    },
+    {
+        "title": "Друга світова війна. Голокост",
+        "slug": "druha-svitova-viyna",
+        "category_id": 14
+    },
+    {
+        "title": "Політичні фігури",
+        "slug": "politychni-figury",
+        "category_id": 14
+    },
+    {
+        "title": "Спортсмени",
+        "slug": "sportsmeny",
+        "category_id": 14
+    },
+    {
+        "title": "Шкідливі звички",
+        "slug": "shkidlyvi-zvychky",
+        "category_id": 15
+    },
+    {
+        "title": "Старіння і довголіття",
+        "slug": "starinnya-i-dovholittya",
+        "category_id": 15
+    },
+    {
+        "title": "Альтернативна медицина",
+        "slug": "alternatyvna-medycyna",
+        "category_id": 15
+    },
+    {
+        "title": "Масаж",
+        "slug": "masazh",
+        "category_id": 15
+    },
+    {
+        "title": "Домашнє читання",
+        "slug": "domashnye-chytania",
+        "category_id": 16
+    },
+    {
+        "title": "Розмовники",
+        "slug": "rozmovnyky",
+        "category_id": 16
+    },
+    {
+        "title": "Словники",
+        "slug": "slovnyky",
+        "category_id": 16
+    },
+    {
+        "title": "Теорія й історія мови",
+        "slug": "teoriya-i-istoriya-movy",
+        "category_id": 16
+    },
+    {
+        "title": "Архітектура",
+        "slug": "architektura",
+        "category_id": 17
+    },
+    {
+        "title": "Бізнес у мистецтві",
+        "slug": "bisness-u-mystectvi",
+        "category_id": 17
+    },
+    {
+        "title": "Мода",
+        "slug": "moda",
+        "category_id": 17
+    },
+    {
+        "title": "Музика",
+        "slug": "muzyka",
+        "category_id": 17
+    },
+    {
+        "title": "Кіно",
+        "slug": "kino",
+        "category_id": 17
+    },
+    {
+        "title": "Медіа",
+        "slug": "media",
+        "category_id": 17
+    },
+    {
+        "title": "Місячний календар",
+        "slug": "misyacnyi-calendar",
+        "category_id": 18
+    },
+    {
+        "title": "Астрологічний календар",
+        "slug": "astrologichnyi-calendar",
+        "category_id": 18
+    },
+    {
+        "title": "Манга",
+        "slug": "manga",
+        "category_id": 20
+    },
+    {
+        "title": "Комікси",
+        "slug": "komiksy",
+        "category_id": 20
+    },
+    {
+        "title": "Супергерої",
+        "slug": "superheroi",
+        "category_id": 20
+    },
+    {
+        "title": "Apple",
+        "slug": "apple",
+        "category_id": 21
+    },
+    {
+        "title": "Microsoft",
+        "slug": "microsoft",
+        "category_id": 21
+    },
+    {
+        "title": "Бізнес і менеджмент",
+        "slug": "bisnes-i-menedzhment",
+        "category_id": 21
+    },
+    {
+        "title": "Косметика і парфумерія",
+        "slug": "kosmetyka-i-parfumeria",
+        "category_id": 22
+    },
+    {
+        "title": "Макіяж і манікюр",
+        "slug": "makiyazh-i-manikyr",
+        "category_id": 22
+    },
+    {
+        "title": "Випічка",
+        "slug": "vypichka",
+        "category_id": 23
+    },
+    {
+        "title": "Напої і вино",
+        "slug": "napoi-i-vyno",
+        "category_id": 23
+    },
+    {
+        "title": "Десерти",
+        "slug": "deserty",
+        "category_id": 23
+    },
+    {
+        "title": "Ветеринарія",
+        "slug": "veterynaria",
+        "category_id": 24
+    },
+    {
+        "title": "Внутрішні хвороби",
+        "slug": "vnutrishni-chvoroby",
+        "category_id": 24
+    },
 ]
 
 SIDEBAR = [
