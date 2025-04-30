@@ -7,6 +7,7 @@ class PromotionBase(BaseModel):
     title: str
     slug: str
     image: str | None = None
+    main_description: str | None = None
     short_description: str | None = None
     long_description: str | None = None
     end_date: datetime | None = None
