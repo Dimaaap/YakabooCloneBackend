@@ -14,7 +14,7 @@ class User(Base):
     first_name: Mapped[str] = mapped_column(String(155), default="", server_default="")
     last_name: Mapped[str] = mapped_column(String(155), default="", server_default="")
 
-    phone_number: Mapped[str] = mapped_column(String(11), unique=True)
+    phone_number: Mapped[str] = mapped_column(String(13), unique=True)
     email: Mapped[str] = mapped_column(String(80), unique=True)
     password: Mapped[str] = mapped_column(String(80))
     is_staff: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
