@@ -175,8 +175,8 @@ async def refresh_access_token(request: RefreshRequest,
         payload = auth_utils.decode_jwt(request.refresh_token)
         if payload.get("type") != "refresh":
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type")
-        user_id = payload["sub"]
-        user = await crud.get_user_by_id(session, user_id)
+        user_id = int(payload["sub"])
+        user = await crud.get_user_by_id(session, int(user_id))
 
         if not user:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
