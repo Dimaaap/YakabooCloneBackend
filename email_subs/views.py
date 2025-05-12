@@ -27,7 +27,7 @@ async def delete_email_sub(
     return await crud.delete_sub_by_email(session=session, email=email)
 
 
-@router.get("/{email}", response_model=EmailSubSchema)
+@router.get("/{email}")
 async def get_sub_by_email(
         email: str,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
