@@ -154,7 +154,7 @@ async def verify_access_token(session: AsyncSession = Depends(db_helper.scoped_s
                               token: str = Depends(oauth2_scheme)):
     try:
         payload = auth_utils.decode_jwt(token)
-        user_id = payload.get("sub")
+        user_id = int(payload.get("sub"))
         user = await crud.get_user_by_id(session, user_id)
 
         if not user:
