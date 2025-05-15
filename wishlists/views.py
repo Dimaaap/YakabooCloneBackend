@@ -30,3 +30,14 @@ async def delete_wishlist(
     session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     return await crud.delete_wishlist_by_id(session, wishlist_id)
+
+
+@router.put("/{wishlist_id}", response_model=WishlistSchema)
+async def update_wishlist(
+        wishlist_id: int,
+        wishlist_data: WishlistUpdatePartial,
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency)
+):
+    updated_wishlist = await crud.update_wishlist_title(session=session, wishlist_id=wishlist_id,
+                                                        wishlist_data=wishlist_data)
+    return updated_wishlist
