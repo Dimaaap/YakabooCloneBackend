@@ -2,7 +2,7 @@ import random
 import os
 from pathlib import Path
 from datetime import datetime, timedelta
-from string import ascii_letters, digits
+from string import ascii_lowercase, ascii_uppercase, digits
 
 from fastapi_mail import MessageSchema, MessageType, FastMail, ConnectionConfig
 import bcrypt
@@ -72,9 +72,19 @@ def generate_validation_code():
 
 def generate_user_random_password():
     password_len = int(os.getenv("RANDOM_PASSWORD_LENGTH"))
-    chars = ascii_letters + digits
-    password = "".join(random.sample(chars, password_len))
-    return password
+    mandatory_chars = [
+        random.choice(ascii_lowercase),
+        random.choice(ascii_uppercase),
+        random.choice(digits)
+    ]
+
+    all_chars = ascii_lowercase + ascii_uppercase + digits
+    remaining_len = password_len - len(mandatory_chars)
+    remaining_chars = random.choices(all_chars, k=remaining_len)
+
+    password_list = mandatory_chars + remaining_chars
+    random.shuffle(password_list)
+    return ''.join(password_list)
 
 
 async def send_user_password_to_email(list_emails: list[EmailStr], password: str):
