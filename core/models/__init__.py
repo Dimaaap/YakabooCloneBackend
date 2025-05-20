@@ -21,7 +21,12 @@ __all__ = (
     "Publishing",
     "AuthorImage",
     "Interesting",
-    "Footer"
+    "Footer",
+    "BoardGame",
+    "BoardGameAge",
+    "BoardGameBrand",
+    "GameSeries",
+    "BoardGameInfo"
 )
 
 
@@ -48,3 +53,8 @@ from .publishing import Publishing
 from .author_images import AuthorImage
 from .interesting import Interesting
 from .footer import Footer
+from .board_games import BoardGame
+from .board_game_ages import BoardGameAge
+from .board_game_brands import BoardGameBrand
+from .game_series import GameSeries
+from .board_game_info import BoardGameInfo
