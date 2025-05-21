@@ -50,7 +50,6 @@ async def get_all_author_images_by_author_id(session: AsyncSession, author_id: i
     return list(author_images)
 
 
-
 async def delete_author_by_id(session: AsyncSession, author_id):
     statement = delete(Author).where(Author.id == author_id)
     try:

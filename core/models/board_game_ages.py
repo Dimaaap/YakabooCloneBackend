@@ -25,4 +25,4 @@ class BoardGameAge(Base):
     board_game_code: Mapped[int] = mapped_column(ForeignKey("board_games.code"))
     age: Mapped[Age] = mapped_column(Enum(Age, name="age_enum"))
 
-    board_games: Mapped["BoardGame"] = relationship(back_populates="ages")
+    board_game: Mapped["BoardGame"] = relationship(back_populates="ages")

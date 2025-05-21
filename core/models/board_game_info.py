@@ -1,7 +1,7 @@
 import enum
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Integer, Enum, Text
+from sqlalchemy import String, Integer, Enum, Text, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -54,6 +54,7 @@ class BoardGameInfo(Base):
         server_default=BoardLanguages.UKRAINIAN.name
     )
 
+    board_game_id: Mapped[int] = mapped_column(ForeignKey("board_games.code"), unique=True)
     board_game: Mapped["BoardGame"] = relationship("BoardGame", back_populates="board_game_info", uselist=False)
 
 
