@@ -58,3 +58,4 @@ from .board_game_ages import BoardGameAge
 from .board_game_brands import BoardGameBrand
 from .game_series import GameSeries
 from .board_game_info import BoardGameInfo
+from .board_game_age_association import BoardGameAgeAssociation

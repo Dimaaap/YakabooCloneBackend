@@ -1,7 +1,7 @@
 import enum
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, Enum, Integer
+from sqlalchemy import String, Enum
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 
 from .base import Base
@@ -22,7 +22,8 @@ class Age(enum.Enum):
 class BoardGameAge(Base):
     __tablename__ = "board_game_ages"
 
-    board_game_code: Mapped[int] = mapped_column(ForeignKey("board_games.code"))
     age: Mapped[Age] = mapped_column(Enum(Age, name="age_enum"))
+    slug: Mapped[str] = mapped_column(String(255), unique=True)
 
-    board_game: Mapped["BoardGame"] = relationship(back_populates="ages")
+    board_games: Mapped[list["BoardGame"]] = relationship(back_populates="ages",
+                                                          secondary="board_game_age_association")

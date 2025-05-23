@@ -136,7 +136,8 @@ class BoardGame(Base):
         Enum(PlayersCount, name="players_count"), nullable=True
     )
 
-    ages: Mapped[list["BoardGameAge"]] = relationship(back_populates="board_game", cascade="all, delete-orphan")
+    ages: Mapped[list["BoardGameAge"]] = relationship(back_populates="board_game",
+                                                      secondary="board_game_age_association")
     brand_id: Mapped[int] = mapped_column(ForeignKey("board_games_brands.id"), nullable=True)
     brand: Mapped["BoardGameBrand"] = relationship("BoardGameBrand", back_populates="board_games")
     seria_id: Mapped[int] = mapped_column(ForeignKey("game_series.id"), nullable=True)

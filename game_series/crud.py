@@ -16,7 +16,7 @@ async def create_game_seria(
     new_seria = GameSeries(title=seria.title, slug=seria.slug)
 
     if seria.board_games:
-        statement = select(BoardGame).where(BoardGame.id.in_(seria_data.board_games))
+        statement = select(BoardGame).where(BoardGame.id.in_(seria.board_games))
         result = await session.execute(statement)
         board_games = result.scalars().all()
 
