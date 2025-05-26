@@ -11,12 +11,7 @@ if TYPE_CHECKING:
     from .board_game_brands import BoardGameBrand
     from .game_series import GameSeries
     from .board_game_info import BoardGameInfo
-
-
-class BoardSubcategories(enum.Enum):
-    BOARD = "Настільні ігри"
-    PUZZLE = "Пазли"
-    CONUNDRUM = "Головоломки"
+    from .board_game_subcategories import BoardSubcategories
 
 
 class Filters(enum.Enum):
@@ -138,6 +133,9 @@ class BoardGame(Base):
 
     ages: Mapped[list["BoardGameAge"]] = relationship(back_populates="board_game",
                                                       secondary="board_game_age_association")
+
+    subcategories: Mapped[list["BoardSubcategories"]] = relationship(back_populates="board_games",
+                                                                     secondary="board_game_subcategory_association")
     brand_id: Mapped[int] = mapped_column(ForeignKey("board_games_brands.id"), nullable=True)
     brand: Mapped["BoardGameBrand"] = relationship("BoardGameBrand", back_populates="board_games")
     seria_id: Mapped[int] = mapped_column(ForeignKey("game_series.id"), nullable=True)

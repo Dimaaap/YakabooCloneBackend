@@ -26,7 +26,9 @@ __all__ = (
     "BoardGameAge",
     "BoardGameBrand",
     "GameSeries",
-    "BoardGameInfo"
+    "BoardGameInfo",
+    "BoardSubcategories",
+    "BoardGameSubcategoryAssociation"
 )
 
 
@@ -59,3 +61,5 @@ from .board_game_brands import BoardGameBrand
 from .game_series import GameSeries
 from .board_game_info import BoardGameInfo
 from .board_game_age_association import BoardGameAgeAssociation
+from .board_game_subcategories import BoardSubcategories
+from .board_game_subcategories_association import BoardGameSubcategoryAssociation

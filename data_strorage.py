@@ -3476,21 +3476,27 @@ GAME_SERIES = [
 
 BOARD_GAME_AGES = [
     {
-        "age": "Підліткам"
+        "age": "Підліткам",
+        "slug": "pidlitkam"
     },
     {
-        "age": "Від 9 до 12 років"
+        "age": "Від 9 до 12 років",
+        "slug": "vid-9-do-12-rokiv"
     },
     {
-        "age": "Від 6 до 8 років"
+        "age": "Від 6 до 8 років",
+        "slug": "vid-6-do-8-rokiv"
     },
     {
-        "age": "Від 3 до 5 років"
+        "age": "Від 3 до 5 років",
+        "slug": "vid-3-do-5-rokiv"
     },
     {
-        "age": "Батькам"
+        "age": "Батькам",
+        "slug": "batkam"
     },
     {
-        "age": "До 2-х років"
+        "age": "До 2-х років",
+        "slug": "do-2-rokiv"
     }
 ]

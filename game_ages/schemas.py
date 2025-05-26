@@ -6,7 +6,7 @@ from core.models.board_game_ages import Age
 class GameAgeBase(BaseModel):
     age: Age
     slug: str
-    board_games: list[int] = []
+    board_game: list[int] = []
 
 
 class GameAgeCreate(GameAgeBase):
@@ -20,7 +20,7 @@ class GameAgeUpdate(GameAgeCreate):
 class GameAgeUpdatePartial(GameAgeUpdate):
     age: Age | None = None
     slug: str | None = None
-    board_games: list[int] | None = None
+    board_game: list[int] | None = None
 
 
 class GameAgeSchema(GameAgeBase):
