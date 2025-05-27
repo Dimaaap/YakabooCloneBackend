@@ -24,8 +24,8 @@ class BoardGameSubcategory(Base):
                                                            values_callable=lambda enum_cls: [e.value for e in enum_cls]))
     slug: Mapped[str] = mapped_column(String(255), unique=True)
     board_games: Mapped[list["BoardGame"]] = relationship("BoardGame",
-                                                          back_populates="subcategory",
-                                                          cascade="all, delete-orphan")
+                                                          back_populates="subcategories",
+                                                          secondary="board_game_subcategory_association")
 
     def __str__(self):
         return f"{self.__class__.__name__}(title={self.title}, slug={self.slug})"
