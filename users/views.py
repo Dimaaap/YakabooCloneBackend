@@ -69,7 +69,7 @@ async def update_user(
     return user
 
 
-@router.patch("/user/change_password", status_code=status.HTTP_200_OK)
+@router.patch("/user/change-password", status_code=status.HTTP_200_OK)
 async def change_password(
         request: ChangePasswordBody,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)

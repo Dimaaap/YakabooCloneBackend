@@ -7,6 +7,7 @@ from .schemas import GameAgeSchema, GameAgeCreate
 from core.models import db_helper
 from . import crud
 from config import redis_client
+from core.models.board_game_info import BoardLanguages
 
 router = APIRouter(tags=["game ages"])
 
@@ -23,6 +24,11 @@ async def get_all_ages(session: AsyncSession = Depends(db_helper.scoped_session_
     game_ages = await crud.get_all_ages(session)
     await redis_client.set("game_ages", json.dumps([age.model_dump() for age in game_ages]))
     return game_ages
+
+
+@router.get("/languages/all")
+async def get_all_languages():
+    return [language.value for language in BoardLanguages]
 
 
 @router.post("/create")
