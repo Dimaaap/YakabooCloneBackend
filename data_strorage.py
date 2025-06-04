@@ -3500,3 +3500,26 @@ BOARD_GAME_AGES = [
         "slug": "do-2-rokiv"
     }
 ]
+
+CONTACTS = [
+    {
+        "social_title": "instagram",
+        "link": "https://www.instagram.com/yakabooua/",
+        "icon_title": "instagram.svg"
+    },
+    {
+        "social_title": "youtube",
+        "link": "https://www.youtube.com/channel/UC5w2HgI3yU_t3NtB-hAxVKw",
+        "icon_title": "youtube.svg"
+    },
+    {
+        "social_title": "facebook",
+        "link": "https://www.facebook.com/yakabooua",
+        "icon_title": "facebook.svg"
+    },
+    {
+        "social_title": "telegram",
+        "link": "https://t.me/yakabooua",
+        "icon_title": "telegram.svg"
+    }
+]

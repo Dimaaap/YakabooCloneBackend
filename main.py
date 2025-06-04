@@ -20,6 +20,7 @@ from footers import router as footer_router
 from game_series import router as game_series_router
 from game_brands import router as game_brands_router
 from game_ages import router as game_ages_router
+from contacts import router as contacts_router
 
 
 @asynccontextmanager
@@ -44,6 +45,7 @@ app.include_router(footer_router)
 app.include_router(game_series_router)
 app.include_router(game_brands_router)
 app.include_router(game_ages_router)
+app.include_router(contacts_router)
 
 app.add_middleware(
     CORSMiddleware,
