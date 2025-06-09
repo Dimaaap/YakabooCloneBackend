@@ -8,6 +8,7 @@ from core.models import db_helper
 from . import crud
 from config import redis_client
 from core.models.board_game_info import BoardLanguages
+from core.models.board_games import Type, Kind, PlayersCount
 
 router = APIRouter(tags=["game ages"])
 
@@ -29,6 +30,21 @@ async def get_all_ages(session: AsyncSession = Depends(db_helper.scoped_session_
 @router.get("/languages/all")
 async def get_all_languages():
     return [language.value for language in BoardLanguages]
+
+
+@router.get("/types/all")
+async def get_all_game_types():
+    return [game_type.value for game_type in Type]
+
+
+@router.get("/kinds/all")
+async def get_all_game_kinds():
+    return [kind.value for kind in Kind]
+
+
+@router.get("/players-count/all")
+async def get_all_players_count():
+    return [player_count.value for player_count in PlayersCount]
 
 
 @router.post("/create")
