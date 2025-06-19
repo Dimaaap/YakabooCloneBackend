@@ -3807,3 +3807,101 @@ CITIES = [
         "country_id": 1
     }
 ]
+
+DELIVERY_TERMS = [
+    {
+        "yakaboo_shop_price": 30,
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 5
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 1
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 2
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 3
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 4
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 6
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 7
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 8
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 9
+    },
+    {
+        "new_post_office_price": 60,
+        "new_post_department_price": 60,
+        "new_post_courier_price": 95,
+        "meest_post_price": 50,
+        "ukrpost_department_price": 39,
+        "ukrpost_courier_price": 75,
+        "city_id": 10
+    },
+    {
+        "new_post_courier_price": 1380,
+        "country_id": 3
+    }
+]

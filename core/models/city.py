@@ -7,6 +7,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .countries import Country
+    from .delivery_terms import DeliveryTerms
 
 
 class City(Base):
@@ -18,3 +19,12 @@ class City(Base):
 
     country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"))
     country: Mapped["Country"] = relationship(back_populates="cities")
+    delivery_terms: Mapped["DeliveryTerms"] = relationship(
+        back_populates="city",
+        uselist=False,
+        cascade="all, delete-orphan"
+    )
+
+    def __str__(self):
+        return f"{self.__class__.__name__}(title={self.title})"
+

@@ -7,6 +7,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .city import City
+    from .delivery_terms import DeliveryTerms
 
 
 class Country(Base):
@@ -16,6 +17,11 @@ class Country(Base):
     is_visible: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
 
     cities: Mapped[list["City"]] = relationship(back_populates="country", cascade="all, delete-orphan")
+    delivery_terms: Mapped["DeliveryTerms"] = relationship(
+        back_populates="country",
+        uselist=False,
+        cascade="all, delete-orphan"
+    )
 
     def __str__(self):
         return f"{self.__class__.__name__}(title={self.title})"
