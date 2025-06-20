@@ -22,6 +22,24 @@ async def get_all_countries(session: AsyncSession = Depends(db_helper.scoped_ses
     return countries
 
 
+@router.get("/{country_id}")
+async def get_country_by_id(country_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    cached_countries = await redis_client.get("countries")
+
+    if cached_countries:
+        countries_data = json.loads(cached_countries)
+        country_data = None
+        for country in countries_data:
+            if country.get("id") == country_id:
+                country_data = country
+                break
+        if country_data:
+            return country_data
+    country = await crud.get_country_by_id(country_id, session)
+    return country
+
+
 @router.post("/create")
 async def create_country(country: CountriesCreate,
                          session: AsyncSession = Depends(db_helper.scoped_session_dependency)):

@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from delivery_terms.schemas import DeliveryTermSchema
+
 
 class CitiesBase(BaseModel):
     title: str
@@ -27,3 +29,4 @@ class CitiesSchema(CitiesBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    delivery_terms: DeliveryTermSchema | None = None

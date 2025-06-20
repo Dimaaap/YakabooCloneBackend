@@ -23,6 +23,7 @@ from game_ages import router as game_ages_router
 from contacts import router as contacts_router
 from cities import router as cities_router
 from countries import router as countries_router
+from delivery_terms import router as delivery_terms_router
 
 
 @asynccontextmanager
@@ -50,6 +51,7 @@ app.include_router(game_ages_router)
 app.include_router(contacts_router)
 app.include_router(cities_router)
 app.include_router(countries_router)
+app.include_router(delivery_terms_router)
 
 app.add_middleware(
     CORSMiddleware,

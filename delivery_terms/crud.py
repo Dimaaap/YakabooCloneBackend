@@ -26,6 +26,27 @@ async def get_all_delivery_terms(session: AsyncSession) -> list[DeliveryTermSche
     return [DeliveryTermSchema.model_validate(term) for term in delivery_terms]
 
 
+async def get_delivery_term_by_id(delivery_term_id: int, session: AsyncSession) -> DeliveryTerms:
+    statement = select(DeliveryTerms).where(DeliveryTerms.id == delivery_term_id).order_by(DeliveryTerms.id)
+    result: Result = await session.execute(statement)
+    delivery_term = result.scalars().first()
+    return delivery_term
+
+
+async def get_delivery_term_by_city_id(city_id: int, session: AsyncSession) -> DeliveryTerms:
+    statement = select(DeliveryTerms).where(DeliveryTerms.city_id == city_id)
+    result: Result = await session.execute(statement)
+    delivery_term = result.scalars().first()
+    return delivery_term
+
+
+async def get_delivery_term_by_country_id(country_id: int, session: AsyncSession) -> DeliveryTerms:
+    statement = select(DeliveryTerms).where(DeliveryTerms.country_id == country_id)
+    result: Result = await session.execute(statement)
+    delivery_term = result.scalars().first()
+    return delivery_term
+
+
 async def delete_delivery_term_by_id(delivery_term_id: int, session: AsyncSession):
     statement = delete(DeliveryTerms).where(DeliveryTerms.id == delivery_term_id)
     try:

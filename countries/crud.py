@@ -6,7 +6,7 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from countries.schemas import CountriesSchema, CountriesCreate
-from core.models import Country, db_helper
+from core.models import Country, db_helper, City
 from data_strorage import COUNTRIES
 
 
@@ -23,14 +23,24 @@ async def create_country(session: AsyncSession, country: CountriesCreate) -> Cou
 async def get_all_countries(session: AsyncSession) -> list[CountriesSchema]:
     statement = (select(Country).order_by(Country.id)
                  .where(Country.is_visible)
-                 .options(selectinload(Country.cities)))
+                 .options(selectinload(Country.cities)
+                          .selectinload(City.delivery_terms),
+                          selectinload(Country.delivery_terms)
+                          )
+                 )
     result: Result = await session.execute(statement)
     countries = result.scalars().all()
     return [CountriesSchema.model_validate(country) for country in countries]
 
 
 async def get_country_by_id(country_id: int, session: AsyncSession) -> CountriesSchema:
-    statement = select(Country).where(Country.id == country_id)
+    statement = (select(Country)
+                 .where(Country.id == country_id)
+                 .options(selectinload(Country.cities)
+                          .selectinload(City.delivery_terms),
+                          selectinload(Country.delivery_terms)
+                          )
+                 )
     result: Result = await session.execute(statement)
     country = result.scalars().first()
     return CountriesSchema.model_validate(country)

@@ -21,7 +21,11 @@ class DeliveryTerms(Base):
     ukrpost_department_price: Mapped[int] = mapped_column(Integer, nullable=True)
     ukrpost_courier_price: Mapped[int] = mapped_column(Integer, nullable=True)
 
-    country: Mapped["Country"] = relationship(back_populates="delivery_terms", uselist=False)
+    country: Mapped["Country"] = relationship(back_populates="delivery_terms",
+                                              uselist=False,
+                                              foreign_keys="DeliveryTerms.country_id")
     country_id: Mapped[int | None] = mapped_column(ForeignKey("countries.id"), nullable=True)
-    city: Mapped["City"] = relationship(back_populates="delivery_terms", uselist=False)
+    city: Mapped["City"] = relationship(back_populates="delivery_terms",
+                                        uselist=False,
+                                        foreign_keys="DeliveryTerms.city_id")
     city_id: Mapped[int | None] = mapped_column(ForeignKey("cities.id"), nullable=True)

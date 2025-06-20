@@ -3,6 +3,7 @@ import asyncio
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from cities.schemas import CitiesSchema, CitiesCreate
 from core.models import City, db_helper
@@ -20,14 +21,19 @@ async def create_city(session: AsyncSession, city: CitiesCreate) -> City:
 
 
 async def get_all_cities(session: AsyncSession) -> list[CitiesSchema]:
-    statement = select(City).order_by(City.id).where(City.is_visible)
+    statement = (select(City)
+                 .options(selectinload(City.delivery_terms))
+                 .order_by(City.id)
+                 .where(City.is_visible))
     result: Result = await session.execute(statement)
     cities = result.scalars().all()
     return [CitiesSchema.model_validate(city) for city in cities]
 
 
 async def get_city_by_id(city_id: int, session: AsyncSession) -> CitiesSchema:
-    statement = select(City).where(City.id == city_id)
+    statement = (select(City)
+                 .options(selectinload(City.delivery_terms))
+                 .where(City.id == city_id))
     result: Result = await session.execute(statement)
     city = result.scalars().first()
     return CitiesSchema.model_validate(city)

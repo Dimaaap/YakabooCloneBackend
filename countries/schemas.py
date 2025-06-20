@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 from cities.schemas import CitiesSchema
+from delivery_terms.schemas import DeliveryTermSchema
 
 
 class CountriesBase(BaseModel):
@@ -27,3 +28,4 @@ class CountriesSchema(CountriesBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    delivery_terms: DeliveryTermSchema | None = None
