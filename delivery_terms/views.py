@@ -36,3 +36,17 @@ async def get_delivery_term_by_id(delivery_term_id: int,
                                   session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     delivery_term = await crud.get_delivery_term_by_id(delivery_term_id, session)
     return delivery_term
+
+
+@router.get("/{city_id}")
+async def get_delivery_term_by_city_id(city_id: int,
+                                       session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    delivery_term = await crud.get_delivery_term_by_city_id(city_id, session)
+    return delivery_term
+
+
+@router.get("/{country_id}")
+async def get_delivery_term_by_country_id(country_id: int,
+                                          session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    delivery_term = await crud.get_delivery_term_by_country_id(country_id, session)
+    return delivery_term
