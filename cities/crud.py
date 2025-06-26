@@ -39,6 +39,15 @@ async def get_city_by_id(city_id: int, session: AsyncSession) -> CitiesSchema:
     return CitiesSchema.model_validate(city)
 
 
+async def get_city_by_title(city_title: str, session: AsyncSession) -> CitiesSchema:
+    statement = (select(City)
+                 .options(selectinload(City.delivery_terms))
+                 .where(City.title == city_title))
+    result: Result = await session.execute(statement)
+    city = result.scalars().first()
+    return CitiesSchema.model_validate(city)
+
+
 async def delete_city_by_id(city_id: int, session: AsyncSession):
     statement = delete(City).where(City.id == city_id)
     try:

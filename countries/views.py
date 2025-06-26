@@ -40,6 +40,24 @@ async def get_country_by_id(country_id: int,
     return country
 
 
+@router.get("/by-title/{country_title}")
+async def get_country_by_title(country_title: str,
+                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    cached_countries = await redis_client.get("countries")
+
+    if cached_countries:
+        countries_data = json.loads(cached_countries)
+        country_data = None
+        for country in countries_data:
+            if country.get("title") == country_title:
+                country_data = country
+                break
+        if country_data:
+            return country_data
+    country = await crud.get_country_by_title(country_title, session)
+    return country
+
+
 @router.post("/create")
 async def create_country(country: CountriesCreate,
                          session: AsyncSession = Depends(db_helper.scoped_session_dependency)):

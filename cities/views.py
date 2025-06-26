@@ -42,6 +42,26 @@ async def get_city_by_id(city_id: int,
     return {"message": "404 Not Found"}
 
 
+@router.get("/by-title/{city_title}")
+async def get_city_by_title(city_title: str,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    cached_city = await redis_client.get("cities")
+
+    if cached_city:
+        cities_data = json.loads(cached_city)
+        city_data = None
+        for city in cities_data:
+            if city.get("title") == city_title:
+                city_data = city
+                break
+        if city_data:
+            return city_data
+    city = await crud.get_city_by_title(city_title, session)
+    if city:
+        return city
+    return {"message": f"The city with title {city_title} was not found"}
+
+
 @router.post("/create")
 async def create_city(city: CitiesCreate,
                       session: AsyncSession = Depends(db_helper.scoped_session_dependency)):

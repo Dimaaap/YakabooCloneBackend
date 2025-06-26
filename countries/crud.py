@@ -46,6 +46,19 @@ async def get_country_by_id(country_id: int, session: AsyncSession) -> Countries
     return CountriesSchema.model_validate(country)
 
 
+async def get_country_by_title(country_title: str, session: AsyncSession) -> CountriesSchema:
+    statement = (select(Country)
+                 .where(Country.title == country_title)
+                 .options(selectinload(Country.cities)
+                          .selectinload(Country.delivery_terms),
+                          selectinload(Country.delivery_terms)
+                          )
+                 )
+    result: Result = await session.execute(statement)
+    country = result.scalars().first()
+    return CountriesSchema.model_validate(country)
+
+
 async def delete_country_by_id(country_id: int, session: AsyncSession):
     statement = delete(Country).where(Country.id == country_id)
     try:
