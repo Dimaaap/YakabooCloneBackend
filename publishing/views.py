@@ -1,9 +1,9 @@
 import json
 
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import PublishingSchema, PublishingCreate
+from .schemas import PublishingSchema, PublishingCreate, SearchQuery
 from core.models import db_helper
 from . import crud
 from config import redis_client
@@ -85,3 +85,23 @@ async def get_publishing_by_first_letter(
         publishing = await crud.get_all_publishing(session)
         await redis_client.set("publishing", json.dumps([pub.model_dump() for pub in publishing]))
         return await crud.get_publishing_by_title_first_letter(letter, session)
+
+
+@router.get("/search/", response_model=list[PublishingSchema])
+async def search_publishing(
+        query: str = Query(...),
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency)
+):
+    cached_publishing = await redis_client.get('publishing')
+
+    if cached_publishing:
+        publishing_list = json.loads(cached_publishing)
+        res = []
+        for pub in publishing_list:
+            if query.lower() in pub['title'].lower():
+                res.append(pub)
+        return res
+    else:
+        publishing = await crud.get_all_publishing(session)
+        await redis_client.set('publishing', json.dumps([pub.model_dump() for pub in publishing]))
+        return await crud.get_publishing_by_query(query, session)

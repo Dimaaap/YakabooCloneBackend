@@ -10,6 +10,10 @@ class PublishingBase(BaseModel):
     visible: bool = True
 
 
+class SearchQuery(BaseModel):
+    q: str
+
+
 class PublishingCreate(PublishingBase):
     pass
 
@@ -31,4 +35,5 @@ class PublishingSchema(PublishingBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
 

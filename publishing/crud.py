@@ -1,7 +1,7 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result
+from sqlalchemy import select, Result, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from publishing.schemas import *
@@ -53,6 +53,21 @@ async def get_publishing_by_title_first_letter(letter: str, session: AsyncSessio
     statement = select(Publishing).where(Publishing.title.like(f"{letter.upper()}%"), Publishing.visible)
     result: Result = await session.execute(statement)
     publishing = result.scalars().all()
+    return list(publishing)
+
+
+async def get_publishing_by_query(query: str, session: AsyncSession) -> list[Publishing]:
+    query = query.strip()
+    similarity = func.similarity(Publishing.title, query)
+    statement = (select(Publishing)
+                 .where(
+                    or_(similarity > 0.1,
+                        Publishing.title.like(f"%{query}%")))
+                 .order_by(similarity.desc()))
+    result: Result = await session.execute(statement)
+    publishing = result.scalars().all()
+    if not publishing:
+        return []
     return list(publishing)
 
 
