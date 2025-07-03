@@ -23,6 +23,8 @@ async def get_all_sidebars(
     sidebars = await crud.get_all_sidebars(session)
     await redis_client.set("sidebars", json.dumps([sidebar.model_dump() for sidebar in sidebars]),
                            ex=SIX_DAYS)
+
+    print(sidebars)
     return sidebars
 
 

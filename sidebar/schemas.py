@@ -8,6 +8,7 @@ class SidebarBase(BaseModel):
     visible: bool
     order_number: int
     is_clickable: bool
+    link: str
 
 
 class SidebarCreate(SidebarBase):
@@ -25,7 +26,7 @@ class SidebarUpdatePartial(SidebarUpdate):
     visible: bool | None = None
     order_number: int | None = None
     is_clickable: bool | None = None
-
+    link: str | None = None
 
 
 class Sidebar(SidebarBase):

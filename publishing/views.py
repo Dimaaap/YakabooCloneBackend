@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 from fastapi import APIRouter, Depends, status, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -69,7 +70,7 @@ async def get_publishing_by_slug(
 
 @router.get("/first-letter/{letter}", response_model=list[PublishingSchema])
 async def get_publishing_by_first_letter(
-        letter: str,
+        letter: str | None,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     cached_publishing = await redis_client.get("publishing")

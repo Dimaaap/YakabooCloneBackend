@@ -11,6 +11,7 @@ class Sidebar(Base):
     visible: Mapped[bool] = mapped_column(Boolean, server_default="1", default=True)
     order_number: Mapped[int] = mapped_column(Integer, server_default="1", default=1)
     is_clickable: Mapped[bool] = mapped_column(Boolean, server_default="0", default=0)
+    link: Mapped[str] = mapped_column(String(255), server_default="", default="")
 
     def __str__(self):
         return (f"{self.__class__.__name__}(id={self.id}, title={self.title}, slug={self.slug}, "
