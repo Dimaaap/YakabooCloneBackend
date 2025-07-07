@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Integer, ForeignKey
+from sqlalchemy import String, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -20,6 +20,12 @@ class Book(Base):
     title: Mapped[str] = mapped_column(String(255), default="", server_default="")
     slug: Mapped[str] = mapped_column(String(255), default="", server_default="")
     price: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    is_top: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    is_promo: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    is_in_chart: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    stars: Mapped[bool] = mapped_column(Integer, default=0, server_default="0")
+    promo_price: Mapped[int] = mapped_column(Integer, nullable=True)
+
 
     book_info_id: Mapped[int] = mapped_column(
         ForeignKey("book_info.id", name="fk_book_info")

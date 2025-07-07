@@ -1,10 +1,9 @@
 import json
-from typing import Optional
 
 from fastapi import APIRouter, Depends, status, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import PublishingSchema, PublishingCreate, SearchQuery
+from .schemas import PublishingSchema, PublishingCreate
 from core.models import db_helper
 from . import crud
 from config import redis_client

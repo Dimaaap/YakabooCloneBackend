@@ -9,6 +9,7 @@ class AuthorBase(BaseModel):
     slug: str
     date_of_birth: date | None = None
     description: str | None = None
+    short_description: str | None = None
     is_active: bool = True
 
 
