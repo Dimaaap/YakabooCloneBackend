@@ -100,7 +100,7 @@ async def search_publishing(
         for pub in publishing_list:
             if query.lower() in pub['title'].lower():
                 res.append(pub)
-        return res
+
     else:
         publishing = await crud.get_all_publishing(session)
         await redis_client.set('publishing', json.dumps([pub.model_dump() for pub in publishing]))

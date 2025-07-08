@@ -2,6 +2,8 @@ from datetime import date
 
 from pydantic import BaseModel, ConfigDict
 
+from author_facts.schemas import AuthorFactSchema
+
 
 class AuthorBase(BaseModel):
     first_name: str
@@ -11,6 +13,7 @@ class AuthorBase(BaseModel):
     description: str | None = None
     short_description: str | None = None
     is_active: bool = True
+    interesting_fact: AuthorFactSchema | None = None
 
 
 class AuthorCreate(AuthorBase):

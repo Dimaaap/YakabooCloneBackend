@@ -20,6 +20,7 @@ __all__ = (
     "PromoCategoryAssociation",
     "Publishing",
     "AuthorImage",
+    "AuthorFacts",
     "Interesting",
     "Footer",
     "BoardGame",
@@ -57,6 +58,7 @@ from .promo_categories import PromoCategories
 from .promo_category_association import PromoCategoryAssociation
 from .publishing import Publishing
 from .author_images import AuthorImage
+from .author_facts import AuthorFacts
 from .interesting import Interesting
 from .footer import Footer
 from .board_games import BoardGame

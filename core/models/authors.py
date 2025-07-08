@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from .author_images import AuthorImage
     from .book import Book
     from .author_book_association import AuthorBookAssociation
+    from .author_facts import AuthorFacts
 
 
 class Author(Base):
@@ -32,6 +33,12 @@ class Author(Base):
     author_details: Mapped[list["AuthorBookAssociation"]] = relationship(
         back_populates="author",
         overlaps="book"
+    )
+
+    interesting_fact: Mapped["AuthorFacts"] = relationship(
+        "AuthorFacts",
+        back_populates='author',
+        uselist=False
     )
 
     def get_full_name(self):

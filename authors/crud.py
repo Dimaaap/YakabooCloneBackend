@@ -1,7 +1,8 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete
+from sqlalchemy import select, Result, delete, or_, func
+from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Author, db_helper, AuthorImage
@@ -23,10 +24,10 @@ async def create_author(
 
 
 async def get_all_authors(session: AsyncSession) -> list[AuthorSchema]:
-    statement = select(Author).order_by(Author.id)
+    statement = select(Author).options(joinedload(Author.interesting_fact)).order_by(Author.id)
     result: Result = await session.execute(statement)
     authors = result.scalars().all()
-    return list(authors)
+    return [AuthorSchema.model_validate(author) for author in authors]
 
 
 async def create_image_gallery(session: AsyncSession, image: ImageBase) -> AuthorImage:
@@ -34,6 +35,59 @@ async def create_image_gallery(session: AsyncSession, image: ImageBase) -> Autho
     session.add(author_image)
     await session.commit()
     return author_image
+
+
+async def get_author_by_name_first_letter(letter: str, session: AsyncSession) -> list[Author]:
+    statement = (
+        select(Author)
+        .options(joinedload(Author.interesting_fact))
+        .where(
+            or_(
+                Author.first_name.like(f"{letter.upper()}%"),
+                Author.last_name.like(f"{letter.upper()}%")
+            )
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    authors = result.scalars().all()
+    return list(authors)
+
+
+async def get_authors_by_query(query: str, session: AsyncSession):
+    query = query.strip()
+    similarity_first = func.similarity(Author.first_name, query)
+    similarity_last = func.similarity(Author.last_name, query)
+
+    statement = (
+        select(Author)
+        .options(joinedload(Author.interesting_fact))
+        .where(
+            or_(
+                similarity_first > 0.1,
+                similarity_last > 0.1,
+                Author.first_name.like(f"%{query}%"),
+                Author.last_name.like(f"%{query}%")
+            )
+        )
+        .order_by(func.greatest(similarity_first, similarity_last).desc())
+    )
+
+    result: Result = await session.execute(statement)
+    authors = result.scalars().all()
+    return list(authors) if authors else []
+
+
+async def get_author_by_slug(slug: str, session: AsyncSession) -> Author:
+    statement = (select(Author)
+                 .options(joinedload(Author.interesting_fact))
+                 .where(Author.slug == slug, Author.is_active))
+    result: Result = await session.execute(statement)
+    author = result.scalars().first()
+
+    if not author:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Author with slug {slug} was not found")
+    return author
 
 
 async def get_all_author_images(session: AsyncSession) -> list[AuthorImage]:
