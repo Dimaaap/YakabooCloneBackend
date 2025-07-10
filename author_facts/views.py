@@ -1,36 +1,24 @@
-import asyncio
-
-from fastapi import HTTPException, status
-from sqlalchemy import select, Result
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import AuthorFacts, db_helper
-from author_facts.schemas import AuthorFactSchema, AuthorFactCreate
+from .schemas import AuthorFactSchema
+from core.models import db_helper
+from . import crud
+
+router = APIRouter(tags=["Author Facts"])
 
 
-async def create_author_fact(
-        session: AsyncSession,
-        author_fact: AuthorFactCreate
-) -> AuthorFactSchema:
-    author_fact = AuthorFacts(**author_fact.model_dump())
-
-    try:
-        session.add(author_fact)
-        await session.commit()
-    except Exception as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    return author_fact
+@router.get("/all", response_model=list[AuthorFactSchema])
+async def get_all_author_facts(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    return await crud.get_all_author_facts(session)
 
 
-async def get_all_author_facts(session: AsyncSession) -> list[AuthorFactSchema]:
-    statement = select(AuthorFacts).order_by(AuthorFacts.id)
-    result: Result = await session.execute(statement)
-    author_facts = result.scalars().all()
-    return [AuthorFactSchema.model_validate(fact) for fact in author_facts]
+@router.get('/author/{author_id}')
+async def get_fact_by_author_id(author_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    author = await crud.get_fact_by_author_id(author_id, session)
+    if author:
+        return author
+    return {}
 
 
-async def get_fact_by_author_id(author_id: int, session: AsyncSession) -> AuthorFacts:
-    statement = select(AuthorFacts).where(AuthorFacts.author_id == author_id)
-    result: Result = await session.execute(statement)
-    author_fact = result.scalars().first()
-    return author_fact

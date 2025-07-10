@@ -1031,6 +1031,26 @@ IMAGE_GALLERIES = [
     {
         "image_path": "https://static.yakaboo.ua/media/entity/author/3/_/3_2_26.jpg",
         "author_id": 1
+    },
+    {
+        "image_path": "https://static.yakaboo.ua/media/entity/author/f/i/file_15_4.jpg",
+        "author_id": 2
+    },
+    {
+        "image_path": "https://static.yakaboo.ua/media/entity/author/o/-/o-i-met-jk-rowling-facebook.jpg",
+        "author_id": 2
+    },
+    {
+        "image_path": "https://static.yakaboo.ua/media/entity/author/2/1/21.jpg",
+        "author_id": 2
+    },
+    {
+        "image_path": "https://static.yakaboo.ua/media/entity/author/2/2/22.jpg",
+        "author_id": 2
+    },
+    {
+        "image_path": "https://static.yakaboo.ua/media/entity/author/4/6/4645.jpg",
+        "author_id": 2
     }
 ]
 
@@ -4091,5 +4111,54 @@ DELIVERY_TERMS = [
     {
         "new_post_courier_price": 1380,
         "country_id": 3
+    }
+]
+
+
+AUTHOR_FACTS = [
+    {
+        'fact_text': "Книжкова Герміона Грейнджер, відмінниця і «нестерпна"
+                     "всезнайка» практично повністю списана з самої Джоан Роулінг у віці одинадцяти років.",
+        "author_id": 2
+    }
+]
+
+
+BOOKS_INFO = [
+    {
+        "code": 1489744,
+        "rate": 5,
+        "ISBN": "978-617-15-0704-3",
+        "cover_type": "Тверда",
+        "pages_count": 608,
+        "is_has_cashback": True,
+        "format": "Паперова",
+        "language": "Українська",
+        "publishing_year": 2024,
+        "first_publishing_at": 2023,
+        "description": """
+            Найхаризматичніша героїня Стівена Кінга повертається!
+            \n
+            Детектив Голлі Гібні мріє про відпустку: на нову справу в неї просто немає сил. Однак почувши 
+            відчайдушну мольбу в голосі Пенні Дал, Голлі без вагань 
+            погоджується допомогти жінці в пошуках доньки.
+            \n
+            Недалеко від місця, де зникла Бонні Дал, живе немолода сімейна пара професорів — Родні та Емілі Гарріси. 
+            Шановані, респектабельні, віддані одне одному… а ще підступні й безжальні. Підвал їхнього охайного, 
+            заставленого книжками будинку приховує жахливу таємницю. Якщо Голлі припуститься помилки, то познайомиться із
+             цим моторошним місцем дуже близько...
+        """
+    }
+]
+
+
+BOOKS = [
+    {
+        "title": "Голлі",
+        "slug": "golli",
+        "price": 490,
+        "book_info_id": 1,
+        "publishing_id": 5,
+        "author_ids": [1],
     }
 ]

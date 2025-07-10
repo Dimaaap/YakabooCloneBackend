@@ -26,17 +26,17 @@ class Book(Base):
     stars: Mapped[bool] = mapped_column(Integer, default=0, server_default="0")
     promo_price: Mapped[int] = mapped_column(Integer, nullable=True)
 
-
     book_info_id: Mapped[int] = mapped_column(
         ForeignKey("book_info.id", name="fk_book_info")
     )
 
-    book_info: Mapped["BookInfo"] = relationship("BookInfo", back_populates="book")
+    book_info: Mapped["BookInfo"] = relationship("BookInfo", back_populates="book", lazy="joined")
 
     authors: Mapped[list["Author"]] = relationship(
         secondary="author_book_association",
         back_populates="book",
-        overlaps="author,book"
+        overlaps="author,book",
+        lazy="joined"
     )
 
     subcategories: Mapped[list["Subcategory"]] = relationship(
@@ -49,7 +49,7 @@ class Book(Base):
         ForeignKey("publishings.id", name="fk_book_publishing")
     )
 
-    publishing: Mapped["Publishing"] = relationship("Publishing", back_populates="books")
+    publishing: Mapped["Publishing"] = relationship("Publishing", back_populates="books", lazy="joined")
 
     subcategories_details: Mapped[list["SubcategoryBookAssociation"]] = relationship(
         back_populates="book",
@@ -69,7 +69,8 @@ class Book(Base):
     wishlists: Mapped[list["Wishlist"]] = relationship(
         secondary="wishlist_book_association",
         back_populates="books",
-        overlaps="wishlist_associations"
+        overlaps="wishlist_associations",
+        lazy="joined"
     )
 
     def __str__(self):
