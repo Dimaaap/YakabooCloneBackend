@@ -14,7 +14,7 @@ DB_USER = os.getenv("DB_USER")
 
 
 class DBSettings(BaseModel):
-    url: str = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@localhost:5433/{DB_NAME}"
+    url: str = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@localhost:5432/{DB_NAME}"
 
 
 class AuthJWT(BaseModel):

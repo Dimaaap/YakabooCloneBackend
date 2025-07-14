@@ -117,10 +117,10 @@ async def delete_author_by_id(session: AsyncSession, author_id):
 
 async def main():
     async with db_helper.session_factory() as session:
-        # for author in AUTHORS:
-        #     await create_author(session=session,
-        #                         author=AuthorCreate.model_validate(author))
-        #
+        for author in AUTHORS:
+            await create_author(session=session,
+                                author=AuthorCreate.model_validate(author))
+
         for image in IMAGE_GALLERIES:
             await create_image_gallery(session=session,
                                        image=ImageBase.model_validate(image))

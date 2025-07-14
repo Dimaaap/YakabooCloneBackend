@@ -117,3 +117,9 @@ async def delete_author_by_id(author_id: int,
         return {"message": f"Author with id {author_id} has been deleted"}
     else:
         return {"message": "Deleting error"}
+
+
+@router.get("/author/{author_id}/books")
+async def get_all_author_books(author_id: int,
+                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    ...

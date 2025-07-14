@@ -79,8 +79,8 @@ async def get_all_categories(session: AsyncSession) -> list[CategorySchema]:
 
 async def main():
     async with db_helper.session_factory() as session:
-        # for category in CATEGORIES:
-        #     await create_category(session, CategoryCreate.model_validate(category))
+        for category in CATEGORIES:
+            await create_category(session, CategoryCreate.model_validate(category))
 
         for sub_category in SUB_CATEGORIES:
             await create_sub_category(session, SubCategoryBase.model_validate(sub_category))

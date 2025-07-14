@@ -29,8 +29,8 @@ def upgrade() -> None:
     sa.UniqueConstraint('author_id')
     )
     with op.batch_alter_table('authors', schema=None) as batch_op:
-        batch_op.drop_index('idx_author_first_name_trgm', postgresql_using='gin')
-        batch_op.drop_index('idx_author_last_name_trgm', postgresql_using='gin')
+        batch_op.execute("DROP INDEX IF EXISTS idx_author_first_name_trgm")
+        batch_op.execute("DROP INDEX IF EXISTS idx_author_last_name_trgm")
 
     with op.batch_alter_table('books', schema=None) as batch_op:
         batch_op.add_column(sa.Column('is_top', sa.Boolean(), server_default='0', nullable=False))
