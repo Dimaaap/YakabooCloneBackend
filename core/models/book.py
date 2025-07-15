@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from .wishlists import Wishlist
     from .subcategories import Subcategory
     from .publishing import Publishing
+    from .book_image import BookImage
 
 
 class Book(Base):
@@ -71,6 +72,11 @@ class Book(Base):
         back_populates="books",
         overlaps="wishlist_associations",
         lazy="joined"
+    )
+
+    images: Mapped[list["BookImage"]] = relationship(
+        back_populates="book",
+        cascade="all, delete-orphan"
     )
 
     def __str__(self):

@@ -2,9 +2,18 @@ from pydantic import BaseModel, ConfigDict
 
 from book_info.schemas import BookInfoSchema
 from authors.schemas import AuthorSchema
+from core.models.book_image import BookImageType
 from publishing.schemas import PublishingSchema
 from wishlists.schemas import WishlistSchema
 
+
+class BookImageSchema(BaseModel):
+    image_url: str
+    type: BookImageType
+
+
+class BookImageCreate(BookImageSchema):
+    type: BookImageType = BookImageType.COVER
 
 class BookBase(BaseModel):
     title: str = ""
@@ -17,6 +26,7 @@ class BookBase(BaseModel):
     promo_price: int | None = None
     book_info_id: int | None = None
     publishing_id: int
+    images: list[BookImageCreate] | None = None
 
 
 class BookCreate(BookBase):
@@ -46,3 +56,4 @@ class BookSchema(BookBase):
     authors: list[AuthorSchema] = []
     publishing: PublishingSchema | None = None
     wishlists: list[WishlistSchema] = []
+    images: list[BookImageSchema] = []

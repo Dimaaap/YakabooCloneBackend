@@ -5,13 +5,18 @@ from sqlalchemy import select, Result, delete
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Book, db_helper
+from core.models import Book, db_helper, BookImage
 from books.schemas import BookSchema, BookCreate, BookUpdate
 from data_strorage import BOOKS
 
 
 async def create_book(session: AsyncSession, book_data: BookCreate) -> BookSchema:
-    book = Book(**book_data.model_dump())
+    book = Book(**book_data.model_dump(exclude="images"))
+
+    for image_data in book_data.get("images", []):
+        image = BookImage(image_url=image_data.image_url, type=image_data.type)
+        book.images.append(image)
+
     try:
         session.add(book)
         await session.commit()

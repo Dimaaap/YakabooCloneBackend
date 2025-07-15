@@ -122,4 +122,5 @@ async def delete_author_by_id(author_id: int,
 @router.get("/author/{author_id}/books")
 async def get_all_author_books(author_id: int,
                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    ...
+    books = await crud.get_all_author_books_by_author_id(session, author_id)
+    return books

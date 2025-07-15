@@ -2,10 +2,10 @@ import asyncio
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete, or_, func
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Author, db_helper, AuthorImage
+from core.models import Author, db_helper, AuthorImage, Book
 from authors.schemas import AuthorSchema, AuthorCreate, ImageBase
 from data_strorage import AUTHORS, IMAGE_GALLERIES
 
@@ -113,6 +113,26 @@ async def delete_author_by_id(session: AsyncSession, author_id):
     except Exception as e:
         print(e)
         return False
+
+
+async def get_all_author_books_by_author_id(session: AsyncSession, author_id: int):
+    statement = (
+        select(Book)
+        .join(Book.authors)
+        .where(Author.id == author_id)
+        .options(
+            selectinload(Book.book_info),
+            selectinload(Book.authors),
+            selectinload(Book.subcategories),
+            selectinload(Book.publishing)
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    books = result.unique().scalars().all()
+    if not books:
+        return []
+    return books
 
 
 async def main():

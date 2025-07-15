@@ -4148,7 +4148,7 @@ BOOKS_INFO = [
             заставленого книжками будинку приховує жахливу таємницю. Якщо Голлі припуститься помилки, то познайомиться із
              цим моторошним місцем дуже близько...
         """
-    }
+    },
 ]
 
 
@@ -4160,5 +4160,160 @@ BOOKS = [
         "book_info_id": 1,
         "publishing_id": 5,
         "author_ids": [1],
+    },
+    {
+        "title": "11/22/63",
+        "slug": "11-22-63",
+        "price": 540,
+        "book_info_id": 2,
+        "publishing_id": 5,
+        "authors_ids": [12]
     }
 ]
+
+
+BOOKS_INFO = [
+    {
+        'code': 100001,
+        'rate': 4.5,
+        'ISBN': '978-966-100001',
+        'cover_type': 'Тверда',
+        'pages_count': 660,
+        'is_has_cashback': True,
+        'format': 'Паперова',
+        'language': 'Українська',
+        'publishing_year': 2024,
+        'first_publishing_at': 1991,
+        'bonuses': 340,
+        'description': "Опис книги 'Сяйво' Стівена Кінга."
+    },
+    {
+        'code': 100002,
+        'rate': 4.75,
+        'ISBN': '978-966-100002',
+        'cover_type': 'Тверда',
+        'pages_count': 692,
+        'is_has_cashback': True,
+        'format': 'Паперова',
+        'language': 'Українська',
+        'publishing_year': 2024,
+        'first_publishing_at': 1998,
+        'bonuses': 300,
+        'description': "Опис книги 'Керрі' Стівена Кінга."
+    },
+    {
+        'code': 100003,
+        'rate': 5,
+        'ISBN': '978-966-100003',
+        'cover_type': 'Тверда',
+        'pages_count': 669,
+        'is_has_cashback': True,
+        'format': 'Паперова',
+        'language': 'Українська',
+        'publishing_year': 2024,
+        'first_publishing_at': 2008,
+        'bonuses': 150,
+        'description': "Опис книги 'Мізері' Стівена Кінга."
+    },
+    {
+        'code': 100004,
+        'rate': 5,
+        'ISBN': '978-966-100004',
+        'cover_type': 'Тверда',
+        'pages_count': 712,
+        'is_has_cashback': True,
+        'format': 'Паперова',
+        'language': 'Українська',
+        'publishing_year': 2024,
+        'first_publishing_at': 1977,
+        'bonuses': 300,
+        'description': "Опис книги 'Кладовище домашніх тварин' Стівена Кінга."
+    },
+    {
+        'code': 100005,
+        'rate': 4.25,
+        'ISBN': '978-966-100005',
+        'cover_type': 'Тверда',
+        'pages_count': 1300,
+        'is_has_cashback': False,
+        'format': 'Паперова',
+        'language': 'Українська',
+        'publishing_year': 2024,
+        'first_publishing_at': 2004,
+        'bonuses': 450,
+        'description': "Опис книги 'Воно' Стівена Кінга."
+    },
+    {
+        'code': 100006,
+        'rate': 4.9,
+        'ISBN': '978-966-100006',
+        'cover_type': 'Тверда',
+        'pages_count': 403,
+        'is_has_cashback': False,
+        'format': 'Паперова',
+        'language': 'Українська',
+        'publishing_year': 2024,
+        'bonuses': 220,
+        'first_publishing_at': 2001,
+        'description': "Опис книги 'Темна вежа' Стівена Кінга."
+    },
+    {
+        'code': 100007,
+        'rate': 5,
+        'ISBN': '978-966-100007',
+        'cover_type': 'Тверда',
+        'pages_count': 667,
+        'is_has_cashback': False,
+        'format': 'Паперова',
+        'language': 'Українська',
+        'publishing_year': 2024,
+        'first_publishing_at': 2002,
+        'bonuses': 300,
+        'description': "Опис книги 'Доктор Сон' Стівена Кінга."
+    }
+]
+BOOKS = [
+    {
+        'title': 'Сяйво',
+        'slug': 'сяйво',
+        'price': 420,
+        'book_info_id': 2,
+        'publishing_id': 5,
+        'author_ids': [12],
+        'images': [
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/2/6/26929_39860_10.jpg', 'type': 'cover'}
+        ]
+    },
+    {
+        'title': 'Керрі',
+        'slug': 'керрі',
+        'price': 357,
+        'book_info_id': 3,
+        'publishing_id': 5,
+        'author_ids': [12],
+        'images': [
+            {'image_url': 'https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/8/7/878683_1.jpg',
+             'type': 'cover'}
+        ]
+    },
+    {
+        'title': 'Мізері',
+        'slug': 'мізері',
+        'price': 589,
+        'book_info_id': 4,
+        'publishing_id': 5,
+        'author_ids': [12],
+        'images': [{'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/8/58388_115986_cr.jpg', 'type': 'cover'},
+                   {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/image00016_36.jpg', 'type': 'cover'},
+                   {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8885.png', 'type': 'page'},
+                   {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_8732.png', 'type': 'page'}
+                   ]
+    },
+    {
+        'title': 'Кладовище домашніх тварин',
+        'slug': 'кладовище-домашніх-тварин',
+        'price': 264,
+        'book_info_id': 5,
+        'publishing_id': 5,
+        'author_ids': [12],
+        'images': [{'image_url': 'https://example.com/king_4_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_4_page.jpg', 'type': 'page'}]}, {'title': 'Воно', 'slug': 'воно', 'price': 341, 'book_info_id': 5, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_5_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_5_page.jpg', 'type': 'page'}]}, {'title': 'Темна вежа', 'slug': 'темна-вежа', 'price': 286, 'book_info_id': 6, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_6_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_6_page.jpg', 'type': 'page'}]}, {'title': 'Доктор Сон', 'slug': 'доктор-сон', 'price': 372, 'book_info_id': 7, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_7_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_7_page.jpg', 'type': 'page'}]}, {'title': 'Зелена миля', 'slug': 'зелена-миля', 'price': 342, 'book_info_id': 8, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_8_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_8_page.jpg', 'type': 'page'}]}, {'title': 'Під куполом', 'slug': 'під-куполом', 'price': 308, 'book_info_id': 9, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_9_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_9_page.jpg', 'type': 'page'}]}, {'title': '11/22/63', 'slug': '11/22/63', 'price': 416, 'book_info_id': 10, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_10_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_10_page.jpg', 'type': 'page'}]}, {'title': 'Та, що повернулась', 'slug': 'та,-що-повернулась', 'price': 496, 'book_info_id': 11, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_11_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_11_page.jpg', 'type': 'page'}]}, {'title': 'Ловець снів', 'slug': 'ловець-снів', 'price': 448, 'book_info_id': 12, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_12_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_12_page.jpg', 'type': 'page'}]}, {'title': 'Крістіна', 'slug': 'крістіна', 'price': 488, 'book_info_id': 13, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_13_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_13_page.jpg', 'type': 'page'}]}, {'title': 'Після', 'slug': 'після', 'price': 365, 'book_info_id': 14, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_14_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_14_page.jpg', 'type': 'page'}]}, {'title': 'Інститут', 'slug': 'інститут', 'price': 335, 'book_info_id': 15, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_15_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_15_page.jpg', 'type': 'page'}]}]

@@ -32,6 +32,7 @@ __all__ = (
     "City",
     "Country",
     "DeliveryTerms",
+    "BookImage",
     "BoardSubcategories",
     "BoardGameSubcategoryAssociation"
 )
@@ -70,6 +71,7 @@ from .contacts import Contacts
 from .city import City
 from .countries import Country
 from .delivery_terms import DeliveryTerms
+from .book_image import BookImage
 from .board_game_age_association import BoardGameAgeAssociation
 from .board_game_subcategories import BoardSubcategories
 from .board_game_subcategories_association import BoardGameSubcategoryAssociation
