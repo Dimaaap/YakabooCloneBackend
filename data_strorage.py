@@ -2,6 +2,7 @@ import datetime
 from datetime import date
 
 from core.models.footer import FooterCategory
+from core.models.book_image import BookImageType
 
 CATEGORIES = [
     {
@@ -4126,54 +4127,6 @@ AUTHOR_FACTS = [
 
 BOOKS_INFO = [
     {
-        "code": 1489744,
-        "rate": 5,
-        "ISBN": "978-617-15-0704-3",
-        "cover_type": "Тверда",
-        "pages_count": 608,
-        "is_has_cashback": True,
-        "format": "Паперова",
-        "language": "Українська",
-        "publishing_year": 2024,
-        "first_publishing_at": 2023,
-        "description": """
-            Найхаризматичніша героїня Стівена Кінга повертається!
-            \n
-            Детектив Голлі Гібні мріє про відпустку: на нову справу в неї просто немає сил. Однак почувши 
-            відчайдушну мольбу в голосі Пенні Дал, Голлі без вагань 
-            погоджується допомогти жінці в пошуках доньки.
-            \n
-            Недалеко від місця, де зникла Бонні Дал, живе немолода сімейна пара професорів — Родні та Емілі Гарріси. 
-            Шановані, респектабельні, віддані одне одному… а ще підступні й безжальні. Підвал їхнього охайного, 
-            заставленого книжками будинку приховує жахливу таємницю. Якщо Голлі припуститься помилки, то познайомиться із
-             цим моторошним місцем дуже близько...
-        """
-    },
-]
-
-
-BOOKS = [
-    {
-        "title": "Голлі",
-        "slug": "golli",
-        "price": 490,
-        "book_info_id": 1,
-        "publishing_id": 5,
-        "author_ids": [1],
-    },
-    {
-        "title": "11/22/63",
-        "slug": "11-22-63",
-        "price": 540,
-        "book_info_id": 2,
-        "publishing_id": 5,
-        "authors_ids": [12]
-    }
-]
-
-
-BOOKS_INFO = [
-    {
         'code': 100001,
         'rate': 4.5,
         'ISBN': '978-966-100001',
@@ -4275,45 +4228,116 @@ BOOKS_INFO = [
 BOOKS = [
     {
         'title': 'Сяйво',
-        'slug': 'сяйво',
+        'slug': 'syaivo',
         'price': 420,
         'book_info_id': 2,
         'publishing_id': 5,
         'author_ids': [12],
         'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/2/6/26929_39860_10.jpg', 'type': 'cover'}
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/2/6/26929_39860_10.jpg',
+             'type': BookImageType.COVER}
         ]
     },
     {
         'title': 'Керрі',
-        'slug': 'керрі',
+        'slug': 'carry',
         'price': 357,
         'book_info_id': 3,
         'publishing_id': 5,
         'author_ids': [12],
         'images': [
             {'image_url': 'https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/8/7/878683_1.jpg',
-             'type': 'cover'}
+             'type': BookImageType.COVER}
         ]
     },
     {
         'title': 'Мізері',
-        'slug': 'мізері',
+        'slug': 'miseri',
         'price': 589,
         'book_info_id': 4,
         'publishing_id': 5,
         'author_ids': [12],
-        'images': [{'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/8/58388_115986_cr.jpg', 'type': 'cover'},
-                   {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/image00016_36.jpg', 'type': 'cover'},
-                   {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8885.png', 'type': 'page'},
-                   {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_8732.png', 'type': 'page'}
-                   ]
+        'images': [
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/8/58388_115986_cr.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/image00016_36.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8885.png',
+             'type': BookImageType.PAGE},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_8732.png',
+             'type': BookImageType.PAGE},
+        ]
     },
     {
         'title': 'Кладовище домашніх тварин',
-        'slug': 'кладовище-домашніх-тварин',
+        'slug': 'kladovyshche-domashnich-tvaryn',
         'price': 264,
         'book_info_id': 5,
         'publishing_id': 5,
         'author_ids': [12],
-        'images': [{'image_url': 'https://example.com/king_4_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_4_page.jpg', 'type': 'page'}]}, {'title': 'Воно', 'slug': 'воно', 'price': 341, 'book_info_id': 5, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_5_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_5_page.jpg', 'type': 'page'}]}, {'title': 'Темна вежа', 'slug': 'темна-вежа', 'price': 286, 'book_info_id': 6, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_6_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_6_page.jpg', 'type': 'page'}]}, {'title': 'Доктор Сон', 'slug': 'доктор-сон', 'price': 372, 'book_info_id': 7, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_7_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_7_page.jpg', 'type': 'page'}]}, {'title': 'Зелена миля', 'slug': 'зелена-миля', 'price': 342, 'book_info_id': 8, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_8_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_8_page.jpg', 'type': 'page'}]}, {'title': 'Під куполом', 'slug': 'під-куполом', 'price': 308, 'book_info_id': 9, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_9_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_9_page.jpg', 'type': 'page'}]}, {'title': '11/22/63', 'slug': '11/22/63', 'price': 416, 'book_info_id': 10, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_10_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_10_page.jpg', 'type': 'page'}]}, {'title': 'Та, що повернулась', 'slug': 'та,-що-повернулась', 'price': 496, 'book_info_id': 11, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_11_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_11_page.jpg', 'type': 'page'}]}, {'title': 'Ловець снів', 'slug': 'ловець-снів', 'price': 448, 'book_info_id': 12, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_12_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_12_page.jpg', 'type': 'page'}]}, {'title': 'Крістіна', 'slug': 'крістіна', 'price': 488, 'book_info_id': 13, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_13_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_13_page.jpg', 'type': 'page'}]}, {'title': 'Після', 'slug': 'після', 'price': 365, 'book_info_id': 14, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_14_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_14_page.jpg', 'type': 'page'}]}, {'title': 'Інститут', 'slug': 'інститут', 'price': 335, 'book_info_id': 15, 'publishing_id': 1, 'author_ids': [12], 'images': [{'image_url': 'https://example.com/king_15_cover.jpg', 'type': 'cover'}, {'image_url': 'https://example.com/king_15_page.jpg', 'type': 'page'}]}]
+        'images': [
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img567_95.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img568_124.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1256_10.jpg',
+             'type': BookImageType.PAGE},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1284_10.jpg',
+             'type': BookImageType.PAGE},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_1229_10.jpg',
+             'type': BookImageType.PAGE}
+        ]
+    },
+    {
+        'title': 'Воно',
+        'slug': 'vono',
+        'price': 650,
+        'book_info_id': 6,
+        'publishing_id': 5,
+        'author_ids': [12],
+        'images': [
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img014_5_98.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img015_3_131.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_8465.png',
+             'type': BookImageType.PAGE},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8396.png',
+             'type': BookImageType.PAGE}
+        ]
+    },
+    {
+        'title': 'Темна вежа I. Стрілець',
+        'slug': 'temna-vezha',
+        'price': 180,
+        'book_info_id': 7,
+        'publishing_id': 5,
+        'author_ids': [12],
+        'images': [
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/5/55871_107569.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img392_1_63.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1484.jpg',
+             'type': BookImageType.PAGE},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1475.jpg',
+             'type': BookImageType.PAGE}
+        ]
+    },
+    {
+        'title': 'Доктор Сон',
+        'slug': 'doktor-son',
+        'price': 372,
+        'book_info_id': 8,
+        'publishing_id': 5,
+        'author_ids': [12],
+        'images': [
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19_7_3.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19-2_25.jpg',
+             'type': BookImageType.COVER},
+            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/1/_/1_oddbeqdiu0.jpg',
+             'type': BookImageType.PAGE}
+        ]
+    }
+]

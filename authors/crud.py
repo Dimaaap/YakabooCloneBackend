@@ -124,7 +124,8 @@ async def get_all_author_books_by_author_id(session: AsyncSession, author_id: in
             selectinload(Book.book_info),
             selectinload(Book.authors),
             selectinload(Book.subcategories),
-            selectinload(Book.publishing)
+            selectinload(Book.publishing),
+            selectinload(Book.images)
         )
     )
 

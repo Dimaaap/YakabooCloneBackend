@@ -5,7 +5,7 @@ from sqlalchemy import select, Result, delete
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Book, db_helper, BookImage
+from core.models import Book, db_helper, BookImage, Author
 from books.schemas import BookSchema, BookCreate, BookUpdate
 from data_strorage import BOOKS
 
@@ -13,14 +13,14 @@ from data_strorage import BOOKS
 async def create_book(session: AsyncSession, book_data: BookCreate) -> BookSchema:
     book = Book(**book_data.model_dump(exclude="images"))
 
-    for image_data in book_data.get("images", []):
+    for image_data in book_data.images or []:
         image = BookImage(image_url=image_data.image_url, type=image_data.type)
         book.images.append(image)
 
     try:
         session.add(book)
         await session.commit()
-        await session.refresh(book)
+        await session.refresh(book, ["book_info", "authors", "publishing", "wishlists", "images"])
     except Exception as e:
         await session.rollback()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
@@ -62,7 +62,13 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
 async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
     statement = (
         select(Book)
-        .options(joinedload(Book.book_info))
+        .options(
+            joinedload(Book.book_info),
+            joinedload(Book.publishing),
+            selectinload(Book.authors).selectinload(Author.interesting_fact),
+            selectinload(Book.images),
+            selectinload(Book.wishlists)
+        )
         .where(Book.slug == slug)
     )
 

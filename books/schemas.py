@@ -11,6 +11,8 @@ class BookImageSchema(BaseModel):
     image_url: str
     type: BookImageType
 
+    model_config = ConfigDict(from_attributes=True)
+
 
 class BookImageCreate(BookImageSchema):
     type: BookImageType = BookImageType.COVER

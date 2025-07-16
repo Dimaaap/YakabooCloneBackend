@@ -76,7 +76,8 @@ class Book(Base):
 
     images: Mapped[list["BookImage"]] = relationship(
         back_populates="book",
-        cascade="all, delete-orphan"
+        cascade="all, delete-orphan",
+        lazy="selectin"
     )
 
     def __str__(self):
