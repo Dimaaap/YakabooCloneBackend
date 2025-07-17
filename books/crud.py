@@ -66,8 +66,8 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             joinedload(Book.book_info),
             joinedload(Book.publishing),
             selectinload(Book.authors).selectinload(Author.interesting_fact),
-            selectinload(Book.images),
-            selectinload(Book.wishlists)
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.images)
         )
         .where(Book.slug == slug)
     )
