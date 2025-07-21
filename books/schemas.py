@@ -31,6 +31,7 @@ class BookBase(BaseModel):
     images: list[BookImageCreate] | None = None
 
 
+
 class BookCreate(BookBase):
     ...
 

@@ -42,6 +42,9 @@ class BookInfo(Base):
     is_has_esupport: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     bonuses: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
 
+    weight: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    original_name: Mapped[str] = mapped_column(String(255), default="", server_default="")
+
     format: Mapped[BookFormats] = mapped_column(Enum(BookFormats), default=BookFormats.PAPER,
                                                 server_default=BookFormats.PAPER.name)
     language: Mapped[BookLanguages] = mapped_column(Enum(BookLanguages), default=BookLanguages.UKRAINIAN,

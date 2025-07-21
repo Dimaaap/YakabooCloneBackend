@@ -25,6 +25,7 @@ async def register_user(user: UserCreate,
     try:
         auth_utils.send_twilio_sms(phone_number=f"+{user.phone_number}", code=verification_code)
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
     await crud.save_verification_code_to_redis(user.phone_number, code=verification_code)

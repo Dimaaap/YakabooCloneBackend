@@ -5,6 +5,7 @@ from core.models.book_info import CoverTypes, BookFormats, BookLanguages
 
 class BookInfoBase(BaseModel):
     in_stock: bool | None = None
+    bonuses: int | None = None
     visible: bool | None = None
     code: int
     rate: float
@@ -20,6 +21,8 @@ class BookInfoBase(BaseModel):
     first_published_at: int | None = None
     description: str | None = None
     characteristics: str | None = None
+    weight: int | None = None
+    original_name: str | None = None
 
 
 class BookInfoCreate(BookInfoBase):
