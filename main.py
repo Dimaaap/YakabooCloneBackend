@@ -26,6 +26,7 @@ from countries import router as countries_router
 from delivery_terms import router as delivery_terms_router
 from author_facts import router as author_facts_router
 from books import router as books_router
+from book_translators import router as book_translators_router
 
 
 @asynccontextmanager
@@ -56,6 +57,7 @@ app.include_router(countries_router)
 app.include_router(delivery_terms_router)
 app.include_router(author_facts_router)
 app.include_router(books_router)
+app.include_router(book_translators_router)
 
 app.add_middleware(
     CORSMiddleware,

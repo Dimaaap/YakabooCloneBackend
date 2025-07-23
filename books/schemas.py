@@ -5,6 +5,8 @@ from authors.schemas import AuthorSchema
 from core.models.book_image import BookImageType
 from publishing.schemas import PublishingSchema
 from wishlists.schemas import WishlistSchema
+from book_translators.schemas import BookTranslatorSchema
+from literature_periods.schemas import LiteraturePeriodSchema
 
 
 class BookImageSchema(BaseModel):
@@ -60,3 +62,5 @@ class BookSchema(BookBase):
     publishing: PublishingSchema | None = None
     wishlists: list[WishlistSchema] = []
     images: list[BookImageSchema] = []
+    translators: list[BookTranslatorSchema] = []
+    period: list[LiteraturePeriodSchema] = []

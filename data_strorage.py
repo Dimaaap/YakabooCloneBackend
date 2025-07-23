@@ -4341,3 +4341,106 @@ BOOKS = [
         ]
     }
 ]
+
+TRANSLATORS = [
+  {
+    "first_name": "Світлана",
+    "last_name": "Олійник",
+    "slug": "svitlana-oliinyk",
+  },
+  {
+    "first_name": "Владислав",
+    "last_name": "Куліш",
+    "slug": "vladyslav-kulish",
+  },
+  {
+    "first_name": "Катерина",
+    "last_name": "Матвійчук",
+    "slug": "kateryna-matviichuk",
+  },
+  {
+    "first_name": "Олександра",
+    "last_name": "Музичук",
+    "slug": "oleksandra-muzychuk",
+  },
+  {
+    "first_name": "Ірина",
+    "last_name": "Потапова",
+    "slug": "iryna-potapova",
+  },
+  {
+    "first_name": "Nathanaël",
+    "last_name": "",
+    "slug": "nathanael",
+  },
+  {
+    "first_name": "Є.",
+    "last_name": "Бахуров",
+    "slug": "ie-bakhurov",
+  },
+  {
+    "first_name": "Є.",
+    "last_name": "Вінницька",
+    "slug": "ie-vinnytska",
+  },
+  {
+    "first_name": "Є.",
+    "last_name": "Крижевич",
+    "slug": "ie-kryzhevych",
+  },
+  {
+    "first_name": "Є.",
+    "last_name": "Миколаєва",
+    "slug": "ie-mykolaieva",
+  },
+  {
+    "first_name": "Є.",
+    "last_name": "Стасюк",
+    "slug": "ie-stasiuk",
+  },
+  {
+    "first_name": "Єва",
+    "last_name": "Ніколаєва",
+    "slug": "yeva-nikolaieva",
+  },
+  {
+    "first_name": "Зінаїда",
+    "last_name": "Гулевич",
+    "slug": "zinaida-hulevych",
+  },
+  {
+    "first_name": "Зінаїда",
+    "last_name": "Крижевич",
+    "slug": "zinaida-kryzhevych",
+  },
+  {
+    "first_name": "Анастасія",
+    "last_name": "Кіржаєва",
+    "slug": "anastasiia-kirzhaieva",
+  },
+  {
+    "first_name": "Віктор",
+    "last_name": "Сапіцький",
+    "slug": "viktor-sapitskyi",
+  },
+  {
+    "first_name": "Кирило",
+    "last_name": "Болдирев",
+    "slug": "kyrylo-boldyrev",
+  },
+  {
+    "first_name": "Софія",
+    "last_name": "Слаба",
+    "slug": "sofiia-slaba",
+  },
+  {
+    "first_name": "Lukas",
+    "last_name": "",
+    "slug": "lukas",
+  },
+  {
+    "first_name": "Robin",
+    "last_name": "Myers",
+    "slug": "robin-myers",
+  }
+]

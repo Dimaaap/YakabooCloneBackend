@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import String, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from core.models.book_translators import BookTranslator
 from .base import Base
 
 if TYPE_CHECKING:
@@ -15,6 +16,8 @@ if TYPE_CHECKING:
     from .subcategories import Subcategory
     from .publishing import Publishing
     from .book_image import BookImage
+    from .literature_periods import LiteraturePeriods
+    from .translator_book_association import TranslatorBookAssociation
 
 
 class Book(Base):
@@ -40,6 +43,22 @@ class Book(Base):
         lazy="joined"
     )
 
+    translators: Mapped[list["BookTranslator"]] = relationship(
+        secondary="translator_book_association",
+        back_populates="book",
+        overlaps="translator,book",
+        lazy="joined"
+    )
+
+    literature_period_id: Mapped[int] = mapped_column(
+        ForeignKey("literature_periods.id", name="fk_book_literature_period"),
+        nullable=True
+    )
+
+    literature_period: Mapped["LiteraturePeriods"] = relationship(
+        "LiteraturePeriods", back_populates="books", lazy="joined"
+    )
+
     subcategories: Mapped[list["Subcategory"]] = relationship(
         secondary="subcategory_book_association",
         back_populates="books",
@@ -60,6 +79,11 @@ class Book(Base):
     author_details: Mapped[list["AuthorBookAssociation"]] = relationship(
         back_populates="book",
         overlaps="author,book"
+    )
+
+    translator_details: Mapped[list["TranslatorBookAssociation"]] = relationship(
+        back_populates="book",
+        overlaps="translator,book"
     )
 
     wishlist_associations: Mapped[list["WishlistBookAssociation"]] = relationship(

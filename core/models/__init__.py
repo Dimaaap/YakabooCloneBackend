@@ -34,6 +34,9 @@ __all__ = (
     "DeliveryTerms",
     "BookImage",
     "BoardSubcategories",
+    "BookTranslator",
+    "LiteraturePeriods",
+    "TranslatorBookAssociation",
     "BoardGameSubcategoryAssociation"
 )
 
@@ -72,6 +75,9 @@ from .city import City
 from .countries import Country
 from .delivery_terms import DeliveryTerms
 from .book_image import BookImage
+from .book_translators import BookTranslator
+from .literature_periods import LiteraturePeriods
+from .translator_book_association import TranslatorBookAssociation
 from .board_game_age_association import BoardGameAgeAssociation
 from .board_game_subcategories import BoardSubcategories
 from .board_game_subcategories_association import BoardGameSubcategoryAssociation
