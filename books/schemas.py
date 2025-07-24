@@ -63,4 +63,4 @@ class BookSchema(BookBase):
     wishlists: list[WishlistSchema] = []
     images: list[BookImageSchema] = []
     translators: list[BookTranslatorSchema] = []
-    period: list[LiteraturePeriodSchema] = []
+    literature_period: LiteraturePeriodSchema | None = None

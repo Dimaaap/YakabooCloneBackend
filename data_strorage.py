@@ -4444,3 +4444,30 @@ TRANSLATORS = [
     "slug": "robin-myers",
   }
 ]
+
+LITERATURE_PERIODS = [
+    {
+        "title": "Антична література. Стародавній світ",
+        "slug": "antychna-literatura-starodvniy-svit"
+    },
+    {
+        "title": "Література XIX - поч. XX ст. (до 1918 р)",
+        "slug": "literatura-XIX-poch-XX-st-do-1918-r"
+    },
+    {
+        "title": "Література XVII - XVIII ст.",
+        "slug": "literatura-XVII-XVIII-st"
+    },
+    {
+        "title": "Література XX ст.",
+        "slug": "literatura-XX-st"
+    },
+    {
+        "title": "Середньовічна література. Відродження",
+        "slug": "serednyovichna-literatura-vidrodzhennya"
+    },
+    {
+        "title": "Сучасна література",
+        "slug": "suchasna-literatura"
+    }
+]

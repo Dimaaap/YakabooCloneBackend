@@ -83,7 +83,8 @@ async def get_all_translator_books_by_translator_id(session: AsyncSession, trans
             selectinload(Book.translators),
             selectinload(Book.subcategories),
             selectinload(Book.publishing),
-            selectinload(Book.images)
+            selectinload(Book.images),
+            selectinload(Book.literature_period),
         )
     )
     

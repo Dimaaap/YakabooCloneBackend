@@ -11,8 +11,8 @@ if TYPE_CHECKING:
 
 
 class PeriodTitleType(str, enum.Enum):
-    ANTIQUE = "Антична література"
-    END_19_START_20 = "Література XIX - поч. XX ст. (до 1918р)"
+    ANTIQUE = "Антична література. Стародавній світ"
+    END_19_START_20 = "Література XIX - поч. XX ст. (до 1918 р)"
     FROM_17_TO_18 = "Література XVII - XVIII ст."
     WHOLE_20 = "Література XX ст."
     RENAISSANCE = "Середньовічна література. Відродження"

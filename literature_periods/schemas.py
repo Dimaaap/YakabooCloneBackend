@@ -8,6 +8,15 @@ class LiteraturePeriodBase(BaseModel):
     slug: str
 
 
+class LiteraturePeriodWithCountSchema(BaseModel):
+    id: int
+    title: str
+    slug: str
+    books_count: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class LiteraturePeriodCreate(LiteraturePeriodBase):
     ...
 

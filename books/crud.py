@@ -33,7 +33,9 @@ async def get_all_books(session: AsyncSession) -> list[BookSchema]:
         joinedload(Book.book_info),
         selectinload(Book.authors),
         joinedload(Book.publishing),
-        selectinload(Book.wishlists)
+        selectinload(Book.wishlists),
+        selectinload(Book.translators),
+        joinedload(Book.literature_period)
     ).order_by(Book.id))
     result: Result = await session.execute(statement)
     books = result.scalars().all()
@@ -47,7 +49,9 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
             joinedload(Book.book_info),
             selectinload(Book.authors),
             joinedload(Book.publishing),
-            selectinload(Book.wishlists)
+            selectinload(Book.wishlists),
+            selectinload(Book.translators),
+            joinedload(Book.literature_period)
         )
         .where(Book.id == book_id)
     )
@@ -67,7 +71,9 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             joinedload(Book.publishing),
             selectinload(Book.authors).selectinload(Author.interesting_fact),
             selectinload(Book.authors).selectinload(Author.images),
-            selectinload(Book.images)
+            selectinload(Book.images),
+            selectinload(Book.translators),
+            joinedload(Book.literature_period),
         )
         .where(Book.slug == slug)
     )
