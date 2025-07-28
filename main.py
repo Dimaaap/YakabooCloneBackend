@@ -76,4 +76,4 @@ def home_page():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=8004, reload=True)
+    uvicorn.run("main:app", port=8006, reload=True)

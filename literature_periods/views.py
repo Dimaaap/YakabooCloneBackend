@@ -27,19 +27,8 @@ async def get_all_literature_periods(session: AsyncSession = Depends(db_helper.s
 @router.get("/{slug}", response_model=LiteraturePeriodSchema)
 async def get_literature_period_by_slug(slug: str,
                                         session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    cached_periods = await redis_client.get(REDIS_KEY)
-
-    if cached_periods:
-        periods_list = json.loads(cached_periods)
-        for period in periods_list:
-            if period["slug"] == slug:
-                return period
-
-    else:
-        periods = await crud.get_all_literature_periods(session)
-        await redis_client.set(REDIS_KEY, json.dumps([period.model_dump() for period in periods]))
-        return await crud.get_literature_period_by_slug(session, slug)
-
+    periods = await crud.get_literature_period_by_slug(session, slug)
+    return periods
 
 @router.get("/search/", response_model=list[LiteraturePeriodSchema])
 async def search_literature_periods(
@@ -84,7 +73,7 @@ async def delete_literature_period_by_id(period_id: int,
         return {"message": "Deleting error"}
 
 
-@router.get("/books-count")
+@router.get("/books-count", response_model=list[LiteraturePeriodWithCountSchema])
 async def get_literature_periods_with_books_count(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     print("here")
     res = await crud.get_books_count_by_literature_period(session)

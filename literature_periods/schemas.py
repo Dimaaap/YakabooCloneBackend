@@ -1,6 +1,8 @@
 from pydantic import BaseModel, ConfigDict
 
 from core.models.literature_periods import PeriodTitleType
+from typing import TYPE_CHECKING
+
 
 
 class LiteraturePeriodBase(BaseModel):

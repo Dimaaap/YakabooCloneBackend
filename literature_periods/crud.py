@@ -53,16 +53,33 @@ async def get_all_literature_periods(session: AsyncSession) -> list[LiteraturePe
     return [LiteraturePeriodSchema.model_validate(period) for period in literature_periods]
 
 
-async def get_literature_period_by_slug(session: AsyncSession, slug: str) -> LiteraturePeriodSchema:
-    statement = select(LiteraturePeriods).where(LiteraturePeriods.slug == slug)
+async def get_literature_period_by_slug(session: AsyncSession, slug: str):
+    print(slug)
+    statement = (
+        select(LiteraturePeriods)
+        .where(LiteraturePeriods.slug == slug)
+        .options(
+            selectinload(LiteraturePeriods.books)
+            .selectinload(Book.book_info),
+            selectinload(LiteraturePeriods.books)
+            .selectinload(Book.translators),
+            selectinload(LiteraturePeriods.books)
+            .selectinload(Book.subcategories),
+            selectinload(LiteraturePeriods.books)
+            .selectinload(Book.publishing),
+            selectinload(LiteraturePeriods.books)
+            .selectinload(Book.images),
+        )
+    )
+    print(statement)
 
     result: Result = await session.execute(statement)
+    print(result)
     literature_period = result.scalars().first()
 
-    if not literature_period:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Literature period with slug {slug} was not found")
 
+    if not literature_period:
+        return []
     return literature_period
 
 
@@ -70,7 +87,7 @@ async def get_literature_period_by_id(session: AsyncSession, literature_period_i
     statement = select(LiteraturePeriods).where(LiteraturePeriods.id == literature_period_id)
 
     result: Result = await session.execute(statement)
-    literature_period = result.scalars().first()
+    literature_period = result.unique().scalars().first()
 
     if not literature_period:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -134,9 +151,8 @@ async def delete_literature_period_by_id(session: AsyncSession, literature_perio
         return False
 
 
-async def get_books_count_by_literature_period(session: AsyncSession) -> list[LiteraturePeriodWithCountSchema]:
+async def get_books_count_by_literature_period(session: AsyncSession):
     BookAlias = aliased(Book)
-    print("here")
 
     statement = (
         select(
@@ -152,14 +168,15 @@ async def get_books_count_by_literature_period(session: AsyncSession) -> list[Li
 
     result = await session.execute(statement)
     data = result.all()
-
-    print(data)
-
     return [
-        LiteraturePeriodWithCountSchema.model_validate(row._mapping)
-        for row in data
+        {
+            "id": row.id,
+            "title": row.title,
+            "slug": row.slug,
+            "books_count": row.books_count or 0
+        }
+        for row in data if row is not None
     ]
-
 
 async def main():
     async with db_helper.session_factory() as session:
