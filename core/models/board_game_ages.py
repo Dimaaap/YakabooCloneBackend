@@ -8,6 +8,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .board_games import BoardGame
+    from .hobby import Hobby
 
 
 class Age(str, enum.Enum):
@@ -29,3 +30,7 @@ class BoardGameAge(Base):
 
     board_game: Mapped[list["BoardGame"]] = relationship(back_populates="ages",
                                                          secondary="board_game_age_association")
+    hobbies: Mapped[list["Hobby"]] = relationship(
+        secondary="hobby_ages_association",
+        back_populates="ages",
+    )

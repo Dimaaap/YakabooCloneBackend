@@ -6,11 +6,11 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base
 
 if TYPE_CHECKING:
-    from .board_games import BoardGame
+    from .hobby import Hobby
 
 
-class BoardGameBrand(Base):
-    __tablename__ = "board_games_brands"
+class HobbyBrand(Base):
+    __tablename__ = "hobby_brands"
 
     title: Mapped[str] = mapped_column(String(255))
     slug: Mapped[str] = mapped_column(String(255))
@@ -18,8 +18,9 @@ class BoardGameBrand(Base):
     description: Mapped[str] = mapped_column(Text, default="", server_default="")
     visible: Mapped[bool] = mapped_column(Boolean, server_default="1", default=True)
 
-    board_games: Mapped[list["BoardGame"]] = relationship("BoardGame",
-                                                          back_populates="brand", cascade="all, delete-orphan")
+    hobbies: Mapped[list["Hobby"]] = relationship("Hobby",
+                                                  back_populates="brand",
+                                                  cascade="all, delete-orphan")
 
 
     def __str__(self):

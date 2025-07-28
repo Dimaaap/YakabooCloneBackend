@@ -54,7 +54,6 @@ async def get_all_literature_periods(session: AsyncSession) -> list[LiteraturePe
 
 
 async def get_literature_period_by_slug(session: AsyncSession, slug: str):
-    print(slug)
     statement = (
         select(LiteraturePeriods)
         .where(LiteraturePeriods.slug == slug)
@@ -71,10 +70,8 @@ async def get_literature_period_by_slug(session: AsyncSession, slug: str):
             .selectinload(Book.images),
         )
     )
-    print(statement)
 
     result: Result = await session.execute(statement)
-    print(result)
     literature_period = result.scalars().first()
 
 
