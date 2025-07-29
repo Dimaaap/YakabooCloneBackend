@@ -30,6 +30,11 @@ __all__ = (
     "BoardGameInfo",
     "Contacts",
     "City",
+    "Hobby",
+    "HobbyAgesAssociation",
+    "HobbyImage",
+    "HobbyBrand",
+    "HobbyGameSeries",
     "Country",
     "DeliveryTerms",
     "BookImage",
@@ -75,8 +80,13 @@ from .city import City
 from .countries import Country
 from .delivery_terms import DeliveryTerms
 from .book_image import BookImage
+from .hobby import Hobby
+from .hobby_brands import HobbyBrand
+from .hobby_game_series import HobbyGameSeries
+from .hobby_image import HobbyImage
 from .book_translators import BookTranslator
 from .literature_periods import LiteraturePeriods
+from .hobby_ages_association import HobbyAgesAssociation
 from .translator_book_association import TranslatorBookAssociation
 from .board_game_age_association import BoardGameAgeAssociation
 from .board_game_subcategories import BoardSubcategories

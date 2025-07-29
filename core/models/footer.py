@@ -1,4 +1,4 @@
-import enum
+        import enum
 
 from sqlalchemy import String, Boolean, Enum as SqlEnum
 from sqlalchemy.orm import Mapped, mapped_column

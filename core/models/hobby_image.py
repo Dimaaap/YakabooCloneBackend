@@ -17,3 +17,6 @@ class HobbyImage(Base):
 
     hobby_id: Mapped[int] = mapped_column(ForeignKey("hobbies.id", ondelete="CASCADE"), nullable=False)
     hobby: Mapped["Hobby"] = relationship(back_populates="images")
+
+    def __str__(self):
+        return f"{self.__class__.__name__}(image_url={self.image_url})"

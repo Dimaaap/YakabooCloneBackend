@@ -20,6 +20,7 @@ class Hobby(Base):
     title: Mapped[str] = mapped_column(String(255))
     slug: Mapped[str] = mapped_column(String(255))
     description: Mapped[str] = mapped_column(Text, nullable=True)
+    price: Mapped[int] = mapped_column(Integer)
     image: Mapped[str] = mapped_column(Text, default="", server_default="")
     article: Mapped[str] = mapped_column(String(10), unique=True)
     size: Mapped[str] = mapped_column(String(18), default="", server_default="")
