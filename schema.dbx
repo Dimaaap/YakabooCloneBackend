@@ -1,0 +1,149 @@
+TABLE banners {
+  id INTEGER PK
+  image_src VARCHAR(255) [not null]
+  is_visible BOOLEAN [default: true]
+  link VARCHAR(255)
+}
+
+TABLE contacts {
+  id INTEGER PK
+  social_link_title VARCHAR(150) [unique]
+  link VARCHAR(255)
+  icon_title VARCHAR(40) [null]
+  is_acitve BOOLEAN [default: true]
+}
+
+TABLE email_subs {
+  id INTEGER PK
+  email VARCHAR(80) [unique]
+  date_sub DATETIME
+}
+
+TABLE footers {
+  id INTEGER PK
+  title VARCHAR(100) [unique]
+  link VARCHAR(255)
+  category ENUM("Yakaboo", "Інормація") [default: "Yakaboo"]
+  is_active BOOLEAN [default: true]
+}
+
+TABLE interesting {
+  id INTEGER PK
+  title VARCHAR(100)
+  slug VARCHAR(100) [unique]
+  is_active BOOLEAN [default: true]
+}
+
+TABLE knowledges {
+  id INTEGER PK
+  title VARCHAR(100)
+  slug VARCHAR(100) [unique]
+  is_active BOOLEAN [default: true]
+  content TEXT [null]
+}
+
+TABLE sidebars {
+  id INTEGER PK
+  title VARCHAR(100) [unique]
+  slug VARCHAR(100) [unique]
+  icon VARCHAR(255) [null]
+  is_visible BOOLEAN [default: true]
+  is_clickable BOOLEAN [default: false]
+  order_number INTGER [default: 1]
+  link VARCHAR(255)
+}
+
+TABLE users {
+  id INTEGER PK
+  first_name VARCHAR(120)
+  last_name VARCHAR(120)
+  phone_number VARCHAR(13) [unique]
+  email VARCHAR(80) [unique]
+  password VARCHAR(80)
+  is_staff BOOLEAN [default: false]
+  is_active BOOLEAN [default: true]
+  is_verfied BOOLEAN [default: false]
+  is_subscribed_to_news BOOLEAN [default: false]
+  birth_date DATA [null]
+  date_joined DATETIME
+}
+
+TABLE wishlists {
+  id INTEGER PK
+  title VARCHAR(100)
+  is_active BOOLEAN [default: true]
+  user_id INTEGER [ref: > users.id]
+}
+
+
+TABLE authors {
+  id INTEGER PK
+  first_name VARCHAR(255)
+  last_name VARCHAR(255)
+  slug VARCHAR(255) [unique]
+  date_of_birth DATE [null]
+  description TEXT [null]
+  short_description TEXT [null]
+  is_active BOOLEAN [default: true]
+}
+
+TABLE author_interesting_facts {
+  id INTEGER PK
+  fact_text TEXT
+  author_id INTEGER [ref: > authors.id]
+}
+
+TABLE author_images {
+  id INTEGER PK
+  image_path VARCHAR(255)
+  author_id INTEGER [ref: > authors.id]
+}
+
+TABLE books {
+  id INTEGER PK
+  title VARCHAR(255)
+  slug VARCHAR(255) [unique]
+  price INTEGER [not null]
+  is_in_top BOOLEAN [default: false]
+  is_promo BOOLEAN [default: false]
+  is_in_chart BOOLEAN [default: false]
+  stars_count INTEGER
+  promo_price INTEGER [null]
+  book_info_id INTEGER [ref: > book_info.id]
+}
+
+
+TABLE author_book_association {
+  id INTEGER PK
+  book_id INTEGER [ref: > books.id]
+  author_id INTEGER [ref: > authors.id]
+}
+
+TABLE book_info {
+  id INTEGER PK
+  is_in_stock BOOLEAN [default: true]
+  is_active BOOLEAN [default: true]
+  code INTEGER [unique]
+  rate FLOAT(4, 2)
+  illustrations VARCHAR(255) [null]
+  ISBN VARCHAR(20) [unique]
+  cover_type ENUM("Тверда", "М'яка")
+  pages_count INTEGER
+  is_has_cashback BOOLEAN [default: false]
+  is_has_esupport BOOLEAN [default: false]
+  bonuses INTEGER [default: 0]
+  weight INTEGER [null]
+  original_title VARCHAR(255) [not null]
+  format ENUM() [default: "Паперова"]
+  language ENUM("Українська", "Англійська") [default: "Українська"]
+  publishing_year INTEGER [null]
+  first_published_at INTEGER [null]
+  description TEXT [null]
+}
+
+TABLE book_images {
+  id INTEGER PK
+  image_url VARCHAR(255)
+  type ENUM('cover', 'page') [not null]
+  book_id INTEGER [ref: > books.id]
+}
