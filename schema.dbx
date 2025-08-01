@@ -144,6 +144,142 @@ TABLE book_info {
 TABLE book_images {
   id INTEGER PK
   image_url VARCHAR(255)
-  type ENUM('cover', 'page') [not null]
+  type ENUM("cover", "page") [default: "cover"]
   book_id INTEGER [ref: > books.id]
+}
+
+TABLE translators {
+  id INTEGER PK
+  first_name VARCHAR(255)
+  last_name VARCHAR(255)
+  slug VARCHAR(255) [unique]
+  is_active BOOLEAN [default: true]
+}
+
+TABLE translator_book_association {
+  id INTEGER PK
+  book_id INTEGER [ref: > books.id]
+  translator_id INTEGER [ref: > translators.id]
+}
+
+TABLE countries {
+  id INTEGER PK
+  title VARCHAR(110) [unique]
+  is_visible BOOLEAN [default: true]
+}
+
+TABLE cities {
+  id INTEGER PK
+  title VARCHAR(150)
+  region VARCHAR(180) [null]
+  is_visible BOOLEAN [default: true]
+  country_id INTEGER [ref: > countries.id]
+}
+
+TABLE delivery_terms {
+  id INTEGER PK
+  yakaboo_shop_price INTEGER [null]
+  new_post_office_price INTEGER [null]
+  new_post_department_price INTEGER [null]
+  new_post_courier_price INTEGER [null]
+  meest_post_price INTEGER [null]
+  ukrpost_department_price INTEGER [null]
+  ukrpost_courier_price INTEGER [null]
+  country_id INTEGER [ref: > countries.id, null]
+  city_id INTEGER [ref: > cities.id, null]
+}
+
+TABLE board_games {
+  id INTEGER PK
+  title VARCHAR(255)
+  slug VARCHAR(255) [unique]
+  image_src VARCHAR(255)
+  code INTEGER [unique]
+  price INTEGER [not null]
+  in_stock BOOLEAN [default: true]
+  filters ENUM("У наявності", "Готовий до відправки")
+  type ENUM() [null]
+  kind ENUM() [null]
+  players_count ENUM() [null]
+
+  brand_id INTEGER [ref: > board_game_brands.id]
+  seria_id INTEGER [ref: > game_series.id]
+}
+
+TABLE board_game_info {
+  id INTEGER PK
+  description TEXT [null]
+  article VARCHAR(30) [unique]
+  package_size VARCHAR(30) [null]
+  weight INTEGER [null]
+  theme ENUM() [null]
+  language ENUM() [default: "Українська"]
+  board_game_id INTEGER [ref: > board_games.id]
+}
+
+TABLE board_game_ages {
+  id INTEGER PK
+  age ENUM()
+  slug VARCHAR(250) [unique]
+}
+
+TABLE board_game_age_association {
+  id INTEGER PK
+  board_game_id INTEGER [ref: > board_games.id]
+  age_id INTEGER [ref: > board_game_ages.id]
+}
+
+TABLE board_game_brands {
+  id INTEGER PK
+  title VARCHAR(255) [unique, not null]
+  slug VARCHAR(255) [unique, not null]
+  image_src VARCHAR(255) [null]
+  description TEXT [null]
+  is_active BOOLEAN [default: true]
+}
+
+TABLE board_game_subcategories {
+  id INTEGER PK
+  title ENUM()
+  slug VARCHAR(80) [unique, not null]
+}
+
+TABLE board_game_subcategory_association {
+  id INTEGER PK
+  board_game_id INTEGER [ref: > board_games.id]
+  subcategory_id INTEGER [ref: > board_game_subcategories.id]
+}
+
+TABLE game_series {
+  id INTEGER PK
+  title VARCHAR(255)
+  slug VARCHAR(255) [unique]
+}
+
+TABLE hobbies {
+  id INTEGER PK
+  title VARCHAR(255)
+  slug VARCHAR(255) [unique]
+  description TEXT [null]
+  price INTEGER
+  image_src VARCHAR(255) [null]
+  article INTEGER [unique]
+  size VARCHAR(15) [not null]
+  language ENUM() [default: "Українська"]
+  weight INTEGER [null]
+  code VARCHAR(15) [unique]
+  details_count INTEGER [not null]
+  brand_id INTEGER [ref: > board_game_brands.id]
+}
+
+TABLE hobby_images {
+  id INTEGER PK
+  image_url VARCHAR(255) [null]
+  hobby_id INTEGER [ref: > hobbies.id]
+}
+
+TABLE hobby_age_association {
+  id INTEGER PK
+  hobby_id INTEGER [ref: > hobbies.id]
+  board_game_age INTEGER [ref: > board_game_ages.id]
 }
