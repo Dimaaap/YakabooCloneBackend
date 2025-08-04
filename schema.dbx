@@ -269,7 +269,8 @@ TABLE hobbies {
   weight INTEGER [null]
   code VARCHAR(15) [unique]
   details_count INTEGER [not null]
-  brand_id INTEGER [ref: > board_game_brands.id]
+  brand_id INTEGER [ref: > hobby_brands.id]
+  seria_id INTEGER [ref: > hobby_game_series.id]
 }
 
 TABLE hobby_images {
@@ -282,4 +283,19 @@ TABLE hobby_age_association {
   id INTEGER PK
   hobby_id INTEGER [ref: > hobbies.id]
   board_game_age INTEGER [ref: > board_game_ages.id]
+}
+
+TABLE hobby_brands {
+  id INTEGER PK
+  title VARCHAR(255)
+  slug VARCHAR(255) [unique]
+  image VARCHAR(255) [null]
+  description TEXT [null]
+  is_active BOOLEAN [default: true]
+}
+
+TABLE hobby_game_series {
+  id INTEGER PK
+  title VARCHAR(255)
+  slug VARCHAR(255) [unique]
 }

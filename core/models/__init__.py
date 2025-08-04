@@ -35,6 +35,7 @@ __all__ = (
     "HobbyImage",
     "HobbyBrand",
     "HobbyGameSeries",
+    "HobbyCategory",
     "Country",
     "DeliveryTerms",
     "BookImage",
@@ -84,6 +85,7 @@ from .hobby import Hobby
 from .hobby_brands import HobbyBrand
 from .hobby_game_series import HobbyGameSeries
 from .hobby_image import HobbyImage
+from .hobby_categories import HobbyCategory
 from .book_translators import BookTranslator
 from .literature_periods import LiteraturePeriods
 from .hobby_ages_association import HobbyAgesAssociation

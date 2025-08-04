@@ -1,6 +1,8 @@
+import enum
+
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Text, Enum as SQLEnum, Integer, Boolean, ForeignKey
+from sqlalchemy import String, Text, Enum as SQLEnum, Integer, Boolean, ForeignKey, Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .book_info import BookLanguages
@@ -12,6 +14,18 @@ if TYPE_CHECKING:
     from .hobby_brands import HobbyBrand
     from .hobby_game_series import HobbyGameSeries
     from .hobby_image import HobbyImage
+    from .hobby_categories import HobbyCategory
+
+
+class HobbyTheme(str, enum.Enum):
+    PEOPLE = "Люди"
+    RELIGION = "Релігія"
+    ANIMALS = "Тварини"
+    FLOWERS = "Квіти"
+    NATURE = "Природа, пейзажі"
+    ARCHITECTURE = "Архітектура, Міста і країни"
+    KITCHEN = "Кухня і кулінарія, Натюрморт"
+
 
 
 class Hobby(Base):
@@ -24,10 +38,15 @@ class Hobby(Base):
     image: Mapped[str] = mapped_column(Text, default="", server_default="")
     article: Mapped[str] = mapped_column(String(10), unique=True)
     size: Mapped[str] = mapped_column(String(18), default="", server_default="")
-    language: Mapped[BookLanguages] = mapped_column(SQLEnum(BookLanguages), default=BookLanguages.UKRAINIAN,
-                                                    server_default=BookLanguages.UKRAINIAN.name)
     weight: Mapped[int] = mapped_column(Integer, nullable=True, default=None)
     code: Mapped[int] = mapped_column(Integer, unique=True)
+    theme: Mapped[int] = mapped_column(SQLEnum(HobbyTheme,
+                                               name="theme_enum",
+                                               values_callable=lambda x: [e.value for e in x],),
+                                       nullable=True,
+                                       default=HobbyTheme.PEOPLE,
+                                       server_default=HobbyTheme.PEOPLE.value)
+    difficulty_level: Mapped[int] = mapped_column(Integer, nullable=True)
     details_count: Mapped[int] = mapped_column(Integer, nullable=True)
     in_stock: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
 
@@ -47,3 +66,6 @@ class Hobby(Base):
         cascade="all, delete-orphan",
         lazy="selectin",
     )
+
+    category_id: Mapped[int] = mapped_column(ForeignKey("hobby_categories.id"))
+    category: Mapped["HobbyCategory"] = relationship("HobbyCategory", back_populates="hobbies")

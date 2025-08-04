@@ -4471,3 +4471,70 @@ LITERATURE_PERIODS = [
         "slug": "suchasna-literatura"
     }
 ]
+
+
+HOBBY_CATEGORIES = [
+    {
+        "title": "Активний відпочинок",
+        "slug": "aktyvnyi-vidpochynok",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/695550002655211.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6965709191357.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6982509010107.jpg"
+        ]
+    },
+    {
+        "title": "Картини за номерами",
+        "slug": "kartyny-za-nomeramy",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/4/241011660.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/p/l/pl-00036106_00-1000x1000_copy.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/p/l/pl-00036418_00-1000x1000_result_1.jpg"
+        ]
+    },
+    {
+        "title": "Алмазна мозаїка",
+        "slug": "almazna-mozaika",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/a/fa11116.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/p/l/pl-00036987_00-1000x1000.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/p/l/pl-00036987_00-1000x1000.jpg"
+        ]
+    },
+    {
+        "title": "Конструктори",
+        "slug": "konstruktory",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/5/4/545176_2.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6967375261259.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/0/2020080000101.jpg"
+        ]
+    },
+    {
+        "title": "Наукові експерименти й дослідження",
+        "slug": "naukovi-eksperymenty-i-doslidzhennya",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img_80412.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/1/411026_98267709.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/0/10138040_-943-650.jpg"
+        ]
+    },
+    {
+        "title": "Хобі",
+        "slug": "hobby",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/_/6_92_121.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/_/4__46_13.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/9/198030095.jpg"
+        ]
+    },
+    {
+        "title": "Аксесуари",
+        "slug": "aksesuary",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/0/40-0_11.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/_/3_219_66.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/_/2_316_29.jpg"
+        ]
+    }
+]
