@@ -20,7 +20,8 @@ async def create_book(session: AsyncSession, book_data: BookCreate) -> BookSchem
     try:
         session.add(book)
         await session.commit()
-        await session.refresh(book, ["book_info", "authors", "publishing", "wishlists", "images"])
+        await session.refresh(book, ["book_info", "authors", "publishing", "wishlists", "images",
+                                     "translators", "literature_period"])
     except Exception as e:
         await session.rollback()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))

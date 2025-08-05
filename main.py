@@ -29,6 +29,7 @@ from books import router as books_router
 from book_translators import router as book_translators_router
 from literature_periods import router as literature_periods_router
 from hobby_categories import router as hobby_categories_router
+from hobby_brand import router as hobby_brand_router
 
 
 @asynccontextmanager
@@ -63,6 +64,8 @@ app.include_router(book_translators_router)
 app.include_router(literature_periods_router)
 
 app.include_router(hobby_categories_router)
+
+app.include_router(hobby_brand_router)
 
 app.add_middleware(
     CORSMiddleware,

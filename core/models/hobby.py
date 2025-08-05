@@ -2,7 +2,7 @@ import enum
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Text, Enum as SQLEnum, Integer, Boolean, ForeignKey, Enum as SQLEnum
+from sqlalchemy import String, Text, Integer, Boolean, ForeignKey, Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .book_info import BookLanguages
@@ -40,7 +40,7 @@ class Hobby(Base):
     size: Mapped[str] = mapped_column(String(18), default="", server_default="")
     weight: Mapped[int] = mapped_column(Integer, nullable=True, default=None)
     code: Mapped[int] = mapped_column(Integer, unique=True)
-    theme: Mapped[int] = mapped_column(SQLEnum(HobbyTheme,
+    theme: Mapped[HobbyTheme] = mapped_column(SQLEnum(HobbyTheme,
                                                name="theme_enum",
                                                values_callable=lambda x: [e.value for e in x],),
                                        nullable=True,
