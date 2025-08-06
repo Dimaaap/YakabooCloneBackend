@@ -3,6 +3,8 @@ from datetime import date
 
 from core.models.footer import FooterCategory
 from core.models.book_image import BookImageType
+from core.models.board_game_ages import Age
+from core.models.hobby import HobbyTheme
 
 CATEGORIES = [
     {
@@ -4569,5 +4571,144 @@ HOBBY_BRANDS = [
     {
         "title": "Babylon",
         "slug": "babylon"
+    }
+]
+
+HOBBIES = [
+    # {
+    #     "title": "Набір для експериментів Ranok Creative Парк динозаврів (10114163У)",
+    #     "slug": "nabir-dlya-eksperymentiv-ranok-creative-park-dynosavriv",
+    #     "description": """
+    #         <p>Науково-творчий набір "Парк динозаврів" для юних чумучок від 6 років.</p>
+    #
+    #         <p>Проведи дитині екскурсію таємницями мезозойської ери.</p>
+    #
+    #         <h3>Що з особливого було в ній? Які тварини жили? Які вони були? Чому зникли?</h3>
+    #
+    #         <p>Даємо відповіді на ці запитання з нашим мінідовідничком.
+    #         Зі складових набору створюємо власний неймовірний мініпарк динозаврів.
+    #         Садимо траву для своїх диво-тварин та спостерігаємо, як вона зростає.
+    #         Додаємо трішечки творчості - розфарбуємо динозаврів та поміщаємо їх у
+    #         свою мінітеплицю. А ще створюємо дивовижні спец ефекти - відтворюємо діючий вулкан
+    #         тріасового періоду, який імітує потік лави! </p>
+    #
+    #         <p>
+    #             Дошколярики та школярі, хутчіш вирушаємо до неймовірних пригод,
+    #             до загадкового світу динозаврів!
+    #         </p>
+    #
+    #         <p>
+    #             У наборі містяться усі необхідні складові для проведення експерименту.
+    #         </p>
+    #
+    #         <iframe width="560" height="315" src="https://www.youtube.com/embed/kSX3X4RdCpw?si=y5OzH8n7M6ban4sn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    #     """,
+    #     "price": 600,
+    #     "image": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/_/1_result_9_5.jpg",
+    #     "article": "10114163У",
+    #     "size": "235х235х50 мм",
+    #     "code": 1482301,
+    #     "brand_id": 2,
+    #     "category_id": 5,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/_/1_result_9_5.jpg",
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/2/_/2_result_6_6.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/3/_/3_result_7_6.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/4/_/4_result_5_20.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/5/_/5_result_3_19.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/_/6_result_3_17.jpg"
+    #         }
+    #     ],
+    #     "ages": [2, 3]
+    # },
+    # {
+    #     "title": "Картина за номерами Strateg Свята Трійця 40x50 см (SY6700)",
+    #     "slug": "kartyna-za-nomeramy-strateg-svyata-triyca-40x50-sm",
+    #     "description": """
+    #                     <p>Картини за номерами від українського виробника Strateg поєднують творчість із грою...</p>
+    #
+    #                     <p>У наборі є все, щоб намалювати картину:</p>
+    #                     <ul>
+    #                       <li>бавовняне полотно на дерев'яному підрамнику з пронумерованими контурами;</li>
+    #                       <li>графічна схема розмальовки або контрольний аркуш;</li>
+    #                       <li>акрилові фарби в пронумерованих контейнерах;</li>
+    #                       <li>3 пензлі різної товщини з нейлонового волокна;</li>
+    #                       <li>2 настінні кріплення, щоб ви могли повісити картину;</li>
+    #                       <li>лак для покриття.</li>
+    #                     </ul>
+    #
+    #                     <p>Якщо ви шукаєте оригінальний подарунок людині...</p>
+    #
+    #                     <p><strong>Зверніть увагу — колір може відрізнятися від того,
+    #                     що на фото, оскільки фото обробляється перед публікацією</strong></p>
+    #
+    #     """,
+    #     "price": 373,
+    #     "article": "SY6700",
+    #     "size": "400х500 мм",
+    #     "code": 1445732,
+    #     "theme": HobbyTheme.RELIGION,
+    #     "difficulty_level": 3,
+    #     "brand_id": 3,
+    #     "category_id": 2,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/s/c/screenshot_3_15_1.png"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/s/c/screenshot_2_34_11.png"
+    #         }
+    #     ]
+    # }
+    {
+        "title": "Картина за номерами Strateg Пара бізонів 40x50(VA-3348)",
+        "slug": "kartyna-za-nomeramy-strateg-para-bizoniv",
+        "description": """
+                        <h3>Опис товару</h3>
+            
+                <p>Картина за номерами Strateg ПРЕМІУМ Пара бізонів з лаком розміром 40x50 см VA-3348. Картини за номерами від українського виробника Strateg поєднують творчість із грою. Вони розвивають фантазію, покращують пам'ять та дрібну моторику. А процес малювання знижує тривогу та знімає стрес.</p>
+                
+                <p>У наборі є все, щоб намалювати картину:</p>
+                
+                <ul>
+                  <li>бавовняне полотно на дерев'яному підрамнику з пронумерованими контурами;</li>
+                  <li>графічна схема розмальовки або контрольний аркуш;</li>
+                  <li>акрилові фарби в пронумерованих контейнерах;</li>
+                  <li>3 пензлі різної товщини з нейлонового волокна;</li>
+                  <li>2 настінні кріплення, щоб ви могли повісити картину;</li>
+                  <li>лак для покриття.</li>
+                </ul>
+                
+                <p>Якщо ви шукаєте оригінальний подарунок людині, яка захоплюється малюванням — картини за номерами від Strateg саме те, що потрібно!</p>
+                
+                <p><strong>Зверніть увагу '— колір може відрізнятися від того, що на фото, оскільки фото обробляється перед публікацією.</strong></p>
+        """,
+        "price": 373,
+        "article": "VA-3348",
+        "size": "400x500 мм",
+        "code": 1443993,
+        "theme": HobbyTheme.ANIMALS,
+        "difficulty_level": 3,
+        "brand_id": 3,
+        "category_id": 2,
+        "images": [
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/p/l/pl-00035744_00-1000x1000.jpg"
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/p/l/pl-00035744_01-1000x1000.jpg"
+            }
+        ]
     }
 ]

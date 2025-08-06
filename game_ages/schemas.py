@@ -9,6 +9,10 @@ class GameAgeBase(BaseModel):
     board_game: list[int] = []
 
 
+class GameAgeHobbyCreate(BaseModel):
+    age: Age
+
+
 class GameAgeCreate(GameAgeBase):
     pass
 

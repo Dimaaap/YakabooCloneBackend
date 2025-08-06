@@ -7,7 +7,7 @@ class HobbyBrandBase(BaseModel):
     image: str | None = None
     description: str | None = None
     visible: bool = True
-    hobbies: list[int] = []
+    #hobbies: list[int] = []
 
 
 class HobbyBrandCreate(HobbyBrandBase):
@@ -22,8 +22,7 @@ class HobbyBrandUpdatePartial(HobbyBrandUpdate):
     title: str | None = None
     slug: str | None = None
     visible: bool | None = None
-    hobbies: list[int] | None
-    None
+    #hobbies: list[int] | None = None
 
 
 class HobbyBrandSchema(HobbyBrandBase):

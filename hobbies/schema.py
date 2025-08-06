@@ -1,7 +1,8 @@
 from pydantic import BaseModel, ConfigDict
 
 from core.models.hobby import HobbyTheme
-from game_ages.schemas import GameAgeSchema
+from core.models.board_game_ages import Age
+from game_ages.schemas import GameAgeSchema, GameAgeHobbyCreate
 from hobby_brand.schemas import HobbyBrandSchema
 from hobby_categories.schemas import HobbyCategorySchema
 
@@ -10,7 +11,6 @@ class HobbyImageSchema(BaseModel):
     image_url: str
 
     model_config = ConfigDict(from_attributes=True)
-
 
 
 class HobbyImageCreate(HobbyImageSchema):
@@ -34,18 +34,18 @@ class HobbyBase(BaseModel):
     size: str | None = None
     weight: int | None = None
     code: int
-    theme: HobbyTheme
+    theme: HobbyTheme | None = None
     difficulty_level: int | None = None
     details_count: int | None = None
-    ages: list[GameAgeSchema] = []
+    ages: list[Age] = []
     brand_id: int
-    seria_id: int
+    seria_id: int | None = None
     images: list[HobbyImageCreate] | None = None
     category_id: int
 
 
 class HobbyCreate(HobbyBase):
-    ...
+    ages: list[int] = []
 
 
 class HobbyUpdate(HobbyCreate):
@@ -59,19 +59,18 @@ class HobbyUpdatePartial(HobbyUpdate):
     article: str | None = None
     code: int | None = None
     theme: HobbyTheme | None = None
-    ages: list[GameAgeSchema] | None = None
+    ages: list[GameAgeHobbyCreate] | None = None
     brand_id: int | None = None
-    seria_id: int | None = None
     images: list[HobbyImageCreate] | None = None
     category_id: int | None = None
 
 
-class HobbyShema(HobbyBase):
+class HobbySchema(HobbyBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
     images: list[HobbyImageSchema] = []
-    ages: list[GameAgeSchema]
+    ages: list[GameAgeSchema] = []
     brand: HobbyBrandSchema | None = None
     seria: HobbyGameSeriaSchema | None = None
     category: HobbyCategorySchema | None = None
