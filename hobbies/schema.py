@@ -32,6 +32,8 @@ class HobbyBase(BaseModel):
     image: str | None = None
     article: str
     size: str | None = None
+    is_in_stock: bool
+    bonuses: int
     weight: int | None = None
     code: int
     theme: HobbyTheme | None = None
@@ -63,6 +65,8 @@ class HobbyUpdatePartial(HobbyUpdate):
     brand_id: int | None = None
     images: list[HobbyImageCreate] | None = None
     category_id: int | None = None
+    is_in_stock: bool | None = None
+    bonuses: int | None = None
 
 
 class HobbySchema(HobbyBase):
@@ -76,3 +80,6 @@ class HobbySchema(HobbyBase):
     category: HobbyCategorySchema | None = None
 
 
+class HobbyCountsResponse(BaseModel):
+    total: int
+    items: list[HobbySchema]

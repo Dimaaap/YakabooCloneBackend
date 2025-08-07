@@ -40,6 +40,8 @@ class Hobby(Base):
     size: Mapped[str] = mapped_column(String(18), default="", server_default="")
     weight: Mapped[int] = mapped_column(Integer, nullable=True, default=None)
     code: Mapped[int] = mapped_column(Integer, unique=True)
+    is_in_stock: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+    bonuses: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     theme: Mapped[HobbyTheme] = mapped_column(SQLEnum(HobbyTheme,
                                                name="theme_enum",
                                                values_callable=lambda x: [e.value for e in x],),

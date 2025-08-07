@@ -44,7 +44,7 @@ async def create_hobby(session: AsyncSession, hobby_data: HobbyCreate ) -> Hobby
     return HobbySchema.model_validate(hobby)
 
 
-async def get_all_hobbies(session: AsyncSession) -> list[HobbySchema]:
+async def get_all_hobbies(session: AsyncSession) ->git:
     statement = (select(Hobby)
                  .options(
         joinedload(Hobby.brand).selectinload(HobbyBrand.hobbies),
