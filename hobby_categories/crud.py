@@ -2,9 +2,10 @@ import asyncio
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import HobbyCategory, db_helper
+from core.models import HobbyCategory, db_helper, Hobby, HobbyBrand, BoardGameAge
 from hobby_categories.schemas import HobbyCategorySchema, HobbyCategoryCreate
 
 from data_strorage import HOBBY_CATEGORIES
@@ -42,6 +43,24 @@ async def get_hobby_category_by_slug(session: AsyncSession, slug: str):
     if not hobby_category:
         return []
     return hobby_category
+
+
+async def get_hobbies_by_category_slug(session: AsyncSession, category_slug: str):
+    statement = (
+        select(HobbyCategory)
+        .where(HobbyCategory.slug == category_slug)
+        .options(
+            selectinload(HobbyCategory.hobbies)
+            .joinedload(Hobby.brand),
+            selectinload(HobbyCategory.hobbies).selectinload(Hobby.ages).selectinload(BoardGameAge.board_game),
+            selectinload(HobbyCategory.hobbies).joinedload(Hobby.seria),
+            selectinload(HobbyCategory.hobbies).selectinload(Hobby.images)
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    category = result.scalars().first()
+    return category
 
 
 async def get_hobby_category_by_id(session: AsyncSession, category_id: int) -> HobbyCategorySchema:

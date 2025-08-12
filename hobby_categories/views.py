@@ -59,6 +59,17 @@ async def get_hobby_category_by_id(category_id: int,
         return await crud.get_hobby_category_by_id(session, category_id)
 
 
+@router.get("/hobbies/{category_slug}")
+async def get_hobbies_by_category(category_slug: str,
+                                  session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    category = await crud.get_hobbies_by_category_slug(session, category_slug)
+
+    if not category:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Category not found")
+
+    return category
+
+
 @router.post("/create")
 async def create_hobby_category(hobby_category: HobbyCategoryCreate,
                                 session: AsyncSession = Depends(db_helper.scoped_session_dependency)):

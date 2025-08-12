@@ -24,7 +24,18 @@ class HobbyTheme(str, enum.Enum):
     FLOWERS = "Квіти"
     NATURE = "Природа, пейзажі"
     ARCHITECTURE = "Архітектура, Міста і країни"
-    KITCHEN = "Кухня і кулінарія, Натюрморт"
+    KITCHEN = "Кухня і кулінарія"
+    ROMANCE = "Романтика"
+    OTHER = "Інші теми"
+    FANTASY = "Фентезі"
+    NEW_YEAR = "Новий рік та Різдво"
+    STILL_LIFE = "Натюрморт"
+    SPACE = "Космос"
+    SHIPS = "Кораблі"
+    MOVIES = "Кіно і мультфільми"
+    CARTS = "Карти"
+    MILITARY = "Військова техніка"
+    ABSTRACT = "Абстракція"
 
 
 

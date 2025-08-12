@@ -4,7 +4,7 @@ from core.models.hobby import HobbyTheme
 from core.models.board_game_ages import Age
 from game_ages.schemas import GameAgeSchema, GameAgeHobbyCreate
 from hobby_brand.schemas import HobbyBrandSchema
-from hobby_categories.schemas import HobbyCategorySchema
+from hobby_categories.schemas import HobbyCategoryShortSchema
 
 
 class HobbyImageSchema(BaseModel):
@@ -77,7 +77,7 @@ class HobbySchema(HobbyBase):
     ages: list[GameAgeSchema] = []
     brand: HobbyBrandSchema | None = None
     seria: HobbyGameSeriaSchema | None = None
-    category: HobbyCategorySchema | None = None
+    category: HobbyCategoryShortSchema | None = None
 
 
 class HobbyCountsResponse(BaseModel):
