@@ -38,6 +38,11 @@ class HobbyTheme(str, enum.Enum):
     ABSTRACT = "Абстракція"
 
 
+class HobbyType(str, enum.Enum):
+    PENCIL = "Олівець",
+    PEN = "Ручка",
+    MARKER = "Маркер"
+
 
 class Hobby(Base):
     __tablename__ = 'hobbies'
@@ -47,7 +52,7 @@ class Hobby(Base):
     description: Mapped[str] = mapped_column(Text, nullable=True)
     price: Mapped[int] = mapped_column(Integer)
     image: Mapped[str] = mapped_column(Text, default="", server_default="")
-    article: Mapped[str] = mapped_column(String(10), unique=True)
+    article: Mapped[str] = mapped_column(String(20), unique=True)
     size: Mapped[str] = mapped_column(String(18), default="", server_default="")
     weight: Mapped[int] = mapped_column(Integer, nullable=True, default=None)
     code: Mapped[int] = mapped_column(Integer, unique=True)
@@ -57,11 +62,15 @@ class Hobby(Base):
                                                name="theme_enum",
                                                values_callable=lambda x: [e.value for e in x],),
                                        nullable=True,
-                                       default=HobbyTheme.PEOPLE,
                                        server_default=HobbyTheme.PEOPLE.value)
     difficulty_level: Mapped[int] = mapped_column(Integer, nullable=True)
     details_count: Mapped[int] = mapped_column(Integer, nullable=True)
-    in_stock: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+    packing: Mapped[str] = mapped_column(String(50), default="", nullable=True)
+    color: Mapped[str] = mapped_column(String(50), default="", nullable=True)
+    type: Mapped[HobbyType] = mapped_column(SQLEnum(HobbyType,
+                                                    name="types_enum",
+                                                    values_callable=lambda x: [e.value for e in x]),
+                                            nullable=True)
 
     ages: Mapped[list["BoardGameAge"]] = relationship(
         secondary="hobby_ages_association",

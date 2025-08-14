@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from core.models.hobby import HobbyTheme
+from core.models.hobby import HobbyTheme, HobbyType
 from core.models.board_game_ages import Age
 from game_ages.schemas import GameAgeSchema, GameAgeHobbyCreate
 from hobby_brand.schemas import HobbyBrandSchema
@@ -39,6 +39,9 @@ class HobbyBase(BaseModel):
     theme: HobbyTheme | None = None
     difficulty_level: int | None = None
     details_count: int | None = None
+    packing: str | None = None
+    color: str | None = None
+    type: HobbyType | None = None
     ages: list[Age] = []
     brand_id: int
     seria_id: int | None = None
