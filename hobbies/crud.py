@@ -34,6 +34,7 @@ async def create_hobby(session: AsyncSession, hobby_data: HobbyCreate ) -> Hobby
                 joinedload(Hobby.seria),
                 selectinload(Hobby.images),
                 joinedload(Hobby.category),
+                joinedload(Hobby.subcategory),
             )
         )
         result = await session.execute(statement)
@@ -51,7 +52,8 @@ async def get_all_hobbies(session: AsyncSession) -> list[HobbySchema]:
         selectinload(Hobby.ages).selectinload(BoardGameAge.board_game),
         joinedload(Hobby.seria),
         selectinload(Hobby.images),
-        joinedload(Hobby.category)
+        joinedload(Hobby.category),
+        joinedload(Hobby.subcategory),
     ).order_by(Hobby.id))
 
     result: Result = await session.execute(statement)
@@ -67,7 +69,8 @@ async def get_hobby_by_id(session: AsyncSession, hobby_id: int) -> HobbySchema:
             selectinload(Hobby.ages).selectinload(BoardGameAge.board_game),
             joinedload(Hobby.seria),
             selectinload(Hobby.images),
-            joinedload(Hobby.category)
+            joinedload(Hobby.category),
+            joinedload(Hobby.subcategory),
         )
         .where(Hobby.id == hobby_id)
     )
@@ -87,7 +90,8 @@ async def get_hobby_by_slug(session: AsyncSession, hobby_slug: str) -> HobbySche
             selectinload(Hobby.ages).selectinload(BoardGameAge.board_game),
             joinedload(Hobby.seria),
             selectinload(Hobby.images),
-            joinedload(Hobby.category)
+            joinedload(Hobby.category),
+            joinedload(Hobby.subcategory),
         )
         .where(Hobby.slug == hobby_slug)
     )

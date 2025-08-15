@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from hobby_subcategories.schema import HobbySubcategorySchema
+
 
 class HobbyCategoryBase(BaseModel):
     title: str
@@ -24,6 +26,7 @@ class HobbyCategorySchema(HobbyCategoryBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    hobby_subcategories: list[HobbySubcategorySchema] = []
 
 
 class HobbyCategoryShortSchema(HobbyCategoryBase):

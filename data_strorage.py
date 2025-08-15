@@ -4820,40 +4820,122 @@ HOBBIES = [
     #         }
     #     ]
     # }
+    # {
+    #     "title": "Ялинкові прикраси. Зимові забавки (2000001513828)",
+    #     "slug": "yalynkovi-prykrasy-symovi-zabavky",
+    #     "description": """
+    #         <p>
+    #             Подарункова коробка з різдвяними прикрасами для декорування. Пофантазуйте з усією родиною і
+    #             розфарбуйте фігурки у вигляді пряників. З такими прикрасами ваша новорічна ялинка перетворитися
+    #             на неперевершену красуню, яка здійснить усі заповітні бажання!
+    #         </p>
+    #         <p>
+    #             У наборі: 4 дерев'яні фігурки у вигляді пряників розміром до 10 см, мотузочок.
+    #         </p>
+    #         <p>
+    #             Коробка 90х150х15 мм
+    #         </p>
+    #     """,
+    #     "price": 120,
+    #     "article": "2000001513828",
+    #     "size": "90x150x15 мм",
+    #     "code": 1482559,
+    #     "is_in_stock": True,
+    #     "category_id": 6,
+    #     "brand_id": 8,
+    #     "details_count": 4,
+    #     "ages": [
+    #         4, 3, 2
+    #     ],
+    #     "bonuses": 60,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/9/2/9296.970.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/9/2/9297.970.jpg"
+    #         }
+    #     ]
+    # }
     {
-        "title": "Ялинкові прикраси. Зимові забавки (2000001513828)",
-        "slug": "yalynkovi-prykrasy-symovi-zabavky",
+        "title": "Набір алмазної мозаїки Strateg Дівчина з леопардом 30х30 см (СА-0056)",
+        "slug": "nabir-almaznoyi-mozaiky-strateg-divchyna-z-leopardom",
         "description": """
             <p>
-                Подарункова коробка з різдвяними прикрасами для декорування. Пофантазуйте з усією родиною і 
-                розфарбуйте фігурки у вигляді пряників. З такими прикрасами ваша новорічна ялинка перетворитися 
-                на неперевершену красуню, яка здійснить усі заповітні бажання!
+                Алмазна мозаїка Strateg ПРЕМІУМ Дівчина з леопардом розміром 30х30 см CA-0056
             </p>
             <p>
-                У наборі: 4 дерев'яні фігурки у вигляді пряників розміром до 10 см, мотузочок.
+                Алмазна мозаїка чи алмазна вишивка – новий вид аплікації. Спеціальні намистини потрібно 
+                приклеювати стилусом на полотно. Так ви зможете створити блискавичний шедевр - картину, 
+                викладену блискучим камінням.
             </p>
             <p>
-                Коробка 90х150х15 мм
+                А процес малювання алмазами (diamond painting) легкий та захоплюючий, тому що ми 
+                продумали всі деталі.
             </p>
+            <p>
+                <strong>
+                    У наборі картини зі стразів є всі необхідні інструменти:
+                </strong>
+            </p>
+            <ul>
+                <li>
+                     бавовняне полотно на дерев'яному підрамнику з клейовим шаром, ущільнене шаром ДВП 
+                     та пронумерованими контурами;
+                </li>
+                <li>
+                    круглі камінці різних кольорів для викладання картини;
+                </li>
+                <li>
+                    спеціальний стілус;
+                </li>
+                <li>
+                    липка маса для стілусу;
+                </li>
+                <li>
+                    пінцет;
+                </li>
+                <li>
+                    лоток для зручного сортування каміння;
+                </li>
+                <li>
+                    схема відповідності кольору камінчика та символу на полотні.
+                </li>
+            </ul>
+            <p>
+                <strong>
+                    Кількість кольорів - 30
+                </strong>
+            </p>
+            <p>
+                <strong>
+                    Рівень складності - 3
+                </strong>
+            </p>   
+            <p>
+                Якщо ви шукаєте оригінальний подарунок людині, яка захоплюється рукоділлям – 
+                набір алмазної вишивки від українського виробника Strateg саме те, що потрібно!
+            </p> 
         """,
-        "price": 120,
-        "article": "2000001513828",
-        "size": "90x150x15 мм",
-        "code": 1482559,
+        "price": 525,
+        "article": "CA-0056",
+        "size": "300x300 мм",
+        "code": 1443450,
         "is_in_stock": True,
-        "category_id": 6,
-        "brand_id": 8,
-        "details_count": 4,
-        "ages": [
-            4, 3, 2
-        ],
-        "bonuses": 60,
+        "category_id": 3,
+        "bonuses": 263,
+        "difficulty_level": 3,
+        "brand_id": 3,
+        "theme": HobbyTheme.PEOPLE,
         "images": [
             {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/9/2/9296.970.jpg"
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/p/l/pl-00036308_00-1000x1000.jpg"
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/9/2/9297.970.jpg"
+                "image_url": "https://static.yakaboo.ua/media/catalog/product/3/_/3_5_70.jpg"
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/catalog/product/1/_/1_47_52.jpg"
             }
         ]
     }
@@ -4943,4 +5025,55 @@ HOBBIES = [
     #         }
     #     ]
     # }
+]
+
+HOBBY_SUBCATEGORIES = [
+    {
+        "title": "Літо. Море та пляж",
+        "slug": "lito-more-ta-plyazh",
+        "category_id": 1,
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/0/203905_1.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6983300240168.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/0/904894315_result.jpg"
+            }
+        ]
+    },
+    {
+        "title": "Мильні бульбашки",
+        "slug": "mylni-bulbashky",
+        "category_id": 1,
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/8/4820173521661.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6903051541055.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6900069405379.jpg"
+            }
+        ]
+    },
+    {
+        "title": "Рухливі ігри",
+        "slug": "ruhlyvi-ihry",
+        "category_id": 1,
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6982509010107.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6955852000071.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/9/6927792510262.jpg"
+            }
+        ]
+    }
 ]

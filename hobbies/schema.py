@@ -5,6 +5,7 @@ from core.models.board_game_ages import Age
 from game_ages.schemas import GameAgeSchema, GameAgeHobbyCreate
 from hobby_brand.schemas import HobbyBrandSchema
 from hobby_categories.schemas import HobbyCategoryShortSchema
+from hobby_subcategories.schema import HobbySubcategorySchema, HobbySubcategoryShortSchema
 
 
 class HobbyImageSchema(BaseModel):
@@ -47,6 +48,7 @@ class HobbyBase(BaseModel):
     seria_id: int | None = None
     images: list[HobbyImageCreate] | None = None
     category_id: int
+    subcategory_id: int | None = None
 
 
 class HobbyCreate(HobbyBase):
@@ -81,6 +83,7 @@ class HobbySchema(HobbyBase):
     brand: HobbyBrandSchema | None = None
     seria: HobbyGameSeriaSchema | None = None
     category: HobbyCategoryShortSchema | None = None
+    subcategory: HobbySubcategoryShortSchema | None = None
 
 
 class HobbyCountsResponse(BaseModel):

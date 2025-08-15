@@ -4,9 +4,6 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Text, Integer, Boolean, ForeignKey, Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-from .book_info import BookLanguages
-
 from .base import Base
 
 if TYPE_CHECKING:
@@ -15,6 +12,7 @@ if TYPE_CHECKING:
     from .hobby_game_series import HobbyGameSeries
     from .hobby_image import HobbyImage
     from .hobby_categories import HobbyCategory
+    from .hobby_subcategories import HobbySubCategory
 
 
 class HobbyTheme(str, enum.Enum):
@@ -88,6 +86,10 @@ class Hobby(Base):
         cascade="all, delete-orphan",
         lazy="selectin",
     )
-
     category_id: Mapped[int] = mapped_column(ForeignKey("hobby_categories.id"))
     category: Mapped["HobbyCategory"] = relationship("HobbyCategory", back_populates="hobbies")
+
+    subcategory_id: Mapped[int] = mapped_column(ForeignKey("hobby_subcategories.id"),
+                                                nullable=True)
+
+    subcategory: Mapped["HobbySubCategory"] = relationship("HobbySubCategory", back_populates="hobbies")

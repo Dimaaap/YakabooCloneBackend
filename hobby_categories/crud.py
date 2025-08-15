@@ -5,7 +5,7 @@ from sqlalchemy import select, Result, delete
 from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import HobbyCategory, db_helper, Hobby, HobbyBrand, BoardGameAge
+from core.models import HobbyCategory, db_helper, Hobby, BoardGameAge
 from hobby_categories.schemas import HobbyCategorySchema, HobbyCategoryCreate
 
 from data_strorage import HOBBY_CATEGORIES

@@ -7,6 +7,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .hobby import Hobby
+    from .hobby_subcategories import HobbySubCategory
 
 
 class HobbyCategory(Base):
@@ -17,3 +18,9 @@ class HobbyCategory(Base):
     images_src: Mapped[list[str]] = mapped_column(JSON, nullable=True)
 
     hobbies: Mapped[list["Hobby"]] = relationship("Hobby", back_populates="category", cascade="all, delete-orphan")
+
+    subcategories: Mapped[list["HobbySubCategory"]] = relationship(
+        "HobbySubCategory",
+        back_populates="category",
+        cascade="all, delete-orphan",
+    )
