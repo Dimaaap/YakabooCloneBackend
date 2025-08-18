@@ -5,7 +5,7 @@ from core.models.board_game_ages import Age
 from game_ages.schemas import GameAgeSchema, GameAgeHobbyCreate
 from hobby_brand.schemas import HobbyBrandSchema
 from hobby_categories.schemas import HobbyCategoryShortSchema
-from hobby_subcategories.schema import HobbySubcategorySchema, HobbySubcategoryShortSchema
+from hobby_subcategories.schema import HobbySubcategoryShortSchema
 
 
 class HobbyImageSchema(BaseModel):

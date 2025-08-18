@@ -26,23 +26,32 @@ async def create_hobby_category(
     return category
 
 
-async def get_all_hobby_categories(session: AsyncSession) -> list[HobbyCategory]:
-    statement = select(HobbyCategory).order_by(HobbyCategory.id)
+async def get_all_hobby_categories(session: AsyncSession) -> list[HobbyCategorySchema]:
+    statement = (
+        select(HobbyCategory)
+        .options(selectinload(HobbyCategory.subcategories))
+        .order_by(HobbyCategory.id)
+    )
 
     result: Result = await session.execute(statement)
-    hobby_categories = result.scalars().all()
+    hobby_categories = result.unique().scalars().all()
     return [HobbyCategorySchema.model_validate(category) for category in hobby_categories]
 
 
-async def get_hobby_category_by_slug(session: AsyncSession, slug: str):
-    statement = select(HobbyCategory).where(HobbyCategory.slug == slug)
+async def get_hobby_category_by_slug(session: AsyncSession, slug: str) -> HobbyCategorySchema | None:
+    statement = (
+        select(HobbyCategory)
+        .where(HobbyCategory.slug == slug)
+        .options(
+            selectinload(HobbyCategory.subcategories)
+        )
+    )
 
     result: Result = await session.execute(statement)
-    hobby_category = result.scalars().first()
-
+    hobby_category = result.unique().scalars().first()
     if not hobby_category:
-        return []
-    return hobby_category
+        return None
+    return HobbyCategorySchema.model_validate(hobby_category)
 
 
 async def get_hobbies_by_category_slug(session: AsyncSession, category_slug: str):
@@ -54,7 +63,8 @@ async def get_hobbies_by_category_slug(session: AsyncSession, category_slug: str
             .joinedload(Hobby.brand),
             selectinload(HobbyCategory.hobbies).selectinload(Hobby.ages).selectinload(BoardGameAge.board_game),
             selectinload(HobbyCategory.hobbies).joinedload(Hobby.seria),
-            selectinload(HobbyCategory.hobbies).selectinload(Hobby.images)
+            selectinload(HobbyCategory.hobbies).selectinload(Hobby.images),
+            selectinload(HobbyCategory.subcategories)
         )
     )
 

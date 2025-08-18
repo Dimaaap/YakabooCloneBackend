@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict
 class HobbySubcategoryBase(BaseModel):
     title: str
     slug: str
-    images_src: list[str] | None = None
+    images_src: list[dict[str, str]] | None = None
     category_id: int
 
 

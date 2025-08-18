@@ -51,11 +51,10 @@ async def get_hobbies_by_subcategory_slug(session: AsyncSession, subcategory_slu
         select(HobbySubCategory)
         .where(HobbySubCategory.slug == subcategory_slug)
         .options(
-            selectinload(HobbySubCategory.hobbies)
-            .joinedload(Hobby.brand),
+            selectinload(HobbySubCategory.hobbies).joinedload(Hobby.brand),
             selectinload(HobbySubCategory.hobbies).selectinload(Hobby.ages).selectinload(BoardGameAge.board_game),
             selectinload(HobbySubCategory.hobbies).joinedload(Hobby.seria),
-            selectinload(HobbyCategory.hobbies).selectinload(Hobby.images)
+            selectinload(HobbySubCategory.hobbies).selectinload(Hobby.images)
         )
     )
 

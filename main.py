@@ -31,6 +31,7 @@ from literature_periods import router as literature_periods_router
 from hobby_categories import router as hobby_categories_router
 from hobby_brand import router as hobby_brand_router
 from hobbies import router as hobbies_router
+from hobby_subcategories import router as hobby_subcategories_router
 
 
 @asynccontextmanager
@@ -63,12 +64,10 @@ app.include_router(author_facts_router)
 app.include_router(books_router)
 app.include_router(book_translators_router)
 app.include_router(literature_periods_router)
-
 app.include_router(hobby_categories_router)
-
 app.include_router(hobby_brand_router)
-
 app.include_router(hobbies_router)
+app.include_router(hobby_subcategories_router)
 
 app.add_middleware(
     CORSMiddleware,

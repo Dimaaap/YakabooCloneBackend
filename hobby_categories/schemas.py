@@ -26,7 +26,7 @@ class HobbyCategorySchema(HobbyCategoryBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    hobby_subcategories: list[HobbySubcategorySchema] = []
+    subcategories: list[HobbySubcategorySchema] = []
 
 
 class HobbyCategoryShortSchema(HobbyCategoryBase):
