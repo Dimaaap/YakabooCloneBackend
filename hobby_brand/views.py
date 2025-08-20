@@ -1,6 +1,4 @@
-import json
-
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .schemas import HobbyBrandSchema, HobbyBrandCreate
@@ -14,6 +12,15 @@ router = APIRouter(tags=["Hobby Brands"])
 async def get_all_brands(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     brands = await crud.get_all_brands(session)
     return brands
+
+
+@router.get("/search/", response_model=list[HobbyBrandSchema])
+async def search_brands(
+        query: str = Query(...),
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency)
+):
+    hobbies = await crud.get_brand_by_query(query, session)
+    return hobbies
 
 
 @router.post("/create")
@@ -42,6 +49,16 @@ async def get_brand_by_id(brand_id: int,
     if brand:
         return HobbyBrandSchema.model_validate(brand)
     return {"error": f"Hobby brand with id {brand_id} was not found"}
+
+
+@router.get("/hobbies/{brand_slug}")
+async def get_hobbies_by_brand_slug(brand_slug: str,
+                                    session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    brand = await crud.get_all_hobbies_by_brand_slug(brand_slug, session)
+
+    if not brand:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Brand was not found")
+    return brand
 
 
 @router.get("/by-slug/{brand_slug}")

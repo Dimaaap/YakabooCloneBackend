@@ -1,10 +1,10 @@
 import asyncio
 
-from sqlalchemy import select, Result, delete
+from sqlalchemy import select, Result, delete, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from core.models import HobbyBrand, db_helper, Hobby
+from core.models import HobbyBrand, db_helper, Hobby, BoardGameAge
 from hobby_brand.schemas import HobbyBrandSchema, HobbyBrandCreate
 
 from data_strorage import HOBBY_BRANDS
@@ -58,8 +58,45 @@ async def get_brand_by_id(session: AsyncSession, brand_id: int) -> HobbyBrand:
     return brand
 
 
+async def get_brand_by_query(query: str, session: AsyncSession):
+    query = query.strip()
+    similarity = func.similarity(HobbyBrand.title, query)
+
+    statement = (
+        select(HobbyBrand)
+        .where(
+            or_(
+                similarity >= 0.1,
+                HobbyBrand.title.like(f"%{query}%")
+            )
+        )
+        .order_by(similarity)
+    )
+
+    result: Result = await session.execute(statement)
+    hobby_brands = result.scalars().all()
+    return list(hobby_brands) if hobby_brands else []
+
+
+async def get_all_hobbies_by_brand_slug(brand_slug: str, session: AsyncSession):
+    statement = (
+        select(HobbyBrand)
+        .where(HobbyBrand.slug == brand_slug)
+        .options(
+            selectinload(HobbyBrand.hobbies),
+            selectinload(HobbyBrand.hobbies).selectinload(Hobby.ages).selectinload(BoardGameAge.board_game),
+            selectinload(HobbyBrand.hobbies).joinedload(Hobby.seria),
+            selectinload(HobbyBrand.hobbies).selectinload(Hobby.images),
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    brand = result.scalars().first()
+    return brand
+
+
 async def get_all_brands(session: AsyncSession) -> list[HobbyBrandSchema]:
-    statement = select(HobbyBrand).options(selectinload(HobbyBrand.hobbies)).order_by(HobbyBrand.id)
+    statement = select(HobbyBrand).options(selectinload(HobbyBrand.hobbies)).order_by(HobbyBrand.title)
     result: Result = await session.execute(statement)
     brands = result.scalars().all()
     return brands

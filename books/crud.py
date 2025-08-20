@@ -32,11 +32,13 @@ async def get_all_books(session: AsyncSession) -> list[BookSchema]:
     statement = (select(Book)
                  .options(
         joinedload(Book.book_info),
-        selectinload(Book.authors),
+        selectinload(Book.authors).selectinload(Author.images),
+        selectinload(Book.authors).joinedload(Author.interesting_fact),
         joinedload(Book.publishing),
         selectinload(Book.wishlists),
         selectinload(Book.translators),
-        joinedload(Book.literature_period)
+        joinedload(Book.literature_period),
+        selectinload(Book.images),
     ).order_by(Book.id))
     result: Result = await session.execute(statement)
     books = result.scalars().all()
