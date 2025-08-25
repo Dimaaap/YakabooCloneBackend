@@ -4541,6 +4541,45 @@ HOBBY_CATEGORIES = [
     }
 ]
 
+ACCESSORIES_BRANDS = [
+    {
+        "title": "iCube",
+        "slug": "icube"
+    },
+    {
+        "title": "Білий Тигр",
+        "slug": "bilyi-tyhr"
+    },
+    {
+        "title": "Жорж",
+        "slug": "ghorgh",
+    },
+    {
+        "title": "Зірка",
+        "slug": "zirka"
+    },
+    {
+        "title": "Люцинка",
+        "slug": "liutcynka"
+    },
+    {
+        "title": "Нова пошта",
+        "slug": "nova-poshta"
+    },
+    {
+        "title": "Ранок",
+        "slug": "ranok"
+    },
+    {
+        "title": "Сумна Вівця",
+        "slug": "sumna-vivtsya"
+    },
+    {
+        "title": "Vivat",
+        "slug": "vivat"
+    }
+]
+
 HOBBY_BRANDS = [
     {
         "title": "Caran d`Ache",

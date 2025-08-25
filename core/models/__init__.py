@@ -37,6 +37,10 @@ __all__ = (
     "HobbyGameSeries",
     "HobbyCategory",
     "HobbySubCategory",
+    "BookAccessories",
+    "AccessoriesCategory",
+    "AccessoriesImage",
+    "AccessoriesBrand",
     "Country",
     "DeliveryTerms",
     "BookImage",
@@ -88,6 +92,10 @@ from .hobby_game_series import HobbyGameSeries
 from .hobby_image import HobbyImage
 from .hobby_categories import HobbyCategory
 from .hobby_subcategories import HobbySubCategory
+from .book_accessories import BookAccessories
+from .accessories_category import AccessoriesCategory
+from .accessories_images import AccessoriesImage
+from .accessouries_brand import AccessoriesBrand
 from .book_translators import BookTranslator
 from .literature_periods import LiteraturePeriods
 from .hobby_ages_association import HobbyAgesAssociation
