@@ -5,7 +5,7 @@ class AccessoryBrandBase(BaseModel):
     title: str
     slug: str
     image: str | None = None
-    accessories: list[int] = []
+    #accessories: list[int] = []
 
 
 class AccessoryBrandCreate(AccessoryBrandBase):
@@ -19,7 +19,7 @@ class AccessoryBrandUpdate(AccessoryBrandCreate):
 class AccessoryBrandUpdatePartial(AccessoryBrandUpdate):
     title: str | None = None
     slug: str | None = None
-    accessories: list[int] | None = None
+    #accessories: list[int] | None = None
 
 
 class AccessoryBrandSchema(AccessoryBrandBase):

@@ -4541,6 +4541,18 @@ HOBBY_CATEGORIES = [
     }
 ]
 
+ACCESSORIES_CATEGORIES = [
+    {
+        "title": "Закладки для книг",
+        "slug": "zakladky-dlya-knyg",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/3/93111686_557887918170380_3651345122181775360_n.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/6/7676.970.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img409_7.jpg"
+        ]
+    }
+]
+
 ACCESSORIES_BRANDS = [
     {
         "title": "iCube",

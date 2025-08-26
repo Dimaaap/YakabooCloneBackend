@@ -4,7 +4,7 @@ from sqlalchemy import select, Result, delete, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from core.models import AccessoriesBrand, db_helper, BookAccessories, Hobby, BoardGameAge
+from core.models import AccessoriesBrand, db_helper, BookAccessories
 from accessories_brands.schemas import AccessoryBrandSchema, AccessoryBrandCreate
 
 from data_strorage import ACCESSORIES_BRANDS
@@ -42,7 +42,7 @@ async def delete_brand_by_id(session: AsyncSession, brand_id: int):
     
 async def get_brand_by_slug(session: AsyncSession, brand_slug: str) -> AccessoriesBrand:
     statement = (select(AccessoriesBrand)
-                 .options(selectinload(AccessoriesBrand.hobbies))
+                 .options(selectinload(AccessoriesBrand.accessories))
                  .where(AccessoriesBrand.slug == brand_slug))
     result: Result = await session.execute(statement)
     brand = result.scalars().first()
@@ -74,10 +74,8 @@ async def get_all_accessories_by_brand_slug(brand_slug: str, session: AsyncSessi
         select(AccessoriesBrand)
         .where(AccessoriesBrand.slug == brand_slug)
         .options(
-            selectinload(AccessoriesBrand.hobbies),
-            selectinload(AccessoriesBrand.hobbies).selectinload(Hobby.ages).selecinload(BoardGameAge.board_game),
-            selectinload(AccessoriesBrand.hobbies).joinedload(Hobby.seria),
-            selectinload(AccessoriesBrand.hobbies).selectinload(Hobby.images)
+            selectinload(AccessoriesBrand.accessories),
+            selectinload(AccessoriesBrand.accessories).selectinload(BookAccessories.images)
         )
     )
 
@@ -87,7 +85,7 @@ async def get_all_accessories_by_brand_slug(brand_slug: str, session: AsyncSessi
 
 
 async def get_all_brands(session) -> list[AccessoryBrandSchema]:
-    statement = (select(AccessoriesBrand).options(selectinload(AccessoriesBrand.hobbies))
+    statement = (select(AccessoriesBrand).options(selectinload(AccessoriesBrand.accessories))
                  .order_by(AccessoriesBrand.title))
     result: Result = await session.execute(statement)
     brands = result.scalars().all()

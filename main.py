@@ -32,6 +32,7 @@ from hobby_categories import router as hobby_categories_router
 from hobby_brand import router as hobby_brand_router
 from hobbies import router as hobbies_router
 from hobby_subcategories import router as hobby_subcategories_router
+from accessories_brands import router as accessories_brands_router
 
 
 @asynccontextmanager
@@ -68,6 +69,7 @@ app.include_router(hobby_categories_router)
 app.include_router(hobby_brand_router)
 app.include_router(hobbies_router)
 app.include_router(hobby_subcategories_router)
+app.include_router(accessories_brands_router)
 
 app.add_middleware(
     CORSMiddleware,
