@@ -44,6 +44,7 @@ class BookAccessories(Base):
     article: Mapped[str] = mapped_column(String(25), unique=True)
     size: Mapped[str] = mapped_column(String(15), default="", server_default="")
     code: Mapped[int] = mapped_column(Integer, unique=True)
+    stars: Mapped[int] = mapped_column(Integer, nullable=True)
     weight: Mapped[float] = mapped_column(Float, default=0.0, server_default="0.0", nullable=True)
     is_in_top: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     is_new: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
@@ -55,7 +56,7 @@ class BookAccessories(Base):
                                                   name="accessories_events_enum",
                                                   values_callable=lambda x: [e.value for e in x]),
                                           nullable=True)
-    type: Mapped[AccessoryTheme] = mapped_column(SQLEnum(AccessoryTheme,
+    theme: Mapped[AccessoryTheme] = mapped_column(SQLEnum(AccessoryTheme,
                                                          name="accessories_types_enum",
                                                          values_callable=lambda x: [e.value for e in x]),
                                                  nullable=True)

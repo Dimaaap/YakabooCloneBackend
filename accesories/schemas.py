@@ -21,6 +21,7 @@ class AccessoriesBase(BaseModel):
     slug: str
     description: str | None = None
     price: int
+    stars: int | None = None
     image: str | None = None
     article: str
     size: str | None = None
@@ -33,7 +34,7 @@ class AccessoriesBase(BaseModel):
     color: list[str] = []
     packing: str | None = None
     event: Events | None = None
-    type: AccessoryTheme | None = None
+    theme: AccessoryTheme | None = None
     seria: AccessorySeria | None = None
     images: list[AccessoriesImageCreate] | None = None
     brand_id: int | None = None

@@ -12,7 +12,7 @@ class AccessoriesLiteSchema(BaseModel):
 class AccessoryCategoryBase(BaseModel):
     title: str
     slug: str
-    images: list[str] = []
+    images_src: list[str] = []
 
 
 class AccessoryCategoryCreate(AccessoryCategoryBase):
