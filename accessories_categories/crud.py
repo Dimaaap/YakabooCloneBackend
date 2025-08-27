@@ -74,7 +74,7 @@ async def get_all_categories(session) -> list[AccessoryCategorySchema]:
 
     result: Result = await session.execute(statement)
     categories = result.scalars().all()
-    return categories
+    return [AccessoryCategorySchema.model_validate(category) for category in categories]
 
 
 async def main():

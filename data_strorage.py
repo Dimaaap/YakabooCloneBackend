@@ -1,6 +1,7 @@
 import datetime
 from datetime import date
 
+from core.models.book_accessories import AccessoryTheme, AccessorySeria
 from core.models.footer import FooterCategory
 from core.models.book_image import BookImageType
 from core.models.board_game_ages import Age
@@ -4549,6 +4550,75 @@ ACCESSORIES_CATEGORIES = [
             "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/3/93111686_557887918170380_3651345122181775360_n.jpg",
             "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/6/7676.970.jpg",
             "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img409_7.jpg"
+        ]
+    }
+]
+
+ACCESSORIES = [
+    # {
+    #     "title": 'Закладинка "Балад про недовго й нещасливо"',
+    #     "slug": "zakladynka-balada-pro-nedovgo-i-neschaslyvo",
+    #     "description": """
+    #         <p>
+    #             <strong>Замовляйте книгу</strong> «Балада про недовго й нещасливо»
+    #         </p>
+    #         <p>
+    #             Євангеліні, що присягнулась більше ніколи не довіряти Принцові сердець, доведеться знову
+    #             мати із ним справу. Замість любовного закляття на дівчину тепер накладено смертельне,
+    #             й підступний Джекс може бути єдиним, кому вона може довіритись.
+    #         </p>
+    #         <p>
+    #             На закладинці, що надихалась книгою «Балада про недовго й нещасливо», з однієї сторони
+    #             зображено Джекса і Євангеліну у рамці із золотим фольгуванням. Інша ж сторона містить
+    #             цитату із книги, що відображає сподівання дівчини, яка досі мріє про щасливий фінал…
+    #         </p>
+    #         <p>
+    #             Закладка з оксамитовою soft touch ламінацією стане зручним аксесуаром під час читання
+    #             будь-якої улюбленої серії.
+    #         </p>
+    #     """,
+    #     "price": 141,
+    #     "article": "1622934",
+    #     "size": "60x165 мм",
+    #     "code": 1504560,
+    #     "is_in_top": True,
+    #     "is_new": True,
+    #     "color": ["Мультиколір"],
+    #     "type": AccessoryTheme.LITERATURE,
+    #     "seria": AccessorySeria.ONCE_A_BROKEN_HEART,
+    #     "brand_id": 9,
+    #     "category_id": 1,
+    #     "images": [
+    #         {"image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/i/file_398.png"},
+    #         {"image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/_/1/_1__2_30.png"}
+    #     ]
+    #
+    # }
+
+    {
+        "title": 'Закладка для книги "Григорій Квітка-Основ`яненко" (ЛК000000121)',
+        "slug": "zakladka-dlya-knyhy-grygoriy-kvitka-osnovyanenko",
+        "description": """
+            <p>
+                Закладка двостороння для книги Люцинка «Григорій Квітка-Основ'яненко».
+            </p>
+            <p>
+                Матеріал: картон, із двосторонньою матовою ламінацією
+            </p>
+        """,
+        "price": 30,
+        "article": "ЛК000000121",
+        "size": "50x140x0.5 мм",
+        "code": 1503633,
+        "is_new": True,
+        "color": ["Мультиколір"],
+        "type": AccessoryTheme.LITERATURE,
+        "seria": AccessorySeria.FAMOUS_PEOPLE,
+        "brand_id": 5,
+        "category_id": 1,
+        "images": [
+            {"image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/_/0/_000000121_1.png"},
+            {"image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/_/0/_000000121_2.png"}
         ]
     }
 ]

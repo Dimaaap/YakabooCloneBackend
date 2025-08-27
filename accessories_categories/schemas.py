@@ -1,11 +1,18 @@
 from pydantic import BaseModel, ConfigDict
 
 
+class AccessoriesLiteSchema(BaseModel):
+    id: int
+    title: str
+    slug: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class AccessoryCategoryBase(BaseModel):
     title: str
     slug: str
-    images_src: list[str] = []
-    #accessories: list[int]  = []
+    images: list[str] = []
 
 
 class AccessoryCategoryCreate(AccessoryCategoryBase):
