@@ -65,6 +65,16 @@ async def delete_category(
     return {"error": category}
 
 
+@router.get('/accessories/{category_slug}')
+async def get_accessories_by_category(
+        category_slug: str,
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    category = await crud.get_all_accessories_by_category_slug(session, category_slug)
+
+    return category or []
+
+
 @router.get("/by-slug/{category_slug}")
 async def get_category_by_slug(category_slug: str,
                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):

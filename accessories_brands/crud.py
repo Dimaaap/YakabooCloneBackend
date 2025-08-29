@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from core.models import AccessoriesBrand, db_helper, BookAccessories
-from accessories_brands.schemas import AccessoryBrandSchema, AccessoryBrandCreate
+from accessories_brands.schemas import AccessoryBrandSchema, AccessoryBrandCreate, AccessoryBrandWithCountSchema
 
 from data_strorage import ACCESSORIES_BRANDS
 
@@ -84,12 +84,27 @@ async def get_all_accessories_by_brand_slug(brand_slug: str, session: AsyncSessi
     return brand
 
 
-async def get_all_brands(session) -> list[AccessoryBrandSchema]:
-    statement = (select(AccessoriesBrand).options(selectinload(AccessoriesBrand.accessories))
-                 .order_by(AccessoriesBrand.title))
+async def get_all_brands(session) -> list[AccessoryBrandWithCountSchema]:
+    statement = (
+        select(
+            AccessoriesBrand,
+            func.count(BookAccessories.id).label("accessories_count")
+        )
+        .outerjoin(BookAccessories, BookAccessories.brand_id == AccessoriesBrand.id)
+        .group_by(AccessoriesBrand.id)
+        .order_by(AccessoriesBrand.title)
+    )
+
     result: Result = await session.execute(statement)
-    brands = result.scalars().all()
-    return brands
+    rows = result.all()
+
+    return [
+        AccessoryBrandWithCountSchema(
+            brand=AccessoryBrandSchema.model_validate(brand),
+            accessory_count = count
+        )
+        for brand, count in rows
+    ]
 
 
 async def main():

@@ -32,6 +32,13 @@ async def get_accessory_by_id(
     return accessory
 
 
+@router.get('/brand-slug/{brand_slug}', response_model=list[AccessoriesSchema])
+async def get_all_accessories_by_brand_slug(brand_slug: str,
+                                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    accessories = await crud.get_all_accessories_by_brand_slug(session, brand_slug)
+    return accessories
+
+
 @router.delete("/{accessory_id}")
 async def delete_accessory(accessory_id: int,
                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):

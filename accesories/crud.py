@@ -88,6 +88,27 @@ async def get_accessory_by_slug(session: AsyncSession, accessory_slug: str) -> A
     return AccessoriesSchema.model_validate(accessory)
 
 
+async def get_all_accessories_by_brand_slug(
+        session: AsyncSession, brand_slug: str
+) -> list[AccessoriesSchema]:
+    statement = (
+        select(BookAccessories)
+        .join(BookAccessories.brand)
+        .options(
+            joinedload(BookAccessories.brand).selectinload(AccessoriesBrand.accessories),
+            joinedload(BookAccessories.category).selectinload(AccessoriesCategory.accessories),
+            selectinload(BookAccessories.images)
+        )
+        .where(AccessoriesBrand.slug == brand_slug)
+        .order_by(BookAccessories.id)
+    )
+
+    result: Result = await session.execute(statement)
+    accessories = result.scalars().all()
+
+    return accessories if accessories else []
+
+
 async def update_accessory(session: AsyncSession, accessory_id: int, accessory_data: AccessoriesUpdate):
     accessory = await session.get(BookAccessories, accessory_id)
 

@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, Query, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import AccessoryBrandSchema, AccessoryBrandCreate
+from .schemas import AccessoryBrandSchema, AccessoryBrandCreate, AccessoryBrandWithCountSchema
 from core.models import db_helper
 from . import crud
 
 router = APIRouter(tags=["Accessory Brands"])
 
 
-@router.get("/all", response_model=list[AccessoryBrandSchema])
+@router.get("/all", response_model=list[AccessoryBrandWithCountSchema])
 async def get_all_brands(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     brands = await crud.get_all_brands(session)
     return brands
