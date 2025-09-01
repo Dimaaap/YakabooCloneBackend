@@ -5314,3 +5314,69 @@ HOBBY_SUBCATEGORIES = [
         ]
     }
 ]
+
+NOTEBOOK_CATEGORIES = [
+    {
+        "title": "Блокноти й нотатники",
+        "slug": "bloknoty-i-notatnyky",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/a/1/a141ea64_bbf1_11ed_817e_0050568ef5e6_5fcc0ba1_bbf3_11ed_817e_0050568ef5e6.jpeg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9798886635010_0.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/1/21-0_22.jpg"
+        ]
+    },
+    {
+        "title": "Щоденники, тижневики, планери",
+        "slug": "schodennyky-tyzhnevyky-plannery",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/a/1/a141ea64_bbf1_11ed_817e_0050568ef5e6_5fcc0ba1_bbf3_11ed_817e_0050568ef5e6.jpeg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/e/2ea1371e_bbf4_11ed_817e_0050568ef5e6_8e190100_bbf5_11ed_817e_0050568ef5e6.jpeg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img_15383.jpg"
+        ]
+    },
+    {
+        "title": "Скетчбуки",
+        "slug": "sketchbuky",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/3/13-0_28.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/_/4_151_17.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/-/4-0_1_33.jpg"
+        ]
+    },
+    {
+        "title": "Тревел буки",
+        "slug": "travel-booky",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/_/3__42_267.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/-/2-_5.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img_15994.jpg"
+        ]
+    },
+    {
+        "title": "Зошити",
+        "slug": "zoshyty",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/4/14_9_276.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/0/10_82_14.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/-/7-0_49.jpg"
+        ]
+    },
+    {
+        "title": "Папки та органайзери",
+        "slug": "papky-ta-organaizery",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/_/1__63_73.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/8/28_4_176.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/_/8_74_56.jpg"
+        ]
+    },
+    {
+        "title": "Ручки, олівці",
+        "slug": "ruchky-olivtci",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/-/p/-parker-im-17-black-gt-rb-22-022_1_.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/3/13_6_198.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/3/13_6_251.jpg"
+        ]
+    }
+]

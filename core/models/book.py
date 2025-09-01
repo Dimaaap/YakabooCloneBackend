@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from .book_image import BookImage
     from .literature_periods import LiteraturePeriods
     from .translator_book_association import TranslatorBookAssociation
+    from .notebook_categories import NotebookCategory
 
 
 class Book(Base):
@@ -29,6 +30,8 @@ class Book(Base):
     is_in_chart: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     stars: Mapped[bool] = mapped_column(Integer, default=0, server_default="0")
     promo_price: Mapped[int] = mapped_column(Integer, nullable=True)
+
+    is_notebook: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
 
     book_info_id: Mapped[int] = mapped_column(
         ForeignKey("book_info.id", name="fk_book_info")
@@ -57,6 +60,15 @@ class Book(Base):
 
     literature_period: Mapped["LiteraturePeriods"] = relationship(
         "LiteraturePeriods", back_populates="books", lazy="joined"
+    )
+
+    notebook_category_id: Mapped[int] = mapped_column(
+        ForeignKey("notebook_categories.id", name="fk_notebook_category_id"),
+        nullable=True
+    )
+
+    notebook_category: Mapped["NotebookCategory"] = relationship(
+        "NotebookCategory", back_populates="notebooks", lazy="joined"
     )
 
     subcategories: Mapped[list["Subcategory"]] = relationship(

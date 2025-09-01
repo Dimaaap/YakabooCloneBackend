@@ -29,25 +29,51 @@ async def create_book(session: AsyncSession, book_data: BookCreate) -> BookSchem
 
 
 async def get_all_books(session: AsyncSession) -> list[BookSchema]:
-    statement = (select(Book)
-                 .options(
-        joinedload(Book.book_info),
-        selectinload(Book.authors).selectinload(Author.images),
-        selectinload(Book.authors).joinedload(Author.interesting_fact),
-        joinedload(Book.publishing),
-        selectinload(Book.wishlists),
-        selectinload(Book.translators),
-        joinedload(Book.literature_period),
-        selectinload(Book.images),
-    ).order_by(Book.id))
+    statement = (
+        select(Book)
+        .where(Book.is_notebook == False)
+        .options(
+            joinedload(Book.book_info),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.authors).joinedload(Author.interesting_fact),
+            joinedload(Book.publishing),
+            selectinload(Book.wishlists),
+            selectinload(Book.translators),
+            joinedload(Book.literature_period),
+            selectinload(Book.images),
+        )
+        .order_by(Book.id))
     result: Result = await session.execute(statement)
     books = result.scalars().all()
     return [BookSchema.model_validate(book) for book in books]
 
 
+async def get_all_notebooks(session: AsyncSession) -> list[BookSchema]:
+    statement = (
+        select(Book)
+        .where(Book.is_notebook == True)
+        .options(
+            joinedload(Book.book_info),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.authors).joinedload(Author.interesting_fact),
+            joinedload(Book.publishing),
+            selectinload(Book.wishlists),
+            selectinload(Book.translators),
+            joinedload(Book.literature_period),
+            selectinload(Book.images),
+        )
+        .order_by(Book.id)
+    )
+
+    result: Result = await session.execute(statement)
+    notebooks = result.scalars().all()
+    return [BookSchema.model_validate(notebook) for notebook in notebooks]
+
+
 async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
     statement = (
         select(Book)
+        .where(Book.is_notebook == False, Book.id == book_id)
         .options(
             joinedload(Book.book_info),
             selectinload(Book.authors),
@@ -56,7 +82,6 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
             selectinload(Book.translators),
             joinedload(Book.literature_period)
         )
-        .where(Book.id == book_id)
     )
 
     result: Result = await session.execute(statement)
@@ -66,9 +91,32 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
     return BookSchema.model_validate(book)
 
 
+async def get_notebook_by_id(notebook_id: int, session: AsyncSession) -> BookSchema:
+    statement = (
+        select(Book)
+        .where(Book.is_notebook == True, Book.id == notebook_id)
+        .options(
+            joinedload(Book.book_info),
+            selectinload(Book.authors),
+            joinedload(Book.publishing),
+            selectinload(Book.wishlists),
+            selectinload(Book.translators),
+            joinedload(Book.literature_period),
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    notebook = result.scalars().first()
+    if not notebook:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"The notebook with id {notebook_id} was not found")
+    return BookSchema.model_validate(notebook)
+
+
 async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
     statement = (
         select(Book)
+        .where(Book.is_notebook == False, Book.slug == slug)
         .options(
             joinedload(Book.book_info),
             joinedload(Book.publishing),
@@ -78,7 +126,6 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             selectinload(Book.translators),
             joinedload(Book.literature_period),
         )
-        .where(Book.slug == slug)
     )
 
     result: Result = await session.execute(statement)
@@ -86,6 +133,29 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
     if not book:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"The book with slug {slug} was not found")
     return BookSchema.model_validate(book)
+
+
+async def get_notebook_by_slug(notebook_slug: str, session: AsyncSession) -> BookSchema:
+    statement = (
+        select(Book)
+        .where(Book.is_notebook == True, Book.slug == notebook_slug)
+        .options(
+            joinedload(Book.book_info),
+            joinedload(Book.publishing),
+            selectinload(Book.authors).selectinload(Author.interesting_fact),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.images),
+            selectinload(Book.translators),
+            joinedload(Book.literature_period),
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    notebook = result.scalars().first()
+    if not notebook:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"The notebook with slug {notebook_slug} was not found")
+    return BookSchema.model_validate(notebook)
 
 
 async def update_book(session: AsyncSession, book_id: int, book_data: BookUpdate) -> BookSchema:

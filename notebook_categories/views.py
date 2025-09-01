@@ -43,7 +43,7 @@ async def get_notebook_category_by_slug(slug: str,
         return await crud.get_notebook_category_by_slug(session, slug)
 
 
-@router.get("/{category_id}", response_model=NotebookCategorySchema)
+@router.get("/by-id/{category_id}", response_model=NotebookCategorySchema)
 async def get_notebook_category_by_id(category_id: int,
                                       session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     cached_categories = await redis_client.get(REDIS_KEY)
@@ -54,7 +54,7 @@ async def get_notebook_category_by_id(category_id: int,
             if category["id"] == category_id:
                 return category
     else:
-        categories = await crud.get_notebook_category_by_id(session, category_id)
+        categories = await crud.get_all_notebook_categories(session)
         await redis_client.set(REDIS_KEY,
                                json.dumps([category.model_dump() for category in categories]))
         return await crud.get_notebook_category_by_id(session, category_id)
@@ -90,7 +90,7 @@ async def delete_notebook_category_by_id(
         category_id: int,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
-    deleted_category = crud.delete_notebook_category_by_id(session, category_id)
+    deleted_category = await crud.delete_notebook_category_by_id(session, category_id)
 
     if deleted_category:
         await redis_client.delete(REDIS_KEY)

@@ -13,6 +13,12 @@ async def get_all_books(session: AsyncSession = Depends(db_helper.scoped_session
     return books
 
 
+@router.get('/notebooks/all', response_model=list[BookSchema])
+async def get_all_notebooks(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    notebooks = await crud.get_all_notebooks(session)
+    return notebooks
+
+
 @router.get("/{slug}", response_model=BookSchema)
 async def get_book_by_slug(
         slug: str, session: AsyncSession = Depends(db_helper.scoped_session_dependency)
@@ -21,12 +27,28 @@ async def get_book_by_slug(
     return book
 
 
+@router.get('/notebook/{notebook_slug}', response_model=BookSchema)
+async def get_notebook_by_slug(
+        notebook_slug: str, session: AsyncSession = Depends(db_helper.scoped_session_dependency)
+):
+    notebook = await crud.get_notebook_by_slug(notebook_slug, session)
+    return notebook
+
+
 @router.get("/{book_id}", response_model=BookSchema)
 async def get_book_by_id(
         book_id: int, session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     book = await crud.get_book_by_id(book_id, session)
     return book
+
+
+@router.get('/notebook/{notebook_id}')
+async def get_notebook_by_id(
+        notebook_id: int, session: AsyncSession = Depends(db_helper.scoped_session_dependency)
+):
+    notebook = await crud.get_notebook_by_id(notebook_id, session)
+    return notebook
 
 
 @router.delete("/{book_id}")
