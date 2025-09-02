@@ -4228,121 +4228,125 @@ BOOKS_INFO = [
         'description': "Опис книги 'Доктор Сон' Стівена Кінга."
     }
 ]
+# BOOKS = [
+#     {
+#         'title': 'Сяйво',
+#         'slug': 'syaivo',
+#         'price': 420,
+#         'book_info_id': 2,
+#         'publishing_id': 5,
+#         'author_ids': [12],
+#         'images': [
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/2/6/26929_39860_10.jpg',
+#              'type': BookImageType.COVER}
+#         ]
+#     },
+#     {
+#         'title': 'Керрі',
+#         'slug': 'carry',
+#         'price': 357,
+#         'book_info_id': 3,
+#         'publishing_id': 5,
+#         'author_ids': [12],
+#         'images': [
+#             {'image_url': 'https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/8/7/878683_1.jpg',
+#              'type': BookImageType.COVER}
+#         ]
+#     },
+#     {
+#         'title': 'Мізері',
+#         'slug': 'miseri',
+#         'price': 589,
+#         'book_info_id': 4,
+#         'publishing_id': 5,
+#         'author_ids': [12],
+#         'images': [
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/8/58388_115986_cr.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/image00016_36.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8885.png',
+#              'type': BookImageType.PAGE},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_8732.png',
+#              'type': BookImageType.PAGE},
+#         ]
+#     },
+#     {
+#         'title': 'Кладовище домашніх тварин',
+#         'slug': 'kladovyshche-domashnich-tvaryn',
+#         'price': 264,
+#         'book_info_id': 5,
+#         'publishing_id': 5,
+#         'author_ids': [12],
+#         'images': [
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img567_95.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img568_124.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1256_10.jpg',
+#              'type': BookImageType.PAGE},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1284_10.jpg',
+#              'type': BookImageType.PAGE},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_1229_10.jpg',
+#              'type': BookImageType.PAGE}
+#         ]
+#     },
+#     {
+#         'title': 'Воно',
+#         'slug': 'vono',
+#         'price': 650,
+#         'book_info_id': 6,
+#         'publishing_id': 5,
+#         'author_ids': [12],
+#         'images': [
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img014_5_98.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img015_3_131.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_8465.png',
+#              'type': BookImageType.PAGE},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8396.png',
+#              'type': BookImageType.PAGE}
+#         ]
+#     },
+#     {
+#         'title': 'Темна вежа I. Стрілець',
+#         'slug': 'temna-vezha',
+#         'price': 180,
+#         'book_info_id': 7,
+#         'publishing_id': 5,
+#         'author_ids': [12],
+#         'images': [
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/5/55871_107569.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img392_1_63.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1484.jpg',
+#              'type': BookImageType.PAGE},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1475.jpg',
+#              'type': BookImageType.PAGE}
+#         ]
+#     },
+#     {
+#         'title': 'Доктор Сон',
+#         'slug': 'doktor-son',
+#         'price': 372,
+#         'book_info_id': 8,
+#         'publishing_id': 5,
+#         'author_ids': [12],
+#         'images': [
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19_7_3.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19-2_25.jpg',
+#              'type': BookImageType.COVER},
+#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/1/_/1_oddbeqdiu0.jpg',
+#              'type': BookImageType.PAGE}
+#         ]
+#     }
+# ]
+
 BOOKS = [
-    {
-        'title': 'Сяйво',
-        'slug': 'syaivo',
-        'price': 420,
-        'book_info_id': 2,
-        'publishing_id': 5,
-        'author_ids': [12],
-        'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/2/6/26929_39860_10.jpg',
-             'type': BookImageType.COVER}
-        ]
-    },
-    {
-        'title': 'Керрі',
-        'slug': 'carry',
-        'price': 357,
-        'book_info_id': 3,
-        'publishing_id': 5,
-        'author_ids': [12],
-        'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/8/7/878683_1.jpg',
-             'type': BookImageType.COVER}
-        ]
-    },
-    {
-        'title': 'Мізері',
-        'slug': 'miseri',
-        'price': 589,
-        'book_info_id': 4,
-        'publishing_id': 5,
-        'author_ids': [12],
-        'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/8/58388_115986_cr.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/image00016_36.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8885.png',
-             'type': BookImageType.PAGE},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_8732.png',
-             'type': BookImageType.PAGE},
-        ]
-    },
-    {
-        'title': 'Кладовище домашніх тварин',
-        'slug': 'kladovyshche-domashnich-tvaryn',
-        'price': 264,
-        'book_info_id': 5,
-        'publishing_id': 5,
-        'author_ids': [12],
-        'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img567_95.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img568_124.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1256_10.jpg',
-             'type': BookImageType.PAGE},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1284_10.jpg',
-             'type': BookImageType.PAGE},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_1229_10.jpg',
-             'type': BookImageType.PAGE}
-        ]
-    },
-    {
-        'title': 'Воно',
-        'slug': 'vono',
-        'price': 650,
-        'book_info_id': 6,
-        'publishing_id': 5,
-        'author_ids': [12],
-        'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img014_5_98.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img015_3_131.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_8465.png',
-             'type': BookImageType.PAGE},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8396.png',
-             'type': BookImageType.PAGE}
-        ]
-    },
-    {
-        'title': 'Темна вежа I. Стрілець',
-        'slug': 'temna-vezha',
-        'price': 180,
-        'book_info_id': 7,
-        'publishing_id': 5,
-        'author_ids': [12],
-        'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/5/55871_107569.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img392_1_63.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1484.jpg',
-             'type': BookImageType.PAGE},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1475.jpg',
-             'type': BookImageType.PAGE}
-        ]
-    },
-    {
-        'title': 'Доктор Сон',
-        'slug': 'doktor-son',
-        'price': 372,
-        'book_info_id': 8,
-        'publishing_id': 5,
-        'author_ids': [12],
-        'images': [
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19_7_3.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19-2_25.jpg',
-             'type': BookImageType.COVER},
-            {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/1/_/1_oddbeqdiu0.jpg',
-             'type': BookImageType.PAGE}
-        ]
-    }
+
 ]
 
 TRANSLATORS = [
