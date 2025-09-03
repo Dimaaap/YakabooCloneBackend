@@ -3,6 +3,7 @@ from pydantic import BaseModel, ConfigDict
 from book_info.schemas import BookInfoSchema
 from authors.schemas import AuthorSchema
 from core.models.book_image import BookImageType
+from notebook_subcategories.schemas import NotebookSubcategoryShortSchema
 from publishing.schemas import PublishingSchema
 from wishlists.schemas import WishlistSchema
 from notebook_categories.schema import NotebookCategoryShortSchema
@@ -32,6 +33,7 @@ class BookBase(BaseModel):
     promo_price: int | None = None
     book_info_id: int | None = None
     notebook_category_id: int | None = None
+    notebook_subcategory_id: int | None = None
     publishing_id: int
     images: list[BookImageCreate] | None = None
 
@@ -69,3 +71,4 @@ class BookSchema(BookBase):
     translators: list[BookTranslatorSchema] = []
     literature_period: LiteraturePeriodSchema | None = None
     notebook_category: NotebookCategoryShortSchema | None = None
+    notebook_subcategory: NotebookSubcategoryShortSchema | None = None

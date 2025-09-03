@@ -7,6 +7,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .book import Book
+    from .notebook_subcategories import NotebookSubCategory
 
 
 class NotebookCategory(Base):
@@ -18,6 +19,12 @@ class NotebookCategory(Base):
 
     notebooks: Mapped[list["Book"]] = relationship("Book", back_populates="notebook_category",
                                                     cascade="all, delete-orphan")
+
+    subcategories: Mapped[list["NotebookSubCategory"]] = relationship(
+        "NotebookSubCategory",
+        back_populates="category",
+        cascade="all, delete-orphan"
+    )
 
 
     def __str__(self) -> str:

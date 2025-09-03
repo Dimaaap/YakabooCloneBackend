@@ -4,6 +4,7 @@ from sqlalchemy import String, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.models.book_translators import BookTranslator
+from core.models.notebook_subcategories import NotebookSubCategory
 from .base import Base
 
 if TYPE_CHECKING:
@@ -70,6 +71,11 @@ class Book(Base):
     notebook_category: Mapped["NotebookCategory"] = relationship(
         "NotebookCategory", back_populates="notebooks", lazy="joined"
     )
+
+    notebook_subcategory_id: Mapped[int] = mapped_column(ForeignKey("notebook_subcategories.id"), nullable=True)
+
+    notebook_subcategory: Mapped["NotebookSubCategory"] = relationship("NotebookSubCategory",
+                                                                       back_populates="notebooks")
 
     subcategories: Mapped[list["Subcategory"]] = relationship(
         secondary="subcategory_book_association",

@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from notebook_subcategories.schemas import NotebookSubcategorySchema
+
 
 class NotebookCategoryBase(BaseModel):
     title: str
@@ -24,6 +26,7 @@ class NotebookCategorySchema(NotebookCategoryBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    subcategories: list[NotebookSubcategorySchema] = []
 
 
 class NotebookCategoryShortSchema(NotebookCategoryBase):

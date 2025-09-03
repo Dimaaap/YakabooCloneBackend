@@ -46,6 +46,7 @@ __all__ = (
     "BookImage",
     "BoardSubcategories",
     "NotebookCategory",
+    "NotebookSubCategory",
     "BookTranslator",
     "LiteraturePeriods",
     "TranslatorBookAssociation",
@@ -100,6 +101,7 @@ from .accessouries_brand import AccessoriesBrand
 from .book_translators import BookTranslator
 from .literature_periods import LiteraturePeriods
 from .notebook_categories import NotebookCategory
+from .notebook_subcategories import NotebookSubCategory
 from .hobby_ages_association import HobbyAgesAssociation
 from .translator_book_association import TranslatorBookAssociation
 from .board_game_age_association import BoardGameAgeAssociation

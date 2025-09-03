@@ -57,6 +57,7 @@ async def get_notebooks_by_category_slug(session: AsyncSession, category_slug: s
             selectinload(NotebookCategory.notebooks).joinedload(Book.literature_period),
             selectinload(NotebookCategory.notebooks).selectinload(Book.authors),
             selectinload(NotebookCategory.notebooks).selectinload(Book.images),
+            selectinload(NotebookCategory.subcategories)
         )
     )
 
