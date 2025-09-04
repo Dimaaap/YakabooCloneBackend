@@ -24,6 +24,20 @@ class BookLanguages(enum.Enum):
 class CoverTypes(enum.Enum):
     SOLID = "Тверда"
     SOFT = "М'яка"
+    RINGS = "На кільцях"
+
+
+class PagesType(enum.Enum):
+    LINES = "Лінійка"
+    CELL = "Клітинка"
+    OBLIQUE = "Коса лінія"
+    SIMPLE = "Прості"
+
+
+class SizeTypes(enum.Enum):
+    SMALL = "Маленький",
+    MEDIUM = "Середній",
+    LARGE = "Великий"
 
 
 class BookInfo(Base):
@@ -49,6 +63,12 @@ class BookInfo(Base):
                                                 server_default=BookFormats.PAPER.name)
     language: Mapped[BookLanguages] = mapped_column(Enum(BookLanguages), default=BookLanguages.UKRAINIAN,
                                                     server_default=BookLanguages.UKRAINIAN.name)
+    color: Mapped[str] = mapped_column(String(100), nullable=True)
+    papers: Mapped[PagesType] = mapped_column(Enum(PagesType), nullable=True)
+    size: Mapped[SizeTypes] = mapped_column(Enum(SizeTypes), nullable=True)
+    pages_color: Mapped[str] = mapped_column(String(50), nullable=True)
+    type: Mapped[str] = mapped_column(String(50), nullable=True)
+
     publishing_year: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     first_published_at: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     description: Mapped[str] = mapped_column(Text, default="", server_default="")

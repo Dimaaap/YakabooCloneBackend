@@ -61,7 +61,7 @@ async def get_notebooks_by_subcategory_slug(session: AsyncSession, subcategory_s
     )
 
     result: Result = await session.execute(statement)
-    subcategory = result.scalars.first()
+    subcategory = result.scalars().first()
     return subcategory
 
 

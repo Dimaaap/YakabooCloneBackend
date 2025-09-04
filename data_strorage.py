@@ -2,6 +2,7 @@ import datetime
 from datetime import date
 
 from core.models.book_accessories import AccessoryTheme, AccessorySeria
+from core.models.book_info import PagesType
 from core.models.footer import FooterCategory
 from core.models.book_image import BookImageType
 from core.models.board_game_ages import Age
@@ -3351,22 +3352,26 @@ PUBLISHING = [
     #     "title": "Ще одну сторінку",
     #     "slug": "Sche-odnu-storinku"
     # },
+    # {
+    #     "title": "BookChef",
+    #     "slug": "book-chef",
+    #     "logo": "https://static.yakaboo.ua/media/entity/book_publisher/p/h/photo5375214209203286605.jpg",
+    #     "long_description": """
+    #         <p>
+    #             <i>BookChef</i> — видавництво світових бестселерів Ювала Ноя Харарі, Мішель Обами, Камерон Діаз,
+    #             Біла Клінтона, Іцхака Адізеса, Лю Цисіня та інших відомих письменників. У видавництві прагнуть,
+    #             щоб важливих книжок ставало більше, тому там уважно обирають не лише книжки, а й людей, які над
+    #             ними працюють. Фантастику перекладають фани жанру, а книжки для підприємців редагують фахівці з
+    #             бізнесу. Адже лише коли людина живе темою, народжується глибокий, емоційний і якісний текст. У BookChef
+    #             наголошують, що роблять все це, щоб сфокусувати читацьку увагу на головному — на відповідях, заради
+    #             яких читають книги видавництва. BookChef — книжки, що формують особистість.
+    #         </p>
+    #     """
+    # },
     {
-        "title": "BookChef",
-        "slug": "book-chef",
-        "logo": "https://static.yakaboo.ua/media/entity/book_publisher/p/h/photo5375214209203286605.jpg",
-        "long_description": """
-            <p>
-                <i>BookChef</i> — видавництво світових бестселерів Ювала Ноя Харарі, Мішель Обами, Камерон Діаз, 
-                Біла Клінтона, Іцхака Адізеса, Лю Цисіня та інших відомих письменників. У видавництві прагнуть, 
-                щоб важливих книжок ставало більше, тому там уважно обирають не лише книжки, а й людей, які над 
-                ними працюють. Фантастику перекладають фани жанру, а книжки для підприємців редагують фахівці з 
-                бізнесу. Адже лише коли людина живе темою, народжується глибокий, емоційний і якісний текст. У BookChef 
-                наголошують, що роблять все це, щоб сфокусувати читацьку увагу на головному — на відповідях, заради 
-                яких читають книги видавництва. BookChef — книжки, що формують особистість.
-            </p>
-        """
-    },
+        "title": "Moleskine",
+        "slug": "moleskine",
+    }
     # {
     #     "title": "Юніверс",
     #     "slug": "Junivers",
@@ -4249,299 +4254,253 @@ BOOKS_INFO = [
     #     'bonuses': 300,
     #     'description': "Опис книги 'Доктор Сон' Стівена Кінга."
     # }
+    # {
+    #     "code": 1436624,
+    #     "ISBN": "978-617-548-078-6",
+    #     "cover_type": "Тверда",
+    #     "pages_count": 288,
+    #     "is_has_cashback": False,
+    #     "format": "Паперова",
+    #     "language": "Українська",
+    #     "publishing_year": 2022,
+    #     "bonuses": 190,
+    #     "rate": 5,
+    #     "weight": 485,
+    #     "description": """
+    #         <p>
+    #             Кожен із нас хоче стати щасливим, упевненим у собі й успішним. Ми читаємо розумні книги з порадами,
+    #             як цього досягти. Щороку / щомісяця / щопонеділка починаємо докладати певних зусиль, прямуючи до
+    #             поставленої мети. Однак постійно щось іде не так, і ми опускаємо руки, бо у нас немає часу / сил /
+    #             змоги впроваджувати такі необхідні зміни у своє життя.
+    #         </p>
+    #         <p>
+    #             Усе це врахував німецький економіст Домінік Спенст. Він створив унікальний щоденник «6 хвилин»,
+    #             який допоможе вам не відкладати зміни на потім. Витрачаючи лише 3 хвилини вранці й 3 хвилини увечері,
+    #             ви зможете сформувати корисні звички, які допоможуть зробити ваше життя більш усвідомленим,
+    #             гармонійним і щасливим. Перевірені на практиці методи не дозволять вам припинити роботу над собою,
+    #             а відтак ви зможете завершити розпочату трансформацію.
+    #         </p>
+    #     """
+    # },
     {
-        "code": 1436624,
-        "ISBN": "978-617-548-078-6",
-        "cover_type": "Тверда",
-        "pages_count": 288,
+        "code": 937217,
+        "ISBN": "CH016M23",
+        "cover_type": "М'яка",
+        "in_stock": False,
         "is_has_cashback": False,
-        "format": "Паперова",
-        "language": "Українська",
-        "publishing_year": 2022,
-        "bonuses": 190,
-        "rate": 5,
+        "rate": 4.3,
+        "papers": PagesType.LINES,
+        "type": "Універсальний",
+        "pages_color": "Кремовий",
+        "color": "Жовтий",
         "description": """
             <p>
-                Кожен із нас хоче стати щасливим, упевненим у собі й успішним. Ми читаємо розумні книги з порадами, 
-                як цього досягти. Щороку / щомісяця / щопонеділка починаємо докладати певних зусиль, прямуючи до 
-                поставленої мети. Однак постійно щось іде не так, і ми опускаємо руки, бо у нас немає часу / сил / 
-                змоги впроваджувати такі необхідні зміни у своє життя.
-            </p>
-            <p>
-                Усе це врахував німецький економіст Домінік Спенст. Він створив унікальний щоденник «6 хвилин», 
-                який допоможе вам не відкладати зміни на потім. Витрачаючи лише 3 хвилини вранці й 3 хвилини увечері, 
-                ви зможете сформувати корисні звички, які допоможуть зробити ваше життя більш усвідомленим, 
-                гармонійним і щасливим. Перевірені на практиці методи не дозволять вам припинити роботу над собою, 
-                а відтак ви зможете завершити розпочату трансформацію.
+                До комплекту входить 3 зошити по 80 аркушів кожен. Останні 16 
+                сторінок з перфорацією. Безкислотний папір з традиційними 
+                закругленими кутами того ж фірмового кремового відтінку, що 
+                й у всіх блокнотах Moleskine, він не темніє з часом і швидко 
+                вбирає чорнило. Зошити Cahier чудово підійдуть у якості 
+                телефонних і адресних книг, невеликих щоденників, тижневиків 
+                або ж планінгів. Обкладинка з щільного картону досить міцна 
+                і еластична, щоб Ваш зошит не розтріпався.
             </p>
         """
     }
+
 ]
-# BOOKS = [
-#     {
-#         'title': 'Сяйво',
-#         'slug': 'syaivo',
-#         'price': 420,
-#         'book_info_id': 2,
-#         'publishing_id': 5,
-#         'author_ids': [12],
-#         'images': [
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/2/6/26929_39860_10.jpg',
-#              'type': BookImageType.COVER}
-#         ]
-#     },
-#     {
-#         'title': 'Керрі',
-#         'slug': 'carry',
-#         'price': 357,
-#         'book_info_id': 3,
-#         'publishing_id': 5,
-#         'author_ids': [12],
-#         'images': [
-#             {'image_url': 'https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/8/7/878683_1.jpg',
-#              'type': BookImageType.COVER}
-#         ]
-#     },
-#     {
-#         'title': 'Мізері',
-#         'slug': 'miseri',
-#         'price': 589,
-#         'book_info_id': 4,
-#         'publishing_id': 5,
-#         'author_ids': [12],
-#         'images': [
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/8/58388_115986_cr.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/image00016_36.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8885.png',
-#              'type': BookImageType.PAGE},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_8732.png',
-#              'type': BookImageType.PAGE},
-#         ]
-#     },
-#     {
-#         'title': 'Кладовище домашніх тварин',
-#         'slug': 'kladovyshche-domashnich-tvaryn',
-#         'price': 264,
-#         'book_info_id': 5,
-#         'publishing_id': 5,
-#         'author_ids': [12],
-#         'images': [
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img567_95.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img568_124.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1256_10.jpg',
-#              'type': BookImageType.PAGE},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1284_10.jpg',
-#              'type': BookImageType.PAGE},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/3/03_1229_10.jpg',
-#              'type': BookImageType.PAGE}
-#         ]
-#     },
-#     {
-#         'title': 'Воно',
-#         'slug': 'vono',
-#         'price': 650,
-#         'book_info_id': 6,
-#         'publishing_id': 5,
-#         'author_ids': [12],
-#         'images': [
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img014_5_98.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img015_3_131.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_8465.png',
-#              'type': BookImageType.PAGE},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_8396.png',
-#              'type': BookImageType.PAGE}
-#         ]
-#     },
-#     {
-#         'title': 'Темна вежа I. Стрілець',
-#         'slug': 'temna-vezha',
-#         'price': 180,
-#         'book_info_id': 7,
-#         'publishing_id': 5,
-#         'author_ids': [12],
-#         'images': [
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/5/5/55871_107569.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/i/m/img392_1_63.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/1/01_1484.jpg',
-#              'type': BookImageType.PAGE},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/0/2/02_1475.jpg',
-#              'type': BookImageType.PAGE}
-#         ]
-#     },
-#     {
-#         'title': 'Доктор Сон',
-#         'slug': 'doktor-son',
-#         'price': 372,
-#         'book_info_id': 8,
-#         'publishing_id': 5,
-#         'author_ids': [12],
-#         'images': [
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19_7_3.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/catalog/product/1/9/19-2_25.jpg',
-#              'type': BookImageType.COVER},
-#             {'image_url': 'https://static.yakaboo.ua/media/mediagallery/image/1/_/1_oddbeqdiu0.jpg',
-#              'type': BookImageType.PAGE}
-#         ]
-#     }
-# ]
+
 
 BOOKS = [
+    # {
+    #     "title": "Книга 6 хвилин. Щоденник, який змінить ваше життя (м`ятний)",
+    #     "slug": "knyga-6-hvylyn-schodennyk-yakyi-zminyt-vashe-zhuttya",
+    #     "price": 380,
+    #     "book_info_id": 10,
+    #     "publishing_id": 31,
+    #     "is_notebook": True,
+    #     "authors": [13],
+    #     "notebook_category_id": 1,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/catalog/product/0/7/07c2ebc0cbb920267dbf60972f5cf13f.png",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/catalog/product/4/5/45d4be16cbedb0c86c523bbed7facb1c.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/1/01_171_17.png",
+    #             "type": BookImageType.PAGE
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/2/02_166_17.png",
+    #             "type": BookImageType.PAGE
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/3/03_166_17.png",
+    #             "type": BookImageType.PAGE
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/4/04_165_16.png",
+    #             "type": BookImageType.PAGE
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/5/05_164_16.png",
+    #             "type": BookImageType.PAGE
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/6/06_158_13.png",
+    #             "type": BookImageType.PAGE
+    #         }
+    #     ],
+    #     "category_id": 2,
+    #     "notebook_subcategory_id": 1,
+    #     "is_has_cashback": True,
+    #     "translators": [21],
+    # },
     {
-        "title": "Книга 6 хвилин. Щоденник, який змінить ваше життя (м`ятний)",
-        "slug": "knyga-6-hvylyn-schodennyk-yakyi-zminyt-vashe-zhuttya",
-        "price": 380,
-        "book_info_id": 10,
-        "publishing_id": 31,
+        "title": "Набір зошитів Moleskine Cahier в лінію Ніжний жовтий 3 шт (CH016M23)",
+        "slug": "nabir-zoshytiv-moleskine-cahier-v-liniy",
+        "price": 395,
+        "book_info_id": 12,
+        "publishing_id": 32,
         "is_notebook": True,
-        "author_ids": [13],
-        "notebook_category_id": 1,
+        "notebook_category_id": 5,
         "images": [
             {
-                "image_url": "https://static.yakaboo.ua/media/catalog/product/0/7/07c2ebc0cbb920267dbf60972f5cf13f.png",
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/0/10_85_23.jpg",
                 "type": BookImageType.COVER
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/catalog/product/4/5/45d4be16cbedb0c86c523bbed7facb1c.jpg",
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61arbvyijrl_1.jpg",
                 "type": BookImageType.COVER
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/1/01_171_17.png",
-                "type": BookImageType.PAGE
+                'image_url': "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61iegevao7l.jpg",
+                "type": BookImageType.COVER
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/2/02_166_17.png",
-                "type": BookImageType.PAGE
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61z-6zpheql.jpg",
+                "type": BookImageType.COVER
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/3/03_166_17.png",
-                "type": BookImageType.PAGE
-            },
-            {
-                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/4/04_165_16.png",
-                "type": BookImageType.PAGE
-            },
-            {
-                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/5/05_164_16.png",
-                "type": BookImageType.PAGE
-            },
-            {
-                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/6/06_158_13.png",
-                "type": BookImageType.PAGE
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/7/1/71agg0pwsal.jpg",
+                "type": BookImageType.COVER
             }
-        ]
+        ],
+        "category_id": 2,
+
     }
+
 ]
 
 TRANSLATORS = [
-  {
-    "first_name": "Світлана",
-    "last_name": "Олійник",
-    "slug": "svitlana-oliinyk",
-  },
-  {
-    "first_name": "Владислав",
-    "last_name": "Куліш",
-    "slug": "vladyslav-kulish",
-  },
-  {
-    "first_name": "Катерина",
-    "last_name": "Матвійчук",
-    "slug": "kateryna-matviichuk",
-  },
-  {
-    "first_name": "Олександра",
-    "last_name": "Музичук",
-    "slug": "oleksandra-muzychuk",
-  },
-  {
-    "first_name": "Ірина",
-    "last_name": "Потапова",
-    "slug": "iryna-potapova",
-  },
-  {
-    "first_name": "Nathanaël",
-    "last_name": "",
-    "slug": "nathanael",
-  },
-  {
-    "first_name": "Є.",
-    "last_name": "Бахуров",
-    "slug": "ie-bakhurov",
-  },
-  {
-    "first_name": "Є.",
-    "last_name": "Вінницька",
-    "slug": "ie-vinnytska",
-  },
-  {
-    "first_name": "Є.",
-    "last_name": "Крижевич",
-    "slug": "ie-kryzhevych",
-  },
-  {
-    "first_name": "Є.",
-    "last_name": "Миколаєва",
-    "slug": "ie-mykolaieva",
-  },
-  {
-    "first_name": "Є.",
-    "last_name": "Стасюк",
-    "slug": "ie-stasiuk",
-  },
-  {
-    "first_name": "Єва",
-    "last_name": "Ніколаєва",
-    "slug": "yeva-nikolaieva",
-  },
-  {
-    "first_name": "Зінаїда",
-    "last_name": "Гулевич",
-    "slug": "zinaida-hulevych",
-  },
-  {
-    "first_name": "Зінаїда",
-    "last_name": "Крижевич",
-    "slug": "zinaida-kryzhevych",
-  },
-  {
-    "first_name": "Анастасія",
-    "last_name": "Кіржаєва",
-    "slug": "anastasiia-kirzhaieva",
-  },
-  {
-    "first_name": "Віктор",
-    "last_name": "Сапіцький",
-    "slug": "viktor-sapitskyi",
-  },
-  {
-    "first_name": "Кирило",
-    "last_name": "Болдирев",
-    "slug": "kyrylo-boldyrev",
-  },
-  {
-    "first_name": "Софія",
-    "last_name": "Слаба",
-    "slug": "sofiia-slaba",
-  },
-  {
-    "first_name": "Lukas",
-    "last_name": "",
-    "slug": "lukas",
-  },
-  {
-    "first_name": "Robin",
-    "last_name": "Myers",
-    "slug": "robin-myers",
-  }
+  # {
+  #   "first_name": "Світлана",
+  #   "last_name": "Олійник",
+  #   "slug": "svitlana-oliinyk",
+  # },
+  # {
+  #   "first_name": "Владислав",
+  #   "last_name": "Куліш",
+  #   "slug": "vladyslav-kulish",
+  # },
+  # {
+  #   "first_name": "Катерина",
+  #   "last_name": "Матвійчук",
+  #   "slug": "kateryna-matviichuk",
+  # },
+  # {
+  #   "first_name": "Олександра",
+  #   "last_name": "Музичук",
+  #   "slug": "oleksandra-muzychuk",
+  # },
+  # {
+  #   "first_name": "Ірина",
+  #   "last_name": "Потапова",
+  #   "slug": "iryna-potapova",
+  # },
+  # {
+  #   "first_name": "Nathanaël",
+  #   "last_name": "",
+  #   "slug": "nathanael",
+  # },
+  # {
+  #   "first_name": "Є.",
+  #   "last_name": "Бахуров",
+  #   "slug": "ie-bakhurov",
+  # },
+  # {
+  #   "first_name": "Є.",
+  #   "last_name": "Вінницька",
+  #   "slug": "ie-vinnytska",
+  # },
+  # {
+  #   "first_name": "Є.",
+  #   "last_name": "Крижевич",
+  #   "slug": "ie-kryzhevych",
+  # },
+  # {
+  #   "first_name": "Є.",
+  #   "last_name": "Миколаєва",
+  #   "slug": "ie-mykolaieva",
+  # },
+  # {
+  #   "first_name": "Є.",
+  #   "last_name": "Стасюк",
+  #   "slug": "ie-stasiuk",
+  # },
+  # {
+  #   "first_name": "Єва",
+  #   "last_name": "Ніколаєва",
+  #   "slug": "yeva-nikolaieva",
+  # },
+  # {
+  #   "first_name": "Зінаїда",
+  #   "last_name": "Гулевич",
+  #   "slug": "zinaida-hulevych",
+  # },
+  # {
+  #   "first_name": "Зінаїда",
+  #   "last_name": "Крижевич",
+  #   "slug": "zinaida-kryzhevych",
+  # },
+  # {
+  #   "first_name": "Анастасія",
+  #   "last_name": "Кіржаєва",
+  #   "slug": "anastasiia-kirzhaieva",
+  # },
+  # {
+  #   "first_name": "Віктор",
+  #   "last_name": "Сапіцький",
+  #   "slug": "viktor-sapitskyi",
+  # },
+  # {
+  #   "first_name": "Кирило",
+  #   "last_name": "Болдирев",
+  #   "slug": "kyrylo-boldyrev",
+  # },
+  # {
+  #   "first_name": "Софія",
+  #   "last_name": "Слаба",
+  #   "slug": "sofiia-slaba",
+  # },
+  # {
+  #   "first_name": "Lukas",
+  #   "last_name": "",
+  #   "slug": "lukas",
+  # },
+  # {
+  #   "first_name": "Robin",
+  #   "last_name": "Myers",
+  #   "slug": "robin-myers",
+  # }
+    {
+        "first_name": "Марія",
+        "last_name": "Вачко",
+        "slug": "maria-vachko"
+    }
 ]
 
 LITERATURE_PERIODS = [

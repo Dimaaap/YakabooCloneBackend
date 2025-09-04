@@ -36,6 +36,7 @@ from hobby_subcategories import router as hobby_subcategories_router
 from accesories import router as accessories_router
 from accessories_brands import router as accessories_brands_router
 from accessories_categories import router as accessories_categories_router
+from notebook_subcategories import router as notebook_subcategories_router
 
 
 @asynccontextmanager
@@ -76,6 +77,7 @@ app.include_router(accessories_router)
 app.include_router(accessories_brands_router)
 app.include_router(accessories_categories_router)
 app.include_router(notebook_categories_router)
+app.include_router(notebook_subcategories_router)
 
 app.add_middleware(
     CORSMiddleware,

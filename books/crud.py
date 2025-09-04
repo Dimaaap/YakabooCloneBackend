@@ -5,23 +5,41 @@ from sqlalchemy import select, Result, delete
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Book, db_helper, BookImage, Author
+from core.models import Book, db_helper, BookImage, Author, BookTranslator
 from books.schemas import BookSchema, BookCreate, BookUpdate
 from data_strorage import BOOKS
 
 
 async def create_book(session: AsyncSession, book_data: BookCreate) -> BookSchema:
-    book = Book(**book_data.model_dump(exclude="images"))
+    book = Book(**book_data.model_dump(exclude={"images", "authors", "translators"}))
 
     for image_data in book_data.images or []:
         image = BookImage(image_url=image_data.image_url, type=image_data.type)
         book.images.append(image)
 
+    if book_data.authors:
+        statement = select(Author).where(Author.id.in_(book_data.authors)).options(
+            joinedload(Author.interesting_fact)
+        )
+        result = await session.execute(statement)
+        authors = result.scalars().all()
+        for author in authors:
+            if author not in book.authors:
+                book.authors.append(author)
+
+
+    if book_data.translators:
+        result = await session.execute(select(BookTranslator).where(BookTranslator.id.in_(book_data.translators)))
+        translators = result.scalars().all()
+        for translator in translators:
+            if translator not in book.translators:
+                book.translators.append(translator)
+
     try:
         session.add(book)
         await session.commit()
         await session.refresh(book, ["book_info", "authors", "publishing", "wishlists", "images",
-                                     "translators", "literature_period"])
+                                     "translators", "literature_period", "notebook_category", "notebook_subcategory"])
     except Exception as e:
         await session.rollback()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
@@ -61,6 +79,8 @@ async def get_all_notebooks(session: AsyncSession) -> list[BookSchema]:
             selectinload(Book.translators),
             joinedload(Book.literature_period),
             selectinload(Book.images),
+            joinedload(Book.notebook_subcategory),
+            joinedload(Book.notebook_category),
         )
         .order_by(Book.id)
     )

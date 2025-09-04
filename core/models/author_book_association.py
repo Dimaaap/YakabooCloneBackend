@@ -16,7 +16,6 @@ class AuthorBookAssociation(Base):
         UniqueConstraint("author_id", "book_id", name="idx_unique_author_book"),
     )
 
-    id: Mapped[int] = mapped_column(primary_key=True)
     author_id: Mapped[int] = mapped_column(ForeignKey("authors.id"))
     book_id: Mapped[int] = mapped_column(ForeignKey("books.id"))
 

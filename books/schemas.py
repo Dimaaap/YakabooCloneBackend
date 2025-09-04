@@ -36,6 +36,8 @@ class BookBase(BaseModel):
     notebook_subcategory_id: int | None = None
     publishing_id: int
     images: list[BookImageCreate] | None = None
+    authors: list[int] | None = None
+    translators: list[int] | None = None
 
 
 

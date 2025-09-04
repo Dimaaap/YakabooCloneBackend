@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from core.models.book_info import CoverTypes, BookFormats, BookLanguages
+from core.models.book_info import CoverTypes, BookFormats, BookLanguages, PagesType, SizeTypes
 
 
 class BookInfoBase(BaseModel):
@@ -11,18 +11,23 @@ class BookInfoBase(BaseModel):
     rate: float
     illustrations: str | None = None
     ISBN: str
-    cover_type: CoverTypes
+    cover_type: CoverTypes | None = None
     pages_count: int | None = None
     is_has_cashback: bool | None = None
     is_has_esupport: bool | None = None
-    format: BookFormats
-    language: BookLanguages
-    publishing_year: int
+    format: BookFormats | None = None
+    language: BookLanguages | None = None
+    publishing_year: int | None = None
     first_published_at: int | None = None
     description: str | None = None
     characteristics: str | None = None
     weight: int | None = None
     original_name: str | None = None
+    color: str | None = None
+    papers: PagesType | None = None
+    size: SizeTypes | None = None
+    pages_color: str | None = None
+    type: str | None = None
 
 
 class BookInfoCreate(BookInfoBase):
