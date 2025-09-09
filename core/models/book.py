@@ -69,7 +69,7 @@ class Book(Base):
     )
 
     notebook_category: Mapped["NotebookCategory"] = relationship(
-        "NotebookCategory", back_populates="notebooks", lazy="joined"
+        "NotebookCategory", back_populates="notebooks", lazy="noload"
     )
 
     notebook_subcategory_id: Mapped[int] = mapped_column(ForeignKey("notebook_subcategories.id"), nullable=True)

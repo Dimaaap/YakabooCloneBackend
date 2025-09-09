@@ -2,7 +2,7 @@ import datetime
 from datetime import date
 
 from core.models.book_accessories import AccessoryTheme, AccessorySeria
-from core.models.book_info import PagesType
+from core.models.book_info import PagesType, BookLanguages
 from core.models.footer import FooterCategory
 from core.models.book_image import BookImageType
 from core.models.board_game_ages import Age
@@ -3368,9 +3368,63 @@ PUBLISHING = [
     #         </p>
     #     """
     # },
+    # {
+    #     "title": "Moleskine",
+    #     "slug": "moleskine",
+    # }
+    # {
+    #     "title": "Manuscript",
+    #     "slug": "manuscript"
+    # }
+    # {
+    #     "title": "Galison",
+    #     "slug": "galison"
+    # }
     {
-        "title": "Moleskine",
-        "slug": "moleskine",
+        "title": "Свічадо",
+        "slug": "svichado",
+        "logo": "https://static.yakaboo.ua/media/entity/book_publisher/s/v/svichado_logo_1.jpg",
+        "long_description": """
+            <p>
+                Засноване 1987 року популярне українське видавництво, одна з головних цілей якого – 
+                утвердження духовних цінностей у сучасному світі. Більшу частину каталогу книг видавництва 
+                «Свічадо» складають християнські твори й духовна література. Вірянин не залишається на одному 
+                рівні, а духовно зростати саме й допомагають книги такої тематики. Тут зібрані твори про 
+                історію та суть релігії, богословські та науково-популярні праці. Багатьом буде цікаве 
+                християнське вчення про сім'ю й виховання дітей, талановито написана поезія й літературно-художні 
+                видання, а також книги про подолання депресій та стресів, таких частих гостей у 
+                сучасному життєвому ритмі. Усім, хто шукає відповіді на нелегкі питання буття, варто купити 
+                книги видавництва «Свічадо».
+            </p>
+            <h2>Одне з перших сучасних церковних видавництв</h2>
+            <p>
+                Історія видавництва бере початок 1987 року – це одна з перших українських церковних організацій 
+                такого роду, її діяльність почалася підпільно. Студенти Люблінського католицького університету 
+                1 листопада 1987 року випустили першу брошуру про літургії. Тільки 1992 року вже офіційно 
+                видавництво «Свічадо» переїхало до Львова. За час існування видавниче підприємство видало 
+                кілька тисяч творів, що дають змогу вникнути в саму суть християнства, а багатомільйонні 
+                наклади книг зробили їх доступними широкому колу читачів.
+            </p>
+            <p>
+                Серед найпопулярніших книжкових серії «Свічадо» можна виділити такі: «Ікона й літургія», 
+                «Джерела християнського Сходу». Твори цих серій вводять читача у світ історії християнства, 
+                його культури й символіки. Також видавничий дім активно випускає періодику – щоквартально виходить 
+                міжнародний альманах «Сопричастя», а молодша аудиторія – діти та підлітки – з нетерпінням чекають 
+                барвистих журналів «Зернятко» та «Сто талантів».
+            </p>
+            <h2>
+                Найкращі книги видавництва «Свічадо» в інтернет-магазині
+            </h2>
+            <p>
+                Яскрава особливість творів – бездоганна українська мова, якою написані або перекладені твори. 
+                Тому можна сміливо стверджувати, що у «Свічада» практично немає аналогів в українському книговиданні.
+            </p>
+            <p>
+                Купити книги видавництва «Свічадо» в Києві та інших містах країни можна в нашому каталозі. 
+                Ціни на духовну літературу демократичні, що особливо тішить, адже це найважливіші книги, доступні 
+                кожному. Ми доставляємо товари по всій території України.
+            </p>
+        """
     }
     # {
     #     "title": "Юніверс",
@@ -4282,30 +4336,125 @@ BOOKS_INFO = [
     #         </p>
     #     """
     # },
+    # {
+    #     "code": 1274188,
+    #     "ISBN": "9780735366459",
+    #     "cover_type": "Тверда",
+    #     "in_stock": True,
+    #     "is_has_cashback": False,
+    #     "rate": 3.9,
+    #     "weight": 142,
+    #     "publishing_year": 2021,
+    #     "bonuses": 628,
+    #     "language": BookLanguages.ENGLISH,
+    #     "description": """
+    #         <p>
+    #             Jonathan Adler is a design company that creates luxe and livable interiors and chic products
+    #             that are synonymous with modern American glamour. The Jonathan Adler Safari PU Travel
+    #             Journal from Galison is uniquely sized to grasp in hand, carry under your arm or slide
+    #             into the smallest of bags, making it the perfect mini organizer for people on the go.
+    #             It includes a notebook with lined and graph paper, a pocket for bank and transit cards,
+    #             a pen loop, and side pockets to store receipts, tickets, maps, and passport.
+    #         </p>
+    #     """
+    # }
     {
-        "code": 937217,
-        "ISBN": "CH016M23",
-        "cover_type": "М'яка",
-        "in_stock": False,
-        "is_has_cashback": False,
-        "rate": 4.3,
-        "papers": PagesType.LINES,
-        "type": "Універсальний",
-        "pages_color": "Кремовий",
-        "color": "Жовтий",
+        "code": 1493804,
+        "ISBN": "978-966-938-621-2",
+        "cover_type": "Тверда",
+        "in_stock": True,
+        "is_has_cashback": True,
+        "is_top": True,
+        "rate": 4.7,
+        "publishing_year": 2024,
+        "pages_count": 256,
+        "bonuses": 146,
         "description": """
             <p>
-                До комплекту входить 3 зошити по 80 аркушів кожен. Останні 16 
-                сторінок з перфорацією. Безкислотний папір з традиційними 
-                закругленими кутами того ж фірмового кремового відтінку, що 
-                й у всіх блокнотах Moleskine, він не темніє з часом і швидко 
-                вбирає чорнило. Зошити Cahier чудово підійдуть у якості 
-                телефонних і адресних книг, невеликих щоденників, тижневиків 
-                або ж планінгів. Обкладинка з щільного картону досить міцна 
-                і еластична, щоб Ваш зошит не розтріпався.
+                Прокидаємося, гортаємо стрічку новин, занурюємося у щоденні справи... і мріємо про вихідні. 
+                А може, саме час щось зрушити у цій рутині? Наприклад, тренуватися бачити прекрасне, справжнє, 
+                неймовірне і добре. Пам'ятати, що життя — це те, що з тобою відбувається, поки ти будуєш плани. 
+                І мудро інвестувати дари, які отримуємо від Бога. Ви впізнаєте ці цитати, користуючись 
+                “Календарем щасливого чоловіка”.  А також довідаєтеся чимало пізнавального, корисного,
+                мотиваційного та наснажливого, що допоможе вам жити наповнено.
             </p>
         """
     }
+    # {
+    #     "code": 1502212,
+    #     "ISBN": "fs-2023-plus",
+    #     "cover_type": "Тверда",
+    #     "in_stock": True,
+    #     "is_has_cashback": False,
+    #     "rate": 4.5,
+    #     "papers": PagesType.SIMPLE,
+    #     "type": "Універсальний",
+    #     "pages_color": "Кремовий",
+    #     "size": "148x210 мм",
+    #     "color": "Мультиколір",
+    #     "description": """
+    #         <p>
+    #             <i>
+    #                 У роботах Сергія Греха, під псевдонімом Feros, чітко простежується вплив культури графіті
+    #                 та вуличного мистецтва взагалі. Саме цій спрямованості були присвячені ранні роки його творчості.
+    #             </i>
+    #         </p>
+    #         <p>
+    #             <i>
+    #                 Вашій увазі презентується фрагмент "Внутрішні поводирі" – це полотно, створене у форматі
+    #                 триптиху. Ця робота уособлює метафору шляху, пошуку утопічного місця, де завжди царить
+    #                 радість і куди кожен з нас прагне. З моменту народження ми знаходимося в безкінечному
+    #                 пошуку свого місця під сонцем. Розуміння цієї концепції змінюється з часом, і у кожного
+    #                 з нас є свій внутрішній голос. Зазвичай ми не чуємо його, він веде нас через життя в
+    #                 фоновому режимі. Іноді він стає дуже явним і чітким, і в такі моменти ви слухаєтеся до себе.
+    #                 У кожного з нас є свій "поводир" – хтось знаходить свого єдиного, а у когось їх багато.
+    #                 На цьому полотні зображено безліч персонажів, і кожен може знайти в них себе і зрозуміти
+    #                 свою роль у цьому житті. Можливо, ви самі собі провідник, або тимчасовий пасажир.
+    #             </i>
+    #         </p>
+    #         <p>
+    #             160 кремових нелінованих сторінок відмінно підійдуть для лайнерів, олівців і ручок.
+    #             Скетчбуки ідеально розгортаються на 180 градусів і не закриваються самостійно завдяки
+    #             відкритій палітурці. Якісна прошивка і проклейка дозволяють витримувати навіть
+    #             серйозні навантаження, а захисне покриття обкладинки подовжить термін придатності
+    #             вашого скетчбука. В самому кінці кишеня для візиток і дрібних нотаток, а довільно
+    #             відкритися вашому скетчу не дозволить кругла резинка. У комплекті йде вкладиш з
+    #             лініюванням в клітку і в лінію для зручності написання, побудови графіків, таблиць,
+    #             точних моделей і т.д.
+    #         </p>
+    #         <p>
+    #             Скетчбуки Manuscript служать як відмінним робочим інструментом для художників, дизайнерів,
+    #             програмістів, менеджерів, так і стильним аксесуаром, здатним надихнути на творчі досягнення.
+    #         </p>
+    #         <p>
+    #             Прислухайтеся до себе і знайдіть свій шлях разом із Manuscript!
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "code": 937217,
+    #     "ISBN": "CH016M23",
+    #     "cover_type": "М'яка",
+    #     "in_stock": False,
+    #     "is_has_cashback": False,
+    #     "rate": 4.3,
+    #     "papers": PagesType.LINES,
+    #     "type": "Універсальний",
+    #     "pages_color": "Кремовий",
+    #     "color": "Жовтий",
+    #     "description": """
+    #         <p>
+    #             До комплекту входить 3 зошити по 80 аркушів кожен. Останні 16
+    #             сторінок з перфорацією. Безкислотний папір з традиційними
+    #             закругленими кутами того ж фірмового кремового відтінку, що
+    #             й у всіх блокнотах Moleskine, він не темніє з часом і швидко
+    #             вбирає чорнило. Зошити Cahier чудово підійдуть у якості
+    #             телефонних і адресних книг, невеликих щоденників, тижневиків
+    #             або ж планінгів. Обкладинка з щільного картону досить міцна
+    #             і еластична, щоб Ваш зошит не розтріпався.
+    #         </p>
+    #     """
+    # }
 
 ]
 
@@ -4359,39 +4508,136 @@ BOOKS = [
     #     "is_has_cashback": True,
     #     "translators": [21],
     # },
+
+    # {
+    #     "title": "Jhonathan Adler Safari PU Travel Journal",
+    #     "slug": "jhontahan-adler-safari-pu-travel-journal",
+    #     "price": 1256,
+    #     "book_info_id": 14,
+    #     "publishing_id": 34,
+    #     "is_notebook": True,
+    #     "notebook_category_id": 4,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/9/7/9780735366459.jpg",
+    #             "type": BookImageType.COVER
+    #         }
+    #     ],
+    #     "category_id": 2
+    # }
+
     {
-        "title": "Набір зошитів Moleskine Cahier в лінію Ніжний жовтий 3 шт (CH016M23)",
-        "slug": "nabir-zoshytiv-moleskine-cahier-v-liniy",
-        "price": 395,
-        "book_info_id": 12,
-        "publishing_id": 32,
+        "title": "Календар щасливого чоловіка 2025 (зелений)",
+        "slug": "kalendar-schaslyvoho-cholovika-2025-zelenyi",
+        "price": 292,
+        "book_info_id": 15,
+        "publishing_id": 35,
         "is_notebook": True,
-        "notebook_category_id": 5,
+        "notebook_category_id": 2,
+        "notebook_subcategory_id": 1,
+        "category_id": 2,
         "images": [
             {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/0/10_85_23.jpg",
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/k/a/kalendar_cholov_1-1440x960.png",
                 "type": BookImageType.COVER
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61arbvyijrl_1.jpg",
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/h/cholovika43254322025_20_2_-1440x960_1.jpg",
                 "type": BookImageType.COVER
             },
             {
-                'image_url': "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61iegevao7l.jpg",
-                "type": BookImageType.COVER
-            },
-            {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61z-6zpheql.jpg",
-                "type": BookImageType.COVER
-            },
-            {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/7/1/71agg0pwsal.jpg",
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/h/cholovika43254322025_20_3_-1440x960_1.jpg",
                 "type": BookImageType.COVER
             }
-        ],
-        "category_id": 2,
-
+        ]
     }
+
+    # {
+    #     "title": "Скетчбук Manuscript Feros 2023 Plus (fs-2023-plus)",
+    #     "slug": "skatchbuk-manuscript-feros-2023",
+    #     "price": 660,
+    #     "book_info_id": 13,
+    #     "publishing_id": 33,
+    #     "is_notebook": True,
+    #     "notebook_category_id": 3,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/5/_/5_feros_2023_plus_craft_max-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/_/1_feros_2023_plus_front_max-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/2/_/2_feros_2023_plus_back_max-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/4/_/4_feros_2023_plus_spread-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/8/_/8_feros_2023_plus_inter-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/9/_/9_feros_2023_plus_hand-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/0/10_feros_2023_plus-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/3/_/3_feros_2023_plus_side-web-min.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/7/_/7_pocket_spread_1_12.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/8/_/8_only_liner_1_12.jpg",
+    #             "type": BookImageType.COVER
+    #         }
+    #     ],
+    #     "category_id": 2,
+    #
+    # }
+    # {
+    #     "title": "Набір зошитів Moleskine Cahier в лінію Ніжний жовтий 3 шт (CH016M23)",
+    #     "slug": "nabir-zoshytiv-moleskine-cahier-v-liniy",
+    #     "price": 395,
+    #     "book_info_id": 12,
+    #     "publishing_id": 32,
+    #     "is_notebook": True,
+    #     "notebook_category_id": 5,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/0/10_85_23.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61arbvyijrl_1.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             'image_url': "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61iegevao7l.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/1/61z-6zpheql.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/7/1/71agg0pwsal.jpg",
+    #             "type": BookImageType.COVER
+    #         }
+    #     ],
+    #     "category_id": 2,
+    #
+    # }
 
 ]
 

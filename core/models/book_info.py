@@ -40,6 +40,14 @@ class SizeTypes(enum.Enum):
     LARGE = "Великий"
 
 
+class PageFormats(enum.Enum):
+    A1 = "A1"
+    A2 = "A2"
+    A3 = "A3"
+    A4 = "A4"
+    A5 = "A5"
+
+
 class BookInfo(Base):
     __tablename__ = "book_info"
 
@@ -61,6 +69,8 @@ class BookInfo(Base):
 
     format: Mapped[BookFormats] = mapped_column(Enum(BookFormats), default=BookFormats.PAPER,
                                                 server_default=BookFormats.PAPER.name)
+    pages_format: Mapped[PageFormats] = mapped_column(Enum(PageFormats, name="page_formats", create_type=True),
+                                                      nullable=True)
     language: Mapped[BookLanguages] = mapped_column(Enum(BookLanguages), default=BookLanguages.UKRAINIAN,
                                                     server_default=BookLanguages.UKRAINIAN.name)
     color: Mapped[str] = mapped_column(String(100), nullable=True)

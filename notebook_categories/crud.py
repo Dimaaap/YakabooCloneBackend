@@ -50,10 +50,8 @@ async def get_notebooks_by_category_slug(session: AsyncSession, category_slug: s
         select(NotebookCategory)
         .where(NotebookCategory.slug == category_slug)
         .options(
-            selectinload(NotebookCategory.notebooks),
-            joinedload(Book.book_info),
+            selectinload(NotebookCategory.notebooks).joinedload(Book.book_info),
             selectinload(NotebookCategory.notebooks).selectinload(Book.subcategories),
-            selectinload(NotebookCategory.notebooks).selectinload(NotebookCategory.subcategories),
             selectinload(NotebookCategory.notebooks).joinedload(Book.literature_period),
             selectinload(NotebookCategory.notebooks).selectinload(Book.authors),
             selectinload(NotebookCategory.notebooks).selectinload(Book.images),
@@ -62,7 +60,7 @@ async def get_notebooks_by_category_slug(session: AsyncSession, category_slug: s
     )
 
     result: Result = await session.execute(statement)
-    category = result.unqiue().scalars().first()
+    category = result.unique().scalars().first()
 
     return category
 

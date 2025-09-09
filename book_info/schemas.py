@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from core.models.book_info import CoverTypes, BookFormats, BookLanguages, PagesType, SizeTypes
+from core.models.book_info import CoverTypes, BookFormats, BookLanguages, PagesType, SizeTypes, PageFormats
 
 
 class BookInfoBase(BaseModel):
@@ -25,6 +25,7 @@ class BookInfoBase(BaseModel):
     original_name: str | None = None
     color: str | None = None
     papers: PagesType | None = None
+    pages_format: PageFormats | None = None
     size: SizeTypes | None = None
     pages_color: str | None = None
     type: str | None = None
