@@ -5900,3 +5900,193 @@ NOTEBOOK_CATEGORIES = [
         ]
     }
 ]
+
+
+GIFT_BRANDS = [
+    {
+        "title": "WP Merchandise",
+        "slug": "wp-merchandise",
+    },
+    {
+        "title": "Wizarding world",
+        "slug": "wizarding-world",
+    },
+    {
+        "title": "Djeco",
+        "slug": "djeco",
+        "image": "https://static.yakaboo.ua/media/entity/children_brand/d/j/djeco.jpg",
+        "description": """
+            <p>
+                За понад півстоліття традиції і філософія цієї компанії нітрохи не змінилися.
+                Починаючи з 1954 року, і до нині, Djeco виробляє кращу дитячу продукцію, яка набагато 
+                випереджає свій час. Кращі матеріали виробництва, новітні технології, високопрофесійна 
+                поліграфія і креативний підхід дизайнерів визначають роль цієї французької компанії, як 
+                світового корифея, тренда, домінанти серед подібних компаній. Djeco - це незвичайні набори 
+                для творчості, дерев'яні іграшки і конструктори, настільні ігри, пазли і багато іншого. 
+                Кожна іграшка - оригінальний шедевр, продукт копіткої праці більше 30 дизайнерів, 
+                тестувальників, ілюстраторів, психологів. Це не просто іграшки для безглуздої забави, 
+                вони відіграють визначальну роль в розвитку малюка - його креативності, творчих здібностей, 
+                просторового мислення, розвитку почуття прекрасного. Розвивається логіка, пам'ять, увага, 
+                стимулюється пізнавальна активність. Яскраві деталі привертають увагу дітей і зацікавлюють 
+                у виконанні завдань. Розвиваючі іграшки Djeco знайомлять малюка з його першими відчуттями, 
+                дитина пізнає кольори, форми, вчиться пізнавати предмети на дотик, в процесі чого формується
+                дрібна моторика і мовна діяльність.
+            </p>
+        """
+    },
+    {
+        "title": "Abysse",
+        "slug": "abysse"
+    },
+    {
+        "title": "Cable Guy",
+        "slug": "cable-guy"
+    },
+    {
+        "title": "Blizzard",
+        "slug": "blizzard"
+    },
+    {
+        "title": "Marvel",
+        "slug": "marvel"
+    },
+    {
+        "title": "Кенгуру",
+        "slug": "kenguru"
+    },
+    {
+        "title": "Dark Horse",
+        "slug": "dark-horse"
+    },
+    {
+        "title": "Ranok-Creative",
+        "slug": "ranok-creative",
+        "image": "https://static.yakaboo.ua/media/entity/children_brand/f/i/file_2.jpg",
+        "description": """
+            <p>
+                Нову торгову марку видавництва «Ранок», компанію «Ranok-Creative», було створено в Україні у 
+                2007 році. Основні напрямки її діяльності – випуск продукції власних розробок,
+                а також виробництво товарів під торговими марками партнерів з Росії, Німеччини, Польщі й Чехії. 
+                Під власною маркою «Ранок» видає більше 650 одиниць ігрової продукції та продукції для 
+                розвитку для дітей і дорослих у 8 серіях. Це серії настільних наукових, пізнавальних ігор, 
+                ігор для розвитку, наборів для творчості й наочних посібників, книжок і різноманітних канцтоварів.
+            </p>
+            <p>
+                Однією з найбільших серій є настільні ігри. Їх випускають в 5 основних групах: дитячі,
+                 для всієї родини, дитячі ігри, ходилки, настільні ігри в дорогу та ігри, в яких суміщено 
+                 гру з творчістю. На упаковці кожної гри вказано для дитини якого віку вона призначена. 
+                 Окрім того настільні ігри розділено за жанрами: економічні, стратегічні, інтелектуальні, 
+                 ігри для розваг.
+            </p>
+            <p>
+                Дуже популярними зараз є наукові ігри, які представлено різноманітними наборами з хімічними 
+                компонентами і біологічними матеріалами. До кожної гри додається детальний опис і рекомендації 
+                для проведення наукових дослідів і експериментів, а до деяких навіть відео на DVD. 
+                Є комплекти, в яких зібрано декілька окремих наборів для наукових ігор. Зручні й зрозумілі 
+                наочні посібники, які випускає компанія, можна застосовувати у дитячому садочку й у школі, 
+                а також батькам вдома. Це демонстраційні матеріали, зошити з розвитку мовлення, малювання, 
+                аплікації, календарі спостережень за природою, різноманітні стенди, плакати й методичні 
+                посібники. Ігри для розвитку торгової марки було розроблено з врахуванням сучасних методик 
+                раннього розвитку Монтессорі, Зайцева, Олени й Бориса Нікітіних і багатьох інших. 
+                Це різноманітні ігри на магнітиках, трафарети, шнурівки, конструктори з натуральних матеріалів.
+            </p>
+            <p>
+                овари для творчості представлено значним асортиментом різних серій. Це набори для малювання, 
+                ліплення, роботи з бісером, створення віражних картинок, гравюр, свічок, мила, скриньок, 
+                прикрас. Філіали і фірмові магазини компанії є в усіх регіонах нашої країни, а також – 
+                в Молдові і Казахстані. Вся її продукція отримує чудові відгуки і є дуже популярною 
+                в усіх цих країнах. Ознайомитись з асортиментом і подивитись фото товарів Ви можете на 
+                сторінці торгової марки «Ranok-Creative». В інтернет-магазині Yakaboo Ви можете придбати цю 
+                продукцію або замовити її з доставкою по Києву й інших містах країни.
+            </p>
+        """
+    }
+]
+
+GIFT_SUBCATEGORIES = [
+
+]
+
+GIFT_CATEGORIES = [
+    {
+        "title": "Брендована продукція Yakaboo",
+        "slug": "brendovana-produkcia-yakaboo",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/a/v/avs_5482.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/a/v/avs_5443.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/_/3_-1.jpg"
+        ]
+    },
+    {
+        "title": "Посуд",
+        "slug": "posud",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/2/12_18_148.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/_/7_90_59.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/_/8_73_62.jpg"
+        ]
+    },
+    {
+        "title": "М'які іграшки",
+        "slug": "myaki-ihrashky",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/6/362237-1jpg-1000x1000-f.png",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/5/7/578576_1.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/w/fwpplaneukr22gr00_2.jpeg"
+        ]
+    },
+    {
+        "title": "Скретч-карти/Постери",
+        "slug": "skretch-karty-postery",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/-/3-00_1.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/_/7__20_17.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/-/3-1_30.jpg"
+        ]
+    },
+    {
+        "title": "Аксесуари",
+        "slug": "aksesuary",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/3/13-0_40.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/_/1__58_135.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/_/2__51_33.jpg"
+        ]
+    },
+    {
+        "title": "Одяг",
+        "slug": "odyag",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/4/24_5_58.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/5/25_5_577.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/1/21_8_22.jpg"
+        ]
+    },
+    {
+        "title": "Листівки",
+        "slug": "lystivky",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/i/file_201_1.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/i/file_200_1.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/i/file_199_1.jpg"
+        ]
+    },
+    {
+        "title": "Подарункова упаковка і сертифікати",
+        "slug": "podarunkova-korobka-i-sertyfikaty",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/3/43_3_31.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/2/42_1_241.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/3/33_5_84.jpg"
+        ]
+    },
+    {
+        "title": "Колекційні фігурки",
+        "slug": "kolektsiyni-figurky",
+        "images_src": [
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/1/71kby79yhrl._sl1403_222.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/4/1436_3266_10300_gow_locust_drone_glam_hires222.jpg",
+            "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/4/1436_3266_10509_dc_firestormwhitelanterngl_pop_glam_hires222.jpg"
+        ]
+    }
+]
