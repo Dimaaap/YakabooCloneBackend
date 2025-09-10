@@ -45,6 +45,14 @@ __all__ = (
     "DeliveryTerms",
     "BookImage",
     "BoardSubcategories",
+    "Gift",
+    "GiftBrand",
+    "GiftCategory",
+    "GiftImage",
+    "GiftInfo",
+    "GiftSeries",
+    "GiftSubCategory",
+    "GiftAgeAssociation",
     "NotebookCategory",
     "NotebookSubCategory",
     "BookTranslator",
@@ -101,8 +109,16 @@ from .accessouries_brand import AccessoriesBrand
 from .book_translators import BookTranslator
 from .literature_periods import LiteraturePeriods
 from .notebook_categories import NotebookCategory
+from .gifts import Gift
+from .gift_brands import GiftBrand
+from .gift_categories import GiftCategory
+from .gift_images import GiftImage
+from .gift_info import GiftInfo
+from .gift_series import GiftSeries
+from .gift_subcategories import GiftSubCategory
 from .notebook_subcategories import NotebookSubCategory
 from .hobby_ages_association import HobbyAgesAssociation
+from .gift_ages_association import GiftAgeAssociation
 from .translator_book_association import TranslatorBookAssociation
 from .board_game_age_association import BoardGameAgeAssociation
 from .board_game_subcategories import BoardSubcategories

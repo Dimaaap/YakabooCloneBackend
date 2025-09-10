@@ -4359,27 +4359,102 @@ BOOKS_INFO = [
     #     """
     # }
     {
-        "code": 1493804,
-        "ISBN": "978-966-938-621-2",
+        "code": 1437553,
+        "ISBN": "9789667510770",
         "cover_type": "Тверда",
         "in_stock": True,
-        "is_has_cashback": True,
-        "is_top": True,
-        "rate": 4.7,
-        "publishing_year": 2024,
-        "pages_count": 256,
-        "bonuses": 146,
+        "rate": 4,
+        "publishing_year": 2023,
+        "illustrations": "Кольорові",
+        "pages_count": 192,
+        "bonuses": 125,
         "description": """
             <p>
-                Прокидаємося, гортаємо стрічку новин, занурюємося у щоденні справи... і мріємо про вихідні. 
-                А може, саме час щось зрушити у цій рутині? Наприклад, тренуватися бачити прекрасне, справжнє, 
-                неймовірне і добре. Пам'ятати, що життя — це те, що з тобою відбувається, поки ти будуєш плани. 
-                І мудро інвестувати дари, які отримуємо від Бога. Ви впізнаєте ці цитати, користуючись 
-                “Календарем щасливого чоловіка”.  А також довідаєтеся чимало пізнавального, корисного,
-                мотиваційного та наснажливого, що допоможе вам жити наповнено.
+                Серія недатованих щоденників, що мають безліч переваг. Їхні сторінки не прив’язані до 
+                певних місяців і днів року. Користуватися таким щоденником можна будь-коли, роблячи 
+                нотатки відповідно до своїх планів або міркувань про певні події. Місця для записів 
+                достатньо. Книжки зручні, мають стильний дизайн і прикрашені кольоровими ілюстраціями. 
+                До того ж вони містять цікаву й пізнавальну інформацію, що спонукає звернути увагу людства 
+                на екологічні проблеми довкілля. Такий щоденник стане вашим помічником або відмінним подарунком! 
+                Внутрішній блок: єдиний на серію. Тематика: екологія; тварини та рослини з Червоної Книги України; 
+                природні пам‘ятки України.
             </p>
         """
     }
+    # {
+    #     "code": 1492233,
+    #     "ISBN": "482-7-67-788896-2",
+    #     "cover_type": "Листове видання",
+    #     "in_stock": True,
+    #     "is_top": True,
+    #     "rate": 3.5,
+    #     "publishing_year": 2024,
+    #     "illustrations": "Кольорові",
+    #     "papers": PagesType.LAMINATED,
+    #     "bonuses": 14,
+    #     "description": """
+    #         <p>
+    #             Нова серія навчальних килимків-планшетів «ПИШИ-СТИРАЙ»:
+    #         </p>
+    #         <ul>
+    #             <li>
+    #                 має глянцеве покриття
+    #             </li>
+    #             <li>
+    #                 надрукована на якісному папері
+    #             </li>
+    #             <li>
+    #                 великий шрифт і яскраве зображення
+    #             </li>
+    #             <li>
+    #                 формат спеціально розроблений для зручного використання під час навчального процесу
+    #             </li>
+    #             <li>
+    #                  багаторазова (пишемо і легко стираємо написи вологою серветкою)
+    #             </li>
+    #             <li>
+    #                 рекомендована для дошкільників і школярів початкових класів
+    #             </li>
+    #         </ul>
+    #         <p>
+    #             Планшет «Пиши-стирай. Розклад занять» – це односторонній ламінований стенд для зручного запису
+    #             розкладу занять дошкільників і школярів початкових класів. Це практичний інструмент для
+    #             організації навчального процесу. Він створений за сучасними вимогами освітніх програм.
+    #             Щодня можна вносити аж до 7 занять!
+    #         </p>
+    #         <p>
+    #             Рекомендовано для багаторазвого використання, адже стенд надрукований на щільному папері і
+    #             вкритий плівкою ламінації, що забезпечує довговічність та захист до зовнішніх пошкоджень.
+    #         </p>
+    #         <p>
+    #             На  бланку для занять можна писати безліч разів, навіть маркером! Завдяки його унікальному
+    #             глянцевому покриттю усі написи легко стираються вологою серветкою. Має стилізований дизайн
+    #             зеленого кольору з домашніми улюбленцями (котиками).
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "code": 1493804,
+    #     "ISBN": "978-966-938-621-2",
+    #     "cover_type": "Тверда",
+    #     "in_stock": True,
+    #     "is_has_cashback": True,
+    #     "is_top": True,
+    #     "rate": 4.7,
+    #     "publishing_year": 2024,
+    #     "pages_count": 256,
+    #     "bonuses": 146,
+    #     "description": """
+    #         <p>
+    #             Прокидаємося, гортаємо стрічку новин, занурюємося у щоденні справи... і мріємо про вихідні.
+    #             А може, саме час щось зрушити у цій рутині? Наприклад, тренуватися бачити прекрасне, справжнє,
+    #             неймовірне і добре. Пам'ятати, що життя — це те, що з тобою відбувається, поки ти будуєш плани.
+    #             І мудро інвестувати дари, які отримуємо від Бога. Ви впізнаєте ці цитати, користуючись
+    #             “Календарем щасливого чоловіка”.  А також довідаєтеся чимало пізнавального, корисного,
+    #             мотиваційного та наснажливого, що допоможе вам жити наповнено.
+    #         </p>
+    #     """
+    # }
     # {
     #     "code": 1502212,
     #     "ISBN": "fs-2023-plus",
@@ -4526,31 +4601,107 @@ BOOKS = [
     #     "category_id": 2
     # }
 
+    # {
+    #     "title": "Пиши-стирай. Розклад занять зелений з котиками",
+    #     "slug": "pyshy-styrai-rozklad-zannyat-zelenyi-z-kotykamy",
+    #     "price": 27,
+    #     "book_info_id": 15,
+    #     "publishing_id": 18,
+    #     "is_notebook": True,
+    #     "notebook_category_id": 2,
+    #     "notebook_subcategory_id": 3,
+    #     "category_id": 2,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/d/7/d797d5b7ecb3ce51.jpg",
+    #             "type": BookImageType.COVER
+    #         }
+    #     ]
+    # }
+
     {
-        "title": "Календар щасливого чоловіка 2025 (зелений)",
-        "slug": "kalendar-schaslyvoho-cholovika-2025-zelenyi",
-        "price": 292,
-        "book_info_id": 15,
-        "publishing_id": 35,
+        "title": "Щоденник Мавки. Літо",
+        "slug": "schodennyk-mavky-lito",
+        "price": 250,
+        "book_info_id": 17,
+        "publishing_id": 18,
         "is_notebook": True,
         "notebook_category_id": 2,
-        "notebook_subcategory_id": 1,
+        "notebook_subcategory_id": 2,
         "category_id": 2,
         "images": [
             {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/k/a/kalendar_cholov_1-1440x960.png",
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/4/145711.970.jpg",
                 "type": BookImageType.COVER
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/h/cholovika43254322025_20_2_-1440x960_1.jpg",
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/1/01_527_3.jpg",
                 "type": BookImageType.COVER
             },
             {
-                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/h/cholovika43254322025_20_3_-1440x960_1.jpg",
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/2/02_530_3.jpg",
                 "type": BookImageType.COVER
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/3/03_527_3.jpg",
+                "type": BookImageType.PAGE
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/4/04_479_16.jpg",
+                "type": BookImageType.PAGE
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/5/05_457_15.jpg",
+                "type": BookImageType.PAGE
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/6/06_438_15.jpg",
+                "type": BookImageType.PAGE
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/7/07_388_14.jpg",
+                "type": BookImageType.COVER
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/8/08_343_14.jpg",
+                "type": BookImageType.COVER
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/0/9/09_263_18.jpg",
+                "type": BookImageType.PAGE
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/mediagallery/image/1/0/10_248_19.jpg",
+                "type": BookImageType.PAGE
             }
         ]
     }
+
+    # {
+    #     "title": "Календар щасливого чоловіка 2025 (зелений)",
+    #     "slug": "kalendar-schaslyvoho-cholovika-2025-zelenyi",
+    #     "price": 292,
+    #     "book_info_id": 15,
+    #     "publishing_id": 35,
+    #     "is_notebook": True,
+    #     "notebook_category_id": 2,
+    #     "notebook_subcategory_id": 1,
+    #     "category_id": 2,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/k/a/kalendar_cholov_1-1440x960.png",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/h/cholovika43254322025_20_2_-1440x960_1.jpg",
+    #             "type": BookImageType.COVER
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/h/cholovika43254322025_20_3_-1440x960_1.jpg",
+    #             "type": BookImageType.COVER
+    #         }
+    #     ]
+    # }
 
     # {
     #     "title": "Скетчбук Manuscript Feros 2023 Plus (fs-2023-plus)",

@@ -25,6 +25,7 @@ class CoverTypes(enum.Enum):
     SOLID = "Тверда"
     SOFT = "М'яка"
     RINGS = "На кільцях"
+    PAGE_PUBLISHING = "Листове видання"
 
 
 class PagesType(enum.Enum):
@@ -32,6 +33,7 @@ class PagesType(enum.Enum):
     CELL = "Клітинка"
     OBLIQUE = "Коса лінія"
     SIMPLE = "Прості"
+    LAMINATED = "Ламіновані"
 
 
 class SizeTypes(enum.Enum):
