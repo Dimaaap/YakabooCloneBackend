@@ -6004,7 +6004,275 @@ GIFT_BRANDS = [
 ]
 
 GIFT_SUBCATEGORIES = [
-
+    # {
+    #     "title": "Тарілки",
+    #     "slug": "tarilky",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/9/29_548.jpg",
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/8/38_314.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/4/34_5_25.jpg"
+    #         }
+    #     ],
+    #     "category_id": 2
+    # },
+    # {
+    #     "title": "Чашки, кухлі",
+    #     "slug": "chashky-kuhli",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/5/15-0_26.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/2/12-0_29.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/4/14-0_28.jpg"
+    #         }
+    #     ],
+    #     "category_id": 2
+    # },
+    # {
+    #     "title": "Фляги",
+    #     "slug": "flyagy",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/2/12_18_148.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/_/7_90_59.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/_/8_73_62.jpg"
+    #         }
+    #     ],
+    #     "category_id": 2
+    # },
+    # {
+    #     "title": "Скретч-постери",
+    #     "slug": "skratch-postery",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/-/3-00_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/_/7__20_17.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/6/26__2_113.jpg"
+    #         }
+    #     ],
+    #     "category_id": 4
+    # },
+    # {
+    #     "title": "Скретч-карти",
+    #     "slug": "skratch-karty",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/-/3-1_30.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/_/1_234_82.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/_/9_55_62.jpg"
+    #         }
+    #     ],
+    #     "category_id": 4
+    # },
+    # {
+    #     "title": "Листівки та постери",
+    #     "slug": "lystivky-ta-postery",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/2/12_4_4.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/5/_/5__1_213.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/5/25_5_123.jpg"
+    #         }
+    #     ],
+    #     "category_id": 4
+    # },
+    # {
+    #     "title": "Обкладинки для документів",
+    #     "slug": "obkladynky-dlya-dokumentiv",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/3/13-0_40.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/_/1__58_135.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/_/2__51_33.jpg"
+    #         }
+    #     ],
+    #     "category_id": 5
+    # },
+    # {
+    #     "title": "Шкарпетки",
+    #     "slug": "shkarpetky",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/4/24_5_58.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/5/25_5_577.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/1/21_8_22.jpg"
+    #         }
+    #     ],
+    #     "category_id": 6
+    # },
+    # {
+    #     "title": "Листівки",
+    #     "slug": "lystivky",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/i/file_201_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/i/file_200_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/i/file_199_1.jpg"
+    #         }
+    #     ],
+    #     "category_id": 7
+    # },
+    # {
+    #     "title": "Конверти для грошей",
+    #     "slug": "konverty-dlya-hroshei",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img_40169.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img_40175.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/i/m/img_40193.jpg"
+    #         }
+    #     ],
+    #     "category_id": 7
+    # },
+    # {
+    #     "title": "Наклейки і тимчасові тату",
+    #     "slug": "nakleyrky-i-tymchasovi-tatu",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/2/12855_9b3f092cc3580adf7d58846753bab60c.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/5/15542t32765.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/2/_/2__51_43.jpg"
+    #         }
+    #     ],
+    #     "category_id": 7
+    # },
+    # {
+    #     "title": "Подарункові пакети",
+    #     "slug": "podarunkovi-pakety",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/3/43_3_31.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/2/42_1_241.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/3/0/30_2_106.jpg"
+    #         }
+    #     ],
+    #     "category_id": 8
+    # },
+    # {
+    #     "title": "Коробки",
+    #     "slug": "korobky",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/s/c/screenshot_1_67_2.png"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/p/l/pl-00035208_00-1500x1500_copy.jpg"
+    #         }
+    #     ],
+    #     "category_id": 8
+    # },
+    # {
+    #     "title": "Подарункові сертифікати",
+    #     "slug": "podarunkovi-sertufikaty",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/r/frame_2673_2_.png"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/s/e/sertifikat5000_.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/3/13241234141256161235.jpg"
+    #         }
+    #     ],
+    #     "category_id": 8
+    # },
+    # {
+    #     "title": "Funko Pop",
+    #     "slug": "funko-pop",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/1/71kby79yhrl._sl1403_222.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/4/1436_3266_10300_gow_locust_drone_glam_hires222.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/4/1436_3266_10509_dc_firestormwhitelanterngl_pop_glam_hires222.jpg"
+    #         }
+    #     ],
+    #     "category_id": 9
+    # },
+    # {
+    #     "title": "The Witcher",
+    #     "slug": "the-witcher",
+    #     "images_src": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/_/9_71_63.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/4/_/4_159_42.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/6/_/6_99_22.jpg"
+    #         }
+    #     ],
+    #     "category_id": 9
+    # },
+    {
+        "title": "Hot Toys",
+        "slug": "hot-toys",
+        "images_src": [
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/c/5/c5e4fbcf50569047f5b3dcdf5ea49054.jpg"
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/7/778988408803_20135101_small-doll_harry_m01_gml_product_1.960x600.jpg"
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/f/i/file_73_4.png"
+            }
+        ],
+        "category_id": 9
+    }
 ]
 
 GIFT_CATEGORIES = [
@@ -6089,4 +6357,35 @@ GIFT_CATEGORIES = [
             "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/4/1436_3266_10509_dc_firestormwhitelanterngl_pop_glam_hires222.jpg"
         ]
     }
+]
+
+GIFT_SERIES = [
+    {
+        "title": "Terminator",
+        "slug": "terminator"
+    },
+    {
+        "title": "Spin Master",
+        "slug": "spin-master"
+    },
+    {
+        "title": "DC Comics",
+        "slug": "dc-comics"
+    },
+    {
+        "title": "Ya_читаю",
+        "slug": "ya-chytaiy"
+    },
+    {
+        "title": "Magical minis",
+        "slug": "magical-minis"
+    },
+    {
+        "title": "It",
+        "slug": "it"
+    },
+    {
+        "title": "The Witcher 3",
+        "slug": "the-witcher-3"
+    },
 ]

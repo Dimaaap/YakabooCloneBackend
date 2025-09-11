@@ -83,7 +83,7 @@ async def delete_gift_subcategory_by_id(session: AsyncSession, subcategory_id: i
 async def main():
     async with db_helper.session_factory() as session:
         for subcategory in GIFT_SUBCATEGORIES:
-            await create_gift_subcategory(session, subcategory)
+            await create_gift_subcategory(session, GiftSubcategoryCreate.model_validate(subcategory))
 
 
 if __name__ == "__main__":

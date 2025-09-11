@@ -16,7 +16,7 @@ class GiftSeries(Base):
     slug: Mapped[str] = mapped_column(String(255), unique=True)
 
     gifts: Mapped[list["Gift"]] = relationship("Gift", back_populates="seria",
-                                               cascade="all, delete-orphan")
+                                               cascade="all, delete-orphan", uselist=False)
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(title={self.title}, slug={self.slug})"

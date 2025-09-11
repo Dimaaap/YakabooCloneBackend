@@ -36,6 +36,8 @@ from gift_subcategories import router as gift_subcategories_router
 from notebook_categories import router as notebook_categories_router
 from hobby_subcategories import router as hobby_subcategories_router
 from accesories import router as accessories_router
+from gift_categories import router as gift_categories_router
+from gift_subcategories import router as gift_series_router
 from accessories_brands import router as accessories_brands_router
 from accessories_categories import router as accessories_categories_router
 from notebook_subcategories import router as notebook_subcategories_router
@@ -82,6 +84,8 @@ app.include_router(notebook_categories_router)
 app.include_router(notebook_subcategories_router)
 app.include_router(gift_brands_router)
 app.include_router(gift_subcategories_router)
+app.include_router(gift_categories_router)
+app.include_router(gift_series_router)
 
 app.add_middleware(
     CORSMiddleware,
