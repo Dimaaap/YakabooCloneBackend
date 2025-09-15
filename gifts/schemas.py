@@ -1,9 +1,10 @@
 from pydantic import BaseModel, ConfigDict
 
 from core.models.board_game_ages import Age
-from game_ages.schemas import GameAgeSchema, GameAgeHobbyCreate
+from game_ages.schemas import GameAgeSchema
 from gift_brands.schemas import GiftBrandSchema
 from gift_categories.schemas import GiftCategoryShortSchema
+from gift_info.schemas import GiftInfoSchema
 from gift_subcategories.schemas import GiftSubcategoryShortSchema
 from gift_series.schemas import GiftSeriaShortSchema
 
@@ -26,6 +27,7 @@ class GiftBase(BaseModel):
     is_in_chart: bool = False
     gift_info_id: int
     seria_id: int | None = None
+    brand_id: int | None = None
     gift_category_id: int | None = None
     gift_subcategory_id: int | None = None
     ages: list[Age] = []
@@ -56,6 +58,7 @@ class GiftSchema(GiftBase):
     ages: list[GameAgeSchema] = []
     brand: GiftBrandSchema | None = None
     seria: GiftSeriaShortSchema | None = None
+    gift_info: GiftInfoSchema
     gift_category: GiftCategoryShortSchema | None = None
     gift_subcategory: GiftSubcategoryShortSchema | None = None
 

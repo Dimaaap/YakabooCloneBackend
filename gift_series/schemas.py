@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict
 class GiftSeriaBase(BaseModel):
     title: str
     slug: str
-    gifts: list[int] | None = None
+    #gifts: list[int] | None = None
 
 
 class GiftSeriaCreate(GiftSeriaBase):
@@ -30,3 +30,5 @@ class GiftSeriaShortSchema(GiftSeriaBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    title: str
+    slug: str

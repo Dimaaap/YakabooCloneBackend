@@ -6,6 +6,7 @@ from core.models.book_info import PagesType, BookLanguages
 from core.models.footer import FooterCategory
 from core.models.book_image import BookImageType
 from core.models.board_game_ages import Age
+from core.models.gift_info import GiftLanguagesEnum, GiftEventEnum, GiftTypeEnum
 from core.models.hobby import HobbyTheme, HobbyType
 
 CATEGORIES = [
@@ -6388,4 +6389,825 @@ GIFT_SERIES = [
         "title": "The Witcher 3",
         "slug": "the-witcher-3"
     },
+]
+
+GIFTS_INFO = [
+    # {
+    #     "code": 1326028,
+    #     "ISBN": "978966fytXL",
+    #     "item_size": "XL",
+    #     "packing_type": "Пакет",
+    #     "colors": "Білий",
+    #     "description": """
+    #         <p>
+    #             Любіть книжки – залишайтесь на стилі! Читати – це стильно,
+    #             читати – це завжди на часі. Любов до книжок – це те, чим
+    #             дійсно можна пишатися. Тож замовляйте брендовані товари
+    #             від Yakaboo, створюйте власний читацький образ і
+    #             самовиражайтеся на повну!
+    #         </p>
+    #         <p>
+    #             Футболки пошиті з преміального матеріалу зі структурою пен'є,
+    #             стрейч кулір 210 г/кв.м.
+    #         </p>
+    #         <p>
+    #             Склад: 95% бавовна та 5% еластан.
+    #         </p>
+    #         <p>
+    #             Нанесення зображення на дані футболки виконано методом
+    #             шовкотрафарет: для друку застосовується фарба на водній
+    #             основі, екологічно чиста. Фарба сертифікована в Україні
+    #             та у країнах Європи, в тому числі і для друку на дитячих
+    #             товари. Особливістю даної фарби є її здатність розтягуватися
+    #             разом з матеріалом, не створюючи «гумової кірки».
+    #             Окрім того вона має високу стійкість до прання.
+    #         </p>
+    #         <table>
+    #             <tbody>
+    #                 <tr>
+    #                     <td>
+    #                         <p> <b>Розмір</b> </p>
+    #                     </td>
+    #                     <td>
+    #                         <p> <b>Ширинаа футболки</b> </p>
+    #                     </td>
+    #                     <td>
+    #                         <p> <b> Довжина футболки </b> </p>
+    #                     </td>
+    #                     <td>
+    #                         <p> <b> Довжина рукава </b> </p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>S - 46р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>47 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>68,5 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>19,5 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>М - 48р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>50 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>69 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>20 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>L - 50р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>53 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>70 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>20,5 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>XL - 52р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>55 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>71 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>21 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>XXL - 54р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>59 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>74,5 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>21,5 см</p>
+    #                     </td>
+    #                 </tr>
+    #
+    #             </tbody>
+    #         </table>
+    #     """
+    # },
+    # {
+    #     "in_stock": False,
+    #     "code": 1326022,
+    #     "ISBN": "978966styker",
+    #     "item_size": "15x21 см",
+    #     "colors": "Рожевий, білий",
+    #     "description": """
+    #         <p>
+    #             Задня панель телефона чи ноутбука – вже давно не лише частина корпусу, а справжнісіньке місце для самовираження.
+    #             І крутий стікерпак – незамінний елемент у цій справі. Бо ж кльові стікери краще за будь-які тату розповідають, хто є хто і хто чим дихає.
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "in_stock": False,
+    #     "code": 1443258,
+    #     "ISBN": "AA-0133353",
+    #     "packing_size": "118x104x105 мм",
+    #     "packing_type": "Коробка",
+    #     "colors": "Білий",
+    #     "description": """
+    #         <p>
+    #             Купила нарешті той довбаний букет, бо скільки можна чекать на привід?! Сама собі празнік,
+    #             і не треба ніяких «червоних дат»! Гьорл павер ез іт із.
+    #         </p>
+    #         <p>
+    #             А чашка з Гусем потрібна щоб пить просекко, чай, кавусю та взагалі що завгодно. Вона зручна, приємна на дотик і підніматиме
+    #             настрій навіть якщо дедлайни горять, й щось якось не тойво. Ще й квіти туди поставить можна! Штука чудова, треба брать.
+    #         </p>
+    #         <p>
+    #             <b>
+    #                 Чашка «Сама собі празнік» для тих, хто:
+    #             </b>
+    #         </p>
+    #         <ul>
+    #             <li>
+    #                 розуміє та любить іронічне;
+    #             </li>
+    #             <li>
+    #                 потребує трохи празніка;
+    #             </li>
+    #             <li>
+    #                 фанатіє від Гуся;
+    #             </li>
+    #             <li>
+    #                 цінує якісний посуд;
+    #             </li>
+    #             <li>
+    #                 підтримує українських виробників та ілютраторів.
+    #             </li>
+    #         </ul>
+    #         <p>
+    #             Заміри чашки: Діаметр – 8.5 см., ширина ручки (для обхвату рукою) – 3 см., висота ручки – 5 см.
+    #         </p>
+    #         <p>
+    #             Об'єм: 350 мл.
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "in_stock": False,
+    #     "code": 1437718,
+    #     "ISBN": "orner-1815",
+    #     "weight": 370,
+    #     "colors": "Білий",
+    #     "packing_type": "Корбка",
+    #     "description": """
+    #         <p>
+    #             Ми знаємо, що твій ранок починається з думки про Україну та тарілки смачного сніданку. Тому вирішили поєднати ці два ритуали.
+    #             І таким чином у нашій патріотичній колекції з’явився посуд, який про щиру й глибоку любов до Батьківщини.
+    #         </p>
+    #         <ul>
+    #             <li>Діаметр: 25 см</li>
+    #             <li>Матеріал: біла склокераміка</li>
+    #             <li>Вироблена у Франції</li>
+    #             <li>Ілюстрація нанесена безпечними для здоров’я фарбами в Україні</li>
+    #             <li>Продається в подарунковій упаковці</li>
+    #             <li>Вага: 420 грамів</li>
+    #             <li>Вага з пакуванням: 500 грамів</li>
+    #         </ul>
+    #         <ul>
+    #             <li>
+    #                 <b>
+    #                     УВАГА!
+    #                 </b>
+    #                 <p>
+    #                     Ми не рекомендуємо мити тарілку в посудомийній машині, щоб запобігти пошкодженню ілюстрації під дією сильних мийних засобів
+    #                 </p>
+    #             </li>
+    #         </ul>
+    #     """
+    # }
+    # {
+    #     "in_stock": False,
+    #     "code": 938993,
+    #     "ISBN": "6016green",
+    #     "colors": "Зелений",
+    #     "description": """
+    #         <p>
+    #             Фляга Uzspace виготовлена з пластику Tritan - міцного і екологічно чистого матеріалу.
+    #             Ця фляга зручна своєю легкістю і нековзними вставками. За допомогою спеціального карабіна
+    #             її можна легко причепити до рюкзаку або велосипеду.
+    #         </p>
+    #         <ul>
+    #             <li>Об'єм: 950 мл<li>
+    #             <li>Матеріал корпусу: Tritan™ USA<li>
+    #             <li>Матеріал кришки: АБС-пластик<li>
+    #             <li>Допустима температура рідини: 0-96°С<li>
+    #         </ul>
+    #     """
+    # }
+    # {
+    #     "code": 1446062,
+    #     "ISBN": "4820202321804",
+    #     "item_size": "370х60х105 мм",
+    #     "description": """
+    #         <p>
+    #             Плюшева іграша БПЛА прийдеться до вподоби хлопцям будь-якого віку. Плюшеву
+    #             іграшку можна брати з собою на вулицю та грати з однолітками, також вона зможе послугувати
+    #             подушкою під час відпочинку вдома. Подаруйте мʼяку радість та захист своїй дитині.
+    #         </p>
+    #         <p>
+    #             Розмір: 37х6х10,5 см
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "code": 981196,
+    #     "ISBN": "4820191130876",
+    #     "item_size": "60x40 см",
+    #     "packing_size": "7x45 см",
+    #     "colors": "Чорний",
+    #     "packing_type": "Тубус",
+    #     "language": GiftLanguagesEnum.ENGLISH,
+    #     "description": """
+    #         <p>
+    #             Мотиваційний скретч-постер <b>#100 Wonders</b> створено для мандрівників, які не бояться кинути собі
+    #             виклик і відвідати 100 неймовірних місць. Планувати подорожі стане ще цікавіше!
+    #         </p>
+    #         <p>
+    #             Кожен з нас чув про 7 нових чудес світу. Але мало хто знає про інші дивні пам'ятки.
+    #             Ось чому наша команда створила унікальний список зі 100 чудесами світу, який ти маєш побачити.
+    #         </p>
+    #         <p>
+    #             Стирай скретч-шар з чудес, які відвідав, колекціонуй емоції і фотографії для Instagram!
+    #         </p>
+    #         <p>
+    #             <b>Приємні бонуси:</b>
+    #         </p>
+    #         <ul>
+    #             <li>
+    #                 чек-лист 100 чудес світу;
+    #             </li>
+    #             <li>
+    #                 дизайнерський тубус, який стане відмінним подарунковим упакуванням.
+    #             </li>
+    #         </ul>
+    #         <p>
+    #             <b>
+    #                 Унікальний дизайн
+    #             </b>
+    #         </p>
+    #         <p>
+    #             Постер #100 Wonders - унікальний чек-лист чудес з усього світу. Завдяки лаконічним кольорам
+    #             відмінно впишеться в будь-який інтер'єр.
+    #         </p>
+    #         <p>
+    #             Всі завдання проілюстровано і покрито сріблястим скретчем, після стирання якого проявиться чорний колір.
+    #         </p>
+    #         <p>
+    #             Стерті квадратики надихнуть тебе на наступну поїздку!
+    #         </p>
+    #         <p>
+    #             <b>Особливості:</b>
+    #         </p>
+    #         <ul>
+    #             <li>розмір постеру в розгорнутому вигляді - 60х40 см</li>
+    #             <li>розмір подарункового тубусу - 7х45см</li>
+    #             <li>мова постеру - англійська</li>
+    #             <li>матеріал - ламінований папір</li>
+    #             <li>країна-виробник - Україна</li>
+    #         </ul>
+    #     """
+    # }
+    # {
+    #     "code": 849820,
+    #     "ISBN": "4820191130524",
+    #     "item_size": "600x800 мм",
+    #     "packing_size": "7x64 см",
+    #     "weight": 500,
+    #     "packing_type": "Тубус",
+    #     "colors": "Мультиколір",
+    #     "language": GiftLanguagesEnum.ENGLISH,
+    #     "description": """
+    #         <p>
+    #             Travel Map Holiday LAGOON World - це барвиста мапа світу із золотистим скретч-шаром.
+    #             Стирай скретч із місць, у яких побував, і відкривай різнокольорове тло стертих країн.
+    #         </p>
+    #         <p>
+    #             Використовуй чек-лист найкращих пляжів планети, які відзначені черепашками на мапі.
+    #         </p>
+    #         <p>
+    #             Підписуй мапу своїм ім'ям, позначай навіть найменші країни на збільшеній Європі і
+    #             веди свій щоденник подорожей разом із Travel Map Holiday LAGOON World.
+    #         </p>
+    #         <p>
+    #             Даруй мапу друзям і вирушайте разом досліджувати нові міста. А ще це чудовий декор для дому або офісу,
+    #             який надихне провести відпустку на лазурному узбережжі.
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "code": 1464612,
+    #     "ISBN": "4820191132184",
+    #     "packing_type": "Тубус",
+    #     "item_size": "400x600 мм",
+    #     "description": """
+    #         <p>
+    #             <b>Прапор Dream&Do Flag з написом «‎Dream Plan Do</b>
+    #             — це мінімалістичний прапор з надихаючою цитатою, який красиво впишеться в будь-який інтер’єр
+    #         </p>
+    #         <p>
+    #             Прапор стане щоденним нагадуванням і стимулом жити своє краще життя.
+    #         </p>
+    #         <p>
+    #             Подаруйте другу або повісьте у себе на стіні, аби завжди пам’ятати про важливе.
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "code": 1443149,
+    #     "ISBN": "4823087003988",
+    #     "packing_type": "Пакет",
+    #     "item_size": "80x100 мм",
+    #     "colors": "Мультиколір",
+    #     "description": """
+    #         <p>
+    #             Обкладинка для паспорта Just Cover не тільки допоможе зберегти зовнішній вигляд, захистити паспорт
+    #             від пошкоджень, а й стане стильним аксесуаром. Яскрава та оригінальна обкладинка підкреслить вашу
+    #             індивідуальність і вишуканий смак.
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "code": 1443959,
+    #     "ISBN": "AA-0120666",
+    #     "colors": "Білий",
+    #     "description": """
+    #         <p>
+    #             Матеріал - натуральна гладка бавовна 97%, лайкра (еластан) 3%
+    #         </p>
+    #         <p>
+    #             Дизайн - Надьожна
+    #         </p>
+    #         <p>
+    #             Що ми показуємо зимовій нудьзі, комформізму та москалям? Правильно, те саме, що й Гусь!
+    #         </p>
+    #         <p>
+    #             Це шкарпетки, які дають відповідь. Шкарпетки, які демонструють філософію. Шкарпетки, які
+    #             вчать донт гів е фак.
+    #         </p>
+    #         <p>
+    #             Тож грій ніжки і хіхікай трішки!
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "code": 1503012,
+    #     "ISBN": "8067525353532",
+    #     "colors": "Мультиколір",
+    #     "packing_type": "Конверт",
+    #     "event": GiftEventEnum.OTHER,
+    #     "item_size": "100x150x0.5 мм",
+    #     "gift_type": GiftTypeEnum.MARKS,
+    #     "description": """
+    #         <p>
+    #             <b>Матеріал - </b> цупкий крейдований картон 350г
+    #         </p>
+    #         <ul>
+    #             <li>
+    #                 Листівка з авторським дизайном.
+    #             </li>
+    #             <li>
+    #                 Іде у комплекті з крафтовим конвертиком.
+    #             </li>
+    #             <li>
+    #                 На будь-який випадок життя :)
+    #             </li>
+    #         </ul>
+    #     """
+    # }
+    # {
+    #     "code": 1464993,
+    #     "ISBN": "PAP_185",
+    #     "colors": "Бузковий",
+    #     "item_size": "170x85 мм",
+    #     "description": """
+    #         <p>
+    #             Дизайнерські конверти для грошей – це завжди унікальність, ексклюзивність, вироби, створені з душею.
+    #             Такі подарункові конверти виготовляються з цікавим та стильним зовнішнім виглядом.
+    #         </p>
+    #         <p>
+    #             Кожен конверт має індивідуальну упаковку.
+    #         </p>
+    #     """
+    # }
+    {
+        "code": 1502387,
+        "ISBN": "10100699У",
+        "colors": "Мультиколір",
+        "item_size": "150x220 мм",
+        "packing_type": "Папка",
+        "weight": 30,
+        "description": """
+            <p>
+                Відкрий світ крутезних тимчасових тату разом із акулою-стилягою! Всередині набору 30 вибухових тату в 
+                стилі стрит-арт: павуки, ящірки, дикі черепахи, хижаки, смайли та модні слогани. Вони не просто 
+                прикрашають — вони додають характеру та підкреслюють твій унікальний стиль. Створені для хлопців, 
+                які обирають драйв, креатив і все нове.
+            </p>
+            <ul>
+                <li>
+                    Наносяться за хвилину, тримаються як справжні та без проблем змиваються водою з милом.
+                </li>
+                 <li>
+                    Абсолютно безпечні.
+                </li>
+                <li>
+                    Цей набір стане класним доповненням до дитячих вечірок, креативних ігор або просто як 
+                    стильний аксесуар на кожен день!
+                </li>
+            </ul>
+        """
+    }
+]
+
+GIFTS = [
+    # {
+    #     "title": "Футболка Yakaboo Ya_читаю XL",
+    #     "slug": "futbolka-yakaboo-ya-chutayu-xl",
+    #     "price": 459,
+    #     "is_top": True,
+    #     "is_in_chart": False,
+    #     "brand_id": 17,
+    #     "seria_id": 4,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5409_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5411_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5424_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5425_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5426_1_1.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 1,
+    #     "gift_info_id": 1
+    # },
+    # {
+    #     "title": "Стікерпак Yakaboo Ya_читаю",
+    #     "slug": "stikerpak-yakaboo-ya-chytaiy",
+    #     "price": 20,
+    #     "brand_id": 17,
+    #     "seria_id": 4,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5482.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5458.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5460.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5462.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 1,
+    #     "gift_info_id": 2
+    # },
+    # {
+    #     "title": "Чашка Gifty Сама собі празнік (АA-0133353)",
+    #     "slug": "chashka-gifty-sama-sobi-praznik",
+    #     "price": 450,
+    #     "brand_id": 18,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/d/cd84230e7d0f5a629740e0be8b2db424_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/d/a/daa09bb9fdaec9960ae172040f0ad37e_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/d/a/daa09bb9fdaec9960ae172040f0ad37e_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/5/c56680904cd1a0a34423b4820ccb8b47_900_700.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 2,
+    #     "gift_subcategory_id": 2,
+    #     "gift_info_id": 3,
+    # }
+    # {
+    #     "title": "Тарілка Ukraine is the capital of great people",
+    #     "slug": "tarilka-ukraine-is-the-capital-of-great-people",
+    #     "price": 399,
+    #     "brand_id": 19,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/p/r/predzakaz-tarelka-orner-great-people_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/5/f/5fbfb032e15340a2342605d97621c91c_1663861493_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/d/fddf54bb06da3613053bcea10b5a4d84_1663861487_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/b/4/b4c3fbc7afefcecd292acced9f4e9f20_1663861481_1.jpg"
+    #         },
+    #     ],
+    #     "gift_category_id": 2,
+    #     "gift_subcategory_id": 1,
+    #     "gift_info_id": 4,
+    # }
+    # {
+    #     "title": "Фляга Uzspace 950 мл зелена (6016green)",
+    #     "slug": "flyaga-uzspace-950-ml-zelena",
+    #     "price": 649,
+    #     "brand_id": 20,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/4/14_9_299.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/l/flyaga-uzspace-950-ml-zelenaya-59653211897697.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/l/flyaga-uzspace-950-ml-zelenaya-23520844561148.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 2,
+    #     "gift_subcategory_id": 3,
+    #     "gift_info_id": 4
+    # }
+    # {
+    #     "title": "Іграшка плюшева WP Merchandise БПЛА",
+    #     "slug": "ihrashka-pliusheva-wp-merchandise-bpla",
+    #     "price": 599,
+    #     "brand_id": 1,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_2.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_3.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_4.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 3,
+    #     "gift_info_id": 4
+    # }
+    # {
+    #     "title": "Скретч-постер 1DEA.me #100 Wonders",
+    #     "slug": "skratch-poster-1dea-me-100-wonders",
+    #     "price": 502,
+    #     "brand_id": 21,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/2/f/2f_3_56.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/7/m740x60cm-50-1200x1500px-020819-ss.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/9/m940x60cm-50-1200x480px-020819-ss-ap.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/4/m4-100-7x45cm-1200x1500px-020819-ss.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/1/m1040x60cm-0-1200x1500px-020819-ss.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/1/m1040x60cm-100-1200x1500px-020819-ss.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/1/m1040x60cm-50-1200x1500px-020819-ss.jpg"
+    #         },
+    #     ],
+    #     "gift_category_id": 4,
+    #     "gift_subcategory_id": 4,
+    #     "gift_info_id": 7
+    # }
+    # {
+    #     "title": "Скретч мапа світу від 1DEA.me Travel Map Holiday Lagoon World",
+    #     "slug": "skratch-mapa-svitu-vid-1dea-me-travel-map-holiday-lagoon-world",
+    #     "price": 599,
+    #     "brand_id": 21,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/2/12_17_53.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/0/008-e1508681347290.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/0/009-e1508681364865.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/1/010-e1508681378137.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/d/1d_hlw_mockup_tube-_-__27.09.17_ok-e1509998422181.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/s/c/screenshot_1_21_73.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/0/007-e1508683258310.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/1/011-e1508681327292.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/1/012-e1508681290845.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/1/013-e1508681266223.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/1/014_4.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 4,
+    #     "gift_subcategory_id": 5,
+    #     "gift_info_id": 8
+    # }
+    # {
+    #     "title": "Прапор 1DEA.me Dream&Do Flag 'Dream Plan Do'",
+    #     "slug": "prapor-1dea-me-dream-and-go-flag-dream-plan-do",
+    #     "price": 497,
+    #     "brand_id": 21,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/4/m4-ddf-dpd-1920x2400.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/1/m1-ddf-dpd-570x713.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/2/m2-ddf-dpd-scaled.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/3/m3-ddf-tube-02-570x713.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/m/5/m5-ddf-570x713.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 4,
+    #     "gift_subcategory_id": 6,
+    #     "gift_info_id": 9
+    # }
+    # {
+    #     "title": "Обкладинка для паспорта Just Cover Big Boss",
+    #     "slug": "obkladynka-dlya-pasporta-just-cover-big-boss",
+    #     "price": 254,
+    #     "brand_id": 22,
+    #     "is_top": True,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/2/62678032435858_result_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/o/b/obkladinka_na_dokumenti_big_boss_4823087003988_front.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 5,
+    #     "gift_info_id": 10
+    # }
+    # {
+    #     "title": "Шкарпетки Gifty з Гусем Фак 40-44",
+    #     "slug": "shkarpetky-gifty-z-gusem-fak-40-44",
+    #     "price": 298,
+    #     "brand_id": 18,
+    #     "is_top": True,
+    #     "seria_id": 8,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/e/4/e42679d916a103682863153cb7d5019b_900_700_2.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/0/7/076000b7f3851ad382de73c11b5f8a2f_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/2/e/2e1dafcfa8dddac491c11e95a0df19ad_900_700_2.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/9/e/9e110d5a051a955fd04ca34a8656e464_900_700_2.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/d/a/da1d7376faafe3025cc0352052e7ba72_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/3/3/33237ff9335adcff61236a9a58d6fdd3_900_700_2.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/e/2/e2ebe125d89e7db3d650b46b06da815c_900_700_2.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/e/2/e2ebe125d89e7db3d650b46b06da815c_900_700_2.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 6,
+    #     "gift_subcategory_id": 8,
+    #     "gift_info_id": 11
+    # }
+    # {
+    #     "title": "Листівка PollyArt Дім, де розквітають мрії",
+    #     "slug": "lystivka-polly-art-dim-de-rozkvitayt-mriyi",
+    #     "price": 26,
+    #     "brand_id": 23,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/_/1_2774.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/2/_/2_862_2.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/f/cfd9108b-1095-11f0-81bb-005056857596_25aeeddb-1097-11f0-81bb-005056857596.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 7,
+    #     "gift_subcategory_id": 9,
+    #     "gift_info_id": 12
+    # }
+    # {
+    #     "title": "Конверт для грошей Papilio На все велике і скоро досяжне",
+    #     "slug": "konvert-dlya-hroshei-papilio-na-vse-velyke-i-skoro-dosyazhne",
+    #     "price": 43,
+    #     "brand_id": 24,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/_/1_68_200.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 7,
+    #     "gift_subcategory_id": 10,
+    #     "gift_info_id": 13
+    # }
+    # {
+    #     "title": "Тимчасові тату для старших хлопців. Tattoos. Акула",
+    #     "slug": "tymchasovi-tatu-dlya-starshych-hloptciv-tattoos-akula",
+    #     "price": 78,
+    #     "brand_id": 10,
+    #     "is_top": True,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/_/1_2770.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/2/_/2_860.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/3/_/3_279.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/4/_/4_134_58.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/5/_/5_94_7.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/6/_/6_69_36.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 7,
+    #     "seria_id": 9,
+    #     "gift_subcategory_id": 11,
+    #     "gift_info_id": 14
+    # }
 ]

@@ -26,7 +26,7 @@ async def get_all_hobby_categories(session: AsyncSession = Depends(db_helper.sco
     return categories
 
 
-@router.get("/{slug}", response_model=GiftCategorySchema)
+@router.get("/{slug}", response_model=GiftCategorySchema | None)
 async def get_hobby_category_by_slug(slug: str, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     cached_categories = await redis_client.get(REDIS_KEY)
 
@@ -59,8 +59,8 @@ async def get_hobby_category_by_id(category_id: int,
         return await crud.get_gift_category_by_id(session, category_id)
 
 
-@router.get("/hobbies/{category_slug}")
-async def get_hobbies_by_category(category_slug: str,
+@router.get("/gifts/{category_slug}")
+async def get_gifts_by_category(category_slug: str,
                                   session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     category = await crud.get_gifts_by_category_slug(session, category_slug)
 

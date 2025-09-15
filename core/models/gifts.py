@@ -34,7 +34,7 @@ class Gift(Base):
     brand_id: Mapped[int] = mapped_column(ForeignKey("gift_brands.id"))
     brand: Mapped["GiftBrand"] = relationship("GiftBrand", back_populates="gifts")
 
-    seria_id: Mapped[int] = mapped_column(ForeignKey("gift_series.id"))
+    seria_id: Mapped[int] = mapped_column(ForeignKey("gift_series.id"), nullable=True)
     seria: Mapped["GiftSeries"] = relationship("GiftSeries", back_populates="gifts")
 
     images: Mapped[list["GiftImage"]] = relationship(
