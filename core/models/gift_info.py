@@ -66,7 +66,7 @@ class GiftInfo(Base):
 
     language: Mapped[GiftLanguagesEnum] = mapped_column(
         Enum(GiftLanguagesEnum, name="gift_languages", create_type=True),
-        default=GiftLanguagesEnum.UKRAINIAN, server_default=GiftLanguagesEnum.UKRAINIAN.name
+        nullable=True
     )
     gift_type: Mapped[GiftTypeEnum] = mapped_column(
         Enum(GiftTypeEnum, name="gift_type", create_type=True),

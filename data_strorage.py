@@ -6389,3 +6389,395 @@ GIFT_SERIES = [
         "slug": "the-witcher-3"
     },
 ]
+
+GIFTS_INFO = [
+    # {
+    #     "code": 1326028,
+    #     "ISBN": "978966fytXL",
+    #     "item_size": "XL",
+    #     "packing_type": "Пакет",
+    #     "colors": "Білий",
+    #     "description": """
+    #         <p>
+    #             Любіть книжки – залишайтесь на стилі! Читати – це стильно,
+    #             читати – це завжди на часі. Любов до книжок – це те, чим
+    #             дійсно можна пишатися. Тож замовляйте брендовані товари
+    #             від Yakaboo, створюйте власний читацький образ і
+    #             самовиражайтеся на повну!
+    #         </p>
+    #         <p>
+    #             Футболки пошиті з преміального матеріалу зі структурою пен'є,
+    #             стрейч кулір 210 г/кв.м.
+    #         </p>
+    #         <p>
+    #             Склад: 95% бавовна та 5% еластан.
+    #         </p>
+    #         <p>
+    #             Нанесення зображення на дані футболки виконано методом
+    #             шовкотрафарет: для друку застосовується фарба на водній
+    #             основі, екологічно чиста. Фарба сертифікована в Україні
+    #             та у країнах Європи, в тому числі і для друку на дитячих
+    #             товари. Особливістю даної фарби є її здатність розтягуватися
+    #             разом з матеріалом, не створюючи «гумової кірки».
+    #             Окрім того вона має високу стійкість до прання.
+    #         </p>
+    #         <table>
+    #             <tbody>
+    #                 <tr>
+    #                     <td>
+    #                         <p> <b>Розмір</b> </p>
+    #                     </td>
+    #                     <td>
+    #                         <p> <b>Ширинаа футболки</b> </p>
+    #                     </td>
+    #                     <td>
+    #                         <p> <b> Довжина футболки </b> </p>
+    #                     </td>
+    #                     <td>
+    #                         <p> <b> Довжина рукава </b> </p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>S - 46р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>47 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>68,5 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>19,5 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>М - 48р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>50 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>69 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>20 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>L - 50р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>53 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>70 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>20,5 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>XL - 52р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>55 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>71 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>21 см</p>
+    #                     </td>
+    #                 </tr>
+    #                 <tr>
+    #                     <td>
+    #                         <p><b>XXL - 54р</b></p>
+    #                     </td>
+    #                     <td>
+    #                         <p>59 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>74,5 см</p>
+    #                     </td>
+    #                     <td>
+    #                         <p>21,5 см</p>
+    #                     </td>
+    #                 </tr>
+    #
+    #             </tbody>
+    #         </table>
+    #     """
+    # },
+    # {
+    #     "in_stock": False,
+    #     "code": 1326022,
+    #     "ISBN": "978966styker",
+    #     "item_size": "15x21 см",
+    #     "colors": "Рожевий, білий",
+    #     "description": """
+    #         <p>
+    #             Задня панель телефона чи ноутбука – вже давно не лише частина корпусу, а справжнісіньке місце для самовираження.
+    #             І крутий стікерпак – незамінний елемент у цій справі. Бо ж кльові стікери краще за будь-які тату розповідають, хто є хто і хто чим дихає.
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "in_stock": False,
+    #     "code": 1443258,
+    #     "ISBN": "AA-0133353",
+    #     "packing_size": "118x104x105 мм",
+    #     "packing_type": "Коробка",
+    #     "colors": "Білий",
+    #     "description": """
+    #         <p>
+    #             Купила нарешті той довбаний букет, бо скільки можна чекать на привід?! Сама собі празнік,
+    #             і не треба ніяких «червоних дат»! Гьорл павер ез іт із.
+    #         </p>
+    #         <p>
+    #             А чашка з Гусем потрібна щоб пить просекко, чай, кавусю та взагалі що завгодно. Вона зручна, приємна на дотик і підніматиме
+    #             настрій навіть якщо дедлайни горять, й щось якось не тойво. Ще й квіти туди поставить можна! Штука чудова, треба брать.
+    #         </p>
+    #         <p>
+    #             <b>
+    #                 Чашка «Сама собі празнік» для тих, хто:
+    #             </b>
+    #         </p>
+    #         <ul>
+    #             <li>
+    #                 розуміє та любить іронічне;
+    #             </li>
+    #             <li>
+    #                 потребує трохи празніка;
+    #             </li>
+    #             <li>
+    #                 фанатіє від Гуся;
+    #             </li>
+    #             <li>
+    #                 цінує якісний посуд;
+    #             </li>
+    #             <li>
+    #                 підтримує українських виробників та ілютраторів.
+    #             </li>
+    #         </ul>
+    #         <p>
+    #             Заміри чашки: Діаметр – 8.5 см., ширина ручки (для обхвату рукою) – 3 см., висота ручки – 5 см.
+    #         </p>
+    #         <p>
+    #             Об'єм: 350 мл.
+    #         </p>
+    #     """
+    # }
+    # {
+    #     "in_stock": False,
+    #     "code": 1437718,
+    #     "ISBN": "orner-1815",
+    #     "weight": 370,
+    #     "colors": "Білий",
+    #     "packing_type": "Корбка",
+    #     "description": """
+    #         <p>
+    #             Ми знаємо, що твій ранок починається з думки про Україну та тарілки смачного сніданку. Тому вирішили поєднати ці два ритуали.
+    #             І таким чином у нашій патріотичній колекції з’явився посуд, який про щиру й глибоку любов до Батьківщини.
+    #         </p>
+    #         <ul>
+    #             <li>Діаметр: 25 см</li>
+    #             <li>Матеріал: біла склокераміка</li>
+    #             <li>Вироблена у Франції</li>
+    #             <li>Ілюстрація нанесена безпечними для здоров’я фарбами в Україні</li>
+    #             <li>Продається в подарунковій упаковці</li>
+    #             <li>Вага: 420 грамів</li>
+    #             <li>Вага з пакуванням: 500 грамів</li>
+    #         </ul>
+    #         <ul>
+    #             <li>
+    #                 <b>
+    #                     УВАГА!
+    #                 </b>
+    #                 <p>
+    #                     Ми не рекомендуємо мити тарілку в посудомийній машині, щоб запобігти пошкодженню ілюстрації під дією сильних мийних засобів
+    #                 </p>
+    #             </li>
+    #         </ul>
+    #     """
+    # }
+    # {
+    #     "in_stock": False,
+    #     "code": 938993,
+    #     "ISBN": "6016green",
+    #     "colors": "Зелений",
+    #     "description": """
+    #         <p>
+    #             Фляга Uzspace виготовлена з пластику Tritan - міцного і екологічно чистого матеріалу.
+    #             Ця фляга зручна своєю легкістю і нековзними вставками. За допомогою спеціального карабіна
+    #             її можна легко причепити до рюкзаку або велосипеду.
+    #         </p>
+    #         <ul>
+    #             <li>Об'єм: 950 мл<li>
+    #             <li>Матеріал корпусу: Tritan™ USA<li>
+    #             <li>Матеріал кришки: АБС-пластик<li>
+    #             <li>Допустима температура рідини: 0-96°С<li>
+    #         </ul>
+    #     """
+    # }
+    {
+        "code": 1446062,
+        "ISBN": "4820202321804",
+        "item_size": "370х60х105 мм",
+        "description": """
+            <p>
+                Плюшева іграша БПЛА прийдеться до вподоби хлопцям будь-якого віку. Плюшеву 
+                іграшку можна брати з собою на вулицю та грати з однолітками, також вона зможе послугувати 
+                подушкою під час відпочинку вдома. Подаруйте мʼяку радість та захист своїй дитині.
+            </p>
+            <p>
+                Розмір: 37х6х10,5 см
+            </p>
+        """
+    }
+]
+
+GIFTS = [
+    # {
+    #     "title": "Футболка Yakaboo Ya_читаю XL",
+    #     "slug": "futbolka-yakaboo-ya-chutayu-xl",
+    #     "price": 459,
+    #     "is_top": True,
+    #     "is_in_chart": False,
+    #     "brand_id": 17,
+    #     "seria_id": 4,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5409_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5411_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5424_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5425_1_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5426_1_1.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 1,
+    #     "gift_info_id": 1
+    # },
+    # {
+    #     "title": "Стікерпак Yakaboo Ya_читаю",
+    #     "slug": "stikerpak-yakaboo-ya-chytaiy",
+    #     "price": 20,
+    #     "brand_id": 17,
+    #     "seria_id": 4,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5482.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5458.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5460.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/a/v/avs_5462.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 1,
+    #     "gift_info_id": 2
+    # },
+    # {
+    #     "title": "Чашка Gifty Сама собі празнік (АA-0133353)",
+    #     "slug": "chashka-gifty-sama-sobi-praznik",
+    #     "price": 450,
+    #     "brand_id": 18,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/d/cd84230e7d0f5a629740e0be8b2db424_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/d/a/daa09bb9fdaec9960ae172040f0ad37e_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/d/a/daa09bb9fdaec9960ae172040f0ad37e_900_700.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/c/5/c56680904cd1a0a34423b4820ccb8b47_900_700.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 2,
+    #     "gift_subcategory_id": 2,
+    #     "gift_info_id": 3,
+    # }
+    # {
+    #     "title": "Тарілка Ukraine is the capital of great people",
+    #     "slug": "tarilka-ukraine-is-the-capital-of-great-people",
+    #     "price": 399,
+    #     "brand_id": 19,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/p/r/predzakaz-tarelka-orner-great-people_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/5/f/5fbfb032e15340a2342605d97621c91c_1663861493_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/d/fddf54bb06da3613053bcea10b5a4d84_1663861487_1.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/b/4/b4c3fbc7afefcecd292acced9f4e9f20_1663861481_1.jpg"
+    #         },
+    #     ],
+    #     "gift_category_id": 2,
+    #     "gift_subcategory_id": 1,
+    #     "gift_info_id": 4,
+    # }
+    # {
+    #     "title": "Фляга Uzspace 950 мл зелена (6016green)",
+    #     "slug": "flyaga-uzspace-950-ml-zelena",
+    #     "price": 649,
+    #     "brand_id": 20,
+    #     "images": [
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/4/14_9_299.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/l/flyaga-uzspace-950-ml-zelenaya-59653211897697.jpg"
+    #         },
+    #         {
+    #             "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/l/flyaga-uzspace-950-ml-zelenaya-23520844561148.jpg"
+    #         }
+    #     ],
+    #     "gift_category_id": 2,
+    #     "gift_subcategory_id": 3,
+    #     "gift_info_id": 4
+    # }
+    {
+        "title": "Іграшка плюшева WP Merchandise БПЛА",
+        "slug": "ihrashka-pliusheva-wp-merchandise-bpla",
+        "price": 599,
+        "brand_id": 1,
+        "images": [
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_1.jpg"
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_2.jpg"
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_3.jpg"
+            },
+            {
+                "image_url": "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/f/w/fwpplushuav22gr00_4.jpg"
+            }
+        ],
+        "gift_category_id": 3,
+        "gift_info_id": 4
+    }
+]
