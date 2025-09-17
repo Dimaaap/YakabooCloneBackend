@@ -28,7 +28,7 @@ async def get_all_gift_subcategories(session: AsyncSession = Depends(db_helper.s
 
 
 @router.get("/{slug}", response_model=GiftSubcategorySchema)
-async def get_hobby_subcategory_by_slug(slug: str,
+async def get_gift_subcategory_by_slug(slug: str,
                                         session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     cached_subcategories = await redis_client.get(REDIS_KEY)
 
@@ -44,15 +44,15 @@ async def get_hobby_subcategory_by_slug(slug: str,
         return await crud.get_gift_subcategory_by_slug(session, slug)
 
 
-@router.get("/hobbies/{slug}")
-async def get_hobbies_by_subcategory_slug(slug: str,
+@router.get("/gifts/{slug}")
+async def get_gifts_by_subcategory_slug(slug: str,
                                           session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     subcategory = await crud.get_gifts_by_subcategory_slug(session, slug)
     return subcategory
 
 
 @router.get("/by-id/{subcategory_id}", response_model=GiftSubcategorySchema)
-async def get_hobby_subcategory_by_id(subcategory_id: int,
+async def get_gift_subcategory_by_id(subcategory_id: int,
                                       session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     cached_subcategories = await redis_client.get(REDIS_KEY)
 
@@ -68,7 +68,7 @@ async def get_hobby_subcategory_by_id(subcategory_id: int,
 
 
 @router.post("/create")
-async def create_hobby_subcategory(gift_subcategory: GiftSubcategoryCreate,
+async def create_gity_subcategory(gift_subcategory: GiftSubcategoryCreate,
                                    session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     new_subcategory = await crud.create_gift_subcategory(session, gift_subcategory)
 
@@ -80,7 +80,7 @@ async def create_hobby_subcategory(gift_subcategory: GiftSubcategoryCreate,
 
 
 @router.delete("/{subcategory_id}")
-async def delete_hobby_subcategory_by_id(subcategory_id: int,
+async def delete_gift_subcategory_by_id(subcategory_id: int,
                                          session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     deleted_subcategory = await crud.delete_gift_subcategory_by_id(session, subcategory_id)
 
