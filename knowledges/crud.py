@@ -27,6 +27,13 @@ async def get_all_knowledge(session: AsyncSession) -> list[KnowledgeSchema]:
     return [KnowledgeSchema.model_validate(kn) for kn in knowledge]
 
 
+async def get_sidebar_knowledge(session: AsyncSession) -> list[KnowledgeSchema]:
+    statement = select(Knowledge).where(Knowledge.is_active, Knowledge.in_sidebar).order_by(Knowledge.id)
+    result: Result = await session.execute(statement)
+    knowledge = result.scalars().all()
+    return [KnowledgeSchema.model_validate(kn) for kn in knowledge]
+
+
 async def get_knowledge_by_slug(session: AsyncSession, slug: str) -> KnowledgeSchema:
     statement = select(Knowledge).where(Knowledge.slug == slug and Knowledge.is_active)
     result: Result = await session.execute(statement)

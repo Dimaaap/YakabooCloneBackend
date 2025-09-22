@@ -7,6 +7,8 @@ from .base import Base
 class Knowledge(Base):
     title: Mapped[str] = mapped_column(String(100), default="", server_default="")
     slug: Mapped[str] = mapped_column(String(100), default="", server_default="")
+    container_title: Mapped[str] = mapped_column(String(120), nullable=True)
+    in_sidebar: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     content: Mapped[str] = mapped_column(Text, default="", server_default="")
 

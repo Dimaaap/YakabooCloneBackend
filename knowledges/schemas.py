@@ -5,6 +5,8 @@ class KnowledgeBase(BaseModel):
     title: str
     slug: str
     is_active: bool
+    container_title: str | None = None
+    in_sidebar: bool = False
     content: str
 
 

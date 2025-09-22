@@ -67,7 +67,7 @@ async def get_gift_subcategory_by_id(subcategory_id: int,
         return await crud.get_gift_subcategory_by_id(session, subcategory_id)
 
 
-@router.post("/create")
+@router.post("/create") 
 async def create_gity_subcategory(gift_subcategory: GiftSubcategoryCreate,
                                    session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     new_subcategory = await crud.create_gift_subcategory(session, gift_subcategory)

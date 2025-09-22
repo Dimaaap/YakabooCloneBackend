@@ -22,6 +22,20 @@ async def get_all_knowledge(session: AsyncSession = Depends(db_helper.scoped_ses
     return knowledge
 
 
+@router.get("/in-sidebar", response_model=list[KnowledgeSchema])
+async def get_sidebar_knowledge(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    cached_knowledge = await redis_client.get("sidebar_knowledge")
+    if cached_knowledge:
+        kn_list = []
+        for kn in json.loads(cached_knowledge):
+            if kn["in_sidebar"]:
+                kn_list.append(kn)
+        return kn_list
+    knowledge = await crud.get_sidebar_knowledge(session)
+    await redis_client.set("sidebar_knowledge", json.dumps([kn.model_dump() for kn in knowledge]))
+    return knowledge
+
+
 @router.post("/create")
 async def create_knowledge(
         knowledge: KnowledgeCreate,
