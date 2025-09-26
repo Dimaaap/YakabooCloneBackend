@@ -1,5 +1,3 @@
-from sys import prefix
-
 from fastapi import APIRouter
 
 from .views import router as hobby_router

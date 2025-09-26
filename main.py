@@ -42,6 +42,7 @@ from gifts import router as gifts_router
 from accessories_brands import router as accessories_brands_router
 from accessories_categories import router as accessories_categories_router
 from notebook_subcategories import router as notebook_subcategories_router
+from main_page_title import router as main_page_title_router
 
 
 @asynccontextmanager
@@ -88,6 +89,7 @@ app.include_router(gift_brands_router)
 app.include_router(gift_subcategories_router)
 app.include_router(gift_categories_router)
 app.include_router(gift_series_router)
+app.include_router(main_page_title_router)
 
 app.add_middleware(
     CORSMiddleware,

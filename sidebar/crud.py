@@ -42,6 +42,13 @@ async def get_all_sidebars(session: AsyncSession) -> list[SchemasSidebar]:
     return [SchemasSidebar.model_validate(sidebar) for sidebar in sidebars]
 
 
+async def get_visible_sidebars(session: AsyncSession) -> list[SchemasSidebar]:
+    statement = select(Sidebar).order_by(Sidebar.order_number, Sidebar.id).where(Sidebar.visible)
+    result: Result = await session.execute(statement)
+    sidebars = result.scalars().all()
+    return [SchemasSidebar.model_validate(sidebar) for sidebar in sidebars]
+
+
 async def main():
     async with db_helper.session_factory() as session:
         for sidebar in SIDEBAR:

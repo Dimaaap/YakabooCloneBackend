@@ -30,6 +30,7 @@ __all__ = (
     "BoardGameInfo",
     "Contacts",
     "City",
+    "MainPageTitle",
     "Hobby",
     "HobbyAgesAssociation",
     "HobbyImage",
@@ -109,6 +110,7 @@ from .accessouries_brand import AccessoriesBrand
 from .book_translators import BookTranslator
 from .literature_periods import LiteraturePeriods
 from .notebook_categories import NotebookCategory
+from .main_page_title import MainPageTitle
 from .gifts import Gift
 from .gift_brands import GiftBrand
 from .gift_categories import GiftCategory

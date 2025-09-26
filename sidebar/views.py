@@ -23,8 +23,19 @@ async def get_all_sidebars(
     sidebars = await crud.get_all_sidebars(session)
     await redis_client.set("sidebars", json.dumps([sidebar.model_dump() for sidebar in sidebars]),
                            ex=SIX_DAYS)
+    return sidebars
 
-    print(sidebars)
+
+@router.get("/visible", response_model=list[Sidebar])
+async def get_visible_sidebars(
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency)
+):
+    cached_visible = await redis_client.get("sidebars_visible")
+    if cached_visible:
+        return json.loads(cached_visible)
+    sidebars = await crud.get_visible_sidebars(session)
+    await redis_client.set("sidebars_visible", json.dumps([sidebar.model_dump() for sidebar in sidebars]),
+                           ex=SIX_DAYS)
     return sidebars
 
 
