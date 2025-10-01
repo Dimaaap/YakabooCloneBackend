@@ -58,6 +58,7 @@ async def get_all_books(session: AsyncSession) -> list[BookSchema]:
             selectinload(Book.wishlists),
             selectinload(Book.translators),
             joinedload(Book.literature_period),
+            joinedload(Book.seria),
             selectinload(Book.images),
         )
         .order_by(Book.id))
@@ -78,6 +79,7 @@ async def get_all_notebooks(session: AsyncSession) -> list[BookSchema]:
             selectinload(Book.wishlists),
             selectinload(Book.translators),
             joinedload(Book.literature_period),
+            joinedload(Book.seria),
             selectinload(Book.images),
             joinedload(Book.notebook_subcategory),
             joinedload(Book.notebook_category),
@@ -99,6 +101,7 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
             selectinload(Book.authors),
             joinedload(Book.publishing),
             selectinload(Book.wishlists),
+            joinedload(Book.seria),
             selectinload(Book.translators),
             joinedload(Book.literature_period)
         )
@@ -120,6 +123,7 @@ async def get_notebook_by_id(notebook_id: int, session: AsyncSession) -> BookSch
             selectinload(Book.authors),
             joinedload(Book.publishing),
             selectinload(Book.wishlists),
+            joinedload(Book.seria),
             selectinload(Book.translators),
             joinedload(Book.literature_period),
         )
@@ -146,6 +150,7 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             joinedload(Book.literature_period),
             joinedload(Book.notebook_category),
             selectinload(Book.translators),
+            joinedload(Book.seria),
             joinedload(Book.literature_period),
         )
     )
@@ -169,6 +174,7 @@ async def get_notebook_by_slug(notebook_slug: str, session: AsyncSession) -> Boo
             selectinload(Book.images),
             selectinload(Book.translators),
             joinedload(Book.literature_period),
+            joinedload(Book.seria),
             joinedload(Book.notebook_category),
             joinedload(Book.notebook_subcategory)
         )

@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from .literature_periods import LiteraturePeriods
     from .translator_book_association import TranslatorBookAssociation
     from .notebook_categories import NotebookCategory
+    from .book_series import BookSeria
 
 
 class Book(Base):
@@ -61,6 +62,15 @@ class Book(Base):
 
     literature_period: Mapped["LiteraturePeriods"] = relationship(
         "LiteraturePeriods", back_populates="books", lazy="joined"
+    )
+
+    seria_id: Mapped[int] = mapped_column(
+        ForeignKey("book_series.id", name="fk_book_seria"),
+        nullable=True
+    )
+
+    seria: Mapped["BookSeria"] = relationship(
+        "BookSeria", back_populates="book", lazy="joined"
     )
 
     notebook_category_id: Mapped[int] = mapped_column(

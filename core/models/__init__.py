@@ -50,6 +50,7 @@ __all__ = (
     "GiftBrand",
     "GiftCategory",
     "GiftImage",
+    "BookSeria",
     "GiftInfo",
     "GiftSeries",
     "GiftSubCategory",
@@ -99,6 +100,7 @@ from .delivery_terms import DeliveryTerms
 from .book_image import BookImage
 from .hobby import Hobby
 from .hobby_brands import HobbyBrand
+from .book_series import BookSeria
 from .hobby_game_series import HobbyGameSeries
 from .hobby_image import HobbyImage
 from .hobby_categories import HobbyCategory

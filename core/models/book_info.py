@@ -80,6 +80,8 @@ class BookInfo(Base):
     size: Mapped[SizeTypes] = mapped_column(Enum(SizeTypes), nullable=True)
     pages_color: Mapped[str] = mapped_column(String(50), nullable=True)
     type: Mapped[str] = mapped_column(String(50), nullable=True)
+    edition: Mapped[int] = mapped_column(Integer, nullable=True)
+    book_format: Mapped[str] = mapped_column(String(100), nullable=True)
 
     publishing_year: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     first_published_at: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
