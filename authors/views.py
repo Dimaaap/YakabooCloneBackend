@@ -56,7 +56,7 @@ async def get_author_by_slug(
                 return author
     else:
         authors = await crud.get_all_authors(session)
-        await redis_client.set(REDIS_KEY, json.dumps([author.model_dump() for author in authors]))
+        await redis_client.set(REDIS_KEY, json.dumps([author.model_dump() for author in authors], default=str))
         return await crud.get_author_by_slug(slug, session)
 
 

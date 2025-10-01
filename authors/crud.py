@@ -24,7 +24,10 @@ async def create_author(
 
 
 async def get_all_authors(session: AsyncSession) -> list[AuthorSchema]:
-    statement = select(Author).options(joinedload(Author.interesting_fact)).order_by(Author.id)
+    statement = select(Author).options(
+        joinedload(Author.interesting_fact),
+        selectinload(Author.images)
+    ).order_by(Author.id)
     result: Result = await session.execute(statement)
     authors = result.scalars().all()
     return [AuthorSchema.model_validate(author) for author in authors]
@@ -80,7 +83,8 @@ async def get_authors_by_query(query: str, session: AsyncSession):
 
 async def get_author_by_slug(slug: str, session: AsyncSession) -> Author:
     statement = (select(Author)
-                 .options(joinedload(Author.interesting_fact))
+                 .options(joinedload(Author.interesting_fact),
+                          selectinload(Author.images))
                  .where(Author.slug == slug, Author.is_active))
     result: Result = await session.execute(statement)
     author = result.scalars().first()
