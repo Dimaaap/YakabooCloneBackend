@@ -2,7 +2,7 @@ import asyncio
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete, func, or_
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import BookTranslator, db_helper, Book
@@ -85,6 +85,7 @@ async def get_all_translator_books_by_translator_id(session: AsyncSession, trans
             selectinload(Book.publishing),
             selectinload(Book.images),
             selectinload(Book.literature_period),
+            joinedload(Book.seria)
         )
     )
     

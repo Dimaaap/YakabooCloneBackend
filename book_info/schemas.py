@@ -29,7 +29,7 @@ class BookInfoBase(BaseModel):
     size: SizeTypes | None = None
     pages_color: str | None = None
     type: str | None = None
-    edition: str | None = None
+    edition: int | None = None
     book_format: str | None = None
 
 

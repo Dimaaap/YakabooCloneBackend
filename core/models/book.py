@@ -70,7 +70,7 @@ class Book(Base):
     )
 
     seria: Mapped["BookSeria"] = relationship(
-        "BookSeria", back_populates="book", lazy="joined"
+        "BookSeria", back_populates="books", lazy="joined"
     )
 
     notebook_category_id: Mapped[int] = mapped_column(

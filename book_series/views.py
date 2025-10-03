@@ -32,3 +32,10 @@ async def create_seria(seria: BookSeriaCreate, session: AsyncSession = Depends(d
     if new_seria:
         return new_seria
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(new_seria))
+
+
+@router.get("/books/{seria_slug}")
+async def get_all_books_by_seria_slug(seria_slug: str,
+                                      session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    books = await crud.get_all_seria_books_by_seria_slug(session, seria_slug)
+    return books

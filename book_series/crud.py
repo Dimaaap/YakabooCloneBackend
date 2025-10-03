@@ -2,7 +2,7 @@ import asyncio
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete, func, or_
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import BookSeria, db_helper, Book
@@ -49,6 +49,30 @@ async def get_series_by_query(query: str, session: AsyncSession):
     return list(series) if series else []
 
 
+async def get_all_seria_books_by_seria_slug(session: AsyncSession, seria_slug: str):
+    statement = (
+        select(Book)
+        .join(Book.seria)
+        .where(BookSeria.slug == seria_slug)
+        .options(
+            selectinload(Book.book_info),
+            selectinload(Book.translators),
+            selectinload(Book.subcategories),
+            selectinload(Book.publishing),
+            selectinload(Book.images),
+            selectinload(Book.literature_period),
+            joinedload(Book.seria)
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    books = result.unique().scalars().all()
+    print(books)
+    if not books:
+        return []
+    return books
+
+
 async def get_seria_by_slug(slug: str, session: AsyncSession) -> BookSeria:
     statement = select(BookSeria).where(BookSeria.slug == slug, BookSeria.is_active)
 
@@ -69,27 +93,6 @@ async def delete_seria_by_id(session: AsyncSession, seria_id: int):
     except Exception as e:
         return False
 
-
-async def get_all_seria_books_by_seria_id(session: AsyncSession, seria_id: int):
-    statement = (
-        select(Book)
-        .join(Book.seria)
-        .where(BookSeria.id == seria_id)
-        .options(
-            selectinload(Book.book_info),
-            selectinload(Book.translators),
-            selectinload(Book.subcategories),
-            selectinload(Book.publishers),
-            selectinload(Book.images),
-            selectinload(Book.literature_period),
-        )
-    )
-
-    result: Result = await session.execute(statement)
-    books = result.unique().scalars().all()
-    if not books:
-        return []
-    return books
 
 
 async def main():
