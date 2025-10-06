@@ -23,10 +23,28 @@ async def create_seria(
 
 
 async def get_all_series(session: AsyncSession) -> list[BookSeriaSchema]:
-    statement = select(BookSeria).order_by(BookSeria.id)
+    statement = (
+        select(
+            BookSeria,
+            func.count(Book.id).label("books_count")
+        )
+        .outerjoin(Book, Book.seria_id == BookSeria.id)
+        .group_by(BookSeria.id)
+        .order_by(BookSeria.id)
+    )
+
     result: Result = await session.execute(statement)
-    series = result.scalars().all()
-    return series
+    rows = result.all()
+
+    series_with_counts = [
+        {
+            **row.BookSeria.__dict__,
+            "books_count": row.books_count
+        }
+        for row in rows
+    ]
+
+    return series_with_counts
 
 
 async def get_series_by_query(query: str, session: AsyncSession):

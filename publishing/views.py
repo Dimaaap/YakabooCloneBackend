@@ -15,13 +15,7 @@ router = APIRouter(tags=["pubslishing"])
 async def get_all_publishing(
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
-    cached_publishing = await redis_client.get("publishing")
-
-    if cached_publishing:
-        return json.loads(cached_publishing)
-
     publishing = await crud.get_all_publishing(session)
-    await redis_client.set("publishing", json.dumps([pub.model_dump() for pub in publishing]))
     return publishing
 
 
@@ -31,9 +25,7 @@ async def create_publishing(
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     new_publishing = await crud.create_publishing(session, publishing)
-
     if new_publishing:
-        await redis_client.delete("publishing")
         return new_publishing
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(new_publishing))
 
@@ -55,16 +47,7 @@ async def delete_publishing(
 async def get_publishing_by_slug(
         slug: str, session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
-    cached_publishing = await redis_client.get("publishing")
-    if cached_publishing:
-        publishing_list = json.loads(cached_publishing)
-        for pub in publishing_list:
-            if pub["slug"] == slug:
-                return pub
-    else:
-        publishing = await crud.get_all_publishing(session)
-        await redis_client.set("publishing", json.dumps([pub.model_dump() for pub in publishing]))
-        return await crud.get_publishing_by_slug(slug, session)
+    return await crud.get_publishing_by_slug(slug, session)
 
 
 @router.get("/first-letter/{letter}", response_model=list[PublishingSchema])
@@ -72,19 +55,7 @@ async def get_publishing_by_first_letter(
         letter: str | None,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
-    cached_publishing = await redis_client.get("publishing")
-
-    if cached_publishing:
-        publishing_list = json.loads(cached_publishing)
-        res = []
-        for pub in publishing_list:
-            if pub["title"][0].lower() == letter.lower():
-                res.append(pub)
-        return res
-    else:
-        publishing = await crud.get_all_publishing(session)
-        await redis_client.set("publishing", json.dumps([pub.model_dump() for pub in publishing]))
-        return await crud.get_publishing_by_title_first_letter(letter, session)
+    return await crud.get_publishing_by_title_first_letter(letter, session)
 
 
 @router.get("/search/", response_model=list[PublishingSchema])
@@ -92,16 +63,11 @@ async def search_publishing(
         query: str = Query(...),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
-    cached_publishing = await redis_client.get('publishing')
+    return await crud.get_publishing_by_query(query, session)
 
-    if cached_publishing:
-        publishing_list = json.loads(cached_publishing)
-        res = []
-        for pub in publishing_list:
-            if query.lower() in pub['title'].lower():
-                res.append(pub)
 
-    else:
-        publishing = await crud.get_all_publishing(session)
-        await redis_client.set('publishing', json.dumps([pub.model_dump() for pub in publishing]))
-        return await crud.get_publishing_by_query(query, session)
+@router.get("/{publishing_id}/books")
+async def get_all_books_by_publishing(publishing_id: int,
+                                      session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    books = await crud.get_all_publishing_books_by_publishing_id(session, publishing_id)
+    return books

@@ -2,10 +2,11 @@ import asyncio
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, func, or_
+from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from publishing.schemas import *
-from core.models import Publishing, db_helper
+from core.models import Publishing, db_helper, Book
 from data_strorage import PUBLISHING
 
 
@@ -24,7 +25,31 @@ async def get_all_publishing(session: AsyncSession) -> list[PublishingSchema]:
     statement = select(Publishing).order_by(Publishing.title).where(Publishing.visible)
     result: Result = await session.execute(statement)
     publishing = result.scalars().all()
-    return [PublishingSchema.model_validate(pub) for pub in publishing]
+    return publishing
+
+
+async def get_all_publishing_books_by_publishing_id(session: AsyncSession, publishing_id: int):
+    statement = (
+        select(Book)
+        .join(Book.publishing)
+        .where(Book.publishing_id == publishing_id)
+        .options(
+            joinedload(Book.book_info),
+            selectinload(Book.translators),
+            selectinload(Book.subcategories),
+            joinedload(Book.literature_period),
+            joinedload(Book.publishing),
+            selectinload(Book.images),
+            joinedload(Book.seria)
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    books = result.unique().scalars().all()
+
+    if not books:
+        return []
+    return books
 
 
 async def delete_publishing_by_slug(slug: str, session: AsyncSession):

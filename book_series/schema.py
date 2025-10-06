@@ -24,3 +24,4 @@ class BookSeriaSchema(BookSeriaBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    books_count: int = 0
