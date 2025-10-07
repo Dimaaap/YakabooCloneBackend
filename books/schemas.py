@@ -63,17 +63,20 @@ class BookUpdatePartial(BookUpdate):
     publishing_id: int | None
 
 
-class BookSchema(BookBase):
+class BookSchemaWithoutWishlists(BookBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
     book_info: BookInfoSchema | None = None
     authors: list[AuthorSchema] = []
     publishing: PublishingSchema | None = None
-    wishlists: list[WishlistSchema] = []
     images: list[BookImageSchema] = []
     translators: list[BookTranslatorSchema] = []
     literature_period: LiteraturePeriodSchema | None = None
     notebook_category: NotebookCategoryShortSchema | None = None
     notebook_subcategory: NotebookSubcategoryShortSchema | None = None
     seria: BookSeriaSchema | None = None
+
+
+class BookSchema(BookSchemaWithoutWishlists):
+    wishlists: list[WishlistSchema] = []
