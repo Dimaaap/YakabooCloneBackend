@@ -3,12 +3,16 @@ from typing import Annotated, Optional
 
 from pydantic import BaseModel, EmailStr, ConfigDict, StringConstraints
 
+from core.models.user import UserStatusEnum
+
 
 class UserBase(BaseModel):
     first_name: str
     last_name: str
     phone_number: Annotated[str, StringConstraints(min_length=8)]
     email: EmailStr
+    bonuses: int
+    level: UserStatusEnum | None = None
 
 
 class UserWithoutPassword(UserBase):

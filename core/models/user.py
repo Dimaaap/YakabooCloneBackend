@@ -1,13 +1,21 @@
 from typing import TYPE_CHECKING, Optional
 from datetime import datetime, date
+import enum
 
-from sqlalchemy import String, Boolean, Date, DateTime
+from sqlalchemy import String, Boolean, Date, DateTime, Integer, Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
 
 if TYPE_CHECKING:
     from .wishlists import Wishlist
+
+
+class UserStatusEnum(str, enum.Enum):
+    READER = "Читач"
+    EXPERT = "Знавець"
+    ERUDITE = "Ерудит"
+    GENIUS = "Геній"
 
 
 class User(Base):
@@ -22,6 +30,11 @@ class User(Base):
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     is_subscribed_to_news: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     birth_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True, default=None, server_default=None)
+    bonuses: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    level: Mapped[UserStatusEnum] = mapped_column(SQLEnum(UserStatusEnum,
+                                                          name="user_status_type", create_type=True),
+                                                  default=UserStatusEnum.READER,
+                                                  server_default=UserStatusEnum.READER.name)
 
     date_joined: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))
     wishlists: Mapped[list["Wishlist"]] = relationship("Wishlist", back_populates="user")
