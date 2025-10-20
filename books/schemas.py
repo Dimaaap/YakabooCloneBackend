@@ -1,5 +1,7 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
+from book_edition_group.schemas import BookEditionGroupSchema
+from book_illustrators.schemas import BookIllustratorSchema
 from book_info.schemas import BookInfoSchema
 from authors.schemas import AuthorSchema
 from book_series.schema import BookSeriaSchema
@@ -36,6 +38,7 @@ class BookBase(BaseModel):
     notebook_category_id: int | None = None
     notebook_subcategory_id: int | None = None
     publishing_id: int
+    edition_group_id: int | None = None
     seria_id: int | None = None
     images: list[BookImageCreate] | None = None
     authors: list[int] | None = None
@@ -72,11 +75,14 @@ class BookSchemaWithoutWishlists(BookBase):
     publishing: PublishingSchema | None = None
     images: list[BookImageSchema] = []
     translators: list[BookTranslatorSchema] = []
+    illustrators: list[BookIllustratorSchema] = []
     literature_period: LiteraturePeriodSchema | None = None
     notebook_category: NotebookCategoryShortSchema | None = None
     notebook_subcategory: NotebookSubcategoryShortSchema | None = None
     seria: BookSeriaSchema | None = None
+    edition_group: BookEditionGroupSchema | None = None
 
 
 class BookSchema(BookSchemaWithoutWishlists):
     wishlists: list[WishlistSchema] = []
+    related_books: list["BookSchemaWithoutWishlists"] = Field(default_factory=list)

@@ -60,6 +60,8 @@ async def get_all_books(session: AsyncSession) -> list[BookSchema]:
             joinedload(Book.literature_period),
             joinedload(Book.seria),
             selectinload(Book.images),
+            joinedload(Book.edition_group),
+            selectinload(Book.illustrators)
         )
         .order_by(Book.id))
     result: Result = await session.execute(statement)
@@ -83,6 +85,8 @@ async def get_all_notebooks(session: AsyncSession) -> list[BookSchema]:
             selectinload(Book.images),
             joinedload(Book.notebook_subcategory),
             joinedload(Book.notebook_category),
+            joinedload(Book.edition_group),
+            selectinload(Book.illustrators)
         )
         .order_by(Book.id)
     )
@@ -103,7 +107,9 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
             selectinload(Book.wishlists),
             joinedload(Book.seria),
             selectinload(Book.translators),
-            joinedload(Book.literature_period)
+            joinedload(Book.literature_period),
+            joinedload(Book.edition_group),
+            selectinload(Book.illustrators)
         )
     )
 
@@ -126,6 +132,7 @@ async def get_notebook_by_id(notebook_id: int, session: AsyncSession) -> BookSch
             joinedload(Book.seria),
             selectinload(Book.translators),
             joinedload(Book.literature_period),
+            selectinload(Book.illustrators),
         )
     )
 
@@ -152,14 +159,34 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             selectinload(Book.translators),
             joinedload(Book.seria),
             joinedload(Book.literature_period),
+            joinedload(Book.edition_group),
+            selectinload(Book.illustrators)
         )
     )
 
     result: Result = await session.execute(statement)
     book = result.scalars().first()
+
     if not book:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"The book with slug {slug} was not found")
-    return BookSchema.model_validate(book)
+    related_books = []
+    book_schema = BookSchema.model_validate(book)
+
+    if book.edition_group_id:
+        related_statement = (
+            select(Book)
+            .where(
+                Book.edition_group_id == book.edition_group_id,
+                Book.id != book.id,
+            )
+            .options(joinedload(Book.book_info))
+        )
+        related_result: Result = await session.execute(related_statement)
+        related_books = related_result.unique().scalars().all()
+        book_schema.related_books = [BookSchema.model_validate(book) for book in related_books]
+    else:
+        book_schema.related_books = []
+    return book_schema
 
 
 async def get_notebook_by_slug(notebook_slug: str, session: AsyncSession) -> BookSchema:
@@ -176,7 +203,8 @@ async def get_notebook_by_slug(notebook_slug: str, session: AsyncSession) -> Boo
             joinedload(Book.literature_period),
             joinedload(Book.seria),
             joinedload(Book.notebook_category),
-            joinedload(Book.notebook_subcategory)
+            joinedload(Book.notebook_subcategory),
+            selectinload(Book.illustrators)
         )
     )
 

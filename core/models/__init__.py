@@ -45,7 +45,10 @@ __all__ = (
     "Country",
     "DeliveryTerms",
     "BookImage",
+    "BookEditionGroup",
     "BoardSubcategories",
+    "BookIllustrator",
+    "IllustratorBookAssociation",
     "Gift",
     "GiftBrand",
     "GiftCategory",
@@ -98,6 +101,9 @@ from .city import City
 from .countries import Country
 from .delivery_terms import DeliveryTerms
 from .book_image import BookImage
+from .book_edition_group import BookEditionGroup
+from .book_illustrators import BookIllustrator
+from .illustrator_book_association import IllustratorBookAssociation
 from .hobby import Hobby
 from .hobby_brands import HobbyBrand
 from .book_series import BookSeria

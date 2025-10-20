@@ -44,6 +44,7 @@ from accessories_brands import router as accessories_brands_router
 from accessories_categories import router as accessories_categories_router
 from notebook_subcategories import router as notebook_subcategories_router
 from main_page_title import router as main_page_title_router
+from book_illustrators import router as book_illustrators_router
 
 
 @asynccontextmanager
@@ -75,6 +76,7 @@ app.include_router(delivery_terms_router)
 app.include_router(author_facts_router)
 app.include_router(books_router)
 app.include_router(book_series_router)
+app.include_router(book_illustrators_router)
 app.include_router(book_translators_router)
 app.include_router(literature_periods_router)
 app.include_router(hobby_categories_router)

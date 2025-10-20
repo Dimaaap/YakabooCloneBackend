@@ -21,6 +21,8 @@ if TYPE_CHECKING:
     from .translator_book_association import TranslatorBookAssociation
     from .notebook_categories import NotebookCategory
     from .book_series import BookSeria
+    from .book_edition_group import BookEditionGroup
+    from .book_illustrators import BookIllustrator
 
 
 class Book(Base):
@@ -52,6 +54,13 @@ class Book(Base):
         secondary="translator_book_association",
         back_populates="book",
         overlaps="translator,book",
+        lazy="joined"
+    )
+
+    illustrators: Mapped[list["BookIllustrator"]] = relationship(
+        secondary="illustrator_book_association",
+        back_populates="book",
+        overlaps="illustrator,book",
         lazy="joined"
     )
 
@@ -97,6 +106,15 @@ class Book(Base):
         ForeignKey("publishings.id", name="fk_book_publishing")
     )
 
+    edition_group_id: Mapped[int | None] = mapped_column(
+        ForeignKey("book_edition_groups.id", name="fk_book_edition_group"),
+        nullable=True
+    )
+
+    edition_group: Mapped["BookEditionGroup"] = relationship(
+        "BookEditionGroup", back_populates="books"
+    )
+
     publishing: Mapped["Publishing"] = relationship("Publishing", back_populates="books", lazy="joined")
 
     subcategories_details: Mapped[list["SubcategoryBookAssociation"]] = relationship(
@@ -112,6 +130,11 @@ class Book(Base):
     translator_details: Mapped[list["TranslatorBookAssociation"]] = relationship(
         back_populates="book",
         overlaps="translator,book"
+    )
+
+    illustrator_details: Mapped[list["IllustratorBookAssociation"]] = relationship(
+        back_populates="book",
+        overlaps="illustrator,book"
     )
 
     wishlist_associations: Mapped[list["WishlistBookAssociation"]] = relationship(

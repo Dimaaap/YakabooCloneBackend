@@ -3,10 +3,10 @@ import asyncio
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload, aliased
+from sqlalchemy.orm import selectinload, joinedload, aliased
 
 from core.models import LiteraturePeriods, db_helper, Book
-from literature_periods.schemas import LiteraturePeriodSchema, LiteraturePeriodCreate, LiteraturePeriodWithCountSchema
+from literature_periods.schemas import LiteraturePeriodSchema, LiteraturePeriodCreate
 from data_strorage import LITERATURE_PERIODS
 
 
@@ -68,6 +68,7 @@ async def get_literature_period_by_slug(session: AsyncSession, slug: str):
             .selectinload(Book.publishing),
             selectinload(LiteraturePeriods.books)
             .selectinload(Book.images),
+            joinedload(Book.edition_group)
         )
     )
 

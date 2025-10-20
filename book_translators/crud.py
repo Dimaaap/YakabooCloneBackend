@@ -79,8 +79,9 @@ async def get_all_translator_books_by_translator_id(session: AsyncSession, trans
         .join(Book.translators)
         .where(BookTranslator.id == translator_id)
         .options(
-            selectinload(Book.book_info),
+            joinedload(Book.book_info),
             selectinload(Book.translators),
+            selectinload(Book.illustrators),
             selectinload(Book.subcategories),
             selectinload(Book.publishing),
             selectinload(Book.images),
