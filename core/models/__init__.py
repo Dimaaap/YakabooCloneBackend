@@ -12,6 +12,7 @@ __all__ = (
     "Knowledge",
     "EmailSubs",
     "Subcategory",
+    "SubcategoryBanner",
     "Banner",
     "User",
     "Wishlist",
@@ -77,6 +78,7 @@ from .book import Book
 from .book_info import BookInfo
 from .categories import Category
 from .subcategories import Subcategory
+from .subcategory_banners import SubcategoryBanner
 from .sidebar import Sidebar
 from .knowledges import Knowledge
 from .email_subs import EmailSubs

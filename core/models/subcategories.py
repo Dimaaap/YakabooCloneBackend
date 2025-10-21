@@ -1,16 +1,15 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Boolean, ForeignKey
+from sqlalchemy import String, Boolean, ForeignKey, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from core.models.hobby import Hobby
 from .base import Base
 
 if TYPE_CHECKING:
     from .categories import Category
     from .subcategory_book_association import SubcategoryBookAssociation
     from .book import Book
-    from .hobby import Hobby
+    from .subcategory_banners import SubcategoryBanner
 
 
 class Subcategory(Base):
@@ -32,6 +31,7 @@ class Subcategory(Base):
         back_populates="subcategory",
         overlaps="books"
     )
+    images_src: Mapped[list[str]] = mapped_column(JSON, nullable=True)
 
 
     def __str__(self):

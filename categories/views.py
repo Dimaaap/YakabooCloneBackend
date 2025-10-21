@@ -27,6 +27,26 @@ async def get_all_categories(
     return categories
 
 
+@router.get("/{category_id}")
+async def get_category_by_id(category_id: int,
+                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    cached_categories = await redis_client.get("categories")
+
+    if cached_categories:
+        categories = json.loads(cached_categories)
+
+        for category in categories:
+            if category["id"] == category_id:
+                return category
+    else:
+        categories = await crud.get_all_categories(session)
+        await redis_client.set("categories",
+                               json.dumps([category.model_dump() for category in categories]),
+                               ex=SIX_DAYS)
+        return await crud.get_category_by_id(session, category_id)
+
+
+
 @router.post("/create", response_model=CategorySchema)
 async def create_category(
         category: CategoryCreate,

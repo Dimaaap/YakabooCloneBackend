@@ -45,6 +45,8 @@ from accessories_categories import router as accessories_categories_router
 from notebook_subcategories import router as notebook_subcategories_router
 from main_page_title import router as main_page_title_router
 from book_illustrators import router as book_illustrators_router
+from book_subcategories import router as book_subcategories_router
+from book_subcategory_banners import router as book_subcategory_banners_router
 
 
 @asynccontextmanager
@@ -94,6 +96,8 @@ app.include_router(gift_subcategories_router)
 app.include_router(gift_categories_router)
 app.include_router(gift_series_router)
 app.include_router(main_page_title_router)
+app.include_router(book_subcategories_router)
+app.include_router(book_subcategory_banners_router)
 
 app.add_middleware(
     CORSMiddleware,
