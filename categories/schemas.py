@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 from book_subcategory_banners.schema import BookSubcategoryBannerSchema
+from book_subcategories.schema import BookSubcategorySchema
 
 
 class CategoryBase(BaseModel):
@@ -25,6 +26,7 @@ class CategorySchema(CategoryBase):
     model_config = ConfigDict(from_attributes=True)
 
     banners: list[BookSubcategoryBannerSchema] = []
+    subcategories: list[BookSubcategorySchema] = []
     id: int
 
 

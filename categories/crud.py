@@ -72,14 +72,16 @@ async def get_all_subcategories_by_category_id(session: AsyncSession, category_i
 
 
 async def get_all_categories(session: AsyncSession) -> list[CategorySchema]:
-    statement = select(Category).options(selectinload(Category.banners)).order_by(Category.id)
+    statement = (select(Category).options(selectinload(Category.banners), selectinload(Category.subcategories))
+                 .order_by(Category.id))
     result: Result = await session.execute(statement)
     categories = result.scalars().all()
     return [CategorySchema.model_validate(category) for category in categories]
 
 
 async def get_category_by_id(session: AsyncSession, category_id: int) -> CategorySchema:
-    statement = select(Category).options(selectinload(Category.banners)).where(Category.id == category_id)
+    statement = (select(Category).options(selectinload(Category.banners), selectinload(Category.subcategories))
+                 .where(Category.id == category_id))
 
     result: Result = await session.execute(statement)
     category = result.scalars().first()
@@ -87,7 +89,8 @@ async def get_category_by_id(session: AsyncSession, category_id: int) -> Categor
 
 
 async def get_category_by_slug(session: AsyncSession, category_slug: str) -> CategorySchema:
-    statement = select(Category).options(selectinload(Category.banners)).where(Category.slug == category_slug)
+    statement = (select(Category).options(selectinload(Category.banners), selectinload(Category.subcategories))
+                 .where(Category.slug == category_slug))
 
     result: Result = await session.execute(statement)
     category = result.scalars().first()
