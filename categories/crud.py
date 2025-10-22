@@ -89,8 +89,10 @@ async def get_category_by_id(session: AsyncSession, category_id: int) -> Categor
 
 
 async def get_category_by_slug(session: AsyncSession, category_slug: str) -> CategorySchema:
-    statement = (select(Category).options(selectinload(Category.banners), selectinload(Category.subcategories))
-                 .where(Category.slug == category_slug))
+    statement = (select(Category).options(
+        selectinload(Category.banners), selectinload(Category.subcategories),
+    )
+    .where(Category.slug == category_slug))
 
     result: Result = await session.execute(statement)
     category = result.scalars().first()
