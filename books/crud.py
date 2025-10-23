@@ -61,7 +61,7 @@ async def get_all_books(session: AsyncSession) -> list[BookSchema]:
             joinedload(Book.seria),
             selectinload(Book.images),
             joinedload(Book.edition_group),
-            selectinload(Book.illustrators)
+            selectinload(Book.illustrators),
         )
         .order_by(Book.id))
     result: Result = await session.execute(statement)
@@ -102,14 +102,15 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
         .where(Book.is_notebook == False, Book.id == book_id)
         .options(
             joinedload(Book.book_info),
-            selectinload(Book.authors),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.authors).joinedload(Author.interesting_fact),
             joinedload(Book.publishing),
             selectinload(Book.wishlists),
             joinedload(Book.seria),
             selectinload(Book.translators),
             joinedload(Book.literature_period),
             joinedload(Book.edition_group),
-            selectinload(Book.illustrators)
+            selectinload(Book.illustrators),
         )
     )
 
@@ -160,7 +161,7 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             joinedload(Book.seria),
             joinedload(Book.literature_period),
             joinedload(Book.edition_group),
-            selectinload(Book.illustrators)
+            selectinload(Book.illustrators),
         )
     )
 

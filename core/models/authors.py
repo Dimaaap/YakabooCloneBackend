@@ -23,7 +23,7 @@ class Author(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     short_description: Mapped[str] = mapped_column(Text, default="", server_default="")
 
-    images: Mapped[list["AuthorImage"]] = relationship("AuthorImage", back_populates="author")
+    images: Mapped[list["AuthorImage"]] = relationship("AuthorImage", back_populates="author", lazy="joined")
 
     book: Mapped[list["Book"]] = relationship(
         secondary="author_book_association",
@@ -38,6 +38,7 @@ class Author(Base):
     interesting_fact: Mapped["AuthorFacts"] = relationship(
         "AuthorFacts",
         back_populates='author',
+        lazy="joined",
         uselist=False
     )
 

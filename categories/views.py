@@ -27,7 +27,19 @@ async def get_all_categories(
     return categories
 
 
-@router.get("/{category_id}")
+@router.get("/books/{category_id}")
+async def get_all_books_by_category_id(category_id: int,
+                                       session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    return await crud.get_all_books_by_category_id(session, category_id)
+
+
+@router.get("/books/by-slug/{category_slug}")
+async def get_all_books_by_category_slug(category_slug: str,
+                                         session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    return await crud.get_all_category_books_by_category_slug(session, category_slug)
+
+
+@router.get("/{category_id}", response_model=CategorySchema)
 async def get_category_by_id(category_id: int,
                              session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     cached_categories = await redis_client.get("categories")

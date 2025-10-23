@@ -85,7 +85,6 @@ async def get_all_seria_books_by_seria_slug(session: AsyncSession, seria_slug: s
 
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
-    print(books)
     if not books:
         return []
     return books

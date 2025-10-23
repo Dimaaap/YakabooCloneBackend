@@ -35,7 +35,7 @@ async def get_notebook_by_slug(
     return notebook
 
 
-@router.get("/{book_id}", response_model=BookSchema)
+@router.get("/by-id/{book_id}", response_model=BookSchema)
 async def get_book_by_id(
         book_id: int, session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):

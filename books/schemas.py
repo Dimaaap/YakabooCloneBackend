@@ -14,6 +14,7 @@ from book_translators.schemas import BookTranslatorSchema
 from literature_periods.schemas import LiteraturePeriodSchema
 
 
+
 class BookImageSchema(BaseModel):
     image_url: str
     type: BookImageType
@@ -23,6 +24,7 @@ class BookImageSchema(BaseModel):
 
 class BookImageCreate(BookImageSchema):
     type: BookImageType = BookImageType.COVER
+
 
 class BookBase(BaseModel):
     title: str = ""
@@ -81,7 +83,6 @@ class BookSchemaWithoutWishlists(BookBase):
     notebook_subcategory: NotebookSubcategoryShortSchema | None = None
     seria: BookSeriaSchema | None = None
     edition_group: BookEditionGroupSchema | None = None
-
 
 class BookSchema(BookSchemaWithoutWishlists):
     wishlists: list[WishlistSchema] = []

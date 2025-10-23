@@ -3,9 +3,10 @@ import asyncio
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, joinedload
 
-from core.models import Category, Subcategory, db_helper
+from books.schemas import BookSchema
+from core.models import Category, Subcategory, db_helper, Book, Author
 from data_strorage import CATEGORIES, SUB_CATEGORIES
 from categories.schemas import CategoryCreate, SubCategoryBase, CategorySchema, SubCategorySchema
 
@@ -72,7 +73,9 @@ async def get_all_subcategories_by_category_id(session: AsyncSession, category_i
 
 
 async def get_all_categories(session: AsyncSession) -> list[CategorySchema]:
-    statement = (select(Category).options(selectinload(Category.banners), selectinload(Category.subcategories))
+    statement = (select(Category).options(selectinload(Category.banners),
+                                          selectinload(Category.subcategories),
+                                          selectinload(Category.books))
                  .order_by(Category.id))
     result: Result = await session.execute(statement)
     categories = result.scalars().all()
@@ -80,17 +83,71 @@ async def get_all_categories(session: AsyncSession) -> list[CategorySchema]:
 
 
 async def get_category_by_id(session: AsyncSession, category_id: int) -> CategorySchema:
-    statement = (select(Category).options(selectinload(Category.banners), selectinload(Category.subcategories))
-                 .where(Category.id == category_id))
+    statement = (select(Category)
+                 .options(selectinload(Category.banners), selectinload(Category.subcategories))
+                 .where(Category.id == category_id)
+                 )
+    result: Result = await session.execute(statement)
+    category = result.unique().scalars().first()
+    return category
+
+
+async def get_all_category_books_by_category_slug(session: AsyncSession, category_slug: str):
+    statement = (
+        select(Book)
+        .join(Book.categories)
+        .where(Category.slug == category_slug)
+        .options(
+            selectinload(Book.authors).joinedload(Author.interesting_fact),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.translators),
+            selectinload(Book.illustrators),
+            selectinload(Book.images),
+            joinedload(Book.book_info),
+            joinedload(Book.publishing),
+            joinedload(Book.literature_period),
+            joinedload(Book.seria),
+            joinedload(Book.edition_group),
+        )
+    )
 
     result: Result = await session.execute(statement)
-    category = result.scalars().first()
-    return category
+    books = result.unique().scalars().all()
+    if not books:
+        return []
+    return books
+
+
+async def get_all_books_by_category_id(session: AsyncSession, category_id: int):
+    statement = (
+        select(Book)
+        .join(Book.categories)
+        .where(Category.id == category_id)
+        .options(
+            selectinload(Book.authors).joinedload(Author.interesting_fact),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.translators),
+            selectinload(Book.illustrators),
+            selectinload(Book.images),
+            joinedload(Book.book_info),
+            joinedload(Book.publishing),
+            joinedload(Book.literature_period),
+            joinedload(Book.seria),
+            joinedload(Book.edition_group),
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    books = result.unique().scalars().all()
+    if not books:
+        return []
+    return books
 
 
 async def get_category_by_slug(session: AsyncSession, category_slug: str) -> CategorySchema:
     statement = (select(Category).options(
-        selectinload(Category.banners), selectinload(Category.subcategories),
+        selectinload(Category.banners),
+        selectinload(Category.subcategories)
     )
     .where(Category.slug == category_slug))
 

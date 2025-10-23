@@ -23,6 +23,8 @@ if TYPE_CHECKING:
     from .book_series import BookSeria
     from .book_edition_group import BookEditionGroup
     from .book_illustrators import BookIllustrator
+    from .category_book_association import CategoryBookAssociation
+    from .categories import Category
 
 
 class Book(Base):
@@ -102,6 +104,12 @@ class Book(Base):
         overlaps="books_details"
     )
 
+    categories: Mapped[list["Category"]] = relationship(
+        "Category",
+        secondary="category_book_association",
+        back_populates="books",
+    )
+
     publishing_id: Mapped[int] = mapped_column(
         ForeignKey("publishings.id", name="fk_book_publishing")
     )
@@ -120,6 +128,12 @@ class Book(Base):
     subcategories_details: Mapped[list["SubcategoryBookAssociation"]] = relationship(
         back_populates="book",
         overlaps="books,subcategories"
+    )
+
+    category_details: Mapped[list["CategoryBookAssociation"]] = relationship(
+        "CategoryBookAssociation",
+        back_populates="book",
+        cascade="all, delete-orphan",
     )
 
     author_details: Mapped[list["AuthorBookAssociation"]] = relationship(
