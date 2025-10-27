@@ -50,6 +50,21 @@ class PageFormats(enum.Enum):
     A5 = "A5"
 
 
+class LiteratureTypes(enum.Enum):
+    FOREIGN = "Зарубіжна"
+    UKRAINIAN = "Українська"
+
+
+class LiteratureProgramClasses(enum.Enum):
+    FIFTH = "5-й клас"
+    SIXTH = "6-й клас"
+    SEVENTH = "7-й клас"
+    EIGHTH = "8-й клас"
+    NINE = "9-й клас"
+    TENTH = "10-й клас"
+    ELEVENTH = "11-й клас"
+
+
 class BookInfo(Base):
     __tablename__ = "book_info"
 
@@ -65,7 +80,13 @@ class BookInfo(Base):
     is_has_cashback: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     is_has_esupport: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     bonuses: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
-
+    literature_type: Mapped[LiteratureTypes] = mapped_column(Enum(LiteratureTypes,
+                                                                  name="literature_type", create_type=True),
+                                                             nullable=True)
+    literature_program_class: Mapped[LiteratureProgramClasses] = mapped_column(Enum(LiteratureProgramClasses,
+                                                                                    name="literature_program_class",
+                                                                                    create_type=True),
+                                                                               nullable=True)
     weight: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     original_name: Mapped[str] = mapped_column(String(255), default="", server_default="")
 

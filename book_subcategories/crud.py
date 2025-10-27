@@ -6,7 +6,7 @@ from sqlalchemy import select, Result, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
 
-from core.models import Subcategory, Book, db_helper
+from core.models import Subcategory, Book, db_helper, Author
 from book_subcategories.schema import BookSubcategorySchema, BookSubcategoryCreate
 
 
@@ -61,11 +61,31 @@ async def get_all_subcategory_books_by_subcategory_id(session: AsyncSession, sub
         .join(Book.subcategories)
         .where(Subcategory.id == subcategory_id)
         .options(
-            joinedload(Book.book_info),
-            selectinload(Book.authors),
-            selectinload(Book.subcategories),
+            selectinload(Book.authors).joinedload(Author.interesting_fact),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.images),
             joinedload(Book.publishing),
-            selectinload(Book.images)
+            joinedload(Book.book_info),
+
+        )
+    )
+
+    result: Result = await session.execute(statement)
+    books = result.unique().scalars().all()
+    return books or []
+
+
+async def get_all_subcategory_books_by_subcategory_slug(session: AsyncSession, subcategory_slug: str):
+    statement = (
+        select(Book)
+        .join(Book.subcategories)
+        .where(Subcategory.slug == subcategory_slug)
+        .options(
+            selectinload(Book.authors).joinedload(Author.interesting_fact),
+            selectinload(Book.authors).selectinload(Author.images),
+            selectinload(Book.images),
+            joinedload(Book.publishing),
+            joinedload(Book.book_info)
         )
     )
 
