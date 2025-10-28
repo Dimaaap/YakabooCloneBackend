@@ -6,8 +6,9 @@ from sqlalchemy import select, Result, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
 
-from core.models import Subcategory, Book, db_helper, Author
+from core.models import Subcategory, Book, db_helper, Author, DoubleSubcategory
 from book_subcategories.schema import BookSubcategorySchema, BookSubcategoryCreate
+from double_subcategories.schema import DoubleSubcategorySchema
 
 
 async def create_subcategory(
@@ -24,7 +25,9 @@ async def create_subcategory(
 
 
 async def get_all_subcategories(session: AsyncSession) -> list[BookSubcategorySchema]:
-    statement=select(Subcategory).order_by(Subcategory.id)
+    statement=(select(Subcategory)
+               .options(selectinload(Subcategory.double_subcategories))
+               .order_by(Subcategory.id))
 
     result: Result = await session.execute(statement)
     subcategories = result.scalars().all()
@@ -34,6 +37,7 @@ async def get_all_subcategories(session: AsyncSession) -> list[BookSubcategorySc
 async def get_subcategory_by_slug(slug: str, session: AsyncSession) -> Subcategory:
     statement = (
         select(Subcategory)
+        .options(selectinload(Subcategory.double_subcategory))
         .where(Subcategory.slug == slug, Subcategory.is_visible)
     )
 
@@ -53,6 +57,19 @@ async def delete_subcategory_by_id(session: AsyncSession, subcategory_id: int):
         return True
     except Exception as e:
         return False
+
+
+async def get_all_double_subcategories_by_subcategory_id(session: AsyncSession,
+                                                         subcategory_id: int) -> list[DoubleSubcategory]:
+    statement = (select(DoubleSubcategory).where(DoubleSubcategory.subcategory_id == subcategory_id)
+                 .order_by(DoubleSubcategory.title))
+
+    try:
+        result: Result = await session.execute(statement)
+        double_subcategories = result.scalars().all()
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    return double_subcategories or []
 
 
 async def get_all_subcategory_books_by_subcategory_id(session: AsyncSession, subcategory_id: int):

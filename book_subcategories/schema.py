@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from double_subcategories.schema import DoubleSubcategorySchema
+
 
 class BookSubcategoryBase(BaseModel):
     title: str
@@ -26,4 +28,5 @@ class BookSubcategoryUpdatePartial(BookSubcategoryUpdate):
 class BookSubcategorySchema(BookSubcategoryBase):
     model_config = ConfigDict(from_attributes=True)
 
+    double_subcategories: list[DoubleSubcategorySchema] = []
     id: int

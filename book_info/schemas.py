@@ -17,6 +17,7 @@ class BookInfoBase(BaseModel):
     is_has_cashback: bool | None = None
     literature_type: LiteratureTypes | None = None
     literature_program_class: LiteratureProgramClasses | None = None
+    present_edition_and_sets: str | None = None
     is_has_esupport: bool | None = None
     format: BookFormats | None = None
     language: BookLanguages | None = None

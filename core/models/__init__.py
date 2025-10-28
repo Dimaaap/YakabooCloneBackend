@@ -65,7 +65,9 @@ __all__ = (
     "LiteraturePeriods",
     "TranslatorBookAssociation",
     "BoardGameSubcategoryAssociation",
-    "CategoryBookAssociation"
+    "CategoryBookAssociation",
+    "DoubleSubcategory",
+    "DoubleSubcategoryBookAssociation"
 )
 
 
@@ -137,3 +139,5 @@ from .board_game_age_association import BoardGameAgeAssociation
 from .board_game_subcategories import BoardSubcategories
 from .board_game_subcategories_association import BoardGameSubcategoryAssociation
 from .category_book_association import CategoryBookAssociation
+from .double_subcategories import DoubleSubcategory
+from .double_subcategory_book_association import DoubleSubcategoryBookAssociation

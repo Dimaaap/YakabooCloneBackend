@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from slugify import slugify
 
 def get_page():
-    URL = "https://www.yakaboo.ua/ua/knigi/jezoterika-i-okkul-tizm.html"
+    URL = "https://www.yakaboo.ua/ua/knigi/zdorov-e-fitnes-pravil-noe-pitanie/zhenskoe-zdorov-e.html"
     HEADERS = {"User-Agent": "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion"}
 
     response = requests.get(URL, headers=HEADERS)
@@ -27,9 +27,9 @@ def parse_page(text):
             "slug": slugify(subcategory_name),
             "images_src": images,
             "is_active": True,
-            "category_id": 32
+            "subcategory_id": 399
         })
-    with open("book_subcategories/subcategories.json", "w", encoding="utf-8") as f:
+    with open("double_subcategories/subcategories.json", "w", encoding="utf-8") as f:
         f.write(json.dumps(subcategories, indent=4, ensure_ascii=False))
         print("File created")
 

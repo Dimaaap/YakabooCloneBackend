@@ -58,3 +58,10 @@ async def get_all_subcategory_books_by_subcategory_slug(
 ):
     books = await crud.get_all_subcategory_books_by_subcategory_slug(session, subcategory_slug)
     return books
+
+
+@router.get("/subcategory/double_subcategories/{subcategory_id}")
+async def get_all_double_subcategories_by_subcategory_id(subcategory_id: int,
+                                                         session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    double_subcategories = await crud.get_all_double_subcategories_by_subcategory_id(session, subcategory_id)
+    return double_subcategories

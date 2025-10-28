@@ -8,8 +8,8 @@ from .base import Base
 if TYPE_CHECKING:
     from .categories import Category
     from .subcategory_book_association import SubcategoryBookAssociation
+    from .double_subcategories import DoubleSubcategory
     from .book import Book
-    from .subcategory_banners import SubcategoryBanner
 
 
 class Subcategory(Base):
@@ -22,6 +22,8 @@ class Subcategory(Base):
     category_id: Mapped[int] = mapped_column(ForeignKey('categories.id'))
     category: Mapped["Category"] = relationship("Category", back_populates="subcategories")
 
+    double_subcategories: Mapped[list["DoubleSubcategory"]] = relationship("DoubleSubcategory",
+                                                                           back_populates="subcategory")
     books: Mapped[list["Book"]] = relationship(
         secondary="subcategory_book_association",
         back_populates="subcategories"

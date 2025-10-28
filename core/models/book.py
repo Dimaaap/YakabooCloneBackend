@@ -25,6 +25,8 @@ if TYPE_CHECKING:
     from .book_illustrators import BookIllustrator
     from .category_book_association import CategoryBookAssociation
     from .categories import Category
+    from .double_subcategories import DoubleSubcategory
+    from .double_subcategory_book_association import DoubleSubcategoryBookAssociation
 
 
 class Book(Base):
@@ -104,6 +106,12 @@ class Book(Base):
         overlaps="books_details"
     )
 
+    double_subcategories: Mapped[list["DoubleSubcategory"]] = relationship(
+        secondary="double_subcategory_book_association",
+        back_populates="books",
+        overlaps="books_details"
+    )
+
     categories: Mapped[list["Category"]] = relationship(
         "Category",
         secondary="category_book_association",
@@ -128,6 +136,11 @@ class Book(Base):
     subcategories_details: Mapped[list["SubcategoryBookAssociation"]] = relationship(
         back_populates="book",
         overlaps="books,subcategories"
+    )
+
+    double_subcategories_details: Mapped[list["DoubleSubcategoryBookAssociation"]] = relationship(
+        back_populates="book",
+        overlaps="books,double_subcategories"
     )
 
     category_details: Mapped[list["CategoryBookAssociation"]] = relationship(

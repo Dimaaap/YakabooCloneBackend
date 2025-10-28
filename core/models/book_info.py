@@ -87,6 +87,7 @@ class BookInfo(Base):
                                                                                     name="literature_program_class",
                                                                                     create_type=True),
                                                                                nullable=True)
+    present_edition_and_sets: Mapped[str] = mapped_column(String(50), nullable=True)
     weight: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     original_name: Mapped[str] = mapped_column(String(255), default="", server_default="")
 
