@@ -1,70 +1,240 @@
 [
     {
-        "title": "Загальні питання. Імунітет",
-        "slug": "zagalni-pitannia-imunitet",
+        "title": "Найкращий дебютний роман",
+        "slug": "naikrashchii-debiutnii-roman",
         "images_src": [
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781789562866_0.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/1/81kqroztdzl._sl1500_.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780871319470_0.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781526662279.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780071441612_0.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780241640074_0.jpg"
             }
         ],
         "is_active": true,
-        "subcategory_id": 399
+        "subcategory_id": 167
     },
     {
-        "title": "Менопауза",
-        "slug": "menopauza",
+        "title": "Найкраще фентезі",
+        "slug": "naikrashche-fentezi",
         "images_src": [
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/0/0/001_49_3.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/1/91v9qiwvknl._sl1500_.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/0/0/0000_35_1.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/1/71wjryxztrl._sl1500_.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/c/o/cover_351_2.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781035410163_0.jpg"
             }
         ],
         "is_active": true,
-        "subcategory_id": 399
+        "subcategory_id": 167
     },
     {
-        "title": "Менструація",
-        "slug": "menstruatsiia",
+        "title": "Найкраща художня проза",
+        "slug": "naikrashcha-khudozhnia-proza",
         "images_src": [
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/0/0/001_49_3.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781399710039.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/0/0/0000_35_1.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781035026067_0.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/5/9/59161_118237.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780241396100_0.jpg"
             }
         ],
         "is_active": true,
-        "subcategory_id": 399
+        "subcategory_id": 167
     },
     {
-        "title": "Вагітність і пологи",
-        "slug": "vagitnist-i-pologi",
+        "title": "Найкраща історична проза",
+        "slug": "naikrashcha-istorichna-proza",
         "images_src": [
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781440876110_0.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781398534759_0.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780763720964_0.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780241676042_0.jpg"
             },
             {
-                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780761181712_0.jpg"
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781529431001_0.jpg"
             }
         ],
         "is_active": true,
-        "subcategory_id": 399
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкраща історична та біографічна книга",
+        "slug": "naikrashcha-istorichna-ta-biografichna-kniga",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781643753560_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780008536916_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780008681753_0.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкращий горор",
+        "slug": "naikrashchii-goror",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781835410028_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781399725095_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781803369686_0.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкращі мемуари та автобіографії",
+        "slug": "naikrashchi-memuari-ta-avtobiografii",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781787334793_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9798874823931_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/1/811-hejewbl._sl1500_.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкращий детектив і трилер",
+        "slug": "naikrashchii-detektiv-i-triler",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780008663797_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/1/9/1917_1_3.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/1/71-9fki10wl._sl1500_.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкращий нон-фікшн",
+        "slug": "naikrashchii-non-fikshn",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/5/1/51ktwda7nvl._sl1500_.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781911709596_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781399738590_0.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкращий любовний роман",
+        "slug": "naikrashchii-liubovnii-roman",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780008641580_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/1/71a4fxmsl-l._sl1500_.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/h/b/hbg-title-9781399728614-25_cr.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкраще любовне фентезі",
+        "slug": "naikrashche-liubovne-fentezi",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/1/81fetclo9cl._sl1500_.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/1/91jjndepsql._sl1500_.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/1/813jxuaydgl._sl1500_.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкраща фантастика",
+        "slug": "naikrashcha-fantastika",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781035016976_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781838959623_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/1/719xwkvzugl._sl1500_.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкраще молодіжне фентезі",
+        "slug": "naikrashche-molodizhne-fentezi",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780349125596_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781399726085_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/7/1/717yd1ejo2l._sl1418_.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
+    },
+    {
+        "title": "Найкраща молодіжна проза",
+        "slug": "naikrashcha-molodizhna-proza",
+        "images_src": [
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/8/1/816ivtkwtul._sl1500_.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9780241672051_0.jpg"
+            },
+            {
+                "image_src": "https://static.yakaboo.ua/media/cloudflare/product/webp/352x340/9/7/9781398536425_0.jpg"
+            }
+        ],
+        "is_active": true,
+        "subcategory_id": 167
     }
 ]

@@ -37,7 +37,7 @@ async def get_all_subcategories(session: AsyncSession) -> list[BookSubcategorySc
 async def get_subcategory_by_slug(slug: str, session: AsyncSession) -> Subcategory:
     statement = (
         select(Subcategory)
-        .options(selectinload(Subcategory.double_subcategory))
+        .options(selectinload(Subcategory.double_subcategories))
         .where(Subcategory.slug == slug, Subcategory.is_visible)
     )
 
