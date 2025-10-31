@@ -33,8 +33,8 @@ async def get_all_double_subcategories(session: AsyncSession) -> list[DoubleSubc
 
 
 async def get_double_subcategory_by_slug(session: AsyncSession, slug: str) -> DoubleSubcategory:
-    statement = select(DoubleSubcategory).where(DoubleSubcategory.slug == slug, DoubleSubcategory.is_active)
-
+    statement = select(DoubleSubcategory).where(DoubleSubcategory.slug == slug, DoubleSubcategory.is_visible)
+    
     result: Result = await session.execute(statement)
     double_subcategory = result.scalars().first()
 
