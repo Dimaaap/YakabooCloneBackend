@@ -27,7 +27,7 @@ class DoubleSubcategory(Base):
 
     book_details: Mapped[list["DoubleSubcategoryBookAssociation"]] = relationship(
         back_populates="double_subcategory",
-        overlaps="books"
+        overlaps="books,double_subcategories",
     )
 
     images_src: Mapped[list[str]] = mapped_column(JSON, nullable=True)

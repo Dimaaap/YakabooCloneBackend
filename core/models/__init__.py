@@ -67,7 +67,9 @@ __all__ = (
     "BoardGameSubcategoryAssociation",
     "CategoryBookAssociation",
     "DoubleSubcategory",
-    "DoubleSubcategoryBookAssociation"
+    "DoubleSubcategoryBookAssociation",
+    "Cart",
+    "CartItem"
 )
 
 
@@ -141,3 +143,5 @@ from .board_game_subcategories_association import BoardGameSubcategoryAssociatio
 from .category_book_association import CategoryBookAssociation
 from .double_subcategories import DoubleSubcategory
 from .double_subcategory_book_association import DoubleSubcategoryBookAssociation
+from .cart import Cart
+from .cart_item import CartItem

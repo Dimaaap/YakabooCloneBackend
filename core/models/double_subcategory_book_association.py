@@ -25,4 +25,5 @@ class DoubleSubcategoryBookAssociation(Base):
                                                                    back_populates="book_details",
                                                                    overlaps="books,double_subcategories")
     book: Mapped["Book"] = relationship("Book",
-                                        back_populates="double_subcategories_details",)
+                                        back_populates="double_subcategories_details",
+                                        overlaps="books,double_subcategories")

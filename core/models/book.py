@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from .book_image import BookImage
     from .literature_periods import LiteraturePeriods
     from .translator_book_association import TranslatorBookAssociation
+    from .illustrator_book_association import IllustratorBookAssociation
     from .notebook_categories import NotebookCategory
     from .book_series import BookSeria
     from .book_edition_group import BookEditionGroup
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
     from .category_book_association import CategoryBookAssociation
     from .categories import Category
     from .double_subcategories import DoubleSubcategory
+    from .cart_item import CartItem
     from .double_subcategory_book_association import DoubleSubcategoryBookAssociation
 
 
@@ -147,6 +149,7 @@ class Book(Base):
         "CategoryBookAssociation",
         back_populates="book",
         cascade="all, delete-orphan",
+        overlaps="categories"
     )
 
     author_details: Mapped[list["AuthorBookAssociation"]] = relationship(
@@ -180,6 +183,10 @@ class Book(Base):
         back_populates="book",
         cascade="all, delete-orphan",
         lazy="selectin"
+    )
+
+    cart_items: Mapped[list["CartItem"]] = relationship(
+        "CartItem", back_populates="book", cascade="all, delete-orphan",
     )
 
     def __str__(self):

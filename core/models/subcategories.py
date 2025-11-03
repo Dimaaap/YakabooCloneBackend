@@ -23,7 +23,8 @@ class Subcategory(Base):
     category: Mapped["Category"] = relationship("Category", back_populates="subcategories")
 
     double_subcategories: Mapped[list["DoubleSubcategory"]] = relationship("DoubleSubcategory",
-                                                                           back_populates="subcategory")
+                                                                           back_populates="subcategory",
+                                                                           lazy="selectin")
     books: Mapped[list["Book"]] = relationship(
         secondary="subcategory_book_association",
         back_populates="subcategories"

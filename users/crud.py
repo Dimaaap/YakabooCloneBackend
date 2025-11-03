@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from config import redis_client
 from . import utils as auth_utils
 from .schemas import UserCreate, UserUpdateSchema
-from core.models import User
+from core.models import User, Cart
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/jwt/login")
 
@@ -61,6 +61,8 @@ async def create_user(session: AsyncSession, user: UserCreate):
         email=user.email,
         password=hashed_password.decode()
     )
+
+    db_user.cart = Cart()
     session.add(db_user)
     await session.commit()
     await session.refresh(db_user)
