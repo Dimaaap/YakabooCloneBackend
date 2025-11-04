@@ -4,6 +4,7 @@ import sqlalchemy
 from fastapi import HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from config import redis_client
@@ -15,7 +16,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/jwt/login")
 
 
 async def get_user_by_email(session: AsyncSession, email: str) -> User | None:
-    statement = select(User).filter(User.email == email)
+    statement = select(User).filter(User.email == email).options(selectinload(User.cart))
     result = await session.execute(statement)
     return result.scalar_one_or_none()
 

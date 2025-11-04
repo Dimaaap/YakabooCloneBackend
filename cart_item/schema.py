@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from books.schemas import BookSchemaWithoutWishlists
+
 
 class CartItemBase(BaseModel):
     quantity: int
@@ -26,4 +28,5 @@ class CartItemUpdatePartial(CartItemUpdate):
 class CartItemSchema(CartItemBase):
     model_config = ConfigDict(from_attributes=True)
 
+    book: BookSchemaWithoutWishlists | None = None
     id: int
