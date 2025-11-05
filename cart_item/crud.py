@@ -1,10 +1,10 @@
 from fastapi import HTTPException, status
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .schema import CartItemCreate
 from users.crud import get_user_by_email
-from core.models import Book, CartItem, Cart
+from core.models import Book, CartItem, Cart, book
 
 
 async def add_item_to_card(session: AsyncSession, book_id: int, user_email: str,
@@ -68,10 +68,10 @@ async def update_book_quantity(session: AsyncSession, book_id: int, quantity: in
     if not cart_item:
         raise HTTPException(status_code=404, detail="Book not found in the cart")
 
-    if quantity <= 0:
+    if int(quantity) <= 0:
         await session.delete(cart_item)
     else:
-        cart_item.quantity = quantity
+        cart_item.quantity = int(quantity)
     await session.commit()
     return {"message": "Cart item updated"}
 
