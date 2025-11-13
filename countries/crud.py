@@ -25,7 +25,9 @@ async def get_all_countries(session: AsyncSession) -> list[CountriesSchema]:
                  .where(Country.is_visible)
                  .options(selectinload(Country.cities)
                           .selectinload(City.delivery_terms),
-                          selectinload(Country.delivery_terms)
+                          selectinload(Country.cities).selectinload(City.payment_methods),
+                          selectinload(Country.delivery_terms),
+                          selectinload(Country.payment_methods)
                           )
                  )
     result: Result = await session.execute(statement)
@@ -38,7 +40,9 @@ async def get_country_by_id(country_id: int, session: AsyncSession) -> Countries
                  .where(Country.id == country_id)
                  .options(selectinload(Country.cities)
                           .selectinload(City.delivery_terms),
-                          selectinload(Country.delivery_terms)
+                          selectinload(Country.cities).selectinload(City.payment_methods),
+                          selectinload(Country.delivery_terms),
+                          selectinload(Country.payment_methods)
                           )
                  )
     result: Result = await session.execute(statement)
@@ -51,7 +55,9 @@ async def get_country_by_title(country_title: str, session: AsyncSession) -> Cou
                  .where(Country.title == country_title)
                  .options(selectinload(Country.cities)
                           .selectinload(Country.delivery_terms),
-                          selectinload(Country.delivery_terms)
+                          selectinload(Country.cities).selectinload(City.payment_methods),
+                          selectinload(Country.delivery_terms),
+                          selectinload(Country.payment_methods),
                           )
                  )
     result: Result = await session.execute(statement)

@@ -22,7 +22,10 @@ async def create_city(session: AsyncSession, city: CitiesCreate) -> City:
 
 async def get_all_cities(session: AsyncSession) -> list[CitiesSchema]:
     statement = (select(City)
-                 .options(selectinload(City.delivery_terms))
+                 .options(
+                    selectinload(City.delivery_terms),
+                    selectinload(City.payment_methods)
+                    )
                  .order_by(City.id)
                  .where(City.is_visible))
     result: Result = await session.execute(statement)
@@ -32,7 +35,10 @@ async def get_all_cities(session: AsyncSession) -> list[CitiesSchema]:
 
 async def get_city_by_id(city_id: int, session: AsyncSession) -> CitiesSchema:
     statement = (select(City)
-                 .options(selectinload(City.delivery_terms))
+                 .options(
+                    selectinload(City.delivery_terms),
+                    selectinload(City.payment_methods)
+                    )
                  .where(City.id == city_id))
     result: Result = await session.execute(statement)
     city = result.scalars().first()
@@ -41,7 +47,8 @@ async def get_city_by_id(city_id: int, session: AsyncSession) -> CitiesSchema:
 
 async def get_city_by_title(city_title: str, session: AsyncSession) -> CitiesSchema:
     statement = (select(City)
-                 .options(selectinload(City.delivery_terms))
+                 .options(selectinload(City.delivery_terms),
+                          selectinload(City.payment_methods))
                  .where(City.title == city_title))
     result: Result = await session.execute(statement)
     city = result.scalars().first()

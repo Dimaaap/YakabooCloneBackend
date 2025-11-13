@@ -50,6 +50,7 @@ from book_subcategory_banners import router as book_subcategory_banners_router
 from double_subcategories import router as double_subcategories_router
 from cart_item import router as cart_item_router
 from cart import router as cart_router
+from payment_methods import router as payments_router
 
 
 @asynccontextmanager
@@ -104,6 +105,7 @@ app.include_router(book_subcategory_banners_router)
 app.include_router(double_subcategories_router)
 app.include_router(cart_item_router)
 app.include_router(cart_router)
+app.include_router(payments_router)
 
 app.add_middleware(
     CORSMiddleware,

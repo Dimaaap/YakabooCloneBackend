@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 from delivery_terms.schemas import DeliveryTermSchema
+from payment_methods.schema import PaymentMethodSchema
 
 
 class CitiesBase(BaseModel):
@@ -30,3 +31,4 @@ class CitiesSchema(CitiesBase):
 
     id: int
     delivery_terms: DeliveryTermSchema | None = None
+    payment_methods: PaymentMethodSchema | None = None

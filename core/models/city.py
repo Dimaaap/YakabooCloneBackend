@@ -8,6 +8,7 @@ from .base import Base
 if TYPE_CHECKING:
     from .countries import Country
     from .delivery_terms import DeliveryTerms
+    from .payment_methods import PaymentMethod
 
 
 class City(Base):
@@ -20,6 +21,12 @@ class City(Base):
     country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"))
     country: Mapped["Country"] = relationship(back_populates="cities")
     delivery_terms: Mapped["DeliveryTerms"] = relationship(
+        back_populates="city",
+        uselist=False,
+        cascade="all, delete-orphan"
+    )
+
+    payment_methods: Mapped["PaymentMethod"] = relationship(
         back_populates="city",
         uselist=False,
         cascade="all, delete-orphan"
