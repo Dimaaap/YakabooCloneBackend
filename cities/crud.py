@@ -30,7 +30,7 @@ async def get_all_cities(session: AsyncSession) -> list[CitiesSchema]:
                  .where(City.is_visible))
     result: Result = await session.execute(statement)
     cities = result.scalars().all()
-    return [CitiesSchema.model_validate(city) for city in cities]
+    return [CitiesSchema.model_validate(city) for city in cities]   
 
 
 async def get_city_by_id(city_id: int, session: AsyncSession) -> CitiesSchema:
