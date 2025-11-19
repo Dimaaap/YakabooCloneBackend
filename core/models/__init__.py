@@ -70,7 +70,9 @@ __all__ = (
     "DoubleSubcategoryBookAssociation",
     "Cart",
     "CartItem",
-    "PaymentMethod"
+    "PaymentMethod",
+    "PromoCode",
+    "PromoCodeUsage"
 )
 
 
@@ -147,3 +149,5 @@ from .double_subcategory_book_association import DoubleSubcategoryBookAssociatio
 from .cart import Cart
 from .cart_item import CartItem
 from .payment_methods import PaymentMethod
+from .promo_code import PromoCode
+from .promo_code_usage import PromoCodeUsage
