@@ -1,11 +1,11 @@
-from datetime import datetime, tzinfo
+from datetime import datetime
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from promo_codes.schema import PromoCodeCreate, PromoCodeSchema, PromoCodeUpdate, PromoCodeUpdatePartial
-from core.models import PromoCode, db_helper
+from core.models import PromoCode
 
 
 async def create_promo_code(session: AsyncSession, promo_code: PromoCodeCreate) -> PromoCode:
@@ -85,16 +85,17 @@ async def validate_promo_code_for_use(session: AsyncSession, code: str):
     promo_code = await get_promo_code_by_code(session, code)
 
     if not promo_code:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Promo code not found")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail=f'Код купону "{code}" не дійсний або його неможливо застосувати на це замовлення')
 
     if not promo_code.active:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Promo code not active")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Купон не активний")
 
     if promo_code.expires_at and promo_code.expires_at.replace(tzinfo=None) < datetime.utcnow():
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Promo code expired")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f'Купон {code} прострочений')
 
     if promo_code.current_uses >= promo_code.max_uses:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Limit of uses excluded")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f'Ліміт використання купону вичерпано')
 
     return promo_code
 

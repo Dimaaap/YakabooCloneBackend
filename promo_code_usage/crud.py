@@ -4,15 +4,21 @@ from fastapi import HTTPException, status
 from sqlalchemy import select, Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import PromoCodeUsage, PromoCode
+from core.models import PromoCodeUsage, PromoCode, User
 from promo_codes.crud import validate_promo_code_for_use, increment_promo_code_usage
 
 
-async def use_promo_code(session: AsyncSession, user_id: int, code: str):
+async def use_promo_code(session: AsyncSession, user_email: str, code: str):
     promo_code = await validate_promo_code_for_use(session, code)
 
+    user_res = await session.execute(select(User).where(User.email == user_email))
+    user = user_res.scalar_one_or_none()
+
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detailt="Користувача з таким email не знайдено")
+
     statement = select(PromoCodeUsage).where(
-        PromoCodeUsage.user_id == user_id,
+        PromoCodeUsage.user_id == user.id,
         PromoCodeUsage.promo_id == promo_code.id
     )
 
@@ -20,10 +26,10 @@ async def use_promo_code(session: AsyncSession, user_id: int, code: str):
     existing = result.scalar_one_or_none()
 
     if existing:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You`ve already used this promo code")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Ви вже використовували цей купон")
 
     usage = PromoCodeUsage(
-        user_id=user_id,
+        user_id=user.id,
         promo_id=promo_code.id,
         used_at=datetime.utcnow()
     )
@@ -36,8 +42,12 @@ async def use_promo_code(session: AsyncSession, user_id: int, code: str):
     await session.refresh(usage)
     return usage
 
-async def get_all_promo_usages(session: AsyncSession, user_id: int):
-    statement = select(PromoCodeUsage).where(PromoCodeUsage.user_id == user_id)
+
+async def get_all_promo_usages(session: AsyncSession, user_email: str):
+    user_select = await session.execute(select(User).where(User.email == user_email))
+    user = user_select.scalar_one_or_none()
+
+    statement = select(PromoCodeUsage).where(PromoCodeUsage.user_id == user.id)
     result = await session.execute(statement)
     return result.scalars().all()
 

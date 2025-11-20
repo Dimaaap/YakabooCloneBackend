@@ -9,16 +9,16 @@ router = APIRouter(tags=["Promo Codes Usage"])
 
 
 @router.post("/use")
-async def use_promo_code(user_id: int, code: str,
+async def use_promo_code(user_email: str, code: str,
                          session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
-    return await crud.use_promo_code(session, user_id, code)
+    return await crud.use_promo_code(session, user_email, code)
 
 
 @router.get("/all/{user_id}", response_model=list[PromoCodeUsageSchema])
 async def get_all_promo_usages(
-        user_id: int,
+        user_email: str,
         session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
-    return await crud.get_all_promo_usages(session, user_id)
+    return await crud.get_all_promo_usages(session, user_email)
 
 
 @router.get("/{promo_code_id}")
