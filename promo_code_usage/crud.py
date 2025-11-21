@@ -4,7 +4,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import select, Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import PromoCodeUsage, PromoCode, User
+from core.models import PromoCodeUsage, User
 from promo_codes.crud import validate_promo_code_for_use, increment_promo_code_usage
 
 
