@@ -72,7 +72,8 @@ __all__ = (
     "CartItem",
     "PaymentMethod",
     "PromoCode",
-    "PromoCodeUsage"
+    "PromoCodeUsage",
+    "UkrpostOffice"
 )
 
 
