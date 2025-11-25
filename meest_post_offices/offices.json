@@ -1,0 +1,1002 @@
+[
+  {
+    "city_title": "Київ",
+    "office_number": 1,
+    "address": "вул. Мала Кільцева, 10/1"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 2,
+    "address": "вул. Щербаківського (Щербакова), 45"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 3,
+    "address": "вул. Віскозна, 32"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 4,
+    "address": "вул. Полярна, 15б"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 5,
+    "address": "просп. Миру (проспект), 5"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 6,
+    "address": "вул. Ковпака, 8"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 7,
+    "address": "вул. Прилужна, 4/15"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 8,
+    "address": "вул. Ольжича, 10"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 9,
+    "address": "вул. Данила Щербаківського, 72/7"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 10,
+    "address": "вул. Малишка Андрія, 3У"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 11,
+    "address": "просп. Соборності, 7Б"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 12,
+    "address": "вул. Чавдар Єлизавети (район Осокорки), 1-з"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 13,
+    "address": "вул. Дніпровська набережна, 33"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 14,
+    "address": "вул. Архипенка Олександра ( Мате Залки ), 10"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 15,
+    "address": "вул. Борщагівська, 206"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 16,
+    "address": "бул. Миколи Руденка (Кольцова), 14Д"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 17,
+    "address": "вул. Чавдар Єлизавети (район Осокорки), 18"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 18,
+    "address": "пл. Печерська, 1"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 19,
+    "address": "просп. Європейського Союзу ( Правди ), 47"
+  },
+  {
+    "city_title": "Київ",
+    "office_number": 21,
+    "address": "просп. Берестейський (к.Перемоги (Проспект)), 65Б"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 1,
+    "address": "пров. Ващенківський, 28Б"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 2,
+    "address": "вул. Нескорених  ( Героїв Праці ), 46"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 3,
+    "address": "вул. Гіршмана, 16"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 5,
+    "address": "вул. Валентинівська ( Блюхера ), 37/128"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 7,
+    "address": "просп. Героїв Харкова (кол.Московський), 256"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 8,
+    "address": "вул. Полтавський Шлях, 140"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 9,
+    "address": "проїзд Стадіонний, 5А"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 10,
+    "address": "просп. Байрона (Героїв Сталінграду), 179"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 11,
+    "address": "вул. Культури, 17"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 12,
+    "address": "вул. Хмельницького Богдана, 32А"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 14,
+    "address": "вул. Сумська, 71"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 15,
+    "address": "вул. Зіркова, 2А"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 16,
+    "address": "просп. Олександрівський (Косіора), 156"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 17,
+    "address": "вул. Нескорених  ( Героїв Праці ), 29Г"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 18,
+    "address": "вул. Клочківська, 9А"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 19,
+    "address": "просп. Науки, 64"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 20,
+    "address": "просп. Аерокосмічний (Гагаріна), 185"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 21,
+    "address": "вул. Амосова (Корчагінців), 13"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 22,
+    "address": "просп. Петра Григоренка, 39"
+  },
+  {
+    "city_title": "Харків",
+    "office_number": 24,
+    "address": "вул. Одеська, 106"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 1,
+    "address": "вул. Зелена, 147"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 2,
+    "address": "вул. Листопадового Чину, 3"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 3,
+    "address": "вул. Хмельницького Богдана, 172"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 4,
+    "address": "вул. Городоцька, 242"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 5,
+    "address": "вул. Зубрівська, 34Г"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 6,
+    "address": "вул. Стрийська, 3"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 7,
+    "address": "вул. Митрополита Андрея, 34"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 8,
+    "address": "вул. Володимира Великого, 35"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 10,
+    "address": "вул. Хмельницького Богдана, 105"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 11,
+    "address": "вул. Широка, 11"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 12,
+    "address": "вул. Драгана, 1"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 14,
+    "address": "вул. Шевченка, 35"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 16,
+    "address": "вул. Широка, 83В"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 19,
+    "address": "вул. Личаківська, 152А"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 22,
+    "address": "вул. Солодова, 1"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 24,
+    "address": "вул. Хмельницького Богдана, 214"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 25,
+    "address": "просп. Чорновола В`ячеслава, 57"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 26,
+    "address": "просп. Шевченка (просп.), 24"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 27,
+    "address": "просп. Червоної Калини, 36"
+  },
+  {
+    "city_title": "Львів",
+    "office_number": 28,
+    "address": "вул. Бандери Степана, 37"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 2,
+    "address": "вул. Переволочанська (кол. Новочеркаська), 211"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 3,
+    "address": "вул. Набережна Заводська, 101 к"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 5,
+    "address": "вул. Загорянська, 1А"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 6,
+    "address": "вул. Старокозацька (Комсомольська), 74В"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 7,
+    "address": "просп. Миру, 11"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 8,
+    "address": "пл. Старомостова (Островського Миколи), 2"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 9,
+    "address": "просп. Героїв, 11 М"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 10,
+    "address": "вул. Князя Володимира Великого ( Плєханова ), 10А"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 11,
+    "address": "вул. Волинська, 9"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 12,
+    "address": "вул. Панікахи, 28"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 13,
+    "address": "просп. Науки ( Гагаріна ), 8А"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 14,
+    "address": "просп. Петра Калнишевського (Косіора), 18/67"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 15,
+    "address": "просп. Поля Олександра (Кірова), 13"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 16,
+    "address": "бул. Слави, 5"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 17,
+    "address": "вул. Сергія Єфремова (Ворошилова), 25"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 18,
+    "address": "вул. Незалежності (Титова), 24"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 19,
+    "address": "вул. Королеви Єлизавети ІІ (Глінки), 1"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 20,
+    "address": "просп. Героїв, 2"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 21,
+    "address": "бул. Зоряний, 1А"
+  },
+  {
+    "city_title": "Дніпро",
+    "office_number": 22,
+    "address": "вул. Шевченка (Жовтневый), 53"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 1,
+    "address": "вул. Грушевського Михайла, 41"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 2,
+    "address": "вул. Базова, 11"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 3,
+    "address": "дорога Миколаївська (дорога), 126"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 6,
+    "address": "вул. Велика Арнаутська, 18"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 7,
+    "address": "пров. Семафорний, 4Т"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 8,
+    "address": "вул. Святослава Караванського (Жуковського), 38"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 9,
+    "address": "вул. Корольова Академіка, 63/1"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 10,
+    "address": "вул. Мала Арнаутська (Воровського), 53"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 11,
+    "address": "вул. Левітана, 118/2"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 12,
+    "address": "вул. Лип Івана та Юрія, 13А"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 13,
+    "address": "дорога Люстдорфська, 52"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 14,
+    "address": "вул. Новосельського (Приморський р-н), 43"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 15,
+    "address": "вул. Преображенська, 68"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 16,
+    "address": "вул. Сахарова Академіка, 1Б"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 17,
+    "address": "вул. Владислава Бувалкіна (Бочарова), 30"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 18,
+    "address": "вул. Олексія Маркевича (Князівська), 2"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 19,
+    "address": "просп. Адміральський, 1"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 20,
+    "address": "просп. Князя Ярослава Мудрого (Глушка Академіка, 17"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 21,
+    "address": "вул. Заболотного Академіка, 52"
+  },
+  {
+    "city_title": "Одеса",
+    "office_number": 22,
+    "address": "вул. Європейська (Катерининська), 26"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 1,
+    "address": "вул. Миколи Корищенка, 34"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 2,
+    "address": "просп. Соборний, 17В"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 3,
+    "address": "вул. Морфлотська, 52Априм.3"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 4,
+    "address": "вул. Зачиняєва, 15"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 5,
+    "address": "вул. Демократична, 63А"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 7,
+    "address": "вул. Чарівна, 40Б"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 8,
+    "address": "вул. Олександрівська, 3"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 9,
+    "address": "вул. Михайла Гончаренка (Панфіловців), 5"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 12,
+    "address": "вул. Петра Сагайдачного (Бородинська), 9"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 13,
+    "address": "просп. Соборний, 222"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 14,
+    "address": "просп. Соборний, 44"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 15,
+    "address": "вул. Ситова, 4А"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 16,
+    "address": "просп. Соборний, 147"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 18,
+    "address": "вул. Володимира Українця (кол. Новокузнецька), 5"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 19,
+    "address": "просп. Соборний, 185"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 20,
+    "address": "вул. Яценка, 18"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 21,
+    "address": "вул. Чубанова, 13Г"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 23,
+    "address": "вул. Шевченка, 146"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 30,
+    "address": "просп. Соборний, 177"
+  },
+  {
+    "city_title": "Запоріжжя",
+    "office_number": 32,
+    "address": "вул. Зестафонська, 6"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 1,
+    "address": "вул. Гетьмана Мазепи (Чехова), 25"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 2,
+    "address": "вул. Келецька, 57"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 3,
+    "address": "вул. Скалецького, 35"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 4,
+    "address": "вул. Євгенія Пікуса, 1"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 5,
+    "address": "вул. Київська, 47"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 7,
+    "address": "вул. Гоголя Миколи, 1"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 8,
+    "address": "вул. Зодчих, 2А"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 9,
+    "address": "просп. Космонавтів, 49"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 10,
+    "address": "вул. Коцюбинського, 78Б"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 25,
+    "address": "вул. 600-річчя, 5"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 26,
+    "address": "вул. Привокзальна, 17"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 27,
+    "address": "вул. Чорновола В`ячеслава, 29, секція 6"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 30,
+    "address": "вул. Келецька, 122А"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 31,
+    "address": "вул. Пирогова, 42"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 32,
+    "address": "вул. Пирогова, 103А"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 36,
+    "address": "вул. Миколи Зерова (Пархоменка), 29"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 41,
+    "address": "шосе Хмельницьке, 93А"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 47,
+    "address": "вул. Гоголя Миколи, 14"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 48,
+    "address": "вул. Зодчих, 1А"
+  },
+  {
+    "city_title": "Вінниця",
+    "office_number": 49,
+    "address": "просп. Коцюбинського, 2А"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 1,
+    "address": "вул. Гайова, 64"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 2,
+    "address": "вул. Хмельницького Богдана, 12"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 7,
+    "address": "вул. Руська, 23"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 8,
+    "address": "вул. Мазепи, 1"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 12,
+    "address": "вул. Тарнавського, 34"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 13,
+    "address": "пл. Героїв Євромайдану, 9"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 14,
+    "address": "майдан Перемоги, 4"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 23,
+    "address": "вул. Текстильна, 16"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 28,
+    "address": "вул. Патріарха Мстислава, 2/1"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 34,
+    "address": "вул. Будного Степана, 40"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 35,
+    "address": "вул. Збаразьке кільце, 1"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 36,
+    "address": "вул. Торговиця (к. Живова ), 15"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 37,
+    "address": "вул. Микулинецька, 40Б"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 38,
+    "address": "вул. 15 Квітня, 14"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 45,
+    "address": "вул. Стуса Василя, 1"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 47,
+    "address": "вул. Купчинського, 14"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 48,
+    "address": "вул. Старий Поділ (к.Танцорова), 16"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 53,
+    "address": "вул. Слівенська, 15"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 54,
+    "address": "вул. Весела, 1"
+  },
+  {
+    "city_title": "Тернопіль",
+    "office_number": 59,
+    "address": "вул. Київська, 7Д"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 1,
+    "address": "вул. Ботанічна, 6"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 2,
+    "address": "вул. Лепкого, 35"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 3,
+    "address": "вул. Євгена Коновальця, 28"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 4,
+    "address": "вул. Шевченка, 20"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 5,
+    "address": "вул. Бандери, 35/1"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 8,
+    "address": "вул. Стуса, 25"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 9,
+    "address": "вул. Довженка Олександра, 59"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 10,
+    "address": "вул. Січових Стрільців, 68А"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 14,
+    "address": "вул. Галицька, 94"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 15,
+    "address": "вул. Хіміків, 19"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 17,
+    "address": "вул. Національної Гвардії, 14Ф"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 18,
+    "address": "вул. Довга, 76"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 19,
+    "address": "вул. Гетьмана Мазепи, 168Б"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 20,
+    "address": "вул. Набережна імені Василя Стефаника, 5"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 22,
+    "address": "вул. Євгена Коновальця, 225В"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 27,
+    "address": "вул. Тисменицька, 249"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 28,
+    "address": "вул. Галицька, 201А"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 29,
+    "address": "вул. Петлюри, 14"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 35,
+    "address": "бул. Північний, 12"
+  },
+  {
+    "city_title": "Івано-Франківськ",
+    "office_number": 37,
+    "address": "вул. Максимовича, 12"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 1,
+    "address": "вул. Чумацький Шлях (Половки), 72"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 2,
+    "address": "вул. Європейська, 66"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 7,
+    "address": "вул. Гоголя Миколи, 38"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 10,
+    "address": "вул. Ветеринарна, 22"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 11,
+    "address": "вул. Івана Мазепи (Калініна), 45/4 Rozetka"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 12,
+    "address": "вул. Небесної Сотні, 10/19"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 13,
+    "address": "вул. Небесної Сотні, 61"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 14,
+    "address": "вул. Зіньківська, 5"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 15,
+    "address": "вул. Соборності (Жовтнева), 29А"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 21,
+    "address": "шосе Київське шосе, 29А"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 22,
+    "address": "вул. Чумацький Шлях (Половки), 85"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 26,
+    "address": "вул. Героїв Азову (Анатолія Кукоби), 12"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 27,
+    "address": "вул. Івана Мазепи (Калініна), 33А"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 28,
+    "address": "вул. Героїв-чорнобильців ( Чапаєва ), 1"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 30,
+    "address": "вул. Шевченка, 102"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 32,
+    "address": "вул. Сінна, 42"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 33,
+    "address": "вул. Небесної Сотні, 112"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 37,
+    "address": "вул. Соборності (Жовтнева), 60"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 38,
+    "address": "вул. Дмитра Пругла ( Станіславського ), 14/2"
+  },
+  {
+    "city_title": "Полтава",
+    "office_number": 42,
+    "address": "вул. Квітки Цісик (Червонофлотська), 15Ж"
+  }
+]

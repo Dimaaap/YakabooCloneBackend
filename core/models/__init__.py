@@ -73,7 +73,8 @@ __all__ = (
     "PaymentMethod",
     "PromoCode",
     "PromoCodeUsage",
-    "UkrpostOffice"
+    "UkrpostOffice",
+    "MeestPostOffice"
 )
 
 
@@ -153,3 +154,4 @@ from .payment_methods import PaymentMethod
 from .promo_code import PromoCode
 from .promo_code_usage import PromoCodeUsage
 from .ukrpost_office import UkrpostOffice
+from .meest_post_office import MeestPostOffice
