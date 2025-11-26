@@ -54,6 +54,7 @@ from payment_methods import router as payments_router
 from promo_codes import router as promo_codes_router
 from promo_code_usage import router as promo_code_usage_router
 from ukrpost_offices import router as ukrpost_offices_router
+from meest_post_offices import router as meest_post_offices
 
 
 @asynccontextmanager
@@ -112,6 +113,7 @@ app.include_router(payments_router)
 app.include_router(promo_codes_router)
 app.include_router(promo_code_usage_router)
 app.include_router(ukrpost_offices_router)
+app.include_router(meest_post_offices)
 
 app.add_middleware(
     CORSMiddleware,

@@ -6,7 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ukrpost_offices.schema import UkrpostOfficeSchema, UkrpostOfficeCreate
 from ukrpost_offices.services import convert_json_offices_format
-from cities.crud import get_city_by_title
 from core.models import UkrpostOffice, db_helper
 
 

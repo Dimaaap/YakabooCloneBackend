@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Boolean, Integer, ForeignKey
+from sqlalchemy import String, Boolean, Integer, ForeignKey, Index, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -12,7 +12,19 @@ if TYPE_CHECKING:
 class MeestPostOffice(Base):
     __tablename__ = "meest_post_offices"
 
-    office_number: Mapped[int] = mapped_column(Integer, primary_key=True)
+    __table_args__ = (
+        Index("idx_meest_active",
+              text("id"),
+              postgresql_where=text("active = true")
+        ),
+
+        Index("idx_meest_city_active",
+              text("city_id"), text("id"),
+              postgresql_where=text("active = true")
+        )
+    )
+
+    office_number: Mapped[int] = mapped_column(Integer)
     address: Mapped[str] = mapped_column(String(255), nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
 
