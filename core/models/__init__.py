@@ -74,7 +74,8 @@ __all__ = (
     "PromoCode",
     "PromoCodeUsage",
     "UkrpostOffice",
-    "MeestPostOffice"
+    "MeestPostOffice",
+    "NewPostPostomat"
 )
 
 
@@ -155,3 +156,4 @@ from .promo_code import PromoCode
 from .promo_code_usage import PromoCodeUsage
 from .ukrpost_office import UkrpostOffice
 from .meest_post_office import MeestPostOffice
+from .new_post_postomats import NewPostPostomat

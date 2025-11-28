@@ -55,6 +55,7 @@ from promo_codes import router as promo_codes_router
 from promo_code_usage import router as promo_code_usage_router
 from ukrpost_offices import router as ukrpost_offices_router
 from meest_post_offices import router as meest_post_offices
+from new_post_postomats import router as new_post_postomats_router
 
 
 @asynccontextmanager
@@ -114,6 +115,7 @@ app.include_router(promo_codes_router)
 app.include_router(promo_code_usage_router)
 app.include_router(ukrpost_offices_router)
 app.include_router(meest_post_offices)
+app.include_router(new_post_postomats_router)
 
 app.add_middleware(
     CORSMiddleware,
