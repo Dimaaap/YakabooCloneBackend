@@ -1,4 +1,5 @@
 import asyncio
+import time
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete
@@ -43,7 +44,6 @@ async def get_new_post_postomats_by_city_id(city_id: int, session: AsyncSession)
         .where(NewPostPostomat.city_id == city_id, NewPostPostomat.active)
         .order_by(NewPostPostomat.id)
     )
-
     result: Result = await session.execute(statement)
     new_post_postomats = result.scalars().all()
     return new_post_postomats

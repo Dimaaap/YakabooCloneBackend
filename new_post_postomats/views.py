@@ -14,31 +14,17 @@ REDIS_KEY = "new_post_postomats"
 
 @router.get("/all", response_model=list[NewPostPostomatSchema])
 async def get_all_new_post_postomats(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    ids_key = "new_post_postomats:ids"
+    cache_key = "new_post_postomats:all"
 
-    cached_ids = await redis_client.get(ids_key)
-
-    if cached_ids:
-        ids = json.loads(cached_ids)
-
-        postomats = []
-        for postomat_id in ids:
-            cached = await redis_client.get(f"new_post_postomat:{postomat_id}")
-            if cached:
-                postomats.append(json.loads(cached))
-        return postomats
+    cached = await redis_client.get(cache_key)
+    if cached:
+        return json.loads(cached)
 
     postomats = await crud.get_all_new_post_postomats(session)
-    ids = [p.id for p in postomats]
-    await redis_client.set(ids_key, json.dumps(ids))
+    data = [NewPostPostomatSchema.model_validate(p).model_dump() for p in postomats]
 
-    for p in postomats:
-        key = f"new_post_postomat:{p.id}"
-        await redis_client.set(
-            key,
-            json.dumps(NewPostPostomatSchema.model_validate(p).model_dump())
-        )
-    return postomats
+    await redis_client.set(cache_key, json.dumps(data))
+    return data
 
 
 @router.post("/create")
@@ -71,18 +57,13 @@ async def get_new_post_postomat_by_id(postomat_id: int,
 async def get_new_post_postomat_by_city_id(city_id: int,
                                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     city_key = f"new_post_postomats_by_city:{city_id}"
-    cached = await redis_client.get(city_key)
 
+    cached = await redis_client.get(city_key)
     if cached:
-        ids = json.loads(cached)
-        return [json.loads(await redis_client.get(f"new_post_postomat:{id}")) for id in ids]
+        return json.loads(cached)
 
     postomats = await crud.get_new_post_postomats_by_city_id(city_id, session)
-    ids = [p.id for p in postomats]
+    data = [NewPostPostomatSchema.model_validate(p).model_dump() for p in postomats]
+    await redis_client.set(city_key, json.dumps(data))
 
-    await redis_client.set(city_key, json.dumps(ids))
-
-    for p in postomats:
-        await redis_client.set(f"new_post_postomat:{p.id}",
-                               json.dumps(NewPostPostomatSchema.model_validate(p).model_dump()))
-    return postomats
+    return data
