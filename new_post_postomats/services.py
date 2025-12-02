@@ -19,6 +19,12 @@ def get_postomat_number(number: str):
     return post_number
 
 
+def get_office_weight_to(number: str):
+    if "up to" in number:
+        return int(number.split()[5])
+    return None
+
+
 def get_postomat_address(address: str):
     address = address.strip()
     street = " ".join(address.split()[2:])
@@ -27,6 +33,12 @@ def get_postomat_address(address: str):
 
 def read_postomats_from_json():
     with open("postomats.json", encoding="utf-8") as f:
+        data = json.load(f)
+        return data
+
+
+def read_offices_from_json():
+    with open("../new_post_offices/offices.json", encoding="utf-8") as f:
         data = json.load(f)
         return data
 
@@ -43,3 +55,25 @@ def convert_json_postomats_format():
         data.append(postomat_data)
 
     return data
+
+
+def convert_json_offices_format():
+    data = []
+    offices_json = read_offices_from_json()
+    for office in offices_json:
+        office_data = {
+            "city_id": cities_id_map[office["city_title"]],
+            "number": int(office["number"]),
+            "address": office["address"],
+            "weight_to": office["weight_to"]
+        }
+        data.append(office_data)
+    return data
+
+
+def format_office_address(address: str):
+    if "ункт" in address:
+        address = address.lstrip("")
+        address = address.split()[2:]
+        return "пункт " + " ".join(address)
+    return " ".join(address.split()[1:])

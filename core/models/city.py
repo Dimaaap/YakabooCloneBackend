@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from .ukrpost_office import UkrpostOffice
     from .meest_post_office import MeestPostOffice
     from .new_post_postomats import NewPostPostomat
+    from .new_post_offices import NewPostOffice
 
 
 class City(Base):
@@ -42,6 +43,12 @@ class City(Base):
     )
 
     new_post_postomats: Mapped["NewPostPostomat"] = relationship(
+        back_populates="city",
+        uselist=False,
+        cascade="all, delete-orphan"
+    )
+
+    new_post_offices: Mapped["NewPostOffice"] = relationship(
         back_populates="city",
         uselist=False,
         cascade="all, delete-orphan"

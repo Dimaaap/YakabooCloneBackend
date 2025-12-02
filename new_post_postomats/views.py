@@ -30,7 +30,7 @@ async def get_all_new_post_postomats(session: AsyncSession = Depends(db_helper.s
 @router.post("/create")
 async def create_new_post_postomat(postomat: NewPostPostomatCreate,
                                    session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    await redis_client.delete(REDIS_KEY)
+    await redis_client.delete("new_post_postomats:all")
     return await crud.create_new_post_postomat(session, postomat)
 
 
