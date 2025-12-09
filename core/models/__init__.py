@@ -76,7 +76,8 @@ __all__ = (
     "UkrpostOffice",
     "MeestPostOffice",
     "NewPostPostomat",
-    "NewPostOffice"
+    "NewPostOffice",
+    "Order"
 )
 
 
@@ -159,3 +160,4 @@ from .ukrpost_office import UkrpostOffice
 from .meest_post_office import MeestPostOffice
 from .new_post_postomats import NewPostPostomat
 from .new_post_offices import NewPostOffice
+from .order import Order

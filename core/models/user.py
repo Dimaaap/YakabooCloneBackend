@@ -9,6 +9,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .wishlists import Wishlist
+    from .order import Order
     from .cart import Cart
     from .promo_code_usage import PromoCodeUsage
 
@@ -40,6 +41,7 @@ class User(Base):
 
     date_joined: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))
     wishlists: Mapped[list["Wishlist"]] = relationship("Wishlist", back_populates="user")
+    orders: Mapped[list["Order"]] = relationship("Order", back_populates="user")
     cart: Mapped["Cart"] = relationship("Cart", back_populates="user", uselist=False)
     promo_usage: Mapped["PromoCodeUsage"] = relationship("PromoCodeUsage", back_populates="user")
 

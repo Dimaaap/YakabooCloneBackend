@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from .meest_post_office import MeestPostOffice
     from .new_post_postomats import NewPostPostomat
     from .new_post_offices import NewPostOffice
+    from .order import Order
 
 
 class City(Base):
@@ -55,6 +56,12 @@ class City(Base):
     )
 
     payment_methods: Mapped["PaymentMethod"] = relationship(
+        back_populates="city",
+        uselist=False,
+        cascade="all, delete-orphan"
+    )
+
+    orders: Mapped["Order"] = relationship(
         back_populates="city",
         uselist=False,
         cascade="all, delete-orphan"

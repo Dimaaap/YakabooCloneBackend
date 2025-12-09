@@ -7,19 +7,19 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .city import City
+    from .order import Order
 
 
 class MeestPostOffice(Base):
     __tablename__ = "meest_post_offices"
 
     __table_args__ = (
-        Index("idx_meest_active",
-              text("id"),
+        Index("idx_meest_active", "id",
               postgresql_where=text("active = true")
         ),
 
         Index("idx_meest_city_active",
-              text("city_id"), text("id"),
+              "city_id", "id",
               postgresql_where=text("active = true")
         )
     )
@@ -32,6 +32,8 @@ class MeestPostOffice(Base):
                                         uselist=False,
                                         foreign_keys="MeestPostOffice.city_id")
     city_id: Mapped[int] = mapped_column(ForeignKey("cities.id"), nullable=False)
+
+    orders: Mapped[list["Order"]] = relationship(back_populates="meest_office",cascade="all, delete-orphan")
 
     def __str__(self):
         return f"{self.__class__.__name__}(№={self.office_number}, address={self.address})"
