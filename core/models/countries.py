@@ -31,11 +31,7 @@ class Country(Base):
         cascade="all, delete-orphan"
     )
 
-    orders: Mapped["Order"] = relationship(
-        back_populates="country",
-        uselist=False,
-        cascade="all, delete-orphan"
-    )
+    orders: Mapped[list["Order"]] = relationship("Order", back_populates="country")
 
     def __str__(self):
         return f"{self.__class__.__name__}(title={self.title})"

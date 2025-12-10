@@ -18,6 +18,8 @@ class PaymentMethod(Base):
     e_book: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="1")
     upon_receipt: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="1")
     prepay: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="1")
+    privat_bank_parts: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="1")
+    monobank_parts: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="1")
 
     country: Mapped["Country"] = relationship(back_populates="payment_methods",
                                               uselist=False,

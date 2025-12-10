@@ -5,6 +5,8 @@ class PaymentMethodBase(BaseModel):
     cart_or_scholar_pack: bool | None = None
     winter_e_support: bool | None = None
     e_book: bool | None = None
+    privat_bank_parts: bool | None = None
+    monobank_parts: bool | None = None
     upon_receipt: bool | None = None
     prepay: bool | None = None
 

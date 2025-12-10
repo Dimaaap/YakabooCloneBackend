@@ -23,7 +23,7 @@ class UkrpostOffice(Base):
                                         foreign_keys="UkrpostOffice.city_id")
     city_id: Mapped[int] = mapped_column(ForeignKey("cities.id"), nullable=False)
 
-    orders: Mapped[list["Order"]] = relationship(back_populates="ukrpost_office",
+    orders: Mapped[list["Order"]] = relationship("Order", back_populates="ukrpost_office",
                                            cascade="all, delete-orphan")
 
     def __str__(self):

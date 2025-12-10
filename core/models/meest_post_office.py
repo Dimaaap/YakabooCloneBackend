@@ -33,7 +33,7 @@ class MeestPostOffice(Base):
                                         foreign_keys="MeestPostOffice.city_id")
     city_id: Mapped[int] = mapped_column(ForeignKey("cities.id"), nullable=False)
 
-    orders: Mapped[list["Order"]] = relationship(back_populates="meest_office",cascade="all, delete-orphan")
+    orders: Mapped[list["Order"]] = relationship("Order", back_populates="meest_office",cascade="all, delete-orphan")
 
     def __str__(self):
         return f"{self.__class__.__name__}(№={self.office_number}, address={self.address})"

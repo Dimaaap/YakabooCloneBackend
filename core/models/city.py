@@ -61,11 +61,7 @@ class City(Base):
         cascade="all, delete-orphan"
     )
 
-    orders: Mapped["Order"] = relationship(
-        back_populates="city",
-        uselist=False,
-        cascade="all, delete-orphan"
-    )
+    orders: Mapped[list["Order"]] = relationship("Order", back_populates="city")
 
     def __str__(self):
         return f"{self.__class__.__name__}(title={self.title})"

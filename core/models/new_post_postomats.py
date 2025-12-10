@@ -36,6 +36,7 @@ class NewPostPostomat(Base):
     city_id: Mapped[int] = mapped_column(ForeignKey("cities.id"), nullable=False)
 
     orders: Mapped[list["Order"]] = relationship(
+        "Order",
         back_populates="new_post_postomat",
         cascade="all, delete-orphan"
     )

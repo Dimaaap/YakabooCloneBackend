@@ -22,7 +22,7 @@ class PromoCodeUsage(Base):
     user: Mapped["User"] = relationship("User", back_populates="promo_usage")
     promo_code: Mapped["PromoCode"] = relationship("PromoCode", back_populates="usages")
 
-    order: Mapped["Order"] = relationship("Order", back_populates="promo_usage", uselist=False)
+    order: Mapped[list["Order"]] = relationship("Order", back_populates="promo_usage", uselist=False)
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(user_id={self.user_id}, promo_id={self.promo_id})"
