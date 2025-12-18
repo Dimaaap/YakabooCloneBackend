@@ -77,7 +77,8 @@ __all__ = (
     "MeestPostOffice",
     "NewPostPostomat",
     "NewPostOffice",
-    "Order"
+    "Order",
+    "Review"
 )
 
 
@@ -161,3 +162,4 @@ from .meest_post_office import MeestPostOffice
 from .new_post_postomats import NewPostPostomat
 from .new_post_offices import NewPostOffice
 from .order import Order
+from .reviews import Review

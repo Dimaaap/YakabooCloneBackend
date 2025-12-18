@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     from .double_subcategories import DoubleSubcategory
     from .cart_item import CartItem
     from .double_subcategory_book_association import DoubleSubcategoryBookAssociation
+    from .reviews import Review
 
 
 class Book(Base):
@@ -180,6 +181,12 @@ class Book(Base):
     )
 
     images: Mapped[list["BookImage"]] = relationship(
+        back_populates="book",
+        cascade="all, delete-orphan",
+        lazy="selectin"
+    )
+
+    reviews: Mapped[list["Review"]] = relationship(
         back_populates="book",
         cascade="all, delete-orphan",
         lazy="selectin"
