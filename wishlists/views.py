@@ -1,11 +1,9 @@
-from http.client import responses
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from books.schemas import BookSchema, BookSchemaWithoutWishlists
+from books.schemas import BookSchemaWithoutWishlists
 from .schemas import WishlistSchema, WishlistCreate, WishlistUpdatePartial
-from core.models import db_helper, Book
+from core.models import db_helper
 from . import crud
 
 router = APIRouter(tags=["wishlists"])

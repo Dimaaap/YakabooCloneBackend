@@ -57,6 +57,7 @@ from ukrpost_offices import router as ukrpost_offices_router
 from meest_post_offices import router as meest_post_offices
 from new_post_postomats import router as new_post_postomats_router
 from new_post_offices import router as new_post_offices_router
+from reviews import router as reviews_router
 
 
 @asynccontextmanager
@@ -118,6 +119,7 @@ app.include_router(ukrpost_offices_router)
 app.include_router(meest_post_offices)
 app.include_router(new_post_postomats_router)
 app.include_router(new_post_offices_router)
+app.include_router(reviews_router)
 
 app.add_middleware(
     CORSMiddleware,

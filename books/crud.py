@@ -62,6 +62,7 @@ async def get_all_books(session: AsyncSession) -> list[BookSchema]:
             selectinload(Book.images),
             joinedload(Book.edition_group),
             selectinload(Book.illustrators),
+            selectinload(Book.reviews)
         )
         .order_by(Book.id))
     result: Result = await session.execute(statement)
@@ -111,6 +112,7 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
             joinedload(Book.literature_period),
             joinedload(Book.edition_group),
             selectinload(Book.illustrators),
+            selectinload(Book.reviews)
         )
     )
 
@@ -162,6 +164,7 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             joinedload(Book.literature_period),
             joinedload(Book.edition_group),
             selectinload(Book.illustrators),
+            selectinload(Book.reviews)
         )
     )
 

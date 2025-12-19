@@ -8,6 +8,7 @@ from book_series.schema import BookSeriaSchema
 from core.models.book_image import BookImageType
 from notebook_subcategories.schemas import NotebookSubcategoryShortSchema
 from publishing.schemas import PublishingSchema
+from reviews.schema import ReviewSchema
 from wishlists.schemas import WishlistSchema
 from notebook_categories.schema import NotebookCategoryShortSchema
 from book_translators.schemas import BookTranslatorSchema
@@ -78,6 +79,7 @@ class BookSchemaWithoutWishlists(BookBase):
     images: list[BookImageSchema] = []
     translators: list[BookTranslatorSchema] = []
     illustrators: list[BookIllustratorSchema] = []
+    reviews: list[ReviewSchema] = []
     literature_period: LiteraturePeriodSchema | None = None
     notebook_category: NotebookCategoryShortSchema | None = None
     notebook_subcategory: NotebookSubcategoryShortSchema | None = None
