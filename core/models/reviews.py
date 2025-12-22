@@ -15,10 +15,11 @@ class Review(Base):
     rate: Mapped[int] = mapped_column(Integer, default=5, server_default="5")
     title: Mapped[str] = mapped_column(String(255), nullable=True)
     comment: Mapped[str] = mapped_column(Text, nullable=False)
+    user_name: Mapped[str] = mapped_column(String(255), nullable=False)
     created_date: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))
     is_validated: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
 
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user_email: Mapped[str] = mapped_column(ForeignKey("users.email"), nullable=True)
     user: Mapped["User"] = relationship("User", back_populates="reviews")
     book_id: Mapped[int] = mapped_column(ForeignKey("books.id"))
     book: Mapped["Book"] = relationship("Book", back_populates="reviews")

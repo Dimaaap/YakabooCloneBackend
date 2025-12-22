@@ -1,11 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import Review, User, Book
-from .schema import ReviewCreate, ReviewSchema
+from core.models import Review
+from .schema import ReviewCreate
 
 
 async def create_review(session: AsyncSession,

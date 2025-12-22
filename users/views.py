@@ -150,6 +150,13 @@ async def login_for_access_token(
     return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "Bearer", "user": user}
 
 
+@router.get("/by-email/{user_email}")
+async def get_user_by_email(user_email: str,
+                         session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    user = await crud.get_user_by_email(session, user_email)
+    return user
+
+
 @router.get("/jwt/verify-token")
 async def verify_access_token(session: AsyncSession = Depends(db_helper.scoped_session_dependency),
                               token: str = Depends(oauth2_scheme)):
