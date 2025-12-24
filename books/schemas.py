@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, Field
 
 from book_edition_group.schemas import BookEditionGroupSchema
@@ -46,6 +48,7 @@ class BookBase(BaseModel):
     images: list[BookImageCreate] | None = None
     authors: list[int] | None = None
     translators: list[int] | None = None
+    created_date: datetime | None = None
 
 
 

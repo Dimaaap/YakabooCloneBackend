@@ -18,6 +18,7 @@ class BookInfoBase(BaseModel):
     literature_type: LiteratureTypes | None = None
     literature_program_class: LiteratureProgramClasses | None = None
     present_edition_and_sets: str | None = None
+    is_has_winter_esupport: bool | None = None
     is_has_esupport: bool | None = None
     format: BookFormats | None = None
     language: BookLanguages | None = None
@@ -35,6 +36,10 @@ class BookInfoBase(BaseModel):
     type: str | None = None
     edition: int | None = None
     book_format: str | None = None
+    waiting_from: str | None = None
+    is_free_delivery: bool | None = None
+    delivery_time: int | None = None
+    uk_delivery_time: int | None = None
 
 
 class BookInfoCreate(BookInfoBase):

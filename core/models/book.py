@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
+from datetime import datetime
 
-from sqlalchemy import String, Integer, ForeignKey, Boolean
+from sqlalchemy import String, Integer, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.models.book_translators import BookTranslator
@@ -41,6 +42,8 @@ class Book(Base):
     is_in_chart: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     stars: Mapped[bool] = mapped_column(Integer, default=0, server_default="0")
     promo_price: Mapped[int] = mapped_column(Integer, nullable=True)
+
+    created_date: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))
 
     is_notebook: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
 

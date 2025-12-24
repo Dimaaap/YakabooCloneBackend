@@ -78,6 +78,7 @@ class BookInfo(Base):
                                                    server_default=CoverTypes.SOLID.name)
     pages_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     is_has_cashback: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+    is_has_winter_esupport: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     is_has_esupport: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     bonuses: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     literature_type: Mapped[LiteratureTypes] = mapped_column(Enum(LiteratureTypes,
@@ -104,6 +105,10 @@ class BookInfo(Base):
     type: Mapped[str] = mapped_column(String(50), nullable=True)
     edition: Mapped[int] = mapped_column(Integer, nullable=True)
     book_format: Mapped[str] = mapped_column(String(100), nullable=True)
+    waiting_from: Mapped[str] = mapped_column(String(9), nullable=True)
+    is_free_delivery: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+    delivery_time: Mapped[int] = mapped_column(Integer, nullable=True)
+    uk_delivery_time: Mapped[int] = mapped_column(Integer, nullable=True)
 
     publishing_year: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     first_published_at: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
