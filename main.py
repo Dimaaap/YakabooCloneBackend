@@ -129,11 +129,5 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-
-@app.get("/")
-def home_page():
-    return {"message": "Hello World"}
-
-
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8006, reload=True)
