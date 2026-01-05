@@ -26,6 +26,20 @@ async def get_all_banners(session: AsyncSession) -> list[BannerSchema]:
     return [BannerSchema.model_validate(banner) for banner in banners]
 
 
+async def get_all_banners_for_main_page(session: AsyncSession) -> list[BannerSchema]:
+    statement = select(Banner).order_by(Banner.id).where(Banner.visible, not Banner.in_all_books_page)
+    result: Result = await session.execute(statement)
+    banners = result.scalars().all()
+    return [BannerSchema.model_validated(banner) for banner in banners]
+
+
+async def get_all_banners_for_all_books_page(session: AsyncSession) -> list[BannerSchema]:
+    statement = select(Banner).order_by(Banner.id).where(Banner.visible, Banner.in_all_books_page)
+    result: Result = await session.execute(statement)
+    banners = result.scalars().all()
+    return [BannerSchema.model_validate(banner) for banner in banners]
+
+
 async def delete_banner_by_id(banner_id: int, session: AsyncSession):
     statement = delete(Banner).where(Banner.id == banner_id)
     try:

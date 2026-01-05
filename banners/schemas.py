@@ -5,6 +5,7 @@ class BannerBase(BaseModel):
     image_src: str | None = None
     visible: bool = True
     link: str
+    in_all_books_page: bool = False
 
 
 class BannerCreate(BannerBase):
@@ -19,6 +20,7 @@ class BannerUpdatePartial(BannerUpdate):
     image_src: str | None = None
     visible: bool | None = None
     link: str | None = None
+    in_all_books_page: bool | None = None
 
 
 class BannerSchema(BannerBase):

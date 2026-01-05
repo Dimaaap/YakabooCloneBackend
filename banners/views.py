@@ -18,11 +18,21 @@ async def get_all_banners(session: AsyncSession = Depends(db_helper.scoped_sessi
     cached_banners = await redis_client.get("banners")
     if cached_banners:
         return json.loads(cached_banners)
-    banners = await crud.get_all_banners(session)
+    banners = await crud.get_all_banners_for_main_page(session)
     await redis_client.set("banners", json.dumps([banner.model_dump() for banner in banners]),
                            ex=SIX_DAYS)
     return banners
 
+
+@router.get("/all/books-page", response_model=list[BannerSchema])
+async def get_all_books_page_banners(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    cached_banners = await redis_client.get("all_books_banners")
+    if cached_banners:
+        return json.loads(cached_banners)
+    banners = await crud.get_all_banners_for_all_books_page(session)
+    await redis_client.set("all_books_banners", json.dumps([banner.model_dump() for banner in banners]),
+                           ex=SIX_DAYS)
+    return banners
 
 @router.post("/create")
 async def create_banner(banner: BannerCreate,

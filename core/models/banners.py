@@ -8,6 +8,7 @@ class Banner(Base):
     image_src: Mapped[str] = mapped_column(String(255), default="", server_default="")
     visible: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     link: Mapped[str] = mapped_column(String(255), default="", server_default="")
+    in_all_books_page: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
 
     def __str__(self):
         return f"{self.__class__.__name__}(id={self.id}, visible={self.visible}, link={self.link})"

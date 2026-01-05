@@ -10,6 +10,7 @@ class Interesting(Base):
     title: Mapped[str] = mapped_column(String(100), default="", server_default="")
     slug: Mapped[str] = mapped_column(String(100), default="", server_default="")
     visible: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+    link: Mapped[str] = mapped_column(String, default="", server_default="")
 
     def __str__(self):
         return f"{self.__class__.__name__}(self.title={self.title})"
