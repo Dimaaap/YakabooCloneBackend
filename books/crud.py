@@ -1,13 +1,32 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete
+from sqlalchemy import select, Result, delete, func, and_
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from books.services import BookFilter
 from core.models import Book, db_helper, BookImage, Author, BookTranslator
 from books.schemas import BookSchema, BookCreate, BookUpdate
 from data_strorage import BOOKS
+
+
+BOOK_OPTIONS = (
+    joinedload(Book.book_info),
+    selectinload(Book.authors).selectinload(Author.images),
+    selectinload(Book.authors).joinedload(Author.interesting_fact),
+    joinedload(Book.publishing),
+    selectinload(Book.wishlists),
+    selectinload(Book.translators),
+    joinedload(Book.literature_period),
+    joinedload(Book.seria),
+    selectinload(Book.images),
+    joinedload(Book.edition_group),
+    selectinload(Book.illustrators),
+    selectinload(Book.reviews)
+)
+
+BASE_FILTER = Book.is_notebook.is_(False)
 
 
 async def create_book(session: AsyncSession, book_data: BookCreate) -> BookSchema:
@@ -46,28 +65,27 @@ async def create_book(session: AsyncSession, book_data: BookCreate) -> BookSchem
     return BookSchema.model_validate(book)
 
 
-async def get_all_books(session: AsyncSession) -> list[BookSchema]:
+async def get_all_books(session: AsyncSession, limit: int, offset: int, filters):
+    base_query = select(Book).where(BASE_FILTER)
+    bf = BookFilter(filters)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
     statement = (
-        select(Book)
-        .where(Book.is_notebook == False)
-        .options(
-            joinedload(Book.book_info),
-            selectinload(Book.authors).selectinload(Author.images),
-            selectinload(Book.authors).joinedload(Author.interesting_fact),
-            joinedload(Book.publishing),
-            selectinload(Book.wishlists),
-            selectinload(Book.translators),
-            joinedload(Book.literature_period),
-            joinedload(Book.seria),
-            selectinload(Book.images),
-            joinedload(Book.edition_group),
-            selectinload(Book.illustrators),
-            selectinload(Book.reviews)
-        )
-        .order_by(Book.id))
-    result: Result = await session.execute(statement)
-    books = result.scalars().all()
-    return [BookSchema.model_validate(book) for book in books]
+        base_query
+        .options(*BOOK_OPTIONS)
+        .offset(offset)
+        .limit(limit)
+    )
+
+    result = await session.execute(statement)
+    books = result.unique().scalars().all()
+    return books, total
 
 
 async def get_all_notebooks(session: AsyncSession) -> list[BookSchema]:

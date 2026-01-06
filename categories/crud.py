@@ -1,11 +1,12 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete
+from sqlalchemy import select, Result, delete, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
 
-from books.schemas import BookSchema
+from books.crud import BASE_FILTER, BOOK_OPTIONS
+from books.services import BookFilter
 from core.models import Category, Subcategory, db_helper, Book, Author
 from data_strorage import CATEGORIES, SUB_CATEGORIES
 from categories.schemas import CategoryCreate, SubCategoryBase, CategorySchema, SubCategorySchema
@@ -92,30 +93,31 @@ async def get_category_by_id(session: AsyncSession, category_id: int) -> Categor
     return category
 
 
-async def get_all_category_books_by_category_slug(session: AsyncSession, category_slug: str):
+async def get_all_category_books_by_category_slug(session: AsyncSession, category_slug: str, limit: int, offset: int, filter):
+    base_query = (select(Book)
+                  .join(Book.categories)
+                  .where(BASE_FILTER, Category.slug == category_slug))
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
     statement = (
-        select(Book)
-        .join(Book.categories)
-        .where(Category.slug == category_slug)
-        .options(
-            selectinload(Book.authors).joinedload(Author.interesting_fact),
-            selectinload(Book.authors).selectinload(Author.images),
-            selectinload(Book.translators),
-            selectinload(Book.illustrators),
-            selectinload(Book.images),
-            joinedload(Book.book_info),
-            joinedload(Book.publishing),
-            joinedload(Book.literature_period),
-            joinedload(Book.seria),
-            joinedload(Book.edition_group),
-        )
+        base_query
+        .options(*BOOK_OPTIONS)
+        .offset(offset)
+        .limit(limit)
     )
 
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
     if not books:
         return []
-    return books
+    return books, total
 
 
 async def get_all_books_by_category_id(session: AsyncSession, category_id: int):

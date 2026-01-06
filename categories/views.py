@@ -1,8 +1,9 @@
 import json
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from books.schemas import BookFilters
 from .schemas import CategorySchema, SubCategorySchema, CategoryCreate, SubCategoryBase
 from core.models import db_helper
 from . import crud
@@ -35,8 +36,17 @@ async def get_all_books_by_category_id(category_id: int,
 
 @router.get("/books/by-slug/{category_slug}")
 async def get_all_books_by_category_slug(category_slug: str,
+                                         filter: BookFilters = Query(None),
                                          session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    return await crud.get_all_category_books_by_category_slug(session, category_slug)
+    books, total = await crud.get_all_category_books_by_category_slug(session, category_slug,
+                                                              limit=filter.limit, offset=filter.offset, filter=filter)
+    return {
+        "count": total,
+        "limit": filter.limit,
+        "offset": filter.offset,
+        "has_more": filter.offset + filter.limit < total,
+        "results": books
+    }
 
 
 @router.get("/{category_id}", response_model=CategorySchema)

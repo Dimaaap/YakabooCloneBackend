@@ -26,6 +26,13 @@ class CoverTypes(enum.Enum):
     SOFT = "М'яка"
     RINGS = "На кільцях"
     PAGE_PUBLISHING = "Листове видання"
+    SPIRAL = "На спіралі"
+    INTEGRAL = "Інтегральна"
+    SUPER = "Суперобкладинка"
+    CARTON = "Картон"
+    BOX = "Коробка"
+    BAG = "Пакет"
+    LEATHER = "Шкіряна"
 
 
 class PagesType(enum.Enum):

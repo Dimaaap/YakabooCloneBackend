@@ -1,16 +1,26 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import BookSchema, BookCreate
+from .schemas import BookSchema, BookCreate, PaginatedBookSchema, BookFilters
 from core.models import db_helper
 from . import crud
 
 router = APIRouter(tags=["books"])
 
-@router.get('/all', response_model=list[BookSchema])
-async def get_all_books(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    books = await crud.get_all_books(session)
-    return books
+@router.get('/all', response_model=PaginatedBookSchema)
+async def get_all_books(
+        filter: BookFilters = Query(None),
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    books, total = await crud.get_all_books(session=session, limit=filter.limit, offset=filter.offset,
+                                            filters=filter)
+    return {
+        "count": total,
+        "limit": filter.limit,
+        "offset": filter.offset,
+        "has_more": filter.offset + filter.limit < total,
+        "results": books
+    }
 
 
 @router.get('/notebooks/all', response_model=list[BookSchema])

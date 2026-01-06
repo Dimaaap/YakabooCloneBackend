@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, conint
+from fastapi import Query
 
 from book_edition_group.schemas import BookEditionGroupSchema
 from book_illustrators.schemas import BookIllustratorSchema
@@ -92,3 +93,26 @@ class BookSchemaWithoutWishlists(BookBase):
 class BookSchema(BookSchemaWithoutWishlists):
     wishlists: list[WishlistSchema] = []
     related_books: list["BookSchemaWithoutWishlists"] = Field(default_factory=list)
+
+
+class PaginatedBookSchema(BaseModel):
+    count: int
+    limit: int
+    offset: int
+    has_more: bool
+    results: list[BookSchema]
+
+
+class BookFilters(BaseModel):
+    limit: conint(ge=1, le=100) = 100
+    offset: conint(ge=0) = 0
+    categories: list[str] | None = None
+    publishers: list[str] | None = None
+    languages: list[str] | None = None
+    bookTypes: list[str] | None = None
+    authors: list[str] | None = None
+    series: list[str] | None = None
+    in_stock: bool | None = None
+    price_min: int | None = None
+    price_max: int | None = None
+    filters: list[str] | None = None
