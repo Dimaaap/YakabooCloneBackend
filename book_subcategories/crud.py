@@ -2,13 +2,14 @@ import json
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete
+from sqlalchemy import select, Result, delete, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
 
+from books.crud import BASE_FILTER
+from books.services import BookFilter
 from core.models import Subcategory, Book, db_helper, Author, DoubleSubcategory
 from book_subcategories.schema import BookSubcategorySchema, BookSubcategoryCreate
-from double_subcategories.schema import DoubleSubcategorySchema
 
 
 async def create_subcategory(
@@ -92,11 +93,23 @@ async def get_all_subcategory_books_by_subcategory_id(session: AsyncSession, sub
     return books or []
 
 
-async def get_all_subcategory_books_by_subcategory_slug(session: AsyncSession, subcategory_slug: str):
+async def get_all_subcategory_books_by_subcategory_slug(session: AsyncSession, subcategory_slug: str, limit: int,
+                                                        offset: int, filter):
+    base_query = (
+        select(Book).join(Book.subcategories).where(BASE_FILTER, Subcategory.slug == subcategory_slug)
+    )
+
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
     statement = (
-        select(Book)
-        .join(Book.subcategories)
-        .where(Subcategory.slug == subcategory_slug)
+        base_query
         .options(
             selectinload(Book.authors).joinedload(Author.interesting_fact),
             selectinload(Book.authors).selectinload(Author.images),
@@ -104,11 +117,13 @@ async def get_all_subcategory_books_by_subcategory_slug(session: AsyncSession, s
             joinedload(Book.publishing),
             joinedload(Book.book_info)
         )
+        .offset(offset)
+        .limit(limit)
     )
 
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
-    return books or []
+    return books, total
 
 
 async def main():

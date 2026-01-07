@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schema import BookSeriaSchema, BookSeriaCreate
+from .schema import BookSeriaSchema, BookSeriaCreate, BookFilters
 from core.models import db_helper
 from . import crud
 
@@ -36,6 +36,14 @@ async def create_seria(seria: BookSeriaCreate, session: AsyncSession = Depends(d
 
 @router.get("/books/{seria_slug}")
 async def get_all_books_by_seria_slug(seria_slug: str,
+                                      filter: BookFilters = Query(None),
                                       session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    books = await crud.get_all_seria_books_by_seria_slug(session, seria_slug)
-    return books
+    books, total = await crud.get_all_seria_books_by_seria_slug(session, seria_slug,
+                                                                limit=filter.limit, offset=filter.offset, filter=filter)
+    return {
+        "count": total,
+        "limit": filter.limit,
+        "offset": filter.offset,
+        "has_more": filter.offset + filter.limit < total,
+        "results": books
+    }

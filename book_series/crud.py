@@ -1,10 +1,11 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete, func, or_
+from sqlalchemy import select, Result, delete, func, or_, and_
 from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from books.services import BookFilter
 from core.models import BookSeria, db_helper, Book
 from book_series.schema import BookSeriaSchema, BookSeriaCreate
 
@@ -66,12 +67,27 @@ async def get_series_by_query(query: str, session: AsyncSession):
     series = result.scalars().all()
     return list(series) if series else []
 
+BASE_FILTER = Book.is_notebook.is_(False)
 
-async def get_all_seria_books_by_seria_slug(session: AsyncSession, seria_slug: str):
-    statement = (
+async def get_all_seria_books_by_seria_slug(session: AsyncSession, seria_slug: str,
+                                            limit: int, offset: int, filter):
+    base_query = (
         select(Book)
-        .join(Book.seria)
-        .where(BookSeria.slug == seria_slug)
+        .join(BookSeria)
+        .where(BASE_FILTER, BookSeria.slug == seria_slug)
+    )
+
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
+    statement = (
+        base_query
         .options(
             selectinload(Book.book_info),
             selectinload(Book.translators),
@@ -81,13 +97,15 @@ async def get_all_seria_books_by_seria_slug(session: AsyncSession, seria_slug: s
             selectinload(Book.literature_period),
             joinedload(Book.seria)
         )
+        .offset(offset)
+        .limit(limit)
     )
 
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
     if not books:
         return []
-    return books
+    return books, total
 
 
 async def get_seria_by_slug(slug: str, session: AsyncSession) -> BookSeria:

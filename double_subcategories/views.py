@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from books.schemas import BookFilters
 from .schema import DoubleSubcategorySchema, DoubleSubcategoryCreate
 from core.models import db_helper
 from . import crud
@@ -55,10 +56,17 @@ async def get_all_double_subcategory_books_by_double_subcategory_id(
 @router.get("/double_subcategory/by-slug/{double_subcategory_slug}/books")
 async def get_all_double_subcategory_books_by_double_subcategory_slug(
         double_subcategory_slug: str,
+        filter: BookFilters = Query(None),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
-    books = await crud.get_all_double_subcategory_books_by_double_subcategory_slug(
-        session, double_subcategory_slug
+    books, total = await crud.get_all_double_subcategory_books_by_double_subcategory_slug(
+        session, double_subcategory_slug, limit=filter.limit, offset=filter.offset, filter=filter
     )
-    return books
+    return {
+        "count": total,
+        "limit": filter.limit,
+        "offset": filter.offset,
+        "has_more": filter.offset + filter.limit < total,
+        "results": books
+    }
 

@@ -93,7 +93,8 @@ async def get_category_by_id(session: AsyncSession, category_id: int) -> Categor
     return category
 
 
-async def get_all_category_books_by_category_slug(session: AsyncSession, category_slug: str, limit: int, offset: int, filter):
+async def get_all_category_books_by_category_slug(session: AsyncSession, category_slug: str,
+                                                  limit: int, offset: int, filter):
     base_query = (select(Book)
                   .join(Book.categories)
                   .where(BASE_FILTER, Category.slug == category_slug))

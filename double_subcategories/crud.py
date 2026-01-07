@@ -2,11 +2,13 @@ import json
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete
+from sqlalchemy import select, Result, delete, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
 
-from core.models import DoubleSubcategory, Book, db_helper, Author
+from books.crud import BASE_FILTER
+from books.services import BookFilter
+from core.models import DoubleSubcategory, Book, db_helper
 from double_subcategories.schema import DoubleSubcategorySchema, DoubleSubcategoryCreate
 
 
@@ -72,21 +74,39 @@ async def get_all_double_subcategory_books_by_double_subcategory_id(session: Asy
     return books or []
 
 
-async def get_all_double_subcategory_books_by_double_subcategory_slug(session: AsyncSession, double_subcategory_slug: str):
-    statement = (
+async def get_all_double_subcategory_books_by_double_subcategory_slug(session: AsyncSession,
+                                                                      double_subcategory_slug: str, limit: int,
+                                                                      offset: int, filter):
+
+    base_query = (
         select(Book)
         .join(Book.double_subcategories)
-        .where(DoubleSubcategory.slug == double_subcategory_slug)
+        .where(BASE_FILTER, DoubleSubcategory.slug == double_subcategory_slug)
+    )
+
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
+    statement = (
+        base_query
         .options(
             selectinload(Book.images),
             joinedload(Book.publishing),
             joinedload(Book.book_info)
         )
+        .offset(offset)
+        .limit(limit)
     )
 
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
-    return books or []
+    return books, total
 
 
 async def main():

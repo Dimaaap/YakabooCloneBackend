@@ -3,7 +3,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import AuthorSchema, AuthorCreate, ImageBase
+from .schemas import AuthorSchema, AuthorCreate, ImageBase, BookFilters
 from core.models import db_helper
 from . import crud
 from config import redis_client
@@ -121,6 +121,15 @@ async def delete_author_by_id(author_id: int,
 
 @router.get("/author/{author_id}/books")
 async def get_all_author_books(author_id: int,
+                               filter: BookFilters = Query(None),
                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    books = await crud.get_all_author_books_by_author_id(session, author_id)
-    return books
+    books, total = await crud.get_all_author_books_by_author_id(session, author_id,
+                                                                limit=filter.limit,
+                                                                offset=filter.offset, filter=filter)
+    return {
+        "count": total,
+        "limit": filter.limit,
+        "offset": filter.offset,
+        "has_more": filter.offset + filter.limit < total,
+        "results": books
+    }

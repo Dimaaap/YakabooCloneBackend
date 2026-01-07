@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, conint
 
 
 class PublishingBase(BaseModel):
@@ -35,5 +35,19 @@ class PublishingSchema(PublishingBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+class BookFilters(BaseModel):
+    limit: conint(ge=1, le=100) = 100
+    offset: conint(ge=0) = 0
+    categories: list[str] | None = None
+    publishers: list[str] | None = None
+    languages: list[str] | None = None
+    bookTypes: list[str] | None = None
+    authors: list[str] | None = None
+    series: list[str] | None = None
+    in_stock: bool | None = None
+    price_min: int | None = None
+    price_max: int | None = None
+    filters: list[str] | None = None
 
 

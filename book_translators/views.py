@@ -3,6 +3,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from publishing.schemas import BookFilters
 from .schemas import BookTranslatorSchema, BookTranslatorCreate
 from core.models import db_helper
 from . import crud
@@ -85,6 +86,15 @@ async def delete_translator_by_id(translator_id: int,
 
 @router.get("/translator/{translator_id}/books")
 async def get_all_translator_books(translator_id: int,
+                                   filter: BookFilters = Query(None),
                                    session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    books = await crud.get_all_translator_books_by_translator_id(session, translator_id)
-    return books
+    books, total = await crud.get_all_translator_books_by_translator_id(session, translator_id,
+                                                                 limit=filter.limit, offset=filter.offset,
+                                                                 filter=filter)
+    return {
+        "count": total,
+        "limit": filter.limit,
+        "offset": filter.offset,
+        "has_more": filter.offset + filter.limit < total,
+        "results": books
+    }

@@ -3,6 +3,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from publishing.schemas import BookFilters
 from .schemas import BookIllustratorSchema, BookIllustratorCreate
 from core.models import db_helper
 from . import crud
@@ -87,6 +88,15 @@ async def delete_illustrator_by_id(illustrator_id: int,
 
 @router.get("/illustrator/{illustrator_id}/books")
 async def get_all_illustrator_books(illustrator_id: int,
+                                    filter: BookFilters = Query(None),
                                     session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    books = await crud.get_all_illustrator_books_by_illustrator_id(session, illustrator_id)
-    return books
+    books, total = await crud.get_all_illustrator_books_by_illustrator_id(session, illustrator_id,
+                                                                   limit=filter.limit, offset=filter.offset,
+                                                                   filter=filter)
+    return {
+        "count": total,
+        "limit": filter.limit,
+        "offset": filter.offset,
+        "has_more": filter.offset + filter.limit < total,
+        "results": books
+    }

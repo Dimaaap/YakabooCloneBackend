@@ -1,13 +1,14 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete, func, or_
+from sqlalchemy import select, Result, delete, func, or_, and_
 from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
+from books.services import BookFilter
 from core.models import Book, BookIllustrator
 from book_illustrators.schemas import BookIllustratorSchema, BookIllustratorCreate
+from publishing.crud import BASE_FILTER
 
 
 async def create_illustrator(
@@ -78,11 +79,40 @@ async def delete_illustrator_by_id(session: AsyncSession, illustrator_id: int):
         return False
 
 
-async def get_all_illustrator_books_by_illustrator_id(session: AsyncSession, illustrator_id: int):
-    statement = (
+async def get_all_illustrator_books_by_illustrator_id(session: AsyncSession, illustrator_id: int,
+                                                      limit: int, offset: int, filter):
+    # statement = (
+    #     select(Book)
+    #     .join(Book.illustrators)
+    #     .where(BookIllustrator.id == illustrator_id)
+    #     .options(
+    #         joinedload(Book.book_info),
+    #         selectinload(Book.translators),
+    #         selectinload(Book.illustrators),
+    #         joinedload(Book.publishing),
+    #         selectinload(Book.images),
+    #         selectinload(Book.literature_period),
+    #         joinedload(Book.seria)
+    #     )
+    # )
+
+    base_query = (
         select(Book)
         .join(Book.illustrators)
-        .where(BookIllustrator.id == illustrator_id)
+        .where(BASE_FILTER, BookIllustrator.id == illustrator_id)
+    )
+
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
+    statement = (
+        base_query
         .options(
             joinedload(Book.book_info),
             selectinload(Book.translators),
@@ -99,4 +129,4 @@ async def get_all_illustrator_books_by_illustrator_id(session: AsyncSession, ill
     if not books:
         return []
 
-    return books
+    return books, total

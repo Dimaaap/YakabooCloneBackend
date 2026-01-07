@@ -1,13 +1,15 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete, func, or_
+from sqlalchemy import select, Result, delete, func, or_, and_
 from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from books.services import BookFilter
 from core.models import BookTranslator, db_helper, Book
 from book_translators.schemas import BookTranslatorSchema, BookTranslatorCreate
 from data_strorage import TRANSLATORS
+from publishing.crud import BASE_FILTER
 
 
 async def create_translator(
@@ -73,11 +75,41 @@ async def delete_translator_by_id(session: AsyncSession, translator_id: int):
         print(e)
         return False
 
-async def get_all_translator_books_by_translator_id(session: AsyncSession, translator_id: int):
-    statement = (
+async def get_all_translator_books_by_translator_id(session: AsyncSession, translator_id: int,
+                                                    limit: int, offset: int, filter):
+    # statement = (
+    #     select(Book)
+    #     .join(Book.translators)
+    #     .where(BookTranslator.id == translator_id)
+    #     .options(
+    #         joinedload(Book.book_info),
+    #         selectinload(Book.translators),
+    #         selectinload(Book.illustrators),
+    #         selectinload(Book.subcategories),
+    #         selectinload(Book.publishing),
+    #         selectinload(Book.images),
+    #         selectinload(Book.literature_period),
+    #         joinedload(Book.seria)
+    #     )
+    # )
+
+    base_query = (
         select(Book)
         .join(Book.translators)
-        .where(BookTranslator.id == translator_id)
+        .where(BASE_FILTER, BookTranslator.id == translator_id)
+    )
+
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
+    statement = (
+        base_query
         .options(
             joinedload(Book.book_info),
             selectinload(Book.translators),
@@ -88,13 +120,15 @@ async def get_all_translator_books_by_translator_id(session: AsyncSession, trans
             selectinload(Book.literature_period),
             joinedload(Book.seria)
         )
+        .offset(offset)
+        .limit(limit)
     )
     
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
     if not books: 
         return []
-    return books
+    return books, total
 
 
 async def main():

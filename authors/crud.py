@@ -1,10 +1,11 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, delete, or_, func
+from sqlalchemy import select, Result, delete, or_, and_, func
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from books.services import BookFilter
 from core.models import Author, db_helper, AuthorImage, Book
 from authors.schemas import AuthorSchema, AuthorCreate, ImageBase
 from data_strorage import AUTHORS, IMAGE_GALLERIES
@@ -119,25 +120,39 @@ async def delete_author_by_id(session: AsyncSession, author_id):
         return False
 
 
-async def get_all_author_books_by_author_id(session: AsyncSession, author_id: int):
-    statement = (
-        select(Book)
-        .join(Book.authors)
+async def get_all_author_books_by_author_id(session: AsyncSession, author_id: int,
+                                            limit: int, offset: int, filter):
+
+    base_query = (
+        select(Book).join(Book.authors)
         .where(Author.id == author_id)
-        .options(
-            selectinload(Book.book_info),
-            selectinload(Book.authors),
-            selectinload(Book.subcategories),
-            selectinload(Book.publishing),
-            selectinload(Book.images)
-        )
     )
+
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
+    statement = (
+        base_query
+        .options(selectinload(Book.book_info),
+                selectinload(Book.authors),
+                selectinload(Book.subcategories),
+                selectinload(Book.publishing),
+                selectinload(Book.images))
+        .limit(limit)
+        .offset(offset)
+        )
 
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
     if not books:
         return []
-    return books
+    return books, total
 
 
 async def main():

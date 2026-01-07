@@ -1,10 +1,11 @@
 import asyncio
 
 from fastapi import HTTPException, status
-from sqlalchemy import select, Result, func, or_
+from sqlalchemy import select, Result, func, and_, or_
 from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from books.services import BookFilter
 from publishing.schemas import *
 from core.models import Publishing, db_helper, Book
 from data_strorage import PUBLISHING
@@ -27,12 +28,27 @@ async def get_all_publishing(session: AsyncSession) -> list[PublishingSchema]:
     publishing = result.scalars().all()
     return publishing
 
+BASE_FILTER = Book.is_notebook.is_(False)
 
-async def get_all_publishing_books_by_publishing_id(session: AsyncSession, publishing_id: int):
+
+async def get_all_publishing_books_by_publishing_id(session: AsyncSession, publishing_id: int,
+                                                    limit: int, offset: int, filter):
+    base_query = (
+        select(Book).join(Book.publishing)
+        .where(BASE_FILTER, Book.publishing_id == publishing_id)
+    )
+
+    bf = BookFilter(filter)
+    conditions = bf.apply()
+
+    if conditions:
+        base_query = base_query.where(and_(*conditions))
+
+    total_statement = select(func.count()).select_from(base_query.subquery())
+    total = await session.scalar(total_statement)
+
     statement = (
-        select(Book)
-        .join(Book.publishing)
-        .where(Book.publishing_id == publishing_id)
+        base_query
         .options(
             joinedload(Book.book_info),
             selectinload(Book.translators),
@@ -42,6 +58,8 @@ async def get_all_publishing_books_by_publishing_id(session: AsyncSession, publi
             selectinload(Book.images),
             joinedload(Book.seria)
         )
+        .offset(offset)
+        .limit(limit)
     )
 
     result: Result = await session.execute(statement)
@@ -49,7 +67,7 @@ async def get_all_publishing_books_by_publishing_id(session: AsyncSession, publi
 
     if not books:
         return []
-    return books
+    return books, total
 
 
 async def delete_publishing_by_slug(slug: str, session: AsyncSession):
