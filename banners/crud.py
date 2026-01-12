@@ -27,10 +27,11 @@ async def get_all_banners(session: AsyncSession) -> list[BannerSchema]:
 
 
 async def get_all_banners_for_main_page(session: AsyncSession) -> list[BannerSchema]:
-    statement = select(Banner).order_by(Banner.id).where(Banner.visible, not Banner.in_all_books_page)
+    statement = select(Banner).order_by(Banner.id).where(Banner.visible, Banner.in_all_books_page == False)
     result: Result = await session.execute(statement)
     banners = result.scalars().all()
-    return [BannerSchema.model_validated(banner) for banner in banners]
+    print(banners)
+    return [BannerSchema.model_validate(banner) for banner in banners]
 
 
 async def get_all_banners_for_all_books_page(session: AsyncSession) -> list[BannerSchema]:
