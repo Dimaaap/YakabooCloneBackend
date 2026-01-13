@@ -72,6 +72,7 @@ class LiteratureProgramClasses(enum.Enum):
     ELEVENTH = "11-й клас"
 
 
+#TODO: Додати інформацію про те, чи має книга кольоровий зріз
 class BookInfo(Base):
     __tablename__ = "book_info"
 

@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from .cart_item import CartItem
     from .double_subcategory_book_association import DoubleSubcategoryBookAssociation
     from .reviews import Review
+    from .user_seen_books import UserSeenBook
 
 
 class Book(Base):
@@ -71,6 +72,12 @@ class Book(Base):
         secondary="illustrator_book_association",
         back_populates="book",
         overlaps="illustrator,book",
+        lazy="joined"
+    )
+
+    seen_by_user: Mapped[list["UserSeenBook"]] = relationship(
+        back_populates="book",
+        cascade="all, delete-orphan",
         lazy="joined"
     )
 

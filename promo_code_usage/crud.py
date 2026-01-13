@@ -15,7 +15,7 @@ async def use_promo_code(session: AsyncSession, user_email: str, code: str):
     user = user_res.scalar_one_or_none()
 
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detailt="Користувача з таким email не знайдено")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Користувача з таким email не знайдено")
 
     statement = select(PromoCodeUsage).where(
         PromoCodeUsage.user_id == user.id,

@@ -78,7 +78,8 @@ __all__ = (
     "NewPostPostomat",
     "NewPostOffice",
     "Order",
-    "Review"
+    "Review",
+    "UserSeenBook"
 )
 
 
@@ -163,3 +164,4 @@ from .new_post_postomats import NewPostPostomat
 from .new_post_offices import NewPostOffice
 from .order import Order
 from .reviews import Review
+from .user_seen_books import UserSeenBook

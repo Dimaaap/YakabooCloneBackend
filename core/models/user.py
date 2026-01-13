@@ -13,6 +13,8 @@ if TYPE_CHECKING:
     from .cart import Cart
     from .promo_code_usage import PromoCodeUsage
     from .reviews import Review
+    from .book import Book
+    from .user_seen_books import UserSeenBook
 
 
 class UserStatusEnum(str, enum.Enum):
@@ -46,6 +48,8 @@ class User(Base):
     orders: Mapped[list["Order"]] = relationship("Order", back_populates="user")
     cart: Mapped["Cart"] = relationship("Cart", back_populates="user", uselist=False)
     promo_usage: Mapped["PromoCodeUsage"] = relationship("PromoCodeUsage", back_populates="user")
+    seen_books: Mapped[list["UserSeenBook"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    user_seen_books: Mapped[list["Book"]] = relationship(secondary="user_seen_books", viewonly=True)
 
     def get_full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
