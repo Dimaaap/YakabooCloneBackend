@@ -29,6 +29,7 @@ class BookInfoBase(BaseModel):
     weight: int | None = None
     original_name: str | None = None
     color: str | None = None
+    has_color_cut: bool | None = None
     papers: PagesType | None = None
     pages_format: PageFormats | None = None
     size: SizeTypes | None = None

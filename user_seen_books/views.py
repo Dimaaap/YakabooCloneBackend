@@ -3,7 +3,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import db_helper, UserSeenBook
 from . import crud
-from .schema import UserSeenBooksSchema
 
 router = APIRouter(tags=["User`s Seen Books"])
 

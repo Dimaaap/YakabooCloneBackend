@@ -72,7 +72,6 @@ class LiteratureProgramClasses(enum.Enum):
     ELEVENTH = "11-й клас"
 
 
-#TODO: Додати інформацію про те, чи має книга кольоровий зріз
 class BookInfo(Base):
     __tablename__ = "book_info"
 
@@ -117,6 +116,7 @@ class BookInfo(Base):
     is_free_delivery: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     delivery_time: Mapped[int] = mapped_column(Integer, nullable=True)
     uk_delivery_time: Mapped[int] = mapped_column(Integer, nullable=True)
+    has_color_cut: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
 
     publishing_year: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     first_published_at: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
