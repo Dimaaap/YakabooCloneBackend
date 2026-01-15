@@ -1,4 +1,5 @@
 import asyncio
+from typing import Iterable
 
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete, and_, func
@@ -94,7 +95,7 @@ async def get_category_by_id(session: AsyncSession, category_id: int) -> Categor
 
 
 async def get_all_category_books_by_category_slug(session: AsyncSession, category_slug: str,
-                                                  limit: int, offset: int, filter):
+                                                  limit: int, offset: int, filter) -> tuple[list, int]:
     base_query = (select(Book)
                   .join(Book.categories)
                   .where(BASE_FILTER, Category.slug == category_slug))
@@ -117,7 +118,7 @@ async def get_all_category_books_by_category_slug(session: AsyncSession, categor
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
     if not books:
-        return []
+        return [], 0
     return books, total
 
 

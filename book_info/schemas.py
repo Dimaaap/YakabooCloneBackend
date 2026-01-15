@@ -32,6 +32,7 @@ class BookInfoBase(BaseModel):
     has_color_cut: bool | None = None
     papers: PagesType | None = None
     pages_format: PageFormats | None = None
+    print: str | None = None
     size: SizeTypes | None = None
     pages_color: str | None = None
     type: str | None = None

@@ -117,6 +117,7 @@ class BookInfo(Base):
     delivery_time: Mapped[int] = mapped_column(Integer, nullable=True)
     uk_delivery_time: Mapped[int] = mapped_column(Integer, nullable=True)
     has_color_cut: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    print: Mapped[str] = mapped_column(String(255), nullable=True)
 
     publishing_year: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     first_published_at: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
