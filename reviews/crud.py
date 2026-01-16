@@ -1,5 +1,6 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select, Result
+from sqlalchemy.orm import selectinload
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -28,14 +29,14 @@ async def get_review_by_id(session: AsyncSession,
 
 
 async def get_all_reviews_by_book_id(session: AsyncSession, book_id: int) -> list[Review]:
-    statement = select(Review).where(Review.book_id == book_id)
+    statement = select(Review).where(Review.book_id == book_id).options(selectinload(Review.reactions))
     result: Result = await session.execute(statement)
     reviews = result.scalars().all()
     return list(reviews)
 
 
-async def get_all_reviews_by_user_id(session: AsyncSession, user_id: int) -> list[Review]:
-    statement = select(Review).where(Review.user_id == user_id)
+async def get_all_reviews_by_user_id(session: AsyncSession, user_email: str) -> list[Review]:
+    statement = select(Review).where(Review.user_email == user_email)
     result: Result = await session.execute(statement)
     reviews = result.scalars().all()
     return list(reviews)
@@ -62,13 +63,14 @@ async def get_all_reviews(session: AsyncSession) -> list[Review]:
     return list(reviews)
 
 
-async def delete_all_users_review(session: AsyncSession, user_id: int):
+async def delete_all_users_review(session: AsyncSession, user_email: str):
     try:
-        statement = select(Review).where(Review.user_id == user_id)
+        statement = select(Review).where(Review.user_email == user_email)
         result: Result = await session.execute(statement)
         reviews = result.scalars().all()
         if reviews:
-            await session.delete(reviews)
+            for review in reviews:
+                await session.delete(review)
             await session.commit()
             return True
     except SQLAlchemyError as e:

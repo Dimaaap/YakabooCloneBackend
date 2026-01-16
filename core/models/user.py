@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from .reviews import Review
     from .book import Book
     from .user_seen_books import UserSeenBook
+    from .review_reactions import ReviewReaction
 
 
 class UserStatusEnum(str, enum.Enum):
@@ -50,6 +51,11 @@ class User(Base):
     promo_usage: Mapped["PromoCodeUsage"] = relationship("PromoCodeUsage", back_populates="user")
     seen_books: Mapped[list["UserSeenBook"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     user_seen_books: Mapped[list["Book"]] = relationship(secondary="user_seen_books", viewonly=True)
+    review_reactions: Mapped[list["ReviewReaction"]] = relationship(
+        "ReviewReaction",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
 
     def get_full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"

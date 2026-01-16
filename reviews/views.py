@@ -33,10 +33,10 @@ async def get_review_by_id(
 
 @router.get("/user/{user_id}/reviews", response_model=list[ReviewSchema])
 async def get_reviews_by_user_id(
-        user_id: int,
+        user_email: str,
         session: AsyncSession=Depends(db_helper.scoped_session_dependency)
 ):
-    return await crud.get_all_reviews_by_user_id(session, user_id)
+    return await crud.get_all_reviews_by_user_id(session, user_email)
 
 
 @router.get("/book/{book_id}/reviews", response_model=list[ReviewSchema])
@@ -55,12 +55,12 @@ async def delete_review(
     return await crud.delete_review_by_id(session, review_id)
 
 
-@router.delete("user/{user_id}/reviews")
+@router.delete("user/{user_email}/reviews")
 async def delete_all_user_reviews(
-        user_id: int,
+        user_email: str,
         session: AsyncSession=Depends(db_helper.scoped_session_dependency)
 ):
-    return await crud.delete_all_users_review(session, user_id)
+    return await crud.delete_all_users_review(session, user_email)
 
 
 @router.delete("book/{book_id}/reviews")

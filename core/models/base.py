@@ -11,4 +11,4 @@ class Base(DeclarativeBase):
     def __repr__(self):
         return str(self)
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)

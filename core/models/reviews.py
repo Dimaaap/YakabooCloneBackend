@@ -9,6 +9,7 @@ from .base import Base
 if TYPE_CHECKING:
     from .user import User
     from .book import Book
+    from .review_reactions import ReviewReaction
 
 
 class Review(Base):
@@ -19,10 +20,18 @@ class Review(Base):
     created_date: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))
     is_validated: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
 
+    likes_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    dislikes_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+
     user_email: Mapped[str] = mapped_column(ForeignKey("users.email"), nullable=True)
     user: Mapped["User"] = relationship("User", back_populates="reviews")
     book_id: Mapped[int] = mapped_column(ForeignKey("books.id"))
     book: Mapped["Book"] = relationship("Book", back_populates="reviews")
+    reactions: Mapped[list["ReviewReaction"]] = relationship(
+        "ReviewReaction",
+        back_populates="review",
+        cascade="all, delete-orphan",
+    )
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__} (title={self.title} created date={self.created_date})"
