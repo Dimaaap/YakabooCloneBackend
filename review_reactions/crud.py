@@ -4,13 +4,20 @@ from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException, status
 
 from core.models import Review, ReviewReaction
+from users.crud import get_user_by_email
 
 
 async def react_to_review(session: AsyncSession,
                           *,
-                          user_id: int,
+                          user_email: str,
                           review_id: int,
                           is_like: bool) -> ReviewReaction | None:
+    user = await get_user_by_email(session, user_email)
+
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    user_id = user.id
+
     try:
         review = await session.get(Review, review_id)
 
@@ -46,7 +53,7 @@ async def react_to_review(session: AsyncSession,
                     review.dislikes_count -= 1
                 else:
                     review.likes_count -= 1
-                    review.dislikes_count +git= 1
+                    review.dislikes_count += 1
         else:
             reaction = ReviewReaction(
                 user_id=user_id,
@@ -70,9 +77,17 @@ async def react_to_review(session: AsyncSession,
 async def get_user_review_reaction(
         session: AsyncSession,
         *,
-        user_id: int,
+        user_email: str,
         review_id: int
 ) -> ReviewReaction | None:
+
+    user = await get_user_by_email(session, user_email)
+
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User does not exist")
+
+    user_id = user.id
+
     statement = select(ReviewReaction).where(
         ReviewReaction.user_id == user_id,
         ReviewReaction.review_id == review_id
