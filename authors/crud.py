@@ -151,7 +151,7 @@ async def get_all_author_books_by_author_id(session: AsyncSession, author_id: in
     result: Result = await session.execute(statement)
     books = result.unique().scalars().all()
     if not books:
-        return []
+        return [], 0
     return books, total
 
 
