@@ -1,4 +1,4 @@
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, APIRouter
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, Result, or_
 
@@ -7,13 +7,11 @@ from .schema import SearchResponse
 
 SEARCH_RESPONSE_MAX_COUNT = 7
 
-
-def get_author_searchable_full_name(first_name: str, last_name: str) -> tuple[str, str]:
-    full_name = f"{first_name} {last_name}"
-    full_name_without_spaces = full_name.replace(" ", "")
-    return full_name, full_name_without_spaces
+router = APIRouter(prefix="/search", tags=["Search"])
 
 
+
+@router.get("", response_model=SearchResponse)
 async def search_response(q: str,
                           session: AsyncSession):
     q_like = f"%{q.lower()}%"
@@ -31,10 +29,27 @@ async def search_response(q: str,
         .where(or_(
             Author.first_name.ilike(q_like),
             Author.last_name.ilike(q_like),
-            get_author_searchable_full_name(Author.first_name, Author.last_name)[0].ilike(q_like),
-            get_author_searchable_full_name(Author.first_name, Author.last_name)[1].ilike(q_like)
         ))
         .limit(SEARCH_RESPONSE_MAX_COUNT)
     )
+
+    publishers = await session.scalars(
+        select(Publishing)
+        .where(Publishing.title.ilike(q_like))
+        .limit(SEARCH_RESPONSE_MAX_COUNT)
+    )
+
+    series = await session.scalars(
+        select(BookSeria)
+        .where(BookSeria.title.like(q_like))
+        .limit(SEARCH_RESPONSE_MAX_COUNT)
+    )
+
+    return {
+        "books": books.all(),
+        "authors": authors.all(),
+        "publishers": publishers.all(),
+        "series": series.all(),
+    }
 
     
