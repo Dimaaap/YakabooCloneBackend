@@ -60,6 +60,9 @@ from new_post_offices import router as new_post_offices_router
 from reviews import router as reviews_router
 from user_seen_books import router as user_seen_books_router
 from review_reactions import router as review_reactions_router
+from search import router as search_router
+from books_text import router as books_text_router
+from user_history import router as user_history_router
 
 
 @asynccontextmanager
@@ -124,6 +127,9 @@ app.include_router(new_post_offices_router)
 app.include_router(reviews_router)
 app.include_router(user_seen_books_router)
 app.include_router(review_reactions_router)
+app.include_router(search_router)
+app.include_router(books_text_router)
+app.include_router(user_history_router)
 
 app.add_middleware(
     CORSMiddleware,

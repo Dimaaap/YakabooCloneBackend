@@ -80,7 +80,9 @@ __all__ = (
     "Order",
     "Review",
     "UserSeenBook",
-    "ReviewReaction"
+    "ReviewReaction",
+    "BooksText",
+    "UserSearchHistory"
 )
 
 
@@ -167,3 +169,5 @@ from .order import Order
 from .reviews import Review
 from .user_seen_books import UserSeenBook
 from .review_reactions import ReviewReaction
+from .books_text import BooksText
+from .user_search_history import UserSearchHistory

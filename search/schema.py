@@ -1,10 +1,18 @@
-from pydantic import BaseModel
+from enum import Enum
 
-from core.models.book_info import BookFormats
+from pydantic import BaseModel, ConfigDict
+
+
+class BookFormatsEnum(str, Enum):
+    PAPER = "Паперова"
+    ELECTRONIC = "Електронна"
+    AUDIO = "Аудіо"
 
 
 class BaseSearch(BaseModel):
     id: int
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SearchBook(BaseSearch):
@@ -16,7 +24,7 @@ class SearchBook(BaseSearch):
     price: int
     image: str | None
     promo_price: int
-    format: BookFormats
+    format: BookFormatsEnum
 
 
 class SearchAuthors(BaseSearch):

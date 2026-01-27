@@ -3,15 +3,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, Result, or_
 
 from core.models import Book, Author, Publishing, BookSeria
-from .schema import SearchResponse
 
 SEARCH_RESPONSE_MAX_COUNT = 7
 
 router = APIRouter(prefix="/search", tags=["Search"])
 
 
-
-@router.get("", response_model=SearchResponse)
 async def search_response(q: str,
                           session: AsyncSession):
     q_like = f"%{q.lower()}%"
