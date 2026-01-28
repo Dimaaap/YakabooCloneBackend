@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Boolean, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.dialects.postgresql import TSVECTOR
 
 from .base import Base
 
@@ -16,6 +17,8 @@ class Publishing(Base):
     short_description: Mapped[str] = mapped_column(Text, default="", server_default="")
     long_description: Mapped[str] = mapped_column(Text, default="", server_default="")
     visible: Mapped[bool] = mapped_column(Boolean, server_default="1", default=True)
+
+    search_vector: Mapped[str] = mapped_column(TSVECTOR, nullable=True, default=None)
 
     books: Mapped[list["Book"]] = relationship("Book",
                                                back_populates="publishing", cascade="all, delete-orphan")

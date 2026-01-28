@@ -19,26 +19,29 @@ class SearchBook(BaseSearch):
     title: str
     slug: str
     code: int
-    author_first_name: str | None
-    author_last_name: str | None
+    author_first_name: str | None = None
+    author_last_name: str | None = None
     price: int
-    image: str | None
-    promo_price: int
+    image: str | None = None
+    promo_price: int | None = None
     format: BookFormatsEnum
 
 
 class SearchAuthors(BaseSearch):
     first_name: str
     last_name: str
+    slug: str
 
 
 class SearchPublishers(BaseSearch):
     title: str
-    image_src: str | None
+    slug: str
+    logo: str | None
 
 
 class SearchBookSeries(BaseSearch):
     title: str
+    slug: str
 
 
 class SearchResponse(BaseModel):

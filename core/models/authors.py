@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Boolean, Date, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.dialects.postgresql import TSVECTOR
 
 from .base import Base
 
@@ -22,6 +23,8 @@ class Author(Base):
     description: Mapped[str] = mapped_column(Text, default="", server_default="")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     short_description: Mapped[str] = mapped_column(Text, default="", server_default="")
+
+    search_vector: Mapped[str] = mapped_column(TSVECTOR, nullable=True, default=None)
 
     images: Mapped[list["AuthorImage"]] = relationship("AuthorImage", back_populates="author", lazy="joined")
 
