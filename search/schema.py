@@ -25,6 +25,7 @@ class SearchBook(BaseSearch):
     image: str | None = None
     promo_price: int | None = None
     format: BookFormatsEnum
+    in_stock: bool
 
 
 class SearchAuthors(BaseSearch):

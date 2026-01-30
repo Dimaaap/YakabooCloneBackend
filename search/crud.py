@@ -23,12 +23,15 @@ async def search_response(q: str,
 
     ts_query = func.plainto_tsquery(q)
 
+    author_full_name = func.concat(Author.first_name, ' ', Author.last_name)
+
     book_score = (
         func.ts_rank(Book.search_vector, ts_query) * 0.7 + func.similarity(Book.title, q) * 0.3
     )
 
     books_res = await session.scalars(
         select(Book)
+        .join(Book.authors)
         .options(
             selectinload(Book.authors),
             selectinload(Book.images),
@@ -36,7 +39,9 @@ async def search_response(q: str,
         )
         .where(
             Book.search_vector.op("@@")(ts_query) |
-            (func.similarity(Book.title, q) > 0.25)
+            (func.similarity(Book.title, q) > 0.25) |
+            (Author.search_vector.op("@@")(ts_query)) |
+            (func.similarity(author_full_name, q) > 0.25)
         )
         .order_by(desc(book_score))
         .limit(SEARCH_RESPONSE_MAX_COUNT)
@@ -93,6 +98,7 @@ async def search_response(q: str,
             "promo_price": book.promo_price,
             "image": image.image_url if image else None,
             "format": book_info.format if book_info else None,
+            "in_stock": book_info.in_stock
         })
 
     return {
