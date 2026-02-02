@@ -101,9 +101,20 @@ async def search_response(q: str,
             "in_stock": book_info.in_stock
         })
 
+    authors_data = []
+
+    for author in authors_res.unique().all():
+        authors_data.append({
+            "id": author.id,
+            "first_name": author.first_name,
+            "last_name": author.last_name,
+            "slug": author.slug,
+            "image": author.images[0].image_path if author.images else None,
+        })
+
     return {
         "books": books_data,
-        "authors": authors_res.unique().all(),
+        "authors": authors_data,
         "publishers": publishers_res.unique().all(),
         "series": series.unique().all(),
     }

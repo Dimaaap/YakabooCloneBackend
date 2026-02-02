@@ -32,6 +32,7 @@ class SearchAuthors(BaseSearch):
     first_name: str
     last_name: str
     slug: str
+    image: str | None = None
 
 
 class SearchPublishers(BaseSearch):
