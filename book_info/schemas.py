@@ -20,6 +20,7 @@ class BookInfoBase(BaseModel):
     present_edition_and_sets: str | None = None
     is_has_winter_esupport: bool | None = None
     is_has_esupport: bool | None = None
+    is_for_war: bool | None = None
     format: BookFormats | None = None
     language: BookLanguages | None = None
     publishing_year: int | None = None

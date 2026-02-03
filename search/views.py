@@ -7,10 +7,11 @@ from . import crud
 
 router = APIRouter(tags=["Global Search"])
 
-@router.get("", response_model=SearchResponse)
+@router.get("/{user_email}", response_model=SearchResponse)
 async def global_search(
+        user_email,
         q: str = Query(..., min_length=2),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
-    response = await crud.search_response(q, session)
+    response = await crud.search_response(q, user_email, session)
     return response

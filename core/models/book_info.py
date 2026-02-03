@@ -87,6 +87,7 @@ class BookInfo(Base):
     is_has_cashback: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     is_has_winter_esupport: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     is_has_esupport: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+    is_for_war: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     bonuses: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     literature_type: Mapped[LiteratureTypes] = mapped_column(Enum(LiteratureTypes,
                                                                   name="literature_type", create_type=True),

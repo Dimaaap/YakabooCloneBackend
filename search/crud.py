@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, Result, or_, func, desc
 from sqlalchemy.orm import selectinload, joinedload
 
+import user_history.crud
 from core.models import Book, Author, Publishing, BookSeria, BookInfo
 
 SEARCH_RESPONSE_MAX_COUNT = 7
@@ -11,6 +12,7 @@ router = APIRouter(prefix="/search", tags=["Search"])
 
 
 async def search_response(q: str,
+                          user_email: str,
                           session: AsyncSession):
     q = q.strip()
     if not q:
@@ -112,6 +114,7 @@ async def search_response(q: str,
             "image": author.images[0].image_path if author.images else None,
         })
 
+    await user_history.crud.add_term_to_search_history(session, user_email=user_email, term=q)
     return {
         "books": books_data,
         "authors": authors_data,
