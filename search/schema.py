@@ -51,6 +51,7 @@ class SearchResponse(BaseModel):
     authors: list[SearchAuthors]
     publishers: list[SearchPublishers]
     series: list[SearchBookSeries]
+    also_searched: list[str]
 
 
     

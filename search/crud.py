@@ -4,7 +4,7 @@ from sqlalchemy import select, Result, or_, func, desc
 from sqlalchemy.orm import selectinload, joinedload
 
 import user_history.crud
-from core.models import Book, Author, Publishing, BookSeria, BookInfo
+from core.models import Book, Author, Publishing, BookSeria, BookInfo, UserSearchHistory
 
 SEARCH_RESPONSE_MAX_COUNT = 7
 
@@ -115,11 +115,39 @@ async def search_response(q: str,
         })
 
     await user_history.crud.add_term_to_search_history(session, user_email=user_email, term=q)
+    also_searched = await also_search_term(q, session)
     return {
         "books": books_data,
         "authors": authors_data,
         "publishers": publishers_res.unique().all(),
         "series": series.unique().all(),
+        "also_searched": also_searched
     }
 
-    
+
+async def also_search_term(
+        q: str,
+        session: AsyncSession,
+        limit: int = 2
+):
+    q = q.strip()
+
+    statement = (
+        select(UserSearchHistory.term,
+               func.count(UserSearchHistory.id).label("cnt"),
+               func.similarity(UserSearchHistory.term, q).label("sim")
+        )
+        .where(
+            UserSearchHistory.term != q,
+            func.similarity(UserSearchHistory.term, q) > 0.3
+        )
+        .group_by(UserSearchHistory.term)
+        .order_by(
+            desc("sim"),
+            desc("cnt")
+        )
+        .limit(limit)
+    )
+
+    res = await session.execute(statement)
+    return [row.term for row in res.all()]
