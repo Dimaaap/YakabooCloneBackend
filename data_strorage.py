@@ -1,13 +1,8 @@
 import datetime
-from datetime import date
 
 from core.models.book_accessories import AccessoryTheme, AccessorySeria
-from core.models.book_info import PagesType, BookLanguages
 from core.models.footer import FooterCategory
 from core.models.book_image import BookImageType
-from core.models.board_game_ages import Age
-from core.models.gift_info import GiftLanguagesEnum, GiftEventEnum, GiftTypeEnum
-from core.models.hobby import HobbyTheme, HobbyType
 
 CATEGORIES = [
     {

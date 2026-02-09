@@ -29,7 +29,7 @@ def parse_page(text):
             "is_active": True,
             "subcategory_id": 167
         })
-    with open("double_subcategories/subcategories.json", "w", encoding="utf-8") as f:
+    with open("entities/double_subcategories/subcategories.json", "w", encoding="utf-8") as f:
         f.write(json.dumps(subcategories, indent=4, ensure_ascii=False))
         print("File created")
 
