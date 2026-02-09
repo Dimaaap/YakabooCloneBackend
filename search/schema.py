@@ -26,6 +26,16 @@ class SearchBook(BaseSearch):
     promo_price: int | None = None
     format: BookFormatsEnum
     in_stock: bool
+    stars: int
+    comments_count: int | None = None
+    is_top: bool = False
+    is_new: bool = False
+    is_promo: bool = False
+    is_has_cashback: bool = False
+    is_has_winter_esupport: bool = False
+    is_has_esupport: bool = False
+    uk_delivery_time: int | None = None
+    delivery_time: int | None = None
 
 
 class SearchAuthors(BaseSearch):

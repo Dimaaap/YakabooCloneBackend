@@ -88,6 +88,7 @@ async def search_response(q: str,
         author = book.authors[0] if book.authors else None
         image = book.images[0] if book.images else None
         book_info = book.book_info
+        book_comments = len(book.reviews) if book.reviews else 0
 
         books_data.append({
             "id": book.id,
@@ -100,7 +101,17 @@ async def search_response(q: str,
             "promo_price": book.promo_price,
             "image": image.image_url if image else None,
             "format": book_info.format if book_info else None,
-            "in_stock": book_info.in_stock
+            "in_stock": book_info.in_stock,
+            "stars": book.stars,
+            "comments_count": book_comments,
+            "is_top": book.is_top,
+            "is_new": False,
+            "is_promo": book.is_promo,
+            "is_has_cashback": book_info.is_has_cashback,
+            "is_has_winter_esupport": book_info.is_has_winter_esupport,
+            "is_has_esupport": book_info.is_has_esupport,
+            "uk_delivery_time": book_info.uk_delivery_time,
+            "delivery_time": book_info.delivery_time,
         })
 
     authors_data = []
