@@ -50,6 +50,3 @@ class Author(Base):
 
     def __str__(self):
         return f"{self.__class__.__name__}(name={self.get_full_name()} slug={self.slug})"
-
-    def __repr__(self):
-        return str(self)
