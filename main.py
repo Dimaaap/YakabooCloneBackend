@@ -4,12 +4,8 @@ import os
 from fastapi import FastAPI
 import uvicorn
 from starlette.middleware.cors import CORSMiddleware
-from sqladmin import Admin
 
-from admin import admin_models
 from entities import router
-from core.models import db_helper
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -17,11 +13,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-admin = Admin(app, db_helper.engine, base_url=os.getenv("ADMIN_URL"))
 app.include_router(router)
-
-for admin_model in admin_models:
-    admin.add_view(admin_model)
 
 app.add_middleware(
     CORSMiddleware,

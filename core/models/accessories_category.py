@@ -18,3 +18,6 @@ class AccessoriesCategory(Base):
 
     accessories: Mapped[list["BookAccessories"]] = relationship("BookAccessories", back_populates="category",
                                                                 cascade="all, delete-orphan")
+
+    def __str__(self):
+        return f"{self.__class__.__name__}: (title={self.title})"
