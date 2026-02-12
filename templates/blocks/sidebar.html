@@ -1,0 +1,16 @@
+<div class="sidebar">
+    <h4 class="sidebar__title">
+        {{ title | default("Yakaboo Admin")}}
+    </h4>
+
+    <ul class="sidebar__models-list">
+        {% for name, entity in entities.items() %}
+        <li class="sidebar__model">
+            <a class="sidebar__link" href="{{ request.url.path }}{{ entity.slug }}/list">
+                <img src="/static/images/{{ entity.image_src }}" alt="{{ name }}" width="18" height="18"/>
+                <span>{{ name }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

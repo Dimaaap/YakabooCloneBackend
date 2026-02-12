@@ -1,1 +1,45 @@
 {% extends 'base.html' %}
+
+{% block title %}
+    Main Page
+{% endblock %}
+
+{% block body %}
+    <div class="entities">
+        <div class="entities__header">
+            <h3 class="entities__text">
+                Всі сутності
+            </h3>
+        </div>
+        <table class="entities__table">
+            <thead>
+                 <tr>
+                    <th>№</th>
+                    <th>Сутність</th>
+                    <th>slug</th>
+                    <th>Іконка</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for name, entity in entities.items() %}
+                <tr>
+                    <td>
+                        {{ loop.index0 + 1 }}
+                    </td>
+                    <td>
+                        {{ name }}
+                    </td>
+                    <td>
+                        <a href="{{ request.url.path }}{{ entity.slug }}/list">
+                            {{ entity.slug }}
+                        </a>
+                    </td>
+                    <td>
+                        <img src="/static/images/{{ entity.image_src }}" alt="{{ name }}" width="18" height="18" />
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
