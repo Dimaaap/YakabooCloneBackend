@@ -2,10 +2,13 @@ from contextlib import asynccontextmanager
 import os
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 from starlette.middleware.cors import CORSMiddleware
 
 from entities import router
+from admin import router as admin_router
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -14,6 +17,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(router)
+app.include_router(admin_router)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
