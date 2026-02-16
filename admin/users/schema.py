@@ -22,6 +22,6 @@ class UsersList(BaseModel):
 
 
 class UserListForAdmin(UsersList):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
     id: int

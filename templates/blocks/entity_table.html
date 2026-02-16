@@ -1,0 +1,55 @@
+<div class="table-wrapper">
+    <table class="entities__table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="all" name="all" class="table-checkbox" />
+                </th>
+                {% for field in fields %}
+                    <th>
+                        {{ field }}
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in data %}
+            <tr>
+                <td>
+                    <div class="flex-col">
+                        <input type="checkbox" id="{{ user.id }}" name="{{ user.id }}" class="table-checkbox" />
+                        <div class="entities__edit-row">
+                            <button class="entities__edit-btn" type="button">
+                                <img src="/static/images/eye.svg" alt="View" width="24" height="24" />
+                            </button>
+                            {% if is_editable %}
+                                <button class="entities__edit-btn" type="button">
+                                    <img src="/static/images/edit.svg" alt="Edit" width="24" height="24" />
+                                </button>
+                            {% endif %}
+                            {% if is_deletable %}
+                                <button class="entities__edit-btn" type="button">
+                                    <img src="/static/images/trash.svg" alt="Delete" width="24" height="24" />
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+                {% for name, value in user.items() %}
+                    <td>
+                        {% if value is boolean %}
+                            {% if value %}
+                                <img src="/static/images/done.svg" alt="True" width="16" height="16" />
+                            {% else %}
+                                <img src="/static/images/cancel-red.svg" alt="False" width="16" height="16" />
+                            {% endif %}
+                        {% else %}
+                            {{ value }}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
