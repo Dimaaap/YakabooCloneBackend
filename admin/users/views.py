@@ -23,13 +23,14 @@ async def users_list(request: Request, session: AsyncSession=Depends(db_helper.s
 
     return templates.TemplateResponse(
         "pages/users/list.html",
-        context={"request": request,
-                "data": users,
-                "page_title": "All users",
-                "model_name": "User",
-                "fields": fields,
-                "is_editable": True,
-                "is_deletable": True,
-                "can_create": True
-                 },
+        context={
+            "request": request,
+            "data": users,
+            "page_title": "All users",
+            "model_name": "User",
+            "fields": fields,
+            "is_editable": True,
+            "is_deletable": True,
+            "can_create": True
+            },
     )
