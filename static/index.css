@@ -181,6 +181,21 @@
     margin-top: 5px;
 }
 
+.entities__link-field,
+.entities__different-link{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.entities__link-field:hover,
+.entities__different-link:hover {
+    color: darkblue;
+}
+
+
+
 th {
     padding: 5px;
 }

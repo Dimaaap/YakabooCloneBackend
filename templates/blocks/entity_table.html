@@ -36,15 +36,21 @@
                     </div>
                 </td>
                 {% for name, value in user.items() %}
-                    <td>
+                    <td {% if link_fields and name in link_fields and value is string or value is mapping %} class="entities__link-field" {% endif %}>
                         {% if value is boolean %}
                             {% if value %}
                                 <img src="/static/images/done.svg" alt="True" width="16" height="16" />
                             {% else %}
                                 <img src="/static/images/cancel-red.svg" alt="False" width="16" height="16" />
                             {% endif %}
+                        {% elif value is iterable and value is not string and value is not mapping %}
+                            {% for val in value %}
+                                <span class="entities__different-link">
+                                    {{ val }}
+                                </span>
+                            {% endfor %}
                         {% else %}
-                            {{ value }}
+                            {{ value | striptags | truncate(40) }}
                         {% endif %}
                     </td>
                 {% endfor %}
