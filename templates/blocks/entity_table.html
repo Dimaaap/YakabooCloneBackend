@@ -44,9 +44,9 @@
                                 <img src="/static/images/cancel-red.svg" alt="False" width="16" height="16" />
                             {% endif %}
                         {% elif value is iterable and value is not string and value is not mapping %}
-                            {% for val in value %}
+                            {% for val in value[:10] %}
                                 <span class="entities__different-link">
-                                    {{ val }}
+                                    {{ val }}, <br/>
                                 </span>
                             {% endfor %}
                         {% else %}

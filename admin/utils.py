@@ -6,6 +6,11 @@ entities_slug = {
     "Cities": {"image_src": "earth.svg", "slug": "cities"},
     "Authors": {"image_src": "author.svg", "slug": "authors"},
     "Banners": {"image_src": "banner.svg", "slug": "banners"},
+    "Book Illustrators": {"image_src": "book_illustrators.svg", "slug": "book_illustrators"},
+    "Book Series": {"image_src": "book_shelf.svg", "slug": "book_series"},
+    "Book Translators": {"image_src": "translator.svg", "slug": "book_translators"},
+    "Book Categories": {"image_src": "categories.svg", "slug": "categories"},
+    "Contacts": {"image_src": "contacts.svg", "slug": "contacts"},
 }
 
 
