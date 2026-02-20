@@ -12,6 +12,10 @@ from .book_series import router as book_series_router
 from .book_translators import router as book_translators_router
 from .category import router as category_router
 from .contacts import router as contacts_router
+from .delivery_terms import router as delivery_terms_router
+from .double_subcategories import router as double_subcategories_router
+from .email_subs import router as email_subs_router
+from .footer import router as footer_router
 
 router = APIRouter(tags=["Admin page"])
 router.include_router(users_router)
@@ -24,6 +28,10 @@ router.include_router(book_series_router)
 router.include_router(book_translators_router)
 router.include_router(category_router)
 router.include_router(contacts_router)
+router.include_router(delivery_terms_router)
+router.include_router(double_subcategories_router)
+router.include_router(email_subs_router)
+router.include_router(footer_router)
 
 
 @router.get("/", response_class=HTMLResponse)
