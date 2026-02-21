@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict
 class Interesting(BaseModel):
     title: str
     slug: str
-    visible: bool
+    visible: bool = True
     link: str
 
 
