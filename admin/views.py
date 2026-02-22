@@ -18,6 +18,7 @@ from .email_subs import router as email_subs_router
 from .footer import router as footer_router
 
 router = APIRouter(tags=["Admin page"])
+
 router.include_router(users_router)
 router.include_router(countries_router)
 router.include_router(cities_router)
