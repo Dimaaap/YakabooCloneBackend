@@ -16,6 +16,14 @@ from .delivery_terms import router as delivery_terms_router
 from .double_subcategories import router as double_subcategories_router
 from .email_subs import router as email_subs_router
 from .footer import router as footer_router
+from .interesting import router as interesting_router
+from .knowledges import router as knowledge_router
+from .literatute_periods import router as literature_periods_router
+from .main_page_title import router as main_page_titles_router
+from .meest_post_offices import router as meest_post_offices_router
+from .new_post_offices import router as new_post_offices_router
+from .new_post_postomats import router as new_post_postomats_router
+from .orders import router as orders_router
 
 router = APIRouter(tags=["Admin page"])
 
@@ -33,7 +41,14 @@ router.include_router(delivery_terms_router)
 router.include_router(double_subcategories_router)
 router.include_router(email_subs_router)
 router.include_router(footer_router)
-
+router.include_router(interesting_router)
+router.include_router(knowledge_router)
+router.include_router(literature_periods_router)
+router.include_router(main_page_titles_router)
+router.include_router(meest_post_offices_router)
+router.include_router(new_post_offices_router)
+router.include_router(new_post_postomats_router)
+router.include_router(orders_router)
 
 @router.get("/", response_class=HTMLResponse)
 async def index_page(request: Request):

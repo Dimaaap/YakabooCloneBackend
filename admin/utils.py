@@ -15,6 +15,14 @@ entities_slug = {
     "Book Double Subcategories": {"image_src": "categories.svg", "slug": "double_subcategories"},
     "Email Subs": {"image_src": "email.svg", "slug": "email_subs"},
     "Footers": {"image_src": "footer.svg", "slug": "footers"},
+    "Interesting": {"image_src": "fire.svg", "slug": "interesting"},
+    "Knowledge": {"image_src": "fire.svg", "slug": "knowledge"},
+    "Literature Periods": {"image_src": "periods.svg", "slug": "literature_periods"},
+    "Main Page Title": {"image_src": "title.svg", "slug": "main_page_title"},
+    "Meest Post Offices": {"image_src": "meest_post.svg", "slug": "meest_post_offices"},
+    "New Post Offices": {"image_src": "new_post.svg", "slug": "new_post_offices"},
+    "New Post Postomats": {"image_src": "new_post.svg", "slug": "new_post_postomats"},
+    "Orders": {"image_src": "order.svg", "slug": "orders"}
 }
 
 
