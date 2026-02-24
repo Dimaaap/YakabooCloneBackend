@@ -22,7 +22,13 @@ entities_slug = {
     "Meest Post Offices": {"image_src": "meest_post.svg", "slug": "meest_post_offices"},
     "New Post Offices": {"image_src": "new_post.svg", "slug": "new_post_offices"},
     "New Post Postomats": {"image_src": "new_post.svg", "slug": "new_post_postomats"},
-    "Orders": {"image_src": "order.svg", "slug": "orders"}
+    "Orders": {"image_src": "order.svg", "slug": "orders"},
+    "Payment Methods": {"image_src": "payment.svg", "slug": "payment_methods"},
+    "Promo Categories": {"image_src": "promotions.svg", "slug": "promo_categories"},
+    "Promo Codes": {"image_src": "promotions.svg", "slug": "promo_codes"},
+    "Promo Code Usages": {"image_src": "promotions.svg", "slug": "promo_code_usages"},
+    "Promotions": {"image_src": "promotions.svg", "slug": "promotions"},
+    "Publishing": {"image_src": "publishing.svg", "slug": "publishing"},
 }
 
 

@@ -24,6 +24,12 @@ from .meest_post_offices import router as meest_post_offices_router
 from .new_post_offices import router as new_post_offices_router
 from .new_post_postomats import router as new_post_postomats_router
 from .orders import router as orders_router
+from .payment_methods import router as payment_methods_router
+from .promo_categories import router as promo_categories_router
+from .promo_codes import router as promo_codes_router
+from .promo_code_usages import router as promo_code_usages_router
+from .promotions import router as promotions_router
+from .publishing import router as publishing_router
 
 router = APIRouter(tags=["Admin page"])
 
@@ -49,6 +55,12 @@ router.include_router(meest_post_offices_router)
 router.include_router(new_post_offices_router)
 router.include_router(new_post_postomats_router)
 router.include_router(orders_router)
+router.include_router(payment_methods_router)
+router.include_router(promo_categories_router)
+router.include_router(promo_codes_router)
+router.include_router(promo_code_usages_router)
+router.include_router(promotions_router)
+router.include_router(publishing_router)
 
 @router.get("/", response_class=HTMLResponse)
 async def index_page(request: Request):
