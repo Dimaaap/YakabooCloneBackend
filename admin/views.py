@@ -30,6 +30,11 @@ from .promo_codes import router as promo_codes_router
 from .promo_code_usages import router as promo_code_usages_router
 from .promotions import router as promotions_router
 from .publishing import router as publishing_router
+from .reviews import router as reviews_router
+from .review_reactions import router as review_reactions_router
+from .sidebar import router as sidebar_router
+from .book_info import router as book_info_router
+from .books import router as books_router
 
 router = APIRouter(tags=["Admin page"])
 
@@ -61,6 +66,11 @@ router.include_router(promo_codes_router)
 router.include_router(promo_code_usages_router)
 router.include_router(promotions_router)
 router.include_router(publishing_router)
+router.include_router(reviews_router)
+router.include_router(review_reactions_router)
+router.include_router(sidebar_router)
+router.include_router(book_info_router)
+router.include_router(books_router)
 
 @router.get("/", response_class=HTMLResponse)
 async def index_page(request: Request):

@@ -5,6 +5,8 @@ entities_slug = {
     "Countries": {"image_src": "earth.svg", "slug": "countries"},
     "Cities": {"image_src": "earth.svg", "slug": "cities"},
     "Authors": {"image_src": "author.svg", "slug": "authors"},
+    "Book Info": {"image_src": "book.svg", "slug": "book_info"},
+    "Books": {"image_src": "book.svg", "slug": "books"},
     "Banners": {"image_src": "banner.svg", "slug": "banners"},
     "Book Illustrators": {"image_src": "book_illustrators.svg", "slug": "book_illustrators"},
     "Book Series": {"image_src": "book_shelf.svg", "slug": "book_series"},
@@ -29,6 +31,9 @@ entities_slug = {
     "Promo Code Usages": {"image_src": "promotions.svg", "slug": "promo_code_usages"},
     "Promotions": {"image_src": "promotions.svg", "slug": "promotions"},
     "Publishing": {"image_src": "publishing.svg", "slug": "publishing"},
+    "Reviews": {"image_src": "review.svg", "slug": "reviews"},
+    "Review Reactions": {"image_src": "review.svg", "slug": "review_reactions"},
+    "Sidebars": {"image_src": "sidebar.svg", "slug": "sidebars"},
 }
 
 
