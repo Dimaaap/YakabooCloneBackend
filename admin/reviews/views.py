@@ -24,7 +24,7 @@ async def get_reviews(request: Request, session: AsyncSession = Depends(db_helpe
     link_fields = ["user_email", "book_title"]
 
     return templates.TemplateResponse(
-        "pages/reviews/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": reviews,

@@ -19,7 +19,7 @@ async def get_promo_categories(request: Request, session: AsyncSession=Depends(d
     fields = list(PromoCategoriesForAdmin.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/promo_categories/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": promo_categories,

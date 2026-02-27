@@ -19,7 +19,7 @@ async def series_list(request: Request, session: AsyncSession = Depends(db_helpe
     fields = list(BookSeriesForAdminList.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/book_series/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": series,

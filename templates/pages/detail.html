@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ model_name | capitalize }} - Detail
+{% endblock %}
+
+{% block body %}
+    <div class="entities">
+        <div class="entities__header">
+            <h3 class="entities__text">
+                {{ model_name }} - {{ data.id }}
+            </h3>
+            <div class="entities__btns-row">
+                <button class="entities__btn blue-btn">
+                    Edit {{ model_name }}
+                </button>
+            </div>
+        </div>
+
+        <div class="entities__data">
+            {% for name, value in data.items() %}
+                <div class="entities__detail-row">
+                    <p class="entities__detail-row-field-title">
+                        {{ name }}
+                    </p>
+                    <p class="entities__detail-row-field-value">
+                        {{ value }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

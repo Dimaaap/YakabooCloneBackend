@@ -20,7 +20,7 @@ async def literature_periods_list(request: Request,
     fields = list(LiteraturePeriodForAdminList.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/literature_periods/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": literature_periods,

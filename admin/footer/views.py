@@ -19,7 +19,7 @@ async def get_email_subs_list(request: Request, session: AsyncSession = Depends(
     fields = list(FooterForAdminList.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/footers/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": footers,

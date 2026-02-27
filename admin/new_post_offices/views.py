@@ -20,7 +20,7 @@ async def get_new_post_offices(request: Request, session: AsyncSession=Depends(d
     link_fields = ["city_title"]
 
     return templates.TemplateResponse(
-        "pages/new_post_offices/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": new_post_offices,

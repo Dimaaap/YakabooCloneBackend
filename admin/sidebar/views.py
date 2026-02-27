@@ -19,7 +19,7 @@ async def get_sidebars(request: Request, session: AsyncSession = Depends(db_help
     fields = list(SidebarsForAdminPage.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/sidebar/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": sidebars,

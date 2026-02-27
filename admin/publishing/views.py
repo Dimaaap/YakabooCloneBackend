@@ -19,7 +19,7 @@ async def get_publishing_list(request: Request, session: AsyncSession = Depends(
     fields = list(PublishingListForAdmin.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/publishing/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": publishing_list,

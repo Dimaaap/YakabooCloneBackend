@@ -35,6 +35,9 @@ from .review_reactions import router as review_reactions_router
 from .sidebar import router as sidebar_router
 from .book_info import router as book_info_router
 from .books import router as books_router
+from .ukrpost_office import router as ukrpost_office_router
+from .author_facts import router as author_facts_router
+from .author_images import router as author_images_router
 
 router = APIRouter(tags=["Admin page"])
 
@@ -71,6 +74,9 @@ router.include_router(review_reactions_router)
 router.include_router(sidebar_router)
 router.include_router(book_info_router)
 router.include_router(books_router)
+router.include_router(ukrpost_office_router)
+router.include_router(author_facts_router)
+router.include_router(author_images_router)
 
 @router.get("/", response_class=HTMLResponse)
 async def index_page(request: Request):

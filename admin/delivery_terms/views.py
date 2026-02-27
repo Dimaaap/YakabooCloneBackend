@@ -20,7 +20,7 @@ async def delivery_terms_list(request: Request, session: AsyncSession = Depends(
     link_fields = ["country_title", "city_title"]
 
     return templates.TemplateResponse(
-        "pages/delivery_terms/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": delivery_terms,

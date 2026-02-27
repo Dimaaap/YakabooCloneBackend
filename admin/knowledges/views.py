@@ -19,7 +19,7 @@ async def knowledge_list(request: Request, session: AsyncSession=Depends(db_help
     fields = list(KnowledgeForAdminPageList.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/knowledge/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": all_knowledge,

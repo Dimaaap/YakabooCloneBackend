@@ -19,7 +19,7 @@ async def countries_list(request: Request, session: AsyncSession = Depends(db_he
     fields = list(CountriesListForAdmin.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/countries/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": countries,

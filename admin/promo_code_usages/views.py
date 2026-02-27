@@ -24,7 +24,7 @@ async def get_promo_code_usages(request: Request, session: AsyncSession = Depend
     links_list = ["user_email", "promo_code_title"]
 
     return templates.TemplateResponse(
-        "pages/promo_code_usages/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": promo_code_usages,

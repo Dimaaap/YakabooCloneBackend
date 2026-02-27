@@ -20,7 +20,7 @@ async def book_info_list(request: Request, session: AsyncSession = Depends(db_he
     link_fields = ["book_title"]
 
     return templates.TemplateResponse(
-        "pages/book_info/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": book_info,

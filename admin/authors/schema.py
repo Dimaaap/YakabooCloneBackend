@@ -2,7 +2,6 @@ from datetime import date
 
 from pydantic import BaseModel, ConfigDict
 
-from core.models import AuthorFacts
 
 
 class AuthorsList(BaseModel):
@@ -13,6 +12,8 @@ class AuthorsList(BaseModel):
     is_active: bool
     images_src: list[str] = []
     interesting_fact_text: str | None = None
+    description: str | None = None
+    short_description: str | None = None
 
 
 class AuthorsListForAdmin(AuthorsList):

@@ -18,7 +18,7 @@ async def contacts_list(request: Request, session: AsyncSession = Depends(db_hel
     fields = list(ContactsForAdminList.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/contacts/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": contacts,

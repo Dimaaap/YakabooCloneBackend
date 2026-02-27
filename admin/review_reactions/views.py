@@ -24,7 +24,7 @@ async def get_review_reactions(request: Request, session: AsyncSession = Depends
     link_fields = ["user_email", "review_title"]
 
     return templates.TemplateResponse(
-        "pages/review_reactions/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": review_reactions,

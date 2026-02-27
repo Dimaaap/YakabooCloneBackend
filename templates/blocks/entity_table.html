@@ -19,7 +19,8 @@
                     <div class="flex-col">
                         <input type="checkbox" id="{{ user.id }}" name="{{ user.id }}" class="table-checkbox" />
                         <div class="entities__edit-row">
-                            <button class="entities__edit-btn" type="button">
+                            <button class="entities__edit-btn" type="button"
+                                    onclick="window.location.href=`{{ request.url.path.replace('/list', '') }}/{{ user.id }}/`">
                                 <img src="/static/images/eye.svg" alt="View" width="24" height="24" />
                             </button>
                             {% if is_editable %}

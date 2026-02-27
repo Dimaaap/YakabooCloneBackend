@@ -20,7 +20,7 @@ async def cities_list(request: Request, session: AsyncSession = Depends(db_helpe
     link_fields = ["country_title"]
 
     return templates.TemplateResponse(
-        "pages/cities/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": cities,

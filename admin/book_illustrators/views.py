@@ -20,7 +20,7 @@ async def book_illustrators_list(request: Request,
     fields = list(BookIllustratorsListForAdmin.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/book_illustrators/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": illustrators,

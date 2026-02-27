@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit {{ model_name || capitalize }}
+{% endblock %}
+
+{% block body %}
+    <div class="entities">
+        <div class="entities__header">
+            <h3 class="entities__text">
+                Edit {{ model_name | capitalize }}
+            </h3>
+        </div>
+
+        <div class="entities__body">
+            <form class="entities__edit-form">
+                {% for field in fields %}
+                    <div class="entities__edit-form-row">
+                        <label>{{ field.capitalize }}</label>
+                        <input class="entities__efit-form-input"  />
+                    </div>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -20,7 +20,7 @@ async def get_meest_post_offices(request: Request, session: AsyncSession=Depends
     link_fields = ["city_title"]
 
     return templates.TemplateResponse(
-        "pages/meest_post_offices/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": meest_offices,

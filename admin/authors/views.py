@@ -19,7 +19,7 @@ async def authors_list(request: Request, session: AsyncSession = Depends(db_help
     link_fields = ["images_src", "interesting_fact"]
 
     return templates.TemplateResponse(
-        "pages/authors/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": authors,
@@ -30,5 +30,22 @@ async def authors_list(request: Request, session: AsyncSession = Depends(db_help
             "is_deletable": True,
             "can_create": True,
             "link_fields": link_fields,
+        }
+    )
+
+
+@router.get("/{author_id}", response_class=HTMLResponse)
+async def get_author_by_id(request: Request, author_id: int,
+                           session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    author = await crud.get_author_field_data(session, author_id)
+    data = author.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Authors",
+            "model_name": "Author",
         }
     )

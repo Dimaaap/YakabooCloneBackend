@@ -24,7 +24,7 @@ async def get_main_page_titles(request: Request, session: AsyncSession = Depends
     fields = list(MainPageTitlesListForAdmin.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/main_page_titles/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": main_page_titles,

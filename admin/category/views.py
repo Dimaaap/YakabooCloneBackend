@@ -19,7 +19,7 @@ async def categories_list(request: Request, session: AsyncSession = Depends(db_h
     link_fields = ["subcategories_title", "banner_images"]
 
     return templates.TemplateResponse(
-        "pages/categories/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": categories,

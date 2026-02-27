@@ -24,7 +24,7 @@ async def get_promotions(request: Request, session: AsyncSession=Depends(db_help
     link_fields = ["categories_title"]
 
     return templates.TemplateResponse(
-        "pages/promotions/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": promotions,

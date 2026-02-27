@@ -19,7 +19,7 @@ async def banners_list(request: Request, session: AsyncSession = Depends(db_help
     fields = list(BannersListForAdmin.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/banners/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": banners,

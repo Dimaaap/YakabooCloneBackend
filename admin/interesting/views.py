@@ -19,7 +19,7 @@ async def interesting_list(request: Request, session: AsyncSession=Depends(db_he
     fields = list(InterestingForAdminList.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/interesting/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": all_interesting,

@@ -20,7 +20,7 @@ async def double_subcategories_list(request: Request, session: AsyncSession=Depe
     link_fields = ["subcategory_title"]
 
     return templates.TemplateResponse(
-        "pages/double_subcategories/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": double_subcategories,

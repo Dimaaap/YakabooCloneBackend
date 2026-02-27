@@ -30,7 +30,7 @@ async def books_list(request: Request, session: AsyncSession = Depends(db_helper
                    "book_images"]
 
     return templates.TemplateResponse(
-        "pages/books/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": books,

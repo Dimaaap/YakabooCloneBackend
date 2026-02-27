@@ -23,7 +23,7 @@ async def get_promo_codes(request: Request, session: AsyncSession = Depends(db_h
     fields = list(PromoCodesAdminList.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/promo_codes/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": promo_codes,

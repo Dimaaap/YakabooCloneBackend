@@ -26,7 +26,7 @@ async def get_orders(request: Request, session: AsyncSession = Depends(db_helper
                    "ukrpost_office", "meest_post_office",
                    "promo_usage"]
     return templates.TemplateResponse(
-        "pages/orders/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": orders,

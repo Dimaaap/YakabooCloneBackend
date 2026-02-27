@@ -20,7 +20,7 @@ async def get_payment_methods(request: Request, session: AsyncSession = Depends(
     link_fields = ["country_title", "city_title"]
 
     return templates.TemplateResponse(
-        "pages/payment_methods/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": payment_methods,

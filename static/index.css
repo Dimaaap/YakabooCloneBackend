@@ -207,6 +207,11 @@ tr {
     justify-content: space-between;
     padding: 1%;
     text-align: left;
+    cursor: pointer;
+}
+
+tr:hover {
+    opacity: 0.8;
 }
 
 thead {
@@ -254,4 +259,26 @@ td img {
     width: 14px;
     height: 14px;
 
+}
+
+.entities__data {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 1%;
+}
+
+.entities__detail-row {
+    width: 100%;
+    display: flex;
+}
+
+.entities__detail-row-field-title {
+    font-weight: 600;
+    width: 20%;
+}
+
+.entities__detail-row-field-value {
+    width: 80%;
 }
