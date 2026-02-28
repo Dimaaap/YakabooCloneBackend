@@ -31,3 +31,20 @@ async def countries_list(request: Request, session: AsyncSession = Depends(db_he
             "can_create": True
         }
     )
+
+
+@router.get("/{country_id}", response_class=HTMLResponse)
+async def get_country_by_id(request: Request, country_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    country = await crud.get_country_field_data(session, country_id)
+    data = country.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Countries",
+            "model_name": "Country"
+        }
+    )

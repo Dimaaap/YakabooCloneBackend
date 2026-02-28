@@ -31,3 +31,20 @@ async def series_list(request: Request, session: AsyncSession = Depends(db_helpe
             "can_create": True,
         }
     )
+
+
+@router.get("/{seria_id}", response_class=HTMLResponse)
+async def get_book_seria_by_id(request: Request, seria_id: int,
+                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    book_seria = await crud.get_book_seria_field_data(session, seria_id)
+    data = book_seria.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Book Series",
+            "model_name": "Book Seria",
+        }
+    )

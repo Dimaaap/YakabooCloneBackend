@@ -19,3 +19,15 @@ async def get_contacts_list_for_admin_page(session: AsyncSession) -> list[Contac
         ContactsForAdminList.model_validate(contact)
         for contact in contacts
     ]
+
+
+async def get_contact_field_data(session: AsyncSession, contact_id: int) -> ContactsForAdminList:
+    statement = (
+        select(Contacts)
+        .where(Contacts.id == contact_id)
+    )
+
+    result = await session.execute(statement)
+    contact = result.scalars().first()
+
+    return ContactsForAdminList.model_validate(contact)

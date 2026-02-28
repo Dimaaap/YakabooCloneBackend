@@ -20,3 +20,15 @@ async def get_book_illustrator_for_admin_page(session: AsyncSession) -> list[Boo
         BookIllustratorsListForAdmin.model_validate(illustrator)
         for illustrator in book_illustrators
     ]
+
+
+async def get_book_illustrator_field_data(session: AsyncSession, illustrator_id: int) -> BookIllustratorsListForAdmin:
+    statement = (
+        select(BookIllustrator)
+        .where(BookIllustrator.id == illustrator_id)
+    )
+
+    result = await session.execute(statement)
+    book_illustrator = result.scalars().first()
+
+    return BookIllustratorsListForAdmin.model_validate(book_illustrator)

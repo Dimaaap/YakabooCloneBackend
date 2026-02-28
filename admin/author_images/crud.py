@@ -24,3 +24,18 @@ async def get_author_images_for_admin_page(session: AsyncSession):
         AuthorImagesForAdminPage.model_validate(image)
         for image in author_images
     ]
+
+
+async def get_author_image_field_data(session: AsyncSession, author_image_id: int) -> AuthorImagesForAdminPage:
+    statement = (
+        select(AuthorImage)
+        .options(joinedload(AuthorImage.author))
+        .where(AuthorImage.id == author_image_id)
+    )
+
+    result = await session.execute(statement)
+    author_image = result.scalars().first()
+
+    author_image.author_name = f"{author_image.author.first_name} {author_image.author.last_name}"
+
+    return AuthorImagesForAdminPage.model_validate(author_image)

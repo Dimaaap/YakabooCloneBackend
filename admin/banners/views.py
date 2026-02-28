@@ -31,3 +31,20 @@ async def banners_list(request: Request, session: AsyncSession = Depends(db_help
             "can_create": True,
         }
     )
+
+
+@router.get("/{banner_id}", response_class=HTMLResponse)
+async def get_banner_by_id(request: Request, banner_id: int,
+                           session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    banner = await crud.get_banner_field_data(session, banner_id)
+    data = banner.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Banners",
+            "model_name": "Banner"
+        }
+    )

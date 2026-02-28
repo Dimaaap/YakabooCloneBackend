@@ -24,7 +24,21 @@
                         {{ name }}
                     </p>
                     <p class="entities__detail-row-field-value">
-                        {{ value }}
+                        {% if value is boolean %}
+                            {% if value %}
+                                 <img src="/static/images/done.svg" alt="True" width="16" height="16" />
+                            {% else %}
+                                    <img src="/static/images/cancel-red.svg" alt="False" width="16" height="16" />
+                            {% endif %}
+                        {% elif value is iterable and value is not string and value is not mapping %}
+                            {% for val in value %}
+                                <span class="entities__different-link">
+                                    {{ val }} <br />
+                                </span>
+                            {% endfor %}
+                        {% else %}
+                            {{ value }}
+                        {% endif %}
                     </p>
                 </div>
             {% endfor %}

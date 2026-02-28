@@ -32,3 +32,19 @@ async def book_illustrators_list(request: Request,
             "can_create": True
         }
     )
+
+@router.get("/{illustrator_id}", response_class=HTMLResponse)
+async def get_book_illustrator_by_id(request: Request, illustrator_id: int,
+                                     session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    book_illustrator = await crud.get_book_illustrator_field_data(session, illustrator_id)
+    data = book_illustrator.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Book Illustrators",
+            "model_name": "Book Illustrator",
+        }
+    )

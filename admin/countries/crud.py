@@ -15,3 +15,15 @@ async def get_countries_list_for_admin_page(session: AsyncSession) -> list[Count
         CountriesListForAdmin.model_validate(country)
         for country in countries
     ]
+
+
+async def get_country_field_data(session: AsyncSession, country_id: int) -> CountriesListForAdmin:
+    statement = (
+        select(Country)
+        .where(Country.id == country_id)
+    )
+
+    result = await session.execute(statement)
+    country = result.scalars().first()
+
+    return CountriesListForAdmin.model_validate(country)

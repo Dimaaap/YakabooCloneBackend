@@ -23,7 +23,7 @@ async def users_list(request: Request, session: AsyncSession=Depends(db_helper.s
     fields = list(UserListForAdmin.model_fields.keys())
 
     return templates.TemplateResponse(
-        "pages/users/list.html",
+        "pages/list.html",
         context={
             "request": request,
             "data": users,
@@ -34,4 +34,21 @@ async def users_list(request: Request, session: AsyncSession=Depends(db_helper.s
             "is_deletable": True,
             "can_create": True
             },
+    )
+
+
+@router.get("/{user_id}", response_class=HTMLResponse)
+async def get_user_by_id(request: Request, user_id: int,
+                         session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    user = await crud.get_user_field_data(session, user_id)
+    data = user.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Users",
+            "model_name": "User",
+        }
     )

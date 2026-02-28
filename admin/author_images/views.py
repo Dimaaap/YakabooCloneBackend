@@ -33,3 +33,19 @@ async def author_images_list(request: Request, session: AsyncSession = Depends(d
             "link_fields": link_fields
         }
     )
+
+@router.get("/{author_image_id}", response_class=HTMLResponse)
+async def get_author_image_by_id(request: Request, author_image_id: int,
+                                 session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    author_image = await crud.get_author_image_field_data(session, author_image_id)
+    data = author_image.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Author Images",
+            "model_name": "Author Image"
+        }
+    )

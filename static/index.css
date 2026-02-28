@@ -266,12 +266,13 @@ td img {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 1%;
 }
 
 .entities__detail-row {
     width: 100%;
     display: flex;
+    padding: 1%;
+    border-bottom: 1px solid black;
 }
 
 .entities__detail-row-field-title {

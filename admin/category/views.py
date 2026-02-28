@@ -32,3 +32,20 @@ async def categories_list(request: Request, session: AsyncSession = Depends(db_h
             "link_fields": link_fields
         }
     )
+
+
+@router.get("/{category_id}", response_class=HTMLResponse)
+async def get_category_by_id(request: Request, category_id: int,
+                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    category = await crud.get_category_field_data(session, category_id)
+    data = category.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Book Categories",
+            "model_name": "Book Category",
+        }
+    )

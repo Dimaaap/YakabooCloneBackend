@@ -43,3 +43,20 @@ async def books_list(request: Request, session: AsyncSession = Depends(db_helper
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{book_id}", response_class=HTMLResponse)
+async def get_book_by_id(request: Request, book_id: int,
+                         session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    book = await crud.get_book_field_data(session, book_id)
+    data = book.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Books",
+            "model_name": "Book"
+        }
+    )

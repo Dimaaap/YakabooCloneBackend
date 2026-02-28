@@ -20,6 +20,10 @@ class UsersList(BaseModel):
     level: UserStatusEnum
 
     date_joined: datetime
+    reviews_text: list[str] | None = None
+    orders_id: list[int] | None = None
+    seen_books_title: list[str] | None = None
+
 
 
 class UserListForAdmin(UsersList):

@@ -32,3 +32,20 @@ async def delivery_terms_list(request: Request, session: AsyncSession = Depends(
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{term_id}", response_class=HTMLResponse)
+async def get_delivery_term_by_id(request: Request, term_id: int,
+                                  session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    term = await crud.get_delivery_term_field_data(session, term_id)
+    data = term.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Delivery Terms",
+            "model_name": "Delivery Term"
+        }
+    )

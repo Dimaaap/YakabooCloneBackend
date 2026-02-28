@@ -30,3 +30,21 @@ async def contacts_list(request: Request, session: AsyncSession = Depends(db_hel
             "can_create": True,
         }
     )
+
+
+@router.get("/{contact_id}", response_class=HTMLResponse)
+async def get_contact_by_id(request: Request, contact_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    contact = await crud.get_contact_field_data(session, contact_id)
+
+    data = contact.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Contacts",
+            "model_name": "Contact"
+        }
+    )

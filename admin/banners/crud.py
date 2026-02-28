@@ -19,3 +19,15 @@ async def get_banners_for_admin_page(session: AsyncSession) -> list[BannersListF
         BannersListForAdmin.model_validate(banner)
         for banner in banners
     ]
+
+
+async def get_banner_field_data(session: AsyncSession, banner_id: int) -> BannersListForAdmin:
+    statement = (
+        select(Banner)
+        .where(Banner.id == banner_id)
+    )
+
+    result = await session.execute(statement)
+    banner = result.scalars().first()
+
+    return BannersListForAdmin.model_validate(banner)

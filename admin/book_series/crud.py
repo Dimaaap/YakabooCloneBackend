@@ -19,3 +19,15 @@ async def get_book_series_for_admin_page(session: AsyncSession) -> list[BookSeri
         BookSeriesForAdminList.model_validate(seria)
         for seria in series
     ]
+
+
+async def get_book_seria_field_data(session: AsyncSession, seria_id: int) -> BookSeriesForAdminList:
+    statement = (
+        select(BookSeria)
+        .where(BookSeria.id == seria_id)
+    )
+
+    result = await session.execute(statement)
+    book_seria = result.scalars().first()
+
+    return BookSeriesForAdminList.model_validate(book_seria)

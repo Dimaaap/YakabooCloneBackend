@@ -33,3 +33,20 @@ async def cities_list(request: Request, session: AsyncSession = Depends(db_helpe
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{city_id}", response_class=HTMLResponse)
+async def get_city_by_id(request: Request, city_id: int,
+                         session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    city = await crud.get_city_field_data(session, city_id)
+    data = city.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Cities",
+            "model_name": "City",
+        }
+    )

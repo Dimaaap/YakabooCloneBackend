@@ -23,3 +23,18 @@ async def get_cities_list_for_admin_page(session: AsyncSession) -> list[CitiesLi
         CitiesListForAdmin.model_validate(city)
         for city in cities
     ]
+
+
+async def get_city_field_data(session: AsyncSession, city_id: int) -> CitiesListForAdmin:
+    statement = (
+        select(City)
+        .options(selectinload(City.country))
+        .where(City.id == city_id)
+    )
+
+    result = await session.execute(statement)
+    city = result.scalars().first()
+
+    city.country_title = city.country.title
+
+    return CitiesListForAdmin.model_validate(city)
