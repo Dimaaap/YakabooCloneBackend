@@ -28,3 +28,21 @@ async def get_payment_methods_for_admin_page(session: AsyncSession) -> list[Paym
         PaymentMethodsForAdmin.model_validate(method)
         for method in payment_methods
     ]
+
+
+async def get_payment_methods_field_data(session: AsyncSession, payment_method_id: int) -> PaymentMethodsForAdmin:
+    statement = (
+        select(PaymentMethod)
+        .options(
+            joinedload(PaymentMethod.city),
+            joinedload(PaymentMethod.country),
+        )
+        .where(PaymentMethod.id == payment_method_id)
+    )
+
+    result = await session.execute(statement)
+    method = result.scalars().first()
+
+    method.city_title = method.city.title if method.city else None
+    method.country_title = method.country.title if method.country else None
+    return PaymentMethodsForAdmin.model_validate(method)

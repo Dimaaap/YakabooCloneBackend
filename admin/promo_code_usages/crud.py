@@ -28,3 +28,21 @@ async def get_promo_code_usages_for_admin_page(session: AsyncSession) -> list[Pr
         PromoCodeUsagesForAdmin.model_validate(usage)
         for usage in promo_code_usages
     ]
+
+
+async def get_promo_code_usages_field_data(session: AsyncSession, usage_id: int) -> PromoCodeUsagesForAdmin:
+    statement = (
+        select(PromoCodeUsage)
+        .options(
+            joinedload(PromoCodeUsage.user),
+            joinedload(PromoCodeUsage.promo_code)
+        )
+        .where(PromoCodeUsage.id == usage_id)
+    )
+
+    result = await session.execute(statement)
+    usage = result.scalars().first()
+
+    usage.user_email = usage.user.email
+    usage.promo_code_title = usage.promo_code.code
+    return PromoCodeUsagesForAdmin.model_validate(usage)

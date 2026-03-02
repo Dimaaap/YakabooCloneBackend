@@ -37,3 +37,20 @@ async def get_promo_code_usages(request: Request, session: AsyncSession = Depend
             "link_fields": links_list
         }
     )
+
+
+@router.get("/{usage_id}", response_class=HTMLResponse)
+async def get_promo_code_usage_by_id(request: Request, usage_id: int,
+                                     session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    usage = await crud.get_promo_code_usages_field_data(session, usage_id)
+    data = usage.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Promo Code Usages",
+            "model_name": "Promo Code Usage"
+        }
+    )

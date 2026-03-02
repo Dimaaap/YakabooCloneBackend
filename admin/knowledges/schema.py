@@ -2,7 +2,7 @@ from pydantic import BaseModel, ConfigDict
 
 class Knowledge(BaseModel):
     title: str
-    slug: str
+    slug: str | None = None
     container_title: str | None = None
     in_sidebar: bool = False
     is_active: bool = True

@@ -28,3 +28,21 @@ async def get_review_reactions_for_admin_page(session: AsyncSession) -> list[Rev
         ReviewReactionsForAdminList.model_validate(reaction)
         for reaction in review_reactions
     ]
+
+
+async def get_review_reactions_field_data(session: AsyncSession, reaction_id: int) -> ReviewReactionsForAdminList:
+    statement = (
+        select(ReviewReaction)
+        .options(
+            joinedload(ReviewReaction.user),
+            joinedload(ReviewReaction.review)
+        )
+        .where(ReviewReaction.id == reaction_id)
+    )
+
+    result = await session.execute(statement)
+    reaction = result.scalars().first()
+
+    reaction.user_email = reaction.user.email
+    reaction.review_title = reaction.review.title if reaction.review.title else None
+    return ReviewReactionsForAdminList.model_validate(reaction)

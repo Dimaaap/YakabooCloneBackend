@@ -33,3 +33,20 @@ async def get_payment_methods(request: Request, session: AsyncSession = Depends(
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{payment_id}", response_class=HTMLResponse)
+async def get_payment_method_by_id(request: Request, payment_id: int,
+                                   session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    method = await crud.get_payment_methods_field_data(session, payment_id)
+    data = method.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Payment Methods",
+            "model_name": "Payment Method"
+        }
+    )

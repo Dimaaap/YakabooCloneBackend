@@ -32,3 +32,20 @@ async def literature_periods_list(request: Request,
             "can_create": True,
         }
     )
+
+
+@router.get("/{literature_period_id}", response_class=HTMLResponse)
+async def get_literature_period_by_id(request: Request, literature_period_id: int,
+                                      session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    literature_period = await crud.get_literature_period_field_data(session, literature_period_id)
+    data = literature_period.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Literature Periods",
+            "model_name": "Literature Period"
+        }
+    )

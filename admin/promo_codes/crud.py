@@ -19,3 +19,15 @@ async def get_promo_codes_for_admin_page(session: AsyncSession) -> list[PromoCod
         PromoCodesAdminList.model_validate(code)
         for code in promo_codes
     ]
+
+
+async def get_promo_codes_field_data(session: AsyncSession, promo_code_id: int) -> PromoCodesAdminList:
+    statement = (
+        select(PromoCode)
+        .where(PromoCode.id == promo_code_id)
+    )
+
+    result = await session.execute(statement)
+    promo_code = result.scalars().first()
+
+    return PromoCodesAdminList.model_validate(promo_code)

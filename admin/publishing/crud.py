@@ -19,3 +19,15 @@ async def get_publishing_list_for_admin_page(session: AsyncSession) -> list[Publ
         PublishingListForAdmin.model_validate(publishing)
         for publishing in publishing_list
     ]
+
+
+async def get_publishing_field_data(session: AsyncSession, publishing_id: int) -> PublishingListForAdmin:
+    statement = (
+        select(Publishing)
+        .where(Publishing.id == publishing_id)
+    )
+
+    result = await session.execute(statement)
+    publishing = result.scalars().first()
+
+    return PublishingListForAdmin.model_validate(publishing)

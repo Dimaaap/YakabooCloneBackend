@@ -39,3 +39,20 @@ async def get_orders(request: Request, session: AsyncSession = Depends(db_helper
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{order_id}", response_class=HTMLResponse)
+async def get_order_by_id(request: Request, order_id: int,
+                          session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    order = await crud.get_order_field_data(session, order_id)
+    data = order.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Orders",
+            "model_name": "Order"
+        }
+    )

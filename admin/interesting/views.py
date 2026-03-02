@@ -31,3 +31,20 @@ async def interesting_list(request: Request, session: AsyncSession=Depends(db_he
             "can_create": True,
         }
     )
+
+
+@router.get("/{interesting_id}", response_class=HTMLResponse)
+async def get_interesting(request: Request, interesting_id: int,
+                          session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    interesting = await crud.get_interesting_field_data(session, interesting_id)
+    data = interesting.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Interesting",
+            "model_name": "Interesting"
+        }
+    )

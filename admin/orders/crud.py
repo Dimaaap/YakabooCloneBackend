@@ -41,3 +41,32 @@ async def get_orders_for_admin_page(session: AsyncSession) -> list[OrdersForAdmi
         for order in orders
     ]
 
+async def get_order_field_data(session: AsyncSession, order_id: int) -> OrdersForAdmin:
+    statement = (
+        select(Order)
+        .options(
+            joinedload(Order.city),
+            joinedload(Order.user),
+            joinedload(Order.country),
+            joinedload(Order.new_post_office),
+            joinedload(Order.new_post_postomat),
+            joinedload(Order.ukrpost_office),
+            joinedload(Order.meest_office),
+            joinedload(Order.promo_usage)
+        )
+        .where(Order.id == order_id)
+    )
+
+    result = await session.execute(statement)
+    order = result.scalars().first()
+
+    order.user_email = order.user.email
+    order.city_title = order.city.title
+    order.country_title = order.country.title
+    order.new_post_number = order.new_post_office.number
+    order.new_post_postomat = order.new_post_postomat.id
+    order.new_post_ukrpost_office = order.ukrpost_office.id
+    order.meest_post_office = order.meest_office.id
+    order.promo_usage = order.promo_usage.id
+
+    return OrdersForAdmin.model_validate(order)

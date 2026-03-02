@@ -36,3 +36,20 @@ async def get_main_page_titles(request: Request, session: AsyncSession = Depends
             "can_create": True,
         }
     )
+
+
+@router.get("/{title_id}", response_class=HTMLResponse)
+async def get_main_page_title_by_id(request: Request, title_id: int,
+                                    session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    main_page_title = await crud.get_main_page_title_field_data(session, title_id)
+    data = main_page_title.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Main Page Titles",
+            "model_name": "Main Page Title"
+        }
+    )

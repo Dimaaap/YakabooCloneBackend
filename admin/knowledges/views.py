@@ -31,3 +31,21 @@ async def knowledge_list(request: Request, session: AsyncSession=Depends(db_help
             "can_create": True,
         }
     )
+
+
+@router.get("/{knowledge_slug}", response_class=HTMLResponse)
+async def get_knowledge_by_id(request: Request, knowledge_slug: str,
+                              session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+
+    knowledge = await crud.get_knowledge_field_data(session, knowledge_slug)
+    data = knowledge.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Knowledge",
+            "model_name": "Knowledge"
+        }
+    )

@@ -37,3 +37,20 @@ async def get_promotions(request: Request, session: AsyncSession=Depends(db_help
             "link_fields": link_fields
         }
     )
+
+
+@router.get("/{promotion_id}", response_class=HTMLResponse)
+async def get_promotion_by_id(request: Request, promotion_id: int,
+                              session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    promotion = await crud.get_promotion_field_data(session, promotion_id)
+    data = promotion.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Promotions",
+            "model_name": "Promotion"
+        }
+    )

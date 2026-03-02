@@ -31,3 +31,19 @@ async def get_publishing_list(request: Request, session: AsyncSession = Depends(
             "can_create": True,
         }
     )
+
+@router.get("/{publishing_id}", response_class=HTMLResponse)
+async def get_publishing_by_id(request: Request, publishing_id: int,
+                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    publishing = await crud.get_publishing_field_data(session, publishing_id)
+    data = publishing.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Book Publishing List",
+            "model_name": "Publishing"
+        }
+    )

@@ -31,3 +31,20 @@ async def get_promo_categories(request: Request, session: AsyncSession=Depends(d
             "can_create": True
         }
     )
+
+
+@router.get("/{category_slug}", response_class=HTMLResponse)
+async def get_promo_category_by_id(request: Request, category_slug: str,
+                                   session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    promo_category = await crud.get_promo_categories_field_data(session, category_slug)
+    data = promo_category.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Promotion Categories",
+            "model_name": "Promotion Category"
+        }
+    )

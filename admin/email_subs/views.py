@@ -36,3 +36,19 @@ async def get_email_subs_list(request: Request, session: AsyncSession = Depends(
         }
     )
 
+
+@router.get("/{sub_id}", response_class=HTMLResponse)
+async def get_email_sub_by_id(request: Request, sub_id: int,
+                              session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    email_sub = await crud.get_email_sub_field_data(session, sub_id)
+    data = email_sub.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Email Subs",
+            "model_name": "Email Sub"
+        }
+    )

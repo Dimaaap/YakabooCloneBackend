@@ -15,3 +15,15 @@ async def get_interesting_list_for_admin_page(session: AsyncSession) -> list[Int
         InterestingForAdminList.model_validate(interesting)
         for interesting in interesting_list
     ]
+
+
+async def get_interesting_field_data(session: AsyncSession, interesting_id: int) -> InterestingForAdminList:
+    statement = (
+        select(Interesting)
+        .where(Interesting.id == interesting_id)
+    )
+
+    result = await session.execute(statement)
+    interesting = result.scalars().first()
+
+    return InterestingForAdminList.model_validate(interesting)

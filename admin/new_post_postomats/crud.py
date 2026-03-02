@@ -24,3 +24,19 @@ async def get_new_post_postomats_for_admin_page(session: AsyncSession) -> list[N
         NewPostPostomatsForAdmin.model_validate(postomat)
         for postomat in postomats
     ]
+
+
+async def get_new_post_postomat_field_data(session: AsyncSession, postomat_id: int) -> NewPostPostomatsForAdmin:
+    statement = (
+        select(NewPostPostomat)
+        .options(
+            joinedload(NewPostPostomat.city)
+        )
+        .where(NewPostPostomat.id == postomat_id)
+    )
+
+    result = await session.execute(statement)
+    postomat = result.scalars().first()
+    postomat.city_title = postomat.city.title
+
+    return NewPostPostomatsForAdmin.model_validate(postomat)

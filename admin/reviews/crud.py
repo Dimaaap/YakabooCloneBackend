@@ -28,3 +28,21 @@ async def get_reviews_list_for_admin_page(session: AsyncSession) -> list[Reviews
         ReviewsForAdminList.model_validate(review)
         for review in reviews
     ]
+
+
+async def get_reviews_field_data(session: AsyncSession, review_slug: str) -> ReviewsForAdminList:
+    statement = (
+        select(Review)
+        .options(
+            joinedload(Review.user),
+            joinedload(Review.book)
+        )
+        .where(Review.title == review_slug)
+    )
+
+    result = await session.execute(statement)
+    review = result.scalars().first()
+    review.user_email = review.user.email
+    review.book_title = review.book.title
+
+    return ReviewsForAdminList.model_validate(review)

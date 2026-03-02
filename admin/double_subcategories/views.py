@@ -33,3 +33,20 @@ async def double_subcategories_list(request: Request, session: AsyncSession=Depe
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{double_subcategory_id}", response_class=HTMLResponse)
+async def get_double_subcategory_by_id(request: Request, double_subcategory_id: int,
+                                       session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    double_subcategory = await crud.get_double_subcategory_field_data(session, double_subcategory_id)
+    data = double_subcategory.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Book Double Subcategories",
+            "model_name": "Double Subcategory",
+        }
+    )

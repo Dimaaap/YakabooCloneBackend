@@ -23,3 +23,18 @@ async def get_meest_post_offices_for_admin_page(session: AsyncSession) -> list[M
         MeestPostOfficesForAdmin.model_validate(office)
         for office in offices
     ]
+
+
+async def get_meest_post_offices_field_data(session: AsyncSession, meest_post_office_id: int) -> MeestPostOfficesForAdmin:
+    statement = (
+        select(MeestPostOffice)
+        .options(joinedload(MeestPostOffice.city))
+        .where(MeestPostOffice.id == meest_post_office_id)
+    )
+
+    result = await session.execute(statement)
+    office = result.scalars().first()
+
+    office.city_title = office.city.title
+
+    return MeestPostOfficesForAdmin.model_validate(office)

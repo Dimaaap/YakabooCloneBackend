@@ -35,3 +35,20 @@ async def get_promo_codes(request: Request, session: AsyncSession = Depends(db_h
             "can_create": True,
         }
     )
+
+
+@router.get("/{promo_code_id}", response_class=HTMLResponse)
+async def get_promo_code_by_id(request: Request, promo_code_id: int,
+                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    promo_code = await crud.get_promo_codes_field_data(session, promo_code_id)
+    data = promo_code.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Promo Codes",
+            "model_name": "Promo Code"
+        }
+    )

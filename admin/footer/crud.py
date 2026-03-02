@@ -19,3 +19,15 @@ async def get_footers_for_admin_page(session: AsyncSession) -> list[FooterForAdm
         FooterForAdminList.model_validate(footer)
         for footer in footers
     ]
+
+
+async def get_footer_field_data(session: AsyncSession, footer_id: int) -> FooterForAdminList:
+    statement = (
+        select(Footer)
+        .where(Footer.id == footer_id)
+    )
+
+    result = await session.execute(statement)
+    footer = result.scalars().first()
+
+    return FooterForAdminList.model_validate(footer)

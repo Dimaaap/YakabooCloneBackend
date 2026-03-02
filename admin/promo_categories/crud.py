@@ -19,3 +19,15 @@ async def get_promo_categories_for_admin_page(session: AsyncSession) -> list[Pro
         PromoCategoriesForAdmin.model_validate(category)
         for category in promo_categories
     ]
+
+
+async def get_promo_categories_field_data(session: AsyncSession, category_slug: str) -> PromoCategoriesForAdmin:
+    statement = (
+        select(PromoCategories)
+        .where(PromoCategories.slug == category_slug)
+    )
+
+    result = await session.execute(statement)
+    promo_category = result.scalars().first()
+
+    return PromoCategoriesForAdmin.model_validate(promo_category)

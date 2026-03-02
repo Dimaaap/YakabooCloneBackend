@@ -24,3 +24,18 @@ async def get_promotions_for_admin_page(session: AsyncSession) -> list[Promotion
         PromotionsForAdminPage.model_validate(promotion)
         for promotion in promotions
     ]
+
+
+async def get_promotion_field_data(session: AsyncSession, promotion_id: int) -> PromotionsForAdminPage:
+    statement = (
+        select(Promotion)
+        .options(selectinload(Promotion.categories))
+        .where(Promotion.id == promotion_id)
+    )
+
+    result = await session.execute(statement)
+    promotion = result.scalars().first()
+
+    promotion.categories_title = [category.title for category in promotion.categories]
+
+    return PromotionsForAdminPage.model_validate(promotion)

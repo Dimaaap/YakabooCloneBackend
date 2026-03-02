@@ -33,3 +33,20 @@ async def get_new_post_offices(request: Request, session: AsyncSession=Depends(d
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{office_id}", response_class=HTMLResponse)
+async def get_new_post_office_by_id(request: Request, office_id: int,
+                                    session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    office = await crud.get_new_post_offices_field_data(session, office_id)
+    data = office.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "New Post Offices",
+            "model_name": "New Post Office"
+        }
+    )

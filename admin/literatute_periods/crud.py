@@ -15,3 +15,15 @@ async def get_literature_periods_for_admin_page(session: AsyncSession) -> list[L
         LiteraturePeriodForAdminList.model_validate(period)
         for period in literature_periods
     ]
+
+
+async def get_literature_period_field_data(session: AsyncSession, literature_period_id: int) -> LiteraturePeriodForAdminList:
+    statement = (
+        select(LiteraturePeriods)
+        .where(LiteraturePeriods.id == literature_period_id)
+    )
+
+    result = await session.execute(statement)
+    literature_period = result.scalars().first()
+
+    return LiteraturePeriodForAdminList.model_validate(literature_period)

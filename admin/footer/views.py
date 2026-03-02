@@ -32,3 +32,18 @@ async def get_email_subs_list(request: Request, session: AsyncSession = Depends(
         }
     )
 
+@router.get("/{footer_id}", response_class=HTMLResponse)
+async def get_footer_by_id(request: Request, footer_id: int,
+                           session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    footer = await crud.get_footer_field_data(session, footer_id)
+    data = footer.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Footers",
+            "model_name": "Footer"
+        }
+    )

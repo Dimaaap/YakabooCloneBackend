@@ -37,3 +37,20 @@ async def get_reviews(request: Request, session: AsyncSession = Depends(db_helpe
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/{review_slug}", response_class=HTMLResponse)
+async def get_review_by_id(request: Request, review_slug: str,
+                           session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    review = await crud.get_reviews_field_data(session, review_slug)
+    data = review.model_dump()
+
+    return templates.TemplateResponse(
+        "pages/detail.html",
+        context={
+            "request": request,
+            "data": data,
+            "page_title": "Reviews",
+            "model_name": "Review"
+        }
+    )
