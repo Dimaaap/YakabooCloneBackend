@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import AuthorEditForm
 from .schema import AuthorsListForAdmin
 from ..config import templates
 from . import crud
@@ -47,5 +48,48 @@ async def get_author_by_id(request: Request, author_id: int,
             "data": data,
             "page_title": "Authors",
             "model_name": "Author",
+        }
+    )
+
+
+@router.get("/{author_id}/edit", response_class=HTMLResponse)
+async def edit_author_by_id(request: Request, author_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    author = await crud.get_author_field_data(session, author_id)
+
+    identifier = f"{author.first_name} {author.last_name}"
+
+    form = AuthorEditForm(data=author.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "author_id": author_id,
+            "page_title": "Edit Author",
+            "model_name": "Author",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{author_id}/edit", response_class=HTMLResponse)
+async def edit_author_submit(request: Request, author_id: int,
+                             session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = AuthorEditForm(form_data)
+
+    print(form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "author_id": author_id,
+            "page_title": "Edit Author",
+            "model_name": "Author",
+            "identifier": "adas"
         }
     )

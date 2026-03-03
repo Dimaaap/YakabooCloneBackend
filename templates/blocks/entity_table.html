@@ -24,7 +24,8 @@
                                 <img src="/static/images/eye.svg" alt="View" width="24" height="24" />
                             </button>
                             {% if is_editable %}
-                                <button class="entities__edit-btn" type="button">
+                                <button class="entities__edit-btn" type="button"
+                                    onclick="window.location.href=`{{ request.url.path.replace('/list', '' ) }}/{{ user.id or user.slug or user.title }}/edit/`">
                                     <img src="/static/images/edit.svg" alt="Edit" width="24" height="24" />
                                 </button>
                             {% endif %}

@@ -1,26 +1,72 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Edit {{ model_name || capitalize }}
+    Edit {{ model_name | capitalize }}
 {% endblock %}
 
 {% block body %}
     <div class="entities">
         <div class="entities__header">
             <h3 class="entities__text">
-                Edit {{ model_name | capitalize }}
+                Edit {{ model_name | capitalize }} - {{ identifier }}
             </h3>
         </div>
 
         <div class="entities__body">
-            <form class="entities__edit-form">
-                {% for field in fields %}
-                    <div class="entities__edit-form-row">
-                        <label>{{ field.capitalize }}</label>
-                        <input class="entities__efit-form-input"  />
-                    </div>
+            <form class="entities__edit-form edit-form" method="post" action="{{ request.url.path }}">
+                {% for field in form %}
+                    {% if field.type == "BooleanField" %}
+                        <div class="edit-form__checkbox-group">
+                            <label for="{{ field.id }}" class="edit-form__label">
+                                {{ field.label.text }}
+                            </label>
+                            {{ field(class="edit-form__checkbox") }}
+                        </div>
+
+                    {% else %}
+                        <div class="edit-form__field-group">
+                            <label class="edit-form__label" for="{{ field.id }}">
+                                {{ field.label.text }}
+                            </label>
+
+                            {% if field.type == "TextAreaField" %}
+                                {{ field(class="edit-form__textarea") }}
+                            {% else %}
+                                {{ field(class="edit-form__input") }}
+                            {% endif %}
+
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <p class="edit-form__error">
+                                        {{ error }}
+                                    </p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 {% endfor %}
+                <button class="edit-form__btn cancel-btn" type="submit">
+                    Send
+                </button>
             </form>
+
+            <div class="edit-form__btns-row">
+                <button class="edit-form__btn cancel-btn" type="button">
+                    Cancel
+                </button>
+
+                <div class="edit-form__btns-group">
+                    <button class="edit-form__btn submit-btn" type="button">
+                        Save
+                    </button>
+                    <button class="edit-form__btn submit-btn" type="button">
+                        Save and continue editing
+                    </button>
+                    <button class="edit-form__btn submit-btn" type="button">
+                        Save and add another
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

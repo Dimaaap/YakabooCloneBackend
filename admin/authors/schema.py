@@ -22,3 +22,13 @@ class AuthorsListForAdmin(AuthorsList):
     id: int
 
 
+class AuthorsUpdate(AuthorsList):
+    first_name: str | None = None
+    last_name: str | None = None
+    slug: str | None = None
+    date_of_birth: date | None = None
+    is_active: bool | None = None
+    description: str | None = None
+    short_description: str | None = None
+
+
