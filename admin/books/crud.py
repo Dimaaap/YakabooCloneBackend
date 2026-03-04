@@ -3,7 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload, selectinload
 
-from admin.books.schema import BooksForAdminList
+from admin.authors.errors import NotFoundInDbError
+from admin.books.schema import BooksForAdminList, EditBook
 from core.models import Book
 
 
@@ -108,3 +109,28 @@ async def get_book_field_data(session: AsyncSession, book_id: int) -> BooksForAd
     book.book_images = [image.image_url for image in book.images] if book.images else None
 
     return BooksForAdminList.model_validate(book)
+
+
+async def get_book_by_id(session: AsyncSession, book_id: int) -> Book | bool:
+    book = await session.get(Book, book_id)
+
+    if not book:
+        return False
+    return book
+
+
+async def update_book(session: AsyncSession, book_id: int,
+                      data: EditBook) -> bool:
+    book = await get_book_by_id(session, book_id)
+
+    if not book:
+        raise NotFoundInDbError("Book not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(book, field, value)
+
+    await session.commit()
+
+    return True

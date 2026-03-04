@@ -293,7 +293,6 @@ td img {
     flex-direction: column;
     gap: 10px;
     background-color: #E8E8E8;
-    padding: 1%;
     border-radius: 5px;
 }
 
@@ -303,6 +302,7 @@ td img {
     align-items: center;
     gap: 10px;
     width: 100%;
+    padding: 1%;
 }
 
 .edit-form__label {

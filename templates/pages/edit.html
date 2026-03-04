@@ -45,28 +45,24 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <button class="edit-form__btn cancel-btn" type="submit">
-                    Send
-                </button>
-            </form>
+                <div class="edit-form__btns-row">
+                    <button class="edit-form__btn cancel-btn" type="button">
+                        Cancel
+                    </button>
 
-            <div class="edit-form__btns-row">
-                <button class="edit-form__btn cancel-btn" type="button">
-                    Cancel
-                </button>
-
-                <div class="edit-form__btns-group">
-                    <button class="edit-form__btn submit-btn" type="button">
-                        Save
-                    </button>
-                    <button class="edit-form__btn submit-btn" type="button">
-                        Save and continue editing
-                    </button>
-                    <button class="edit-form__btn submit-btn" type="button">
-                        Save and add another
-                    </button>
+                    <div class="edit-form__btns-group">
+                        <button class="edit-form__btn submit-btn" type="submit">
+                            Save
+                        </button>
+                        <button class="edit-form__btn submit-btn" type="button">
+                            Save and continue editing
+                        </button>
+                        <button class="edit-form__btn submit-btn" type="button">
+                            Save and add another
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 {% endblock %}

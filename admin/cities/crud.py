@@ -3,7 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from admin.cities.schema import CitiesListForAdmin
+from admin.authors.errors import NotFoundInDbError
+from admin.cities.schema import CitiesListForAdmin, EditCity
 from core.models import City
 
 
@@ -38,3 +39,27 @@ async def get_city_field_data(session: AsyncSession, city_id: int) -> CitiesList
     city.country_title = city.country.title
 
     return CitiesListForAdmin.model_validate(city)
+
+
+async def get_city_by_id(session: AsyncSession, city_id: int) -> City | bool:
+    city = await session.get(City, city_id)
+
+    if not city:
+        return False
+    return city
+
+
+async def update_city(session: AsyncSession, city_id: int, data: EditCity) -> bool:
+    city = await get_city_by_id(session, city_id)
+
+    if not city:
+        raise NotFoundInDbError("City not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(city, field, value)
+
+    await session.commit()
+
+    return True

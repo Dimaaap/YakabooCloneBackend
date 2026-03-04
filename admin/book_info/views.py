@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import BookInfoEditForm
 from .schema import BookInfoListForAdmin
 from ..config import templates
 from . import crud
@@ -47,5 +48,46 @@ async def get_book_info_by_id(request: Request, book_info_id: int,
             "data": data,
             "page_title": "Book Info Details",
             "model_name": "Book Info"
+        }
+    )
+
+
+@router.get("/{book_info_id}/edit", response_class=HTMLResponse)
+async def edit_book_info_by_id(request: Request, book_info_id: int,
+                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    book_info = await crud.get_book_info_field_data(session, book_info_id)
+
+    identifier = book_info.book_title
+
+    form = BookInfoEditForm(data=book_info.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Info",
+            "model_name": "Book Info",
+            "identifier": identifier,
+        }
+    )
+
+
+@router.post("/{book_info_id}/edit", response_class=HTMLResponse)
+async def edit_book_info_submit(request: Request, book_info_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+
+    form_data = await request.form()
+    form = BookInfoEditForm(data=form_data)
+    print(form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Info",
+            "model_name": "Book Info",
+            "identifier": book_info_id
         }
     )

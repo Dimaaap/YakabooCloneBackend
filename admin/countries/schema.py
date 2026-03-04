@@ -10,3 +10,8 @@ class CountriesListForAdmin(CountriesList):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditCountry(CountriesList):
+    title: str | None = None
+    is_visible: bool | None = None

@@ -36,3 +36,10 @@ class BooksForAdminList(Books):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditBook(Books):
+    title: str | None = None
+    slug: str | None = None
+    price: PositiveInt | None = None
+    stars: int | None = None

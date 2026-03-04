@@ -3,7 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import selectinload, joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.users.schema import UserListForAdmin
+from admin.authors.errors import NotFoundInDbError
+from admin.users.schema import UserListForAdmin, UserUpdate
 from core.models import User, UserSeenBook
 
 
@@ -50,3 +51,27 @@ async def get_user_field_data(session: AsyncSession, user_id: int) -> UserListFo
     user.seen_books_title = [book.book.title for book in user.seen_books] if user.seen_books else None
 
     return UserListForAdmin.model_validate(user)
+
+
+async def get_user_by_id(session: AsyncSession, user_id: int) -> User | bool:
+    user = await session.get(User, user_id)
+
+    if not user:
+        return False
+    return user
+
+
+async def update_user(session: AsyncSession, user_id: int,
+                      data: UserUpdate) -> bool:
+    user = await get_user_by_id(session, user_id)
+
+    if not user:
+        raise NotFoundInDbError("User not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(user, field, value)
+
+    await session.commit()
+    return True

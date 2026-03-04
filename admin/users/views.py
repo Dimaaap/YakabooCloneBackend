@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import UserEditForm
 from .schema import UserListForAdmin
 from ..config import templates
 from . import crud
@@ -50,5 +51,45 @@ async def get_user_by_id(request: Request, user_id: int,
             "data": data,
             "page_title": "Users",
             "model_name": "User",
+        }
+    )
+
+
+@router.get("/{user_id}/edit", response_class=HTMLResponse)
+async def edit_user_by_id(request: Request, user_id: int,
+                          session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    user = await crud.get_user_field_data(session, user_id)
+
+    identifier = f"{user.first_name} {user.last_name}"
+
+    form = UserEditForm(data=user.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit User",
+            "model_name": "User",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{user_id}/edit", response_class=HTMLResponse)
+async def edit_user_submit(request: Request, user_id: int,
+                           session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = UserEditForm(data=form_data)
+
+    print(form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit User",
+            "identifier": "dasa"
         }
     )

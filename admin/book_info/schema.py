@@ -52,3 +52,16 @@ class BookInfoListForAdmin(BookInfo):
 
     id: int
 
+
+class EditBookInfo(BookInfo):
+    in_stock: bool | None = None
+    visible: bool | None = None
+    code: int | None = None
+    rate: float | None = None
+    ISBN: str | None = None
+    cover_type: CoverTypes | None = None
+    bonuses: int | None = None
+    weight: int | None = None
+    description: str | None = None
+    book_title: None
+

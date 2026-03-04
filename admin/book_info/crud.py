@@ -3,7 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
-from admin.book_info.schema import BookInfoListForAdmin
+from admin.authors.errors import NotFoundInDbError
+from admin.book_info.schema import BookInfoListForAdmin, EditBookInfo
 from core.models import BookInfo
 
 
@@ -39,3 +40,26 @@ async def get_book_info_field_data(session: AsyncSession, book_info_id: int) -> 
     book_info.book_title = book_info.book.title
 
     return BookInfoListForAdmin.model_validate(book_info)
+
+
+async def get_book_info_by_id(session: AsyncSession, book_info_id: int) -> BookInfo | bool:
+    book_info = await session.get(BookInfo, book_info_id)
+
+    if not book_info:
+        return False
+    return book_info
+
+
+async def update_book_info(session: AsyncSession, book_info_id: int, data: EditBookInfo) -> bool:
+    book_info = await get_book_info_by_id(session, book_info_id)
+
+    if not book_info:
+        raise NotFoundInDbError("Book info not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(book_info, field, value)
+
+    await session.commit()
+    return True

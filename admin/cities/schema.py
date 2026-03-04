@@ -17,3 +17,10 @@ class CitiesListForAdmin(CitiesList):
 class CitiesListAdminWithSlug(CitiesListForAdmin):
 
     country_slug: int
+
+
+class EditCity(BaseModel):
+    title: str | None = None
+    is_visible: bool | None = None
+    region: str | None = None
+    country_slug: str | None = None

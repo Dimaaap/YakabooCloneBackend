@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import AuthorFactsForm
 from .schema import AuthorFactsForAdminPage
 from ..config import templates
 from . import crud
@@ -48,5 +49,43 @@ async def get_author_fact_by_id(request: Request, fact_id: int,
             "data": data,
             "page_title": "Author Facts",
             "model_name": "Author Fact"
+        }
+    )
+
+
+@router.get("/{fact_id}/edit", response_class=HTMLResponse)
+async def edit_author_fact_by_id(request: Request, fact_id: int,
+                                 session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    fact = await crud.get_author_fact_field_data(session, fact_id)
+
+    identifier = f"{fact.author_name}"
+    form = AuthorFactsForm(data=fact.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Author Fact Text",
+            "model_name": "Author Fact",
+            "identifier": identifier,
+        }
+    )
+
+
+@router.post("/{fact_id}/edit", response_class=HTMLResponse)
+async def edit_author_fact_submit(request: Request, fact_id: int,
+                                  session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = AuthorFactsForm(data=form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Author",
+            "model_name": "Author",
+            "identifier": "adas"
         }
     )

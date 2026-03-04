@@ -66,7 +66,6 @@ async def edit_author_by_id(request: Request, author_id: int,
         {
             "request": request,
             "form": form,
-            "author_id": author_id,
             "page_title": "Edit Author",
             "model_name": "Author",
             "identifier": identifier

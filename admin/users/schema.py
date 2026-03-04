@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel, EmailStr, ConfigDict
 from datetime import date, datetime
 
@@ -30,3 +29,15 @@ class UserListForAdmin(UsersList):
     model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
     id: int
+
+
+class UserUpdate(UsersList):
+
+    first_name: str | None = None
+    last_name: str | None = None
+    phone_number: str | None = None
+    email: EmailStr | None = None
+    level: UserStatusEnum | None = None
+    date_joined: datetime | None = None
+
+
