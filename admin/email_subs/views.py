@@ -30,7 +30,7 @@ async def get_email_subs_list(request: Request, session: AsyncSession = Depends(
             "page_title": "All Email Subs",
             "model_name": "Email Sub",
             "fields": fields,
-            "is_editable": True,
+            "is_editable": False,
             "is_deletable": True,
             "can_create": True,
         }

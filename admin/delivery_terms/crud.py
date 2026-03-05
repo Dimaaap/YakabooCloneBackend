@@ -3,7 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.delivery_terms.schema import DeliveryTermsForAdminList
+from admin.authors.errors import NotFoundInDbError
+from admin.delivery_terms.schema import DeliveryTermsForAdminList, EditDeliveryTerm
 from core.models import DeliveryTerms
 
 
@@ -44,3 +45,27 @@ async def get_delivery_term_field_data(session: AsyncSession, term_id: int) -> D
     term.country_title = term.country.title if term.country else None
     term.city_title = term.city.title if term.city else None
     return DeliveryTermsForAdminList.model_validate(term)
+
+
+async def get_delivery_term_by_id(session: AsyncSession, term_id: int) -> DeliveryTerms | bool:
+    delivery_term = await session.get(DeliveryTerms, term_id)
+
+    if not delivery_term:
+        return False
+
+    return delivery_term
+
+
+async def update_delivery_term(session: AsyncSession, term_id: int, data: EditDeliveryTerm) -> bool:
+    delivery_term = await get_delivery_term_by_id(session, term_id)
+
+    if not delivery_term:
+        raise NotFoundInDbError("Delivery term not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(delivery_term, field, value)
+
+    await session.commit()
+    return True

@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import BookCategoryEditForm
 from .schema import CategoryForAdminList
 from ..config import templates
 from . import crud
@@ -47,5 +48,45 @@ async def get_category_by_id(request: Request, category_id: int,
             "data": data,
             "page_title": "Book Categories",
             "model_name": "Book Category",
+        }
+    )
+
+
+@router.get("/{category_id}/edit", response_class=HTMLResponse)
+async def edit_book_category_by_id(request: Request, category_id: int,
+                                   session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    category = await crud.get_category_field_data(session, category_id)
+
+    identifier = category.title
+    form = BookCategoryEditForm(data=category.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Category",
+            "model_name": "Book Category",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{category_id}/edit", response_class=HTMLResponse)
+async def edit_book_category_submit(request: Request, category_id: int,
+                                    session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookCategoryEditForm(data=form_data)
+
+    print(form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Category",
+            "model_name": "Book Category",
+            "identifier": category_id
         }
     )

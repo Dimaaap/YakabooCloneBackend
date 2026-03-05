@@ -12,3 +12,8 @@ class CategoryForAdminList(Category):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditCategory(BaseModel):
+    title: str | None = None
+    slug: str | None = None

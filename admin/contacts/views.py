@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import ContactEditForm
 from .schema import ContactsForAdminList
 from ..config import templates
 from . import crud
@@ -48,3 +49,24 @@ async def get_contact_by_id(request: Request, contact_id: int,
             "model_name": "Contact"
         }
     )
+
+
+@router.get("/{contact_id}/edit", response_class=HTMLResponse)
+async def edit_contact_by_id(request: Request, contact_id: int,
+                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    contact = await crud.get_contact_field_data(session, contact_id)
+    identifier = contact.social_title
+
+    form = ContactEditForm(data=contact.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Contact",
+            "model_name": "Contact",
+            "identifier": identifier
+        }
+    )
+

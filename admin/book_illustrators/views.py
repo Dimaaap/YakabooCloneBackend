@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import BookIllustratorEditForm
 from .schema import BookIllustratorsListForAdmin
 from ..config import templates
 from . import crud
@@ -46,5 +47,45 @@ async def get_book_illustrator_by_id(request: Request, illustrator_id: int,
             "data": data,
             "page_title": "Book Illustrators",
             "model_name": "Book Illustrator",
+        }
+    )
+
+
+@router.get("/{illustrator_id}/edit", response_class=HTMLResponse)
+async def edit_book_illustrator_by_id(request: Request, illustrator_id: int,
+                                      session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    illustrator = await crud.get_book_illustrator_field_data(session, illustrator_id)
+
+    identifier = f"{illustrator.first_name} {illustrator.last_name}"
+    form = BookIllustratorEditForm(data=illustrator.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Illustrator",
+            "model_name": "Book Illustrator",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{illustrator_id}/edit", response_class=HTMLResponse)
+async def edit_book_illustrator_submit(request: Request, illustrator_id: int,
+                                       session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookIllustratorEditForm(data=form_data)
+
+    print(form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Illustrator",
+            "model_name": "Book Illustrator",
+            "identifier": illustrator_id
         }
     )

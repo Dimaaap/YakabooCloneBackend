@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import DeliveryTermEditForm
 from .schema import DeliveryTermsForAdminList
 from ..config import templates
 from . import crud
@@ -47,5 +48,25 @@ async def get_delivery_term_by_id(request: Request, term_id: int,
             "data": data,
             "page_title": "Delivery Terms",
             "model_name": "Delivery Term"
+        }
+    )
+
+
+@router.get("/{delivery_term_id}/edit", response_class=HTMLResponse)
+async def edit_delivery_term_by_id(request: Request, delivery_term_id: int,
+                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    delivery_term = await crud.get_delivery_term_field_data(session, delivery_term_id)
+    identifier = delivery_term.city_title or delivery_term.country_title
+
+    form = DeliveryTermEditForm(data=delivery_term.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Delivery Term",
+            "model_name": "Delivery Term",
+            "identifier": identifier
         }
     )

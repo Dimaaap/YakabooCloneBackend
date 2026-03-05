@@ -2,7 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.banners.schema import BannersListForAdmin
+from admin.authors.errors import NotFoundInDbError
+from admin.banners.schema import BannersListForAdmin, EditBanner
 from core.models import Banner
 
 
@@ -31,3 +32,26 @@ async def get_banner_field_data(session: AsyncSession, banner_id: int) -> Banner
     banner = result.scalars().first()
 
     return BannersListForAdmin.model_validate(banner)
+
+
+async def get_banner_by_id(session: AsyncSession, banner_id: int) -> Banner | bool:
+    banner = await session.get(Banner, banner_id)
+
+    if not banner:
+        return False
+    return banner
+
+
+async def update_author(session: AsyncSession, banner_id: int, data: EditBanner) -> bool:
+    banner =  await get_banner_by_id(session, banner_id)
+
+    if not banner:
+        raise NotFoundInDbError("Banner not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(banner, field, value)
+
+    await session.commit()
+    return True

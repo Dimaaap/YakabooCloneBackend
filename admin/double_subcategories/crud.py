@@ -3,7 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.double_subcategories.schema import DoubleSubcategoriesForAdminList
+from admin.authors.errors import NotFoundInDbError
+from admin.double_subcategories.schema import DoubleSubcategoriesForAdminList, EditDoubleSubCategory
 from core.models import DoubleSubcategory
 
 
@@ -42,3 +43,28 @@ async def get_double_subcategory_field_data(session: AsyncSession, double_subcat
     double_subcategory.images = [src["image_src"] for src in double_subcategory.images_src]
 
     return DoubleSubcategoriesForAdminList.model_validate(double_subcategory)
+
+
+async def get_double_subcategory_by_id(session: AsyncSession, double_subcategory_id: int) -> DoubleSubcategory | bool:
+    double_subcategory = await session.get(DoubleSubcategory, double_subcategory_id)
+
+    if not double_subcategory:
+        return False
+
+    return double_subcategory
+
+
+async def update_double_subcategory(session: AsyncSession, double_subcategory_id: int,
+                                    data: EditDoubleSubCategory) -> bool:
+    double_subcategory = await get_double_subcategory_by_id(session, double_subcategory_id)
+
+    if not double_subcategory:
+        raise NotFoundInDbError("Delivery term not found")
+
+    update_data = data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(double_subcategory, field, value)
+
+    await session.commit()
+    return True

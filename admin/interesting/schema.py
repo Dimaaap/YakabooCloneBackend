@@ -12,3 +12,10 @@ class InterestingForAdminList(Interesting):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditInteresting(Interesting):
+    title: str | None = None
+    slug: str | None = None
+    visible: bool | None = None
+    link: str | None = None

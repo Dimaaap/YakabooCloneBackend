@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import DoubleSubCategoryEditForm
 from .schema import DoubleSubcategoriesForAdminList
 from ..config import templates
 from . import crud
@@ -48,5 +49,25 @@ async def get_double_subcategory_by_id(request: Request, double_subcategory_id: 
             "data": data,
             "page_title": "Book Double Subcategories",
             "model_name": "Double Subcategory",
+        }
+    )
+
+
+@router.get("/{double_subcategory_id}/edit", response_class=HTMLResponse)
+async def edit_double_subcategory_by_id(request: Request, double_subcategory_id: int,
+                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    double_subcategory = await crud.get_double_subcategory_field_data(session, double_subcategory_id)
+    identifier = double_subcategory.title
+
+    form = DoubleSubCategoryEditForm(data=double_subcategory.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Double Subcategory",
+            "model_name": "Double Subcategory",
+            "identifier": identifier
         }
     )

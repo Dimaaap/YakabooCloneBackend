@@ -2,7 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.footer.schema import FooterForAdminList
+from admin.authors.errors import NotFoundInDbError
+from admin.footer.schema import FooterForAdminList, EditFooter
 from core.models import Footer
 
 
@@ -31,3 +32,28 @@ async def get_footer_field_data(session: AsyncSession, footer_id: int) -> Footer
     footer = result.scalars().first()
 
     return FooterForAdminList.model_validate(footer)
+
+
+async def get_footer_by_id(session: AsyncSession, footer_id: int) -> Footer | bool:
+    footer = await session.get(Footer, footer_id)
+
+    if not footer:
+        return False
+
+    return footer
+
+
+async def update_footer(session: AsyncSession, footer_id: int, data: EditFooter) -> bool:
+    footer = await get_footer_by_id(session, footer_id)
+
+    if not footer:
+        raise NotFoundInDbError("Footer not found")
+
+    update_data = data.model_dump(exclude_uset=True)
+
+    for field, value in update_data.items():
+        setattr(footer, field, value)
+
+    await session.commit()
+
+    return True

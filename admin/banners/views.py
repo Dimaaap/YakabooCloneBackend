@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import BannerEditForm
 from .schema import BannersListForAdmin
 from ..config import templates
 from . import crud
@@ -46,5 +47,44 @@ async def get_banner_by_id(request: Request, banner_id: int,
             "data": data,
             "page_title": "Banners",
             "model_name": "Banner"
+        }
+    )
+
+
+@router.get("/{banner_id}/edit", response_class=HTMLResponse)
+async def edit_banner_by_id(request: Request, banner_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    banner = await crud.get_banner_field_data(session, banner_id)
+
+    identifier = banner.link
+
+    form = BannerEditForm(data=banner.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Banner",
+            "model_name": "Banner",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{banner_id}/edit", response_class=HTMLResponse)
+async def edit_banner_submit(request: Request, banner_id: int,
+                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BannerEditForm(form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Banner",
+            "model_name": "Banner",
+            "identifier": banner_id
         }
     )

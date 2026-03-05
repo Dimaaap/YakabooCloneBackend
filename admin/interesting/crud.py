@@ -2,7 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.interesting.schema import InterestingForAdminList
+from admin.authors.errors import NotFoundInDbError
+from admin.interesting.schema import InterestingForAdminList, EditInteresting
 from core.models import Interesting
 
 
@@ -27,3 +28,28 @@ async def get_interesting_field_data(session: AsyncSession, interesting_id: int)
     interesting = result.scalars().first()
 
     return InterestingForAdminList.model_validate(interesting)
+
+
+async def get_interesting_by_id(session: AsyncSession, interesting_id: int) -> Interesting | bool:
+    interesting = await session.get(Interesting, interesting_id)
+
+    if not interesting:
+        return False
+
+    return interesting
+
+
+async def update_interesting(session: AsyncSession, interesting_id: int, data: EditInteresting) -> bool:
+    interesting = await get_interesting_by_id(session, interesting_id)
+
+    if not interesting:
+        raise NotFoundInDbError("Interesting not found")
+
+    update_data = data.model_dump(exclude_uset=True)
+
+    for field, value in update_data.items():
+        setattr(interesting, field, value)
+
+    await session.commit()
+
+    return True

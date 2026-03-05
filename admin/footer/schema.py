@@ -14,3 +14,9 @@ class FooterForAdminList(Footers):
     model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
     id: int
+
+
+class EditFooter(BaseModel):
+    title: str | None = None
+    link: str | None = None
+    active: bool | None = None

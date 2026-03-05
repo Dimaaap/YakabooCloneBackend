@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import InterestingEditForm
 from .schema import InterestingForAdminList
 from ..config import templates
 from . import crud
@@ -46,5 +47,27 @@ async def get_interesting(request: Request, interesting_id: int,
             "data": data,
             "page_title": "Interesting",
             "model_name": "Interesting"
+        }
+    )
+
+
+
+@router.get("/{interesting_id}/edit", response_class=HTMLResponse)
+async def edit_interesting_by_id(request: Request, interesting_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    interesting = await crud.get_interesting_field_data(session, interesting_id)
+
+    identifier = interesting.title
+
+    form = InterestingEditForm(data=interesting.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Interesting",
+            "model_name": "Interesting",
+            "identifier": identifier
         }
     )

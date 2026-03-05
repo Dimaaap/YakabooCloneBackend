@@ -18,3 +18,7 @@ class DeliveryTermsForAdminList(DeliveryTerms):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditDeliveryTerm(DeliveryTerms):
+    ...

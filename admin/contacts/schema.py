@@ -12,3 +12,9 @@ class ContactsForAdminList(Contacts):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditContacts(Contacts):
+    social_title: str | None = None
+    link: str | None = None
+    is_active: bool | None = None

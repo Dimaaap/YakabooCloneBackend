@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import BookTranslatorEditForm
 from .schema import BookTranslatorsListForAdminPage
 from ..config import templates
 from . import crud
@@ -46,5 +47,45 @@ async def get_book_translator_by_id(request: Request, translator_id: int,
             "data": data,
             "page_title": "Book Translators",
             "model_name": "Book Translator",
+        }
+    )
+
+
+@router.get("/{translator_id}/edit", response_class=HTMLResponse)
+async def edit_book_translator_by_id(request: Request, translator_id: int,
+                                     session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    translator = await crud.get_book_translator_field_data(session, translator_id)
+
+    identifier = f"{translator.first_name} {translator.last_name}"
+    form = BookTranslatorEditForm(data=translator.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Translator",
+            "model_name": "Book Translator",
+            "identifier": identifier,
+        }
+    )
+
+
+@router.post("/{translator_id}/edit}", response_class=HTMLResponse)
+async def edit_book_translator_submit(request: Request, translator_id: int,
+                                      session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookTranslatorEditForm(data=form_data)
+
+    print(form_data)
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Book Translator",
+            "model_name": "Book Translator",
+            "identifier": translator_id
         }
     )

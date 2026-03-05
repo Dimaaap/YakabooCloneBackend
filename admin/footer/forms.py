@@ -2,7 +2,8 @@ from wtforms import Form, StringField, BooleanField
 from wtforms.validators import DataRequired
 
 
-class CityEditForm(Form):
+class FooterEditForm(Form):
     title = StringField("Title: ", validators=[DataRequired()])
-    is_visible = BooleanField("Is visible: ")
-    region = StringField("Region: ")
+    link = StringField("Link: ", validators=[DataRequired()])
+    active = BooleanField("Is active: ")
+
