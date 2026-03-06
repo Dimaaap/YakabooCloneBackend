@@ -78,7 +78,6 @@ class BookInfo(Base):
     in_stock: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     visible: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
     code: Mapped[int] = mapped_column(Integer, unique=True)
-    rate: Mapped[float] = mapped_column(Float, default=0, server_default="0")
     illustrations: Mapped[str] = mapped_column(String(255), default="", server_default="")
     ISBN: Mapped[str] = mapped_column(String(255), unique=True)
     cover_type: Mapped[CoverTypes] = mapped_column(Enum(CoverTypes), default=CoverTypes.SOLID,

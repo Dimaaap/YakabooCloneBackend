@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import String, Integer, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import TSVECTOR
+from sqlalchemy.sql import func
 
 from core.models.book_translators import BookTranslator
 from core.models.notebook_subcategories import NotebookSubCategory
@@ -42,14 +43,13 @@ class Book(Base):
     is_top: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     is_promo: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     is_in_chart: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
-    stars: Mapped[bool] = mapped_column(Integer, default=0, server_default="0")
     promo_price: Mapped[int] = mapped_column(Integer, nullable=True)
     search_vector: Mapped[str] = mapped_column(
         TSVECTOR, nullable=True, default=None
     )
 
 
-    created_date: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))
+    created_date: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     is_notebook: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
 

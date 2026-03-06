@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, conint
 
 from ..double_subcategories.schema import DoubleSubcategorySchema
 
@@ -30,3 +30,4 @@ class BookSubcategorySchema(BookSubcategoryBase):
 
     double_subcategories: list[DoubleSubcategorySchema] = []
     id: int
+

@@ -22,7 +22,6 @@ class Author(Base):
     date_of_birth: Mapped[date] = mapped_column(Date, nullable=True, default=None)
     description: Mapped[str] = mapped_column(Text, default="", server_default="")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
-    short_description: Mapped[str] = mapped_column(Text, default="", server_default="")
 
     search_vector: Mapped[str] = mapped_column(TSVECTOR, nullable=True, default=None)
 

@@ -9,7 +9,6 @@ class BookInfoBase(BaseModel):
     bonuses: int | None = None
     visible: bool | None = None
     code: int
-    rate: float
     illustrations: str | None = None
     ISBN: str
     cover_type: CoverTypes | None = None
@@ -55,7 +54,6 @@ class BookInfoUpdate(BookInfoCreate):
 
 class BookInfoUpdatePartial(BookInfoUpdate):
     code: int | None = None
-    rate: float | None = None
     ISBN: str | None = None
     cover_type: CoverTypes | None = None
     format: BookFormats | None = None

@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, ConfigDict, Field, conint
 from fastapi import Query
@@ -16,7 +17,6 @@ from entities.wishlists.schemas import WishlistSchema
 from ..notebook_categories.schema import NotebookCategoryShortSchema
 from entities.book_translators.schemas import BookTranslatorSchema
 from entities.literature_periods.schemas import LiteraturePeriodSchema
-
 
 
 class BookImageSchema(BaseModel):
@@ -69,7 +69,6 @@ class BookUpdatePartial(BookUpdate):
     is_promo: bool | None = None
     is_in_chart: bool | None = None
     is_notebook: bool | None = None
-    stars: int | None
     publishing_id: int | None
 
 
@@ -89,6 +88,7 @@ class BookSchemaWithoutWishlists(BookBase):
     notebook_subcategory: NotebookSubcategoryShortSchema | None = None
     seria: BookSeriaSchema | None = None
     edition_group: BookEditionGroupSchema | None = None
+
 
 class BookSchema(BookSchemaWithoutWishlists):
     wishlists: list[WishlistSchema] = []

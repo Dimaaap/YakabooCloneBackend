@@ -11,7 +11,7 @@ class UserBase(BaseModel):
     last_name: str
     phone_number: Annotated[str, StringConstraints(min_length=8)]
     email: EmailStr
-    bonuses: int
+    bonuses: int | None = None
     level: UserStatusEnum | None = None
 
 
