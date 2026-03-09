@@ -14,3 +14,8 @@ class PromoCodeUsagesForAdmin(PromoCodeUsages):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditPromoCodeUsage(PromoCodeUsages):
+    user_email: str | None = None
+    promo_code_title: str | None = None

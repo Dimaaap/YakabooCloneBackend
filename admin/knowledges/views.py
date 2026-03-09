@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import KnowledgeEditForm
 from .schema import KnowledgeForAdminPageList
 from ..config import templates
 from . import crud
@@ -47,5 +48,26 @@ async def get_knowledge_by_id(request: Request, knowledge_slug: str,
             "data": data,
             "page_title": "Knowledge",
             "model_name": "Knowledge"
+        }
+    )
+
+
+@router.get("/{knowledge_slug}/edit", response_class=HTMLResponse)
+async def edit_interesting_by_id(request: Request, knowledge_slug: str,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    knowledge = await crud.get_knowledge_field_data(session, knowledge_slug)
+
+    identifier = knowledge.title
+
+    form = KnowledgeEditForm(data=knowledge.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Knowledge",
+            "model_name": "Knowledge",
+            "identifier": identifier
         }
     )

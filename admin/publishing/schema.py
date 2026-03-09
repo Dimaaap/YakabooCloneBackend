@@ -14,3 +14,8 @@ class PublishingListForAdmin(Publishing):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditPublishing(Publishing):
+    title: str | None = None
+    slug: str | None = None

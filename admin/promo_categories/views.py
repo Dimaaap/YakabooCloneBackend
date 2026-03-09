@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import PromoCategoryEditForm
 from .schema import PromoCategoriesForAdmin
 from ..config import templates
 from . import crud
@@ -46,5 +47,26 @@ async def get_promo_category_by_id(request: Request, category_slug: str,
             "data": data,
             "page_title": "Promotion Categories",
             "model_name": "Promotion Category"
+        }
+    )
+
+
+@router.get("/{category_slug}/edit", response_class=HTMLResponse)
+async def edit_promo_category_by_id(request: Request, category_slug: str,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    promo_category = await crud.get_promo_categories_field_data(session, category_slug)
+
+    identifier = promo_category.title
+
+    form = PromoCategoryEditForm(data=promo_category.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Promo Category",
+            "model_name": "Promo Category",
+            "identifier": identifier
         }
     )

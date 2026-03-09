@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import NewPostOfficeEditForm
 from .schema import NewPostOfficesForAdmin
 from ..config import templates
 from . import crud
@@ -48,5 +49,26 @@ async def get_new_post_office_by_id(request: Request, office_id: int,
             "data": data,
             "page_title": "New Post Offices",
             "model_name": "New Post Office"
+        }
+    )
+
+
+@router.get("/{office_id}/edit", response_class=HTMLResponse)
+async def edit_new_post_office_by_id(request: Request, office_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    office = await crud.get_new_post_offices_field_data(session, office_id)
+
+    identifier = office.number
+
+    form = NewPostOfficeEditForm(data=office.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit New Post Office",
+            "model_name": "New Post Office",
+            "identifier": identifier
         }
     )

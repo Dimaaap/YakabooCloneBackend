@@ -19,3 +19,14 @@ class Reviews(BaseModel):
 
 class ReviewsForAdminList(Reviews):
     model_config = ConfigDict(from_attributes=True)
+
+
+class EditReview(Reviews):
+    rate: int | None = None
+    comment: str | None = None
+    user_name: str | None = None
+    likes_count: int | None = None
+    disliked_count: int | None = None
+
+    user_email: str | None = None
+    book_title: str | None = None

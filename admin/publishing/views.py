@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import PublishingEditForm
 from .schema import PublishingListForAdmin
 from ..config import templates
 from . import crud
@@ -45,5 +46,25 @@ async def get_publishing_by_id(request: Request, publishing_id: int,
             "data": data,
             "page_title": "Book Publishing List",
             "model_name": "Publishing"
+        }
+    )
+
+
+@router.get("/{publishing_id}/edit", response_class=HTMLResponse)
+async def edit_publishing_by_id(request: Request, publishing_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    publishing = await crud.get_publishing_field_data(session, publishing_id)
+    identifier = publishing.title
+
+    form = PublishingEditForm(data=publishing.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Publishing",
+            "model_name": "Publishing",
+            "identifier": identifier
         }
     )

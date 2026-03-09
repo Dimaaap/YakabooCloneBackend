@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import NewPostPostomatEditForm
 from .schema import NewPostPostomatsForAdmin
 from ..config import templates
 from . import crud
@@ -48,5 +49,26 @@ async def get_new_post_postomat_by_id(request: Request, postomat_id: int,
             "data": data,
             "page_title": "New Post Postomats",
             "model_name": "New Post Postomat"
+        }
+    )
+
+
+@router.get("/{postomat_id}/edit", response_class=HTMLResponse)
+async def edit_postomat_by_id(request: Request, postomat_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    postomat = await crud.get_new_post_postomat_field_data(session, postomat_id)
+
+    identifier = postomat.number
+
+    form = NewPostPostomatEditForm(data=postomat.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit New Post Postomat",
+            "model_name": "New Post Postomat",
+            "identifier": identifier
         }
     )

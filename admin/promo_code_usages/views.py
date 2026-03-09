@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import PromoCodeUsageEditForm
 from .schema import PromoCodeUsagesForAdmin
 from ..config import templates
 from . import crud
@@ -52,5 +53,26 @@ async def get_promo_code_usage_by_id(request: Request, usage_id: int,
             "data": data,
             "page_title": "Promo Code Usages",
             "model_name": "Promo Code Usage"
+        }
+    )
+
+
+@router.get("/{usage_id}/edit", response_class=HTMLResponse)
+async def edit_promo_code_usage_by_id(request: Request, usage_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    usage = await crud.get_promo_code_usages_field_data(session, usage_id)
+
+    identifier = f"{usage.promo_code_title} - {usage.user_email}"
+
+    form = PromoCodeUsageEditForm(data=usage.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Promo Code Usage",
+            "model_name": "Promo Code Usage",
+            "identifier": identifier
         }
     )

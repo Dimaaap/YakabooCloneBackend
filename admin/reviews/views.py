@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import ReviewEditForm
 from .schema import ReviewsForAdminList
 from ..config import templates
 from . import crud
@@ -52,5 +53,25 @@ async def get_review_by_id(request: Request, review_slug: str,
             "data": data,
             "page_title": "Reviews",
             "model_name": "Review"
+        }
+    )
+
+
+@router.get("/{review_slug}/edit", response_class=HTMLResponse)
+async def edit_review_by_slug(request: Request, review_slug: str,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    review = await crud.get_reviews_field_data(session, review_slug)
+    identifier = review.title or f"{review.book_title} ({review.user_email})"
+
+    form = ReviewEditForm(data=review.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Review",
+            "model_name": "Review",
+            "identifier": identifier
         }
     )

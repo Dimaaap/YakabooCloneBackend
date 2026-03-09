@@ -15,3 +15,10 @@ class SidebarsForAdminPage(Sidebars):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditSidebar(Sidebars):
+    title: str | None = None
+    slug: str | None = None
+    order_number: int | None = None
+    link: str | None = None

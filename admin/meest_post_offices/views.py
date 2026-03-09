@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import MeestPostOfficeEditForm
 from .schema import MeestPostOfficesForAdmin
 from ..config import templates
 from . import crud
@@ -48,5 +49,26 @@ async def get_meest_post_office_by_id(request: Request, office_id: int,
             "data": data,
             "page_title": "Meest Post Offices",
             "model_name": "Meest Post Office"
+        }
+    )
+
+
+@router.get("/{office_id}/edit", response_class=HTMLResponse)
+async def edit_interesting_by_id(request: Request, office_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    office = await crud.get_meest_post_offices_field_data(session, office_id)
+
+    identifier = office.office_number
+
+    form = MeestPostOfficeEditForm(data=office.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Meest Post Office",
+            "model_name": "Meest Post Office",
+            "identifier": identifier
         }
     )

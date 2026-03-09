@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import PromotionsEditForm
 from .schema import PromotionsForAdminPage
 from ..config import templates
 from . import crud
@@ -52,5 +53,31 @@ async def get_promotion_by_id(request: Request, promotion_id: int,
             "data": data,
             "page_title": "Promotions",
             "model_name": "Promotion"
+        }
+    )
+
+
+@router.get("/{promo_id}/edit", response_class=HTMLResponse)
+async def edit_promotion_by_id(request: Request, promo_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    promo = await crud.get_promotion_field_data(session, promo_id)
+    promo_categories = await crud.get_all_categories(session)
+
+    identifier = promo.title
+
+    form = PromotionsEditForm(data=promo.model_dump())
+
+    form.categories_title.choices = [
+        (category.title, category.title) for category in promo_categories
+    ]
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Promotion",
+            "model_name": "Promotion",
+            "identifier": identifier
         }
     )

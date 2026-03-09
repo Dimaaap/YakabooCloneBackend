@@ -19,3 +19,9 @@ class PromoCodesAdminList(PromoCodes):
     model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
     id: int
+
+
+class EditPromoCode(PromoCodes):
+    code: str | None = None
+    max_uses: int | None = None
+    discount_type: DiscountTypes | None = None

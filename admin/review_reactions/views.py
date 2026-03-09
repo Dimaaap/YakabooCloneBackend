@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import ReviewReactionsEditForm
 from .schema import ReviewReactionsForAdminList
 from ..config import templates
 from . import crud
@@ -50,5 +51,25 @@ async def get_review_reaction_by_id(request: Request, reaction_id: int,
             "data": data,
             "page_title": "Review Reactions",
             "model_name": "Review Reaction"
+        }
+    )
+
+
+@router.get("/{reaction_id}/edit", response_class=HTMLResponse)
+async def edit_review_reaction_by_id(request: Request, reaction_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    review_reaction = await crud.get_review_reactions_field_data(session, reaction_id)
+    identifier = f"{review_reaction.review_title} {review_reaction.user_email}"
+
+    form = ReviewReactionsEditForm(data=review_reaction.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Review Reaction",
+            "model_name": "Review Reaction",
+            "identifier": identifier
         }
     )

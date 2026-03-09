@@ -20,3 +20,10 @@ class PromotionsForAdminPage(Promotions):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditPromotion(Promotions):
+    title: str | None = None
+    slug: str | None = None
+    main_description: str | None = None
+    categories_title: list[str] | None = None

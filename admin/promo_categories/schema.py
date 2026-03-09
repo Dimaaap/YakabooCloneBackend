@@ -9,3 +9,8 @@ class PromoCategories(BaseModel):
 
 class PromoCategoriesForAdmin(PromoCategories):
     model_config = ConfigDict(from_attributes=True)
+
+
+class EditPromoCategory(PromoCategories):
+    title: str | None = None
+    slug: str | None = None

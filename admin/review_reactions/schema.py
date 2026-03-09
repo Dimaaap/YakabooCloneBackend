@@ -15,3 +15,10 @@ class ReviewReactionsForAdminList(ReviewReactions):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditReviewReaction(ReviewReactions):
+    user_email: str | None = None
+    review_title: str | None = None
+
+    created_at: datetime | None = None

@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import LiteraturePeriodsEditForm
 from .schema import LiteraturePeriodForAdminList
 from ..config import templates
 from . import crud
@@ -47,5 +48,26 @@ async def get_literature_period_by_id(request: Request, literature_period_id: in
             "data": data,
             "page_title": "Literature Periods",
             "model_name": "Literature Period"
+        }
+    )
+
+
+@router.get("/{period_id}/edit", response_class=HTMLResponse)
+async def edit_interesting_by_id(request: Request, period_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    literature_period = await crud.get_literature_period_field_data(session, period_id)
+
+    identifier = literature_period.title
+
+    form = LiteraturePeriodsEditForm(data=literature_period.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Literature Period",
+            "model_name": "Literature Period",
+            "identifier": identifier
         }
     )

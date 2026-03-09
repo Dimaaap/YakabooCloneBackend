@@ -3,7 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.review_reactions.schema import ReviewReactionsForAdminList
+from admin.authors.errors import NotFoundInDbError
+from admin.review_reactions.schema import ReviewReactionsForAdminList, EditReviewReaction
 from core.models import ReviewReaction
 
 
@@ -46,3 +47,28 @@ async def get_review_reactions_field_data(session: AsyncSession, reaction_id: in
     reaction.user_email = reaction.user.email
     reaction.review_title = reaction.review.title if reaction.review.title else None
     return ReviewReactionsForAdminList.model_validate(reaction)
+
+
+async def get_review_reaction_by_id(session: AsyncSession, reaction_id: int) -> ReviewReaction | bool:
+    review_reaction = await session.get(ReviewReaction, reaction_id)
+
+    if not review_reaction:
+        return False
+
+    return review_reaction
+
+
+async def update_review_reaction(session: AsyncSession, reaction_id: int, data: EditReviewReaction) -> bool:
+    review_reaction = await get_review_reaction_by_id(session, reaction_id)
+
+    if not review_reaction:
+        raise NotFoundInDbError("Review Reaction not found")
+
+    update_data = data.model_dump(exclude_uset=True)
+
+    for field, value in update_data.items():
+        setattr(review_reaction, field, value)
+
+    await session.commit()
+
+    return True

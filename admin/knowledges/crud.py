@@ -2,7 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.knowledges.schema import KnowledgeForAdminPageList
+from admin.authors.errors import NotFoundInDbError
+from admin.knowledges.schema import KnowledgeForAdminPageList, EditKnowledge
 from core.models import Knowledge
 
 
@@ -33,3 +34,29 @@ async def get_knowledge_field_data(session: AsyncSession, knowledge_slug: str) -
         )
 
     return KnowledgeForAdminPageList.model_validate(knowledge)
+
+
+
+async def get_knowledge_by_id(session: AsyncSession, knowledge_id: int) -> Knowledge | bool:
+    knowledge = await session.get(Knowledge, knowledge_id)
+
+    if not knowledge:
+        return False
+
+    return knowledge
+
+
+async def update_knowledge(session: AsyncSession, knowledge_id: int, data: EditKnowledge) -> bool:
+    knowledge = await get_knowledge_by_id(session, knowledge_id)
+
+    if not knowledge:
+        raise NotFoundInDbError("Interesting not found")
+
+    update_data = data.model_dump(exclude_uset=True)
+
+    for field, value in update_data.items():
+        setattr(knowledge, field, value)
+
+    await session.commit()
+
+    return True

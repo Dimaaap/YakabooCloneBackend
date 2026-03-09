@@ -12,3 +12,8 @@ class LiteraturePeriodForAdminList(LiteraturePeriods):
     model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
     id: int
+
+
+class EditLiteraturePeriod(LiteraturePeriods):
+    title: PeriodTitleType | None = None
+    slug: str | None = None

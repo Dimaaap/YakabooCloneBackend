@@ -2,7 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from admin.promo_categories.schema import PromoCategoriesForAdmin
+from admin.authors.errors import NotFoundInDbError
+from admin.promo_categories.schema import PromoCategoriesForAdmin, EditPromoCategory
 from core.models import PromoCategories
 
 
@@ -31,3 +32,28 @@ async def get_promo_categories_field_data(session: AsyncSession, category_slug: 
     promo_category = result.scalars().first()
 
     return PromoCategoriesForAdmin.model_validate(promo_category)
+
+
+async def get_promo_category_by_slug(session: AsyncSession, category_slug: str) -> PromoCategories | bool:
+    category = await session.get(PromoCategories, category_slug)
+
+    if not category:
+        return False
+
+    return category
+
+
+async def update_promo_category(session: AsyncSession, category_slug: str, data: EditPromoCategory) -> bool:
+    promo_category = await get_promo_category_by_slug(session, category_slug)
+
+    if not promo_category:
+        raise NotFoundInDbError("Promo Category not found")
+
+    update_data = data.model_dump(exclude_uset=True)
+
+    for field, value in update_data.items():
+        setattr(promo_category, field, value)
+
+    await session.commit()
+
+    return True

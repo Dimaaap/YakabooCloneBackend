@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import PaymentMethodEditForm
 from .schema import PaymentMethodsForAdmin
 from ..config import templates
 from . import crud
@@ -48,5 +49,26 @@ async def get_payment_method_by_id(request: Request, payment_id: int,
             "data": data,
             "page_title": "Payment Methods",
             "model_name": "Payment Method"
+        }
+    )
+
+
+@router.get("/{method_id}/edit", response_class=HTMLResponse)
+async def edit_postomat_by_id(request: Request, method_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    payment_method = await crud.get_payment_methods_field_data(session, method_id)
+
+    identifier = payment_method.id
+
+    form = PaymentMethodEditForm(data=payment_method.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Payment Method",
+            "model_name": "Payment Method",
+            "identifier": identifier
         }
     )

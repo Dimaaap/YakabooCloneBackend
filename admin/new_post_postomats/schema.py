@@ -12,3 +12,10 @@ class NewPostPostomatsForAdmin(NewPostPostomats):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class EditNewPostPostomat(NewPostPostomats):
+    number: int | None = None
+    address: str | None = None
+    active: bool | None = None
+    city_title: str | None = None

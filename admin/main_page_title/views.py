@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 
 from core.models import db_helper
+from .forms import MainPageTitleEditForm
 from .schema import MainPageTitlesListForAdmin
 from ..config import templates
 from . import crud
@@ -51,5 +52,26 @@ async def get_main_page_title_by_id(request: Request, title_id: int,
             "data": data,
             "page_title": "Main Page Titles",
             "model_name": "Main Page Title"
+        }
+    )
+
+
+@router.get("/{title_id}/edit", response_class=HTMLResponse)
+async def edit_interesting_by_id(request: Request, title_id: int,
+                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    title = await crud.get_main_page_title_field_data(session, title_id)
+
+    identifier = title.title
+
+    form = MainPageTitleEditForm(data=title.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Main Page Title",
+            "model_name": "Main Pate Title",
+            "identifier": identifier
         }
     )
