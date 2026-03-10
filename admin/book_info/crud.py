@@ -62,4 +62,5 @@ async def update_book_info(session: AsyncSession, book_info_id: int, data: EditB
         setattr(book_info, field, value)
 
     await session.commit()
+    await session.refresh(book_info)
     return True

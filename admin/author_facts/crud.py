@@ -61,5 +61,5 @@ async def update_author_fact(session: AsyncSession, fact_id: int, data: EditAuth
         setattr(fact, field, value)
 
     await session.commit()
-
+    await session.refresh(fact)
     return True

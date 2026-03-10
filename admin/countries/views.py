@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import CountryEditForm
-from .schema import CountriesListForAdmin
+from .schema import CountriesListForAdmin, EditCountry
 from ..config import templates
 from . import crud
 
@@ -72,14 +72,24 @@ async def get_country_by_id(request: Request, country_id: int,
     )
 
 
-@router.post("/{author_id}/edit", response_class=HTMLResponse)
+@router.post("/{country_id}/edit", name="admin_edit_country", response_class=HTMLResponse)
 async def edit_country_submit(request: Request, country_id: int,
                               session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
 
     form_data = await request.form()
     form = CountryEditForm(form_data)
 
-    print(form_data)
+    country = await crud.get_country_field_data(session, country_id)
+    identifier = country.title
+
+    if form.validate():
+        country_data = EditCountry(**form_data)
+        await crud.update_country(session, country_id, country_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_country", country_id=country_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -88,6 +98,6 @@ async def edit_country_submit(request: Request, country_id: int,
             "form": form,
             "page_title": "Edit Country",
             "model_name": "Country",
-            "identifier": country_id,
+            "identifier": identifier
         }
     )

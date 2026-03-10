@@ -1,9 +1,10 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
+from entities.authors.schemas import AuthorUpdate
 from .forms import AuthorEditForm
 from .schema import AuthorsListForAdmin
 from ..config import templates
@@ -73,22 +74,31 @@ async def edit_author_by_id(request: Request, author_id: int,
     )
 
 
-@router.post("/{author_id}/edit", response_class=HTMLResponse)
+@router.post("/{author_id}/edit", name="admin_edit_author", response_class=HTMLResponse)
 async def edit_author_submit(request: Request, author_id: int,
                              session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
     form = AuthorEditForm(form_data)
 
-    print(form_data)
+    author = await crud.get_author_field_data(session, author_id)
+    identifier = f"{author.first_name} {author.last_name}"
+
+    if form.validate():
+        author_data = AuthorUpdate(**form_data)
+        await crud.update_author(session, author_id, author_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_author", author_id=author_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
         {
             "request": request,
             "form": form,
-            "author_id": author_id,
             "page_title": "Edit Author",
             "model_name": "Author",
-            "identifier": "adas"
+            "identifier": identifier
         }
     )

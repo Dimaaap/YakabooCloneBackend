@@ -61,5 +61,5 @@ async def update_city(session: AsyncSession, city_id: int, data: EditCity) -> bo
         setattr(city, field, value)
 
     await session.commit()
-
+    await session.refresh(city)
     return True

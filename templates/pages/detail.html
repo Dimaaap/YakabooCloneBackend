@@ -11,7 +11,8 @@
                 {{ model_name }} - {{ data.id }}
             </h3>
             <div class="entities__btns-row">
-                <button class="entities__btn blue-btn">
+                <button class="entities__btn blue-btn"
+                onclick="window.location.href=`{{ request.url.path }}/edit`">
                     Edit {{ model_name }}
                 </button>
             </div>

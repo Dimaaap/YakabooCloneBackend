@@ -1,12 +1,12 @@
-from wtforms import Form, BooleanField, StringField, SelectField, IntegerField, FloatField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms import Form, BooleanField, StringField, SelectField, IntegerField, FloatField, TextAreaField
+from wtforms.validators import DataRequired, NumberRange, Optional
 
 from core.models.book_info import CoverTypes, LiteratureTypes, LiteratureProgramClasses, BookFormats, PageFormats, \
     BookLanguages, PagesType, SizeTypes
 
 
 class BookInfoEditForm(Form):
-    is_stock = BooleanField("In Stock: ")
+    in_stock = BooleanField("In Stock: ")
     visible = BooleanField("Visible: ")
     code = IntegerField("Code: ", validators=[DataRequired()])
     rate = FloatField("Rate: ")
@@ -22,35 +22,45 @@ class BookInfoEditForm(Form):
     is_for_war = BooleanField("Is Charity For War: ")
     bonuses = IntegerField("Bonuses: ", validators=[NumberRange(min=0, message="Bonuses count can't be < 0")])
     literature_type = SelectField("Literature Type: ",
-                                  choices=[(type.value, type.name) for type in LiteratureTypes])
+                                  choices=[("", "---")] + [(type.value, type.name) for type in LiteratureTypes],
+                                  validators=[Optional()])
     literature_program_class = SelectField("Literature Program Class: ",
-                                           choices=[(program.value, program.name)
-                                                    for program in LiteratureProgramClasses ])
+                                           choices=[("", "---")] + [(program.value, program.name)
+                                                    for program in LiteratureProgramClasses ],
+                                           validators=[Optional()])
     present_edition_and_sets = StringField("Present Edition or Set: ")
-    weight = IntegerField("Weight: ", validators=[NumberRange(min=1, message="Weight can`t be < 1")])
+    weight = IntegerField("Weight: ", validators=[NumberRange(min=0, message="Weight can`t be < 0")])
     original_name = StringField("Original Name: ")
     format = SelectField("Format: ", choices=[(format.value, format.name) for format in BookFormats])
-    pages_format = SelectField("Pages Format: ", choices=[(format.value, format.name) for format in PageFormats])
+    pages_format = SelectField("Pages Format: ",
+                               choices=[("", "---")] + [(format.value, format.name) for format in PageFormats],
+                               validators=[Optional()])
     language = SelectField("Language: ", choices=[(lang.value, lang.name) for lang in BookLanguages])
     color = StringField("Color: ")
-    papers = SelectField("Papers: ", choices=[(paper.value, paper.name) for paper in PagesType])
-    size = SelectField("Size: ", choices=[(size.value, size.name) for size in SizeTypes])
+    papers = SelectField("Papers: ", choices=[("", "---")] + [(paper.value, paper.name) for paper in PagesType],
+                         validators=[Optional()])
+    size = SelectField("Size: ",
+                       choices=[("", "---")] + [(size.value, size.name) for size in SizeTypes],
+                       validators=[Optional()])
     pages_color = StringField("Pages Color: ")
     type = StringField("Type: ")
-    edition = IntegerField("Edition: ", validators=[NumberRange(min=0, message="Edition can`t be < 0")])
+    edition = IntegerField("Edition: ", validators=[Optional(),
+        NumberRange(min=0, message="Edition can`t be < 0")])
     book_format = StringField("Book Format: ")
     waiting_from = StringField("Waiting From: ")
     is_free_delivery = BooleanField("Is Free Delivery: ")
     delivery_time = IntegerField("Delivery Time: ",
-                                 validators=[NumberRange(min=0, message="Delivery time can`t be < 0")])
+                                 validators=[Optional(),
+                                     NumberRange(min=0, message="Delivery time can`t be < 0")])
     uk_delivery_time = IntegerField("UK Delivery Time: ",
-                                    validators=[NumberRange(min=0, message="UK delivery time can`t be < 0")])
+                                    validators=[Optional(),
+                                        NumberRange(min=0, message="UK delivery time can`t be < 0")])
     has_color_cut = BooleanField("Has Color Cut: ")
     print = StringField("Print: ")
     publishing_year = IntegerField("Publishing Year: ",
                                    validators=[NumberRange(min=1000, max=3000, message="Incorrect data format")])
     first_published_at = IntegerField("First Published At: ",
-                                      validators=[NumberRange(min=1_000, max=3_000, message="Incorrect data format")])
-    description = StringField("Description: ")
+                                      validators=[Optional()])
+    description = TextAreaField("Description: ")
     characteristics = StringField("Characteristics: ")
 

@@ -45,11 +45,11 @@ async def update_country(session: AsyncSession, country_id: int, data: EditCount
     if not country:
         raise NotFoundInDbError("Country not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(country, field, value)
 
     await session.commit()
-
+    await session.refresh(country)
     return True

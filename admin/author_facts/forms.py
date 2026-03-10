@@ -1,6 +1,6 @@
-from wtforms import Form, StringField
+from wtforms import Form, TextAreaField
 from wtforms.validators import DataRequired
 
 
 class AuthorFactsForm(Form):
-    fact_text = StringField("fact_text", validators=[DataRequired()])
+    fact_text = TextAreaField("fact_text", validators=[DataRequired()])

@@ -1,12 +1,12 @@
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import UserEditForm
-from .schema import UserListForAdmin
+from .schema import UserListForAdmin, UserUpdate
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -76,13 +76,23 @@ async def edit_user_by_id(request: Request, user_id: int,
     )
 
 
-@router.post("/{user_id}/edit", response_class=HTMLResponse)
+@router.post("/{user_id}/edit", name="admin_edit_user", response_class=HTMLResponse)
 async def edit_user_submit(request: Request, user_id: int,
                            session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
-    form = UserEditForm(data=form_data)
+    form = UserEditForm(form_data)
 
-    print(form_data)
+    user = await crud.get_user_field_data(session, user_id)
+    identifier = f"{user.first_name} {user.last_name}"
+
+    if form.validate():
+        user_data = UserUpdate(**form.data)
+        await crud.update_user(session, user_id, user_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_user", user_id=user_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -90,6 +100,6 @@ async def edit_user_submit(request: Request, user_id: int,
             "request": request,
             "form": form,
             "page_title": "Edit User",
-            "identifier": "dasa"
+            "identifier": identifier
         }
     )

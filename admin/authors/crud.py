@@ -80,5 +80,5 @@ async def update_author(session: AsyncSession, author_id: int, data: AuthorsUpda
         setattr(author, field, value)
 
     await session.commit()
-
+    await session.refresh(author)
     return True

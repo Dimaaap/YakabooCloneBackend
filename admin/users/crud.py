@@ -74,4 +74,5 @@ async def update_user(session: AsyncSession, user_id: int,
         setattr(user, field, value)
 
     await session.commit()
+    await session.refresh(user)
     return True

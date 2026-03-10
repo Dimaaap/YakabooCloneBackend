@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import CityEditForm
-from .schema import CitiesListForAdmin
+from .schema import CitiesListForAdmin, EditCity
 from ..config import templates
 from . import crud
 
@@ -73,13 +73,23 @@ async def edit_city_by_id(request: Request, city_id: int,
     )
 
 
-@router.post("/{author_id}/edit", response_class=HTMLResponse)
+@router.post("/{city_id}/edit", name="admin_edit_city", response_class=HTMLResponse)
 async def edit_city_submit(request: Request, city_id: int,
                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
     form = CityEditForm(data=form_data)
 
-    print(form_data)
+    city = await crud.get_city_field_data(session, city_id)
+    identifier = city.title
+
+    if form.validate():
+        city_data = EditCity(**form_data)
+        await crud.update_city(session, city_id, city_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_city", city_id=city_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -88,6 +98,6 @@ async def edit_city_submit(request: Request, city_id: int,
             "form": form,
             "page_title": "Edit Cities",
             "model_name": "City",
-            "identifier": city_id
+            "identifier": identifier
         }
     )
