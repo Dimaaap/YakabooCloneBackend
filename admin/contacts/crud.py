@@ -54,4 +54,5 @@ async def update_contact(session: AsyncSession, contact_id: int, data: EditConta
         setattr(contact, field, value)
 
     await session.commit()
+    await session.refresh(contact)
     return True

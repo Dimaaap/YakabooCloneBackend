@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import DeliveryTermEditForm
-from .schema import DeliveryTermsForAdminList
+from .schema import DeliveryTermsForAdminList, EditDeliveryTerm
 from ..config import templates
 from . import crud
 
@@ -59,6 +59,36 @@ async def edit_delivery_term_by_id(request: Request, delivery_term_id: int,
     identifier = delivery_term.city_title or delivery_term.country_title
 
     form = DeliveryTermEditForm(data=delivery_term.model_dump())
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Delivery Term",
+            "model_name": "Delivery Term",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{term_id}/edit", name="admin_edit_delivery_terms", response_class=HTMLResponse)
+async def edit_delivery_terms_submit(request: Request, term_id: int,
+                              session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = DeliveryTermEditForm(data=form_data)
+
+    term = await crud.get_delivery_term_field_data(session, term_id)
+    identifier = term.city_title or term.country_title
+
+    if form.validate():
+        term_data = EditDeliveryTerm(**form.data)
+        await crud.update_delivery_term(session, term_id, term_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_delivery_terms", term_id=term_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",

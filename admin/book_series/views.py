@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import BookSeriaEditForm
-from .schema import BookSeriesForAdminList
+from .schema import BookSeriesForAdminList, EditBookSeria
 from ..config import templates
 from . import crud
 
@@ -71,13 +71,23 @@ async def edit_book_seria_by_id(request: Request, seria_id: int,
     )
 
 
-@router.post("/{seria_id}/edit", response_class=HTMLResponse)
+@router.post("/{seria_id}/edit", name="admin_edit_book_seria", response_class=HTMLResponse)
 async def edit_book_seria_submit(request: Request, seria_id: int,
                                  session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
     form = BookSeriaEditForm(data=form_data)
 
-    print(form_data)
+    book_seria = await crud.get_book_seria_field_data(session, seria_id)
+    identifier = book_seria.title
+
+    if form.validate():
+        book_seria_data = EditBookSeria(**form.data)
+        await crud.update_book_seria(session, seria_id, book_seria_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_book_seria", seria_id=seria_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -86,6 +96,6 @@ async def edit_book_seria_submit(request: Request, seria_id: int,
             "form": form,
             "page_title": "Edit Book Seria",
             "model_name": "Book Seria",
-            "identifier": seria_id
+            "identifier": identifier
         }
     )

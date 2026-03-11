@@ -42,7 +42,7 @@ async def get_banner_by_id(session: AsyncSession, banner_id: int) -> Banner | bo
     return banner
 
 
-async def update_author(session: AsyncSession, banner_id: int, data: EditBanner) -> bool:
+async def update_banner(session: AsyncSession, banner_id: int, data: EditBanner) -> bool:
     banner =  await get_banner_by_id(session, banner_id)
 
     if not banner:
@@ -54,4 +54,5 @@ async def update_author(session: AsyncSession, banner_id: int, data: EditBanner)
         setattr(banner, field, value)
 
     await session.commit()
+    await session.refresh(banner)
     return True

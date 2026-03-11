@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import BookCategoryEditForm
-from .schema import CategoryForAdminList
+from .schema import CategoryForAdminList, EditCategory
 from ..config import templates
 from . import crud
 
@@ -72,13 +72,23 @@ async def edit_book_category_by_id(request: Request, category_id: int,
     )
 
 
-@router.post("/{category_id}/edit", response_class=HTMLResponse)
+@router.post("/{category_id}/edit", name="admin_edit_category", response_class=HTMLResponse)
 async def edit_book_category_submit(request: Request, category_id: int,
                                     session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
     form = BookCategoryEditForm(data=form_data)
 
-    print(form_data)
+    category = await crud.get_category_field_data(session, category_id)
+    identifier = category.title
+
+    if form.validate():
+        category_date = EditCategory(**form.data)
+        await crud.update_book_category(session, category_id, category_date)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_category", category_id=category_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -87,6 +97,6 @@ async def edit_book_category_submit(request: Request, category_id: int,
             "form": form,
             "page_title": "Edit Book Category",
             "model_name": "Book Category",
-            "identifier": category_id
+            "identifier": identifier
         }
     )

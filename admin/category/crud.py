@@ -70,5 +70,5 @@ async def update_book_category(session: AsyncSession, category_id: int, data: Ed
         setattr(category, field, value)
 
     await session.commit()
-
+    await session.refresh(category)
     return True

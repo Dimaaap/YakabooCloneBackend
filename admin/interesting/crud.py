@@ -45,11 +45,11 @@ async def update_interesting(session: AsyncSession, interesting_id: int, data: E
     if not interesting:
         raise NotFoundInDbError("Interesting not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(interesting, field, value)
 
     await session.commit()
-
+    await session.refresh(interesting)
     return True

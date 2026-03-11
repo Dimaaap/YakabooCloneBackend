@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import ContactEditForm
-from .schema import ContactsForAdminList
+from .schema import ContactsForAdminList, EditContacts
 from ..config import templates
 from . import crud
 
@@ -70,3 +70,32 @@ async def edit_contact_by_id(request: Request, contact_id: int,
         }
     )
 
+
+@router.post("/{contact_id}/edit", name="admin_edit_contacts", response_class=HTMLResponse)
+async def edit_contacts_submit(request: Request, contact_id: int,
+                              session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = ContactEditForm(data=form_data)
+
+    contact = await crud.get_contact_field_data(session, contact_id)
+    identifier = contact.social_title
+
+    if form.validate():
+        contact_data = EditContacts(**form.data)
+        await crud.update_contact(session, contact_id, contact_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_contacts", contact_id=contact_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Contact",
+            "model_name": "Contact",
+            "identifier": identifier
+        }
+    )

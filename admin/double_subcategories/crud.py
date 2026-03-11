@@ -67,4 +67,5 @@ async def update_double_subcategory(session: AsyncSession, double_subcategory_id
         setattr(double_subcategory, field, value)
 
     await session.commit()
+    await session.refresh(double_subcategory)
     return True

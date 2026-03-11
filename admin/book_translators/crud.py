@@ -56,5 +56,5 @@ async def update_book_translator(session: AsyncSession, book_translator_id: int,
         setattr(book_translator, field, value)
 
     await session.commit()
-
+    await session.refresh(book_translator)
     return True

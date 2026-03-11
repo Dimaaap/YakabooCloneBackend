@@ -132,5 +132,5 @@ async def update_book(session: AsyncSession, book_id: int,
         setattr(book, field, value)
 
     await session.commit()
-
+    await session.refresh(book)
     return True

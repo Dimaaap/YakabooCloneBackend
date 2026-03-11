@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 
 from core.models.book_info import CoverTypes, LiteratureTypes, LiteratureProgramClasses, BookFormats, PageFormats, \
     BookLanguages, PagesType, SizeTypes
@@ -67,16 +67,16 @@ class EditBookInfo(BaseModel):
     is_has_esupport: bool = False
     is_for_war: bool = False
     bonuses: int | None = None
-    literature_type: LiteratureTypes | str = ""
-    literature_program_class: LiteratureProgramClasses | str = ""
+    literature_type: LiteratureTypes | None = None
+    literature_program_class: LiteratureProgramClasses | None = None
     present_edition_and_sets: str | None = None
     weight: int | None = None
     original_name: str | None = None
     format: BookFormats | None = None
-    pages_format: PageFormats | str = ""
+    pages_format: PageFormats | None = None
     language: BookLanguages | None = None
     color: str | None = None
-    papers: PagesType | str = ""
+    papers: PagesType | None = None
     pages_color: str | None = None
     type: str | None = None
     edition: int | None = None
@@ -91,4 +91,17 @@ class EditBookInfo(BaseModel):
     first_published_at: int | None = None
     description: str | None = None
     characteristics: str | None = None
+
+    @field_validator(
+        "literature_type",
+        "literature_program_class",
+        "pages_format",
+        "papers",
+        mode="before"
+    )
+    @classmethod
+    def empty_string_to_none(cls, v):
+        if v == "":
+            return None
+        return v
 

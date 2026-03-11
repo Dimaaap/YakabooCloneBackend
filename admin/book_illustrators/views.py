@@ -1,11 +1,12 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import BookIllustratorEditForm
 from .schema import BookIllustratorsListForAdmin
+from ..book_translators.schema import EditBookTranslator
 from ..config import templates
 from . import crud
 
@@ -71,13 +72,23 @@ async def edit_book_illustrator_by_id(request: Request, illustrator_id: int,
     )
 
 
-@router.post("/{illustrator_id}/edit", response_class=HTMLResponse)
+@router.post("/{illustrator_id}/edit", name="admin_edit_book_illustrator", response_class=HTMLResponse)
 async def edit_book_illustrator_submit(request: Request, illustrator_id: int,
                                        session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
     form = BookIllustratorEditForm(data=form_data)
 
-    print(form_data)
+    illustrator = await crud.get_book_illustrator_field_data(session, illustrator_id)
+    identifier = f"{illustrator.first_name} {illustrator.last_name}"
+
+    if form.validate():
+        illustrator_data = EditBookTranslator(**form.data)
+        await crud.update_book_illustrator(session, illustrator_id, illustrator_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_book_illustrator", illustrator_id=illustrator_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -86,6 +97,6 @@ async def edit_book_illustrator_submit(request: Request, illustrator_id: int,
             "form": form,
             "page_title": "Edit Book Illustrator",
             "model_name": "Book Illustrator",
-            "identifier": illustrator_id
+            "identifier": identifier
         }
     )

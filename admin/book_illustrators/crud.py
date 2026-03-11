@@ -56,5 +56,5 @@ async def update_book_illustrator(session: AsyncSession, book_illustrator_id: in
         setattr(book_illustrator, field, value)
 
     await session.commit()
-
+    await session.refresh(book_illustrator)
     return True

@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import BannerEditForm
-from .schema import BannersListForAdmin
+from .schema import BannersListForAdmin, EditBanner
 from ..config import templates
 from . import crud
 
@@ -72,11 +72,23 @@ async def edit_banner_by_id(request: Request, banner_id: int,
     )
 
 
-@router.post("/{banner_id}/edit", response_class=HTMLResponse)
+@router.post("/{banner_id}/edit", name="admin_edit_banner", response_class=HTMLResponse)
 async def edit_banner_submit(request: Request, banner_id: int,
                              session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
     form = BannerEditForm(form_data)
+
+    banner = await crud.get_banner_field_data(session, banner_id)
+    identifier = banner.link
+
+    if form.validate():
+        banner_data = EditBanner(**form.data)
+        await crud.update_banner(session, banner_id, banner_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_banner", banner_id=banner_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -85,6 +97,6 @@ async def edit_banner_submit(request: Request, banner_id: int,
             "form": form,
             "page_title": "Edit Banner",
             "model_name": "Banner",
-            "identifier": banner_id
+            "identifier": identifier
         }
     )

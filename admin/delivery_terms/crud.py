@@ -68,4 +68,5 @@ async def update_delivery_term(session: AsyncSession, term_id: int, data: EditDe
         setattr(delivery_term, field, value)
 
     await session.commit()
+    await session.refresh(delivery_term)
     return True

@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import BookTranslatorEditForm
-from .schema import BookTranslatorsListForAdminPage
+from .schema import BookTranslatorsListForAdminPage, EditBookTranslator
 from ..config import templates
 from . import crud
 
@@ -71,13 +71,23 @@ async def edit_book_translator_by_id(request: Request, translator_id: int,
     )
 
 
-@router.post("/{translator_id}/edit}", response_class=HTMLResponse)
+@router.post("/{translator_id}/edit", name="admin_edit_book_translator", response_class=HTMLResponse)
 async def edit_book_translator_submit(request: Request, translator_id: int,
                                       session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
     form = BookTranslatorEditForm(data=form_data)
 
-    print(form_data)
+    translator = await crud.get_book_translator_field_data(session, translator_id)
+    identifier = f"{translator.first_name} {translator.last_name}"
+
+    if form.validate():
+        translator_data = EditBookTranslator(**form.data)
+        await crud.update_book_translator(session, translator_id, translator_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_book_translator", translator_id=translator_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -86,6 +96,6 @@ async def edit_book_translator_submit(request: Request, translator_id: int,
             "form": form,
             "page_title": "Edit Book Translator",
             "model_name": "Book Translator",
-            "identifier": translator_id
+            "identifier": identifier
         }
     )

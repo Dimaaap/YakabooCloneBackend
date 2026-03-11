@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import InterestingEditForm
-from .schema import InterestingForAdminList
+from .schema import InterestingForAdminList, EditInteresting
 from ..config import templates
 from . import crud
 
@@ -64,6 +64,36 @@ async def edit_interesting_by_id(request: Request, interesting_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Interesting",
+            "model_name": "Interesting",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{interesting_id}/edit", name="admin_edit_interesting", response_class=HTMLResponse)
+async def edit_interesting_submit(request: Request, interesting_id: int,
+                                  session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = InterestingEditForm(data=form_data)
+
+    interesting = await crud.get_interesting_field_data(session, interesting_id)
+    identifier = interesting.title
+
+    if form.validate():
+        interesting_data = EditInteresting(**form.data)
+        await crud.update_interesting(session, interesting_id, interesting_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_interesting", interesting_id=interesting_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Interesting",

@@ -10,7 +10,6 @@ class Books(BaseModel):
     is_top: bool = False
     is_promo: bool = False
     is_in_chart: bool = False
-    stars: int = 0
     promo_price: PositiveInt | None = None
 
     created_date: datetime | None = None
@@ -42,4 +41,4 @@ class EditBook(Books):
     title: str | None = None
     slug: str | None = None
     price: PositiveInt | None = None
-    stars: int | None = None
+    book_info_id: int | None = None

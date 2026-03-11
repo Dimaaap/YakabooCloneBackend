@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import FooterEditForm
-from .schema import FooterForAdminList
+from .schema import FooterForAdminList, EditFooter
 from ..config import templates
 from . import crud
 
@@ -62,6 +62,36 @@ async def edit_footer_by_id(request: Request, footer_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Footer",
+            "model_name": "Footer",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{footer_id}/edit", name="admin_edit_footer", response_class=HTMLResponse)
+async def edit_footer_submit(request: Request, footer_id: int,
+                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = FooterEditForm(data=form_data)
+
+    footer = await crud.get_footer_field_data(session, footer_id)
+    identifier = footer.title
+
+    if form.validate():
+        footer_data = EditFooter(**form.data)
+        await crud.update_footer(session, footer_id, footer_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_footer", footer_id=footer_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Footer",

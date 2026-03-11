@@ -1,8 +1,8 @@
 from wtforms import Form, IntegerField
-from wtforms.validators import NumberRange
+from wtforms.validators import NumberRange, Optional
 
 
-positive_num_validator = [NumberRange(min=0, message="Price can`t be < 0")]
+positive_num_validator = [Optional(), NumberRange(min=0, message="Price can`t be < 0")]
 
 class DeliveryTermEditForm(Form):
     yakaboo_shop_price = IntegerField("Yakaboo Shop Price: ",

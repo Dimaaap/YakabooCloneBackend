@@ -49,11 +49,11 @@ async def update_footer(session: AsyncSession, footer_id: int, data: EditFooter)
     if not footer:
         raise NotFoundInDbError("Footer not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(footer, field, value)
 
     await session.commit()
-
+    await session.refresh(footer)
     return True

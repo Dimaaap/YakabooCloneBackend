@@ -44,7 +44,7 @@ async def get_book_seria_by_id(session: AsyncSession, seria_id: int) -> BookSeri
 
 
 async def update_book_seria(session: AsyncSession, seria_id: int, data: EditBookSeria) -> bool:
-    book_seria = await get_book_seria_field_data(session, seria_id)
+    book_seria = await get_book_seria_by_id(session, seria_id)
 
     if not book_seria:
         raise NotFoundInDbError("Book Seria not found")
@@ -55,5 +55,5 @@ async def update_book_seria(session: AsyncSession, seria_id: int, data: EditBook
         setattr(book_seria, field, value)
 
     await session.commit()
-
+    await session.refresh(book_seria)
     return True
