@@ -64,11 +64,10 @@ async def update_review_reaction(session: AsyncSession, reaction_id: int, data: 
     if not review_reaction:
         raise NotFoundInDbError("Review Reaction not found")
 
-    update_data = data.model_dump(exclude_uset=True)
-
+    update_data = data.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(review_reaction, field, value)
 
     await session.commit()
-
+    await session.refresh(review_reaction)
     return True

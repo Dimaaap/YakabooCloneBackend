@@ -37,8 +37,10 @@ async def get_knowledge_field_data(session: AsyncSession, knowledge_slug: str) -
 
 
 
-async def get_knowledge_by_id(session: AsyncSession, knowledge_id: int) -> Knowledge | bool:
-    knowledge = await session.get(Knowledge, knowledge_id)
+async def get_knowledge_by_slug(session: AsyncSession, knowledge_slug: str) -> Knowledge | bool:
+    statement = select(Knowledge).where(Knowledge.slug == knowledge_slug)
+    knowledge_res = await session.execute(statement)
+    knowledge = knowledge_res.scalar_one_or_none()
 
     if not knowledge:
         return False
@@ -46,17 +48,17 @@ async def get_knowledge_by_id(session: AsyncSession, knowledge_id: int) -> Knowl
     return knowledge
 
 
-async def update_knowledge(session: AsyncSession, knowledge_id: int, data: EditKnowledge) -> bool:
-    knowledge = await get_knowledge_by_id(session, knowledge_id)
+async def update_knowledge(session: AsyncSession, knowledge_slug: str, data: EditKnowledge) -> bool:
+    knowledge = await get_knowledge_by_slug(session, knowledge_slug)
 
     if not knowledge:
         raise NotFoundInDbError("Interesting not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(knowledge, field, value)
 
     await session.commit()
-
+    await session.refresh(knowledge)
     return True

@@ -7,7 +7,7 @@ from core.models.promo_code import DiscountTypes
 class PromoCodesEditForm(Form):
     code = StringField("Code: ", validators=[DataRequired()])
     discount = IntegerField("Discount: ",
-                            validators=[NumberRange(min=1, max=100, message="Discount should be in range 1-100")])
+                            validators=[NumberRange(min=0, max=100, message="Discount should be in range 1-100")])
     active = BooleanField("Active: ")
     max_uses = IntegerField("Maximum uses: ", validators=[
         DataRequired(),

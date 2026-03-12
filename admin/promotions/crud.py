@@ -63,11 +63,11 @@ async def update_promotion(session: AsyncSession, promo_id: int, data: EditPromo
     if not promo:
         raise NotFoundInDbError("Promotion not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(promo, field, value)
 
     await session.commit()
-
+    await session.refresh(promo)
     return True

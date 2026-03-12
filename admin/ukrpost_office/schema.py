@@ -15,8 +15,7 @@ class UkrpostOfficesForAdmin(UkrpostOffices):
     id: int
 
 
-class EditUkrpostOffice(UkrpostOffices):
-    office_number: int | None = None
+class EditUkrpostOffice(BaseModel):
     address: str | None = None
     active: bool | None = None
     city_title: str | None = None

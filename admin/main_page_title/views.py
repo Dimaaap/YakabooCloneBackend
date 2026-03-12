@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import MainPageTitleEditForm
-from .schema import MainPageTitlesListForAdmin
+from .schema import MainPageTitlesListForAdmin, EditMainPageTitle
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -68,6 +68,36 @@ async def edit_interesting_by_id(request: Request, title_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Main Page Title",
+            "model_name": "Main Pate Title",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{title_id}/edit", name="admin_edit_main_page_title", response_class=HTMLResponse)
+async def edit_main_page_title_submit(request: Request, title_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = MainPageTitleEditForm(data=form_data)
+
+    title = await crud.get_main_page_title_field_data(session, title_id)
+    identifier = title.title
+
+    if form.validate():
+        main_page_title_data = EditMainPageTitle(**form.data)
+        await crud.update_main_page_title(session, title_id, main_page_title_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_main_page_title", title_id=title_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Main Page Title",

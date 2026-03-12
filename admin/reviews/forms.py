@@ -1,5 +1,5 @@
 from wtforms import Form, StringField, IntegerField, TextAreaField, DateTimeField, BooleanField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms.validators import DataRequired, NumberRange, Optional
 
 
 class ReviewEditForm(Form):
@@ -13,11 +13,11 @@ class ReviewEditForm(Form):
     created_date = DateTimeField("Created date: ", format="%m/%d/%Y %I:%M %p")
     is_validated = BooleanField("Is Validated: ")
     likes_count = IntegerField("Likes count: ", validators=[
-        DataRequired(),
+        Optional(),
         NumberRange(min=0, message="Likes count can`t be < 0")
     ])
     dislikes_count = IntegerField("Dislikes count: ", validators=[
-        DataRequired(),
+        Optional(),
         NumberRange(min=0, message="Dislikes count can`t be < 0")
     ])
     user_email = StringField("User email: ", validators=[DataRequired()])

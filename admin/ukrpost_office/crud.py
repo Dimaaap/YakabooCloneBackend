@@ -57,11 +57,11 @@ async def update_ukrpost_office(session: AsyncSession, office_id: int, data: Edi
     if not office:
         raise NotFoundInDbError("Ukrpost Office not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(office, field, value)
 
     await session.commit()
-
+    await session.refresh(office)
     return True

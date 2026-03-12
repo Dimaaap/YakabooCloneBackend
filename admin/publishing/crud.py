@@ -49,11 +49,11 @@ async def update_publishing(session: AsyncSession, publishing_id: int, data: Edi
     if not publishing:
         raise NotFoundInDbError("Publishing not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(publishing, field, value)
 
     await session.commit()
-
+    await session.refresh(publishing)
     return True

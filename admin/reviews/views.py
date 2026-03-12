@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import ReviewEditForm
-from .schema import ReviewsForAdminList
+from .schema import ReviewsForAdminList, EditReview
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -57,10 +57,10 @@ async def get_review_by_id(request: Request, review_slug: str,
     )
 
 
-@router.get("/{review_slug}/edit", response_class=HTMLResponse)
-async def edit_review_by_slug(request: Request, review_slug: str,
+@router.get("/{review_title}/edit", response_class=HTMLResponse)
+async def edit_review_by_slug(request: Request, review_title: str,
                             session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
-    review = await crud.get_reviews_field_data(session, review_slug)
+    review = await crud.get_reviews_field_data(session, review_title)
     identifier = review.title or f"{review.book_title} ({review.user_email})"
 
     form = ReviewEditForm(data=review.model_dump())
@@ -68,6 +68,37 @@ async def edit_review_by_slug(request: Request, review_slug: str,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Review",
+            "model_name": "Review",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{review_title}/edit", name="admin_edit_review", response_class=HTMLResponse)
+async def edit_review_submit(request: Request, review_title: str,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = ReviewEditForm(formdata=form_data)
+
+    review = await crud.get_reviews_field_data(session, review_title)
+    identifier = review.title or f"{review.book_title} ({review.user_email})"
+
+
+    if form.validate():
+        review_data = EditReview(**form.data)
+        await crud.update_review(session, review_title, review_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_review", review_title=review_title),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Review",

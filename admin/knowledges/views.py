@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import KnowledgeEditForm
-from .schema import KnowledgeForAdminPageList
+from .schema import KnowledgeForAdminPageList, EditKnowledge
 from ..config import templates
 from . import crud
 
@@ -64,6 +64,36 @@ async def edit_interesting_by_id(request: Request, knowledge_slug: str,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Knowledge",
+            "model_name": "Knowledge",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{knowledge_slug}/edit", name="admin_edit_knowledge", response_class=HTMLResponse)
+async def edit_knowledge_submit(request: Request, knowledge_slug: str,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = KnowledgeEditForm(data=form_data)
+
+    knowledge = await crud.get_knowledge_field_data(session, knowledge_slug)
+    identifier = knowledge.title
+
+    if form.validate():
+        knowledge_data = EditKnowledge(**form.data)
+        await crud.update_knowledge(session, knowledge_slug, knowledge_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_knowledge", knowledge_slug=knowledge_slug),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Knowledge",

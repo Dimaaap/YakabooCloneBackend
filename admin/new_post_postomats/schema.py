@@ -14,8 +14,7 @@ class NewPostPostomatsForAdmin(NewPostPostomats):
     id: int
 
 
-class EditNewPostPostomat(NewPostPostomats):
-    number: int | None = None
+class EditNewPostPostomat(BaseModel):
     address: str | None = None
     active: bool | None = None
     city_title: str | None = None

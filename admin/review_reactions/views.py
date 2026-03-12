@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import ReviewReactionsEditForm
-from .schema import ReviewReactionsForAdminList
+from .schema import ReviewReactionsForAdminList, EditReviewReaction
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -66,6 +66,36 @@ async def edit_review_reaction_by_id(request: Request, reaction_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Review Reaction",
+            "model_name": "Review Reaction",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{reaction_id}/edit", name="admin_edit_review_reaction", response_class=HTMLResponse)
+async def edit_review_reaction_submit(request: Request, reaction_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = ReviewReactionsEditForm(formdata=form_data)
+
+    reaction = await crud.get_review_reactions_field_data(session, reaction_id)
+    identifier = f"{reaction.review_title} {reaction.user_email}"
+
+    if form.validate():
+        reaction_data = EditReviewReaction(**form.data)
+        await crud.update_review_reaction(session, reaction_id, reaction_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_review_reaction", reaction_id=reaction_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Review Reaction",

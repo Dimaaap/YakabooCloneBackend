@@ -64,11 +64,11 @@ async def update_payment_method(session: AsyncSession, method_id: int, data: Edi
     if not payment_method:
         raise NotFoundInDbError("Payment Method not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(payment_method, field, value)
 
     await session.commit()
-
+    await session.refresh(payment_method)
     return True

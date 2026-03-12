@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import MeestPostOfficeEditForm
-from .schema import MeestPostOfficesForAdmin
+from .schema import MeestPostOfficesForAdmin, EditMeestPostOffice
 from ..config import templates
 from . import crud
 
@@ -65,6 +65,36 @@ async def edit_interesting_by_id(request: Request, office_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Meest Post Office",
+            "model_name": "Meest Post Office",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{office_id}/edit", name="admin_edit_meest_post_office", response_class=HTMLResponse)
+async def edit_meest_post_office_submit(request: Request, office_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = MeestPostOfficeEditForm(data=form_data)
+
+    office = await crud.get_meest_post_offices_field_data(session, office_id)
+    identifier = office.office_number
+
+    if form.validate():
+        office_data = EditMeestPostOffice(**form.data)
+        await crud.update_meest_post_office(session, office_id, office_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_meest_post_office", office_id=office_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Meest Post Office",

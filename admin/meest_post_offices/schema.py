@@ -14,8 +14,7 @@ class MeestPostOfficesForAdmin(MeestPostOffices):
     id: int
 
 
-class EditMeestPostOffice(MeestPostOffices):
-    office_number: int | None = None
+class EditMeestPostOffice(BaseModel):
     address: str | None = None
     active: bool | None = None
     city_title: str | None = None

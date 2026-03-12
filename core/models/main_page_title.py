@@ -13,9 +13,9 @@ class MainPageTitle(Base):
     active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
 
     created_at: Mapped["datetime"] = mapped_column(DateTime(timezone=True), server_default=func.now(),
-                                                   default=datetime.now(), nullable=False)
+                                                   nullable=False)
     updated_at: Mapped["datetime"] = mapped_column(DateTime(timezone=True), server_default=func.now(),
-                                                   default=datetime.now(), onupdate=func.now(), nullable=False)
+                                                   onupdate=func.now(), nullable=False)
 
     def __str__(self):
         return f"{ self.__class__.__name__ }: (title={self.title}, active={self.active})"

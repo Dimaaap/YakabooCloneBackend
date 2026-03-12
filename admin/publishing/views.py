@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import PublishingEditForm
-from .schema import PublishingListForAdmin
+from .schema import PublishingListForAdmin, EditPublishing
 from ..config import templates
 from . import crud
 
@@ -61,6 +61,37 @@ async def edit_publishing_by_id(request: Request, publishing_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Publishing",
+            "model_name": "Publishing",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{publishing_id}/edit", name="admin_edit_publishing", response_class=HTMLResponse)
+async def edit_publishing_submit(request: Request, publishing_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = PublishingEditForm(formdata=form_data)
+
+    publishing = await crud.get_publishing_field_data(session, publishing_id)
+    identifier = publishing.title
+
+
+    if form.validate():
+        publishing_data = EditPublishing(**form.data)
+        await crud.update_publishing(session, publishing_id, publishing_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_publishing", publishing_id=publishing_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Publishing",

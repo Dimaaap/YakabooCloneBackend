@@ -46,11 +46,11 @@ async def update_sidebar(session: AsyncSession, sidebar_id: int, data: EditSideb
     if not sidebar:
         raise NotFoundInDbError("Sidebar not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(sidebar, field, value)
 
     await session.commit()
-
+    await session.refresh(sidebar)
     return True

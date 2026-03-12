@@ -15,8 +15,8 @@ class NewPostOfficesForAdmin(NewPostOffices):
     id: int
 
 
-class EditNewPostOffice(NewPostOffices):
-    number: int | None = None
+class EditNewPostOffice(BaseModel):
     address: str | None = None
     active: bool | None = None
+    weight_to: int | None = None
     city_title: str | None = None

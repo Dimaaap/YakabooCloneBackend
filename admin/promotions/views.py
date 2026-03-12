@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import PromotionsEditForm
-from .schema import PromotionsForAdminPage
+from .schema import PromotionsForAdminPage, EditPromotion
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -74,6 +74,40 @@ async def edit_promotion_by_id(request: Request, promo_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Promotion",
+            "model_name": "Promotion",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{promo_id}/edit", name="admin_edit_promo", response_class=HTMLResponse)
+async def edit_promo_submit(request: Request, promo_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = PromotionsEditForm(formdata=form_data)
+
+    promo = await crud.get_promotion_field_data(session, promo_id)
+    identifier = promo.title
+    promo_categories = await crud.get_all_categories(session)
+    form.categories_title.choices = [
+        (category.title, category.title) for category in promo_categories
+    ]
+
+    if form.validate():
+        promotion_data = EditPromotion(**form.data)
+        await crud.update_promotion(session, promo_id, promotion_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_promo", promo_id=promo_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Promotion",

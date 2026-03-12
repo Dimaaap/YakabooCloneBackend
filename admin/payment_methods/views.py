@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import PaymentMethodEditForm
-from .schema import PaymentMethodsForAdmin
+from .schema import PaymentMethodsForAdmin, EditPaymentMethod
 from ..config import templates
 from . import crud
 
@@ -72,3 +72,34 @@ async def edit_postomat_by_id(request: Request, method_id: int,
             "identifier": identifier
         }
     )
+
+
+@router.post("/{method_id}/edit", name="admin_edit_payment_method", response_class=HTMLResponse)
+async def edit_payment_method_submit(request: Request, method_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = PaymentMethodEditForm(data=form_data)
+
+    payment_method = await crud.get_payment_methods_field_data(session, method_id)
+    identifier = payment_method.id
+
+    if form.validate():
+        office_data = EditPaymentMethod(**form.data)
+        await crud.update_payment_method(session, method_id, office_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_payment_method", method_id=method_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Edit Payment Method",
+            "model_name": "Payment Method",
+            "identifier": identifier
+        }
+    )
+

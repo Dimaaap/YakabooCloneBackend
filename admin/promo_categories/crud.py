@@ -35,7 +35,9 @@ async def get_promo_categories_field_data(session: AsyncSession, category_slug: 
 
 
 async def get_promo_category_by_slug(session: AsyncSession, category_slug: str) -> PromoCategories | bool:
-    category = await session.get(PromoCategories, category_slug)
+    statement = select(PromoCategories).where(PromoCategories.slug == category_slug)
+    category_res = await session.execute(statement)
+    category = category_res.scalar_one_or_none()
 
     if not category:
         return False
@@ -49,11 +51,11 @@ async def update_promo_category(session: AsyncSession, category_slug: str, data:
     if not promo_category:
         raise NotFoundInDbError("Promo Category not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(promo_category, field, value)
 
     await session.commit()
-
+    await session.refresh(promo_category)
     return True

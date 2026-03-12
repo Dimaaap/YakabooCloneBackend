@@ -1,13 +1,8 @@
-from wtforms import Form, StringField, IntegerField, BooleanField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms import Form, StringField, BooleanField
+from wtforms.validators import DataRequired
 
 
 class UkrpostOfficeEditForm(Form):
-    office_number = IntegerField("Office Number: ", validators=[
-        DataRequired(message="Office number is required"),
-        NumberRange(min=1, message="Office number can`t be < 1")
-    ])
-
     address = StringField("Address: ", validators=[DataRequired(message="Address is required")])
     active = BooleanField("Is Active: ")
 

@@ -49,8 +49,10 @@ async def get_reviews_field_data(session: AsyncSession, review_slug: str) -> Rev
     return ReviewsForAdminList.model_validate(review)
 
 
-async def get_review_by_slug(session: AsyncSession, review_slug: str) -> Review | bool:
-    review = await session.get(Review, review_slug)
+async def get_review_by_title(session: AsyncSession, review_title: str) -> Review | bool:
+    statement = select(Review).where(Review.title == review_title)
+    review_res = await session.execute(statement)
+    review = review_res.scalar_one_or_none()
 
     if not review:
         return False
@@ -58,17 +60,17 @@ async def get_review_by_slug(session: AsyncSession, review_slug: str) -> Review 
     return review
 
 
-async def update_review(session: AsyncSession, review_slug: str, data: EditReview) -> bool:
-    review = await get_review_by_slug(session, review_slug)
+async def update_review(session: AsyncSession, review_title: str, data: EditReview) -> bool:
+    review = await get_review_by_title(session, review_title)
 
     if not review:
         raise NotFoundInDbError("Review not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(review, field, value)
 
     await session.commit()
-
+    await session.refresh(review)
     return True

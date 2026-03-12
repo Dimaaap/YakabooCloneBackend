@@ -65,11 +65,11 @@ async def update_promo_code_usage(session: AsyncSession, usage_id: int, data: Ed
     if not usage:
         raise NotFoundInDbError("Promo Code Usage not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(usage, field, value)
 
     await session.commit()
-
+    await session.refresh(usage)
     return True

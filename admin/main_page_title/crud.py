@@ -49,11 +49,11 @@ async def update_main_page_title(session: AsyncSession, main_page_id: int, data:
     if not title:
         raise NotFoundInDbError("Main page title not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(title, field, value)
 
     await session.commit()
-
+    await session.refresh(title)
     return True

@@ -6,8 +6,6 @@ from pydantic import BaseModel, ConfigDict
 class MainPageTitle(BaseModel):
     title: str
     active: bool = True
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
 
 
 class MainPageTitlesListForAdmin(MainPageTitle):

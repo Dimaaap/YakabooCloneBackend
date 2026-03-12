@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import NewPostPostomatEditForm
-from .schema import NewPostPostomatsForAdmin
+from .schema import NewPostPostomatsForAdmin, EditNewPostPostomat
 from ..config import templates
 from . import crud
 
@@ -65,6 +65,36 @@ async def edit_postomat_by_id(request: Request, postomat_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit New Post Postomat",
+            "model_name": "New Post Postomat",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{postomat_id}/edit", name="admin_edit_new_post_postomat", response_class=HTMLResponse)
+async def edit_new_post_postomat_submit(request: Request, postomat_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = NewPostPostomatEditForm(data=form_data)
+
+    postomat = await crud.get_new_post_postomat_field_data(session, postomat_id)
+    identifier = postomat.number
+
+    if form.validate():
+        office_data = EditNewPostPostomat(**form.data)
+        await crud.update_new_post_postomat(session, postomat_id, office_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_new_post_postomat", postomat_id=postomat_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit New Post Postomat",

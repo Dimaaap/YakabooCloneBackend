@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import LiteraturePeriodsEditForm
-from .schema import LiteraturePeriodForAdminList
+from .schema import LiteraturePeriodForAdminList, EditLiteraturePeriod
 from ..config import templates
 from . import crud
 
@@ -64,6 +64,36 @@ async def edit_interesting_by_id(request: Request, period_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Literature Period",
+            "model_name": "Literature Period",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{period_id}/edit", name="admin_edit_literature_period", response_class=HTMLResponse)
+async def edit_literature_period_submit(request: Request, period_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = LiteraturePeriodsEditForm(data=form_data)
+
+    literature_period = await crud.get_literature_period_field_data(session, period_id)
+    identifier = literature_period.title
+
+    if form.validate():
+        period_data = EditLiteraturePeriod(**form.data)
+        await crud.update_literature_period(session, period_id, period_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_literature_period", period_id=period_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Literature Period",

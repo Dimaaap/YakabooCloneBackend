@@ -50,17 +50,17 @@ async def get_new_post_office_by_id(session: AsyncSession, office_id: int) -> Ne
     return office
 
 
-async def new_post_office(session: AsyncSession, office_id: int, data: EditNewPostOffice) -> bool:
+async def update_new_post_office(session: AsyncSession, office_id: int, data: EditNewPostOffice) -> bool:
     office = await get_new_post_office_by_id(session, office_id)
 
     if not office:
         raise NotFoundInDbError("New Post Office not found")
 
-    update_data = data.model_dump(exclude_uset=True)
+    update_data = data.model_dump(exclude_unset=True)
 
     for field, value in update_data.items():
         setattr(office, field, value)
 
     await session.commit()
-
+    await session.refresh(office)
     return True

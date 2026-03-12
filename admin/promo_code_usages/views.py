@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import PromoCodeUsageEditForm
-from .schema import PromoCodeUsagesForAdmin
+from .schema import PromoCodeUsagesForAdmin, EditPromoCodeUsage
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -69,6 +69,36 @@ async def edit_promo_code_usage_by_id(request: Request, usage_id: int,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Promo Code Usage",
+            "model_name": "Promo Code Usage",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{usage_id}/edit", name="admin_edit_promo_code_usage", response_class=HTMLResponse)
+async def edit_promo_category_submit(request: Request, usage_id: int,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = PromoCodeUsageEditForm(data=form_data)
+
+    promo_usage = await crud.get_promo_code_usages_field_data(session, usage_id)
+    identifier = f"{promo_usage.promo_code_title} - {promo_usage.user_email}"
+
+    if form.validate():
+        promo_usage_data = EditPromoCodeUsage(**form.data)
+        await crud.update_promo_code_usage(session, usage_id, promo_usage_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_promo_code_usage", usage_id=usage_id),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Promo Code Usage",

@@ -1,11 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import APIRouter, Depends, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
 from .forms import PromoCategoryEditForm
-from .schema import PromoCategoriesForAdmin
+from .schema import PromoCategoriesForAdmin, EditPromoCategory
 from ..config import templates
 from . import crud
 
@@ -63,6 +63,36 @@ async def edit_promo_category_by_id(request: Request, category_slug: str,
     return templates.TemplateResponse(
         "pages/edit.html",
         context={
+            "request": request,
+            "form": form,
+            "page_title": "Edit Promo Category",
+            "model_name": "Promo Category",
+            "identifier": identifier
+        }
+    )
+
+
+@router.post("/{category_slug}/edit", name="admin_edit_promo_category", response_class=HTMLResponse)
+async def edit_promo_category_submit(request: Request, category_slug: str,
+                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = PromoCategoryEditForm(data=form_data)
+
+    promo_category = await crud.get_promo_categories_field_data(session, category_slug)
+    identifier = promo_category.title
+
+    if form.validate():
+        category_data = EditPromoCategory(**form.data)
+        await crud.update_promo_category(session, category_slug, category_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_edit_promo_category", category_slug=category_slug),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/edit.html",
+        {
             "request": request,
             "form": form,
             "page_title": "Edit Promo Category",
