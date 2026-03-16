@@ -12,9 +12,16 @@ class AuthorEditForm(Form):
     date_of_birth = DateField("Date of Birth: ", validators=[Optional()])
     is_active = BooleanField("Is Active: ")
 
-    short_description = TextAreaField("Short Description: ", validators=[Optional()])
+    images_src = TextAreaField("Image URL: ",
+                               validators=[Optional()],
+                               description="Image URL here, one for a row")
+
     description = TextAreaField("Description: ", validators=[Optional()])
 
     def validate_slug(self, field):
         if not re.match(r'^[A-Za-z0-9-]+$', field.data):
             raise ValidationError("Slug can contain only English letters, numbers and hyphens.")
+
+
+class AuthorCreateForm(AuthorEditForm):
+    ...

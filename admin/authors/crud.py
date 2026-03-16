@@ -1,11 +1,12 @@
 from fastapi import HTTPException, status
-from sqlalchemy import select, update
+from sqlalchemy import select, update, delete
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload, selectinload
 
 from admin.authors.errors import NotFoundInDbError
-from admin.authors.schema import AuthorsListForAdmin, AuthorsUpdate
-from core.models import Author
+from admin.authors.schema import AuthorsListForAdmin, AuthorsUpdate, AuthorCreate
+from core.models import Author, AuthorImage
 
 
 async def get_authors_list_for_admin_page(session: AsyncSession) -> list[AuthorsListForAdmin]:
@@ -75,10 +76,41 @@ async def update_author(session: AsyncSession, author_id: int, data: AuthorsUpda
         raise NotFoundInDbError("Author not found")
 
     update_data = data.model_dump(exclude_unset=True)
+    images_src = update_data.pop("images_src", None)
 
     for field, value in update_data.items():
         setattr(author, field, value)
 
     await session.commit()
     await session.refresh(author)
+
+    if images_src is not None:
+        await session.execute(delete(AuthorImage).where(AuthorImage.author_id == author_id))
+        for src in images_src:
+            session.add(AuthorImage(author_id=author_id, image_path=src))
+        await session.commit()
     return True
+
+
+async def create_author(session: AsyncSession, data: AuthorCreate) -> Author | bool:
+    author = Author(
+        first_name=data.first_name,
+        last_name=data.last_name,
+        slug=data.slug,
+        date_of_birth=data.date_of_birth,
+        is_active=data.is_active,
+        description=data.description
+    )
+
+    try:
+        session.add(author)
+        await session.commit()
+        await session.refresh(author)
+
+        for src in data.images_src:
+            image = AuthorImage(author_id=author.id, image_path=src)
+            session.add(image)
+        await session.commit()
+    except SQLAlchemyError:
+        return False
+    return author

@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import BannerEditForm
-from .schema import BannersListForAdmin, EditBanner
+from .forms import BannerEditForm, BannerCreateForm
+from .schema import BannersListForAdmin, EditBanner, CreateBanner
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Banners for Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_banners_list", response_class=HTMLResponse)
 async def banners_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
 
     banners = await crud.get_banners_for_admin_page(session)
@@ -30,6 +30,46 @@ async def banners_list(request: Request, session: AsyncSession = Depends(db_help
             "is_editable": True,
             "is_deletable": True,
             "can_create": True,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_banner_page(request: Request):
+    form = BannerCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Banner",
+            "model_name": "Banner",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_banner", response_class=HTMLResponse)
+async def create_banner_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BannerCreateForm(form_data)
+
+    if form.validate():
+        banner_data = CreateBanner(**form_data)
+        await crud.create_banner(session, banner_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_banners_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Banner",
+            "model_name": "Banner",
         }
     )
 

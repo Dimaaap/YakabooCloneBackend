@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.countries.schema import CountriesListForAdmin, EditCountry
+from admin.countries.schema import CountriesListForAdmin, EditCountry, CreateCountry
 from core.models import Country
 
 
@@ -53,3 +54,15 @@ async def update_country(session: AsyncSession, country_id: int, data: EditCount
     await session.commit()
     await session.refresh(country)
     return True
+
+
+async def create_country(session: AsyncSession, data: CreateCountry) -> Country | bool:
+    country = Country(**data.model_dump())
+    try:
+        session.add(country)
+        await session.commit()
+        await session.refresh(country)
+    except SQLAlchemyError:
+        return False
+    return country
+

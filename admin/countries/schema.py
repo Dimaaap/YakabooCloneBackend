@@ -15,3 +15,7 @@ class CountriesListForAdmin(CountriesList):
 class EditCountry(CountriesList):
     title: str | None = None
     is_visible: bool | None = None
+
+
+class CreateCountry(CountriesList):
+    ...

@@ -15,7 +15,8 @@
                     Export
                 </button>
                 {% if can_create %}
-                    <button class="entities__btn blue-btn">
+                    <button class="entities__btn blue-btn"
+                    onclick="window.location.href=`{{ request.url.path.replace('/list', '/create') }}`">
                         <img alt="" src="/static/images/plus.svg" class="entities__icon" width="16" height="16" />
                         New {{ model_name }}
                     </button>

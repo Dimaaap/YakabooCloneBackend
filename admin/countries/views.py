@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import CountryEditForm
-from .schema import CountriesListForAdmin, EditCountry
+from .forms import CountryEditForm, CountryCreateForm
+from .schema import CountriesListForAdmin, EditCountry, CreateCountry
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Admin Countries"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_countries_list", response_class=HTMLResponse)
 async def countries_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     countries = await crud.get_countries_list_for_admin_page(session)
     countries = [country.model_dump() for country in countries]
@@ -30,6 +30,44 @@ async def countries_list(request: Request, session: AsyncSession = Depends(db_he
             "is_editable": True,
             "is_deletable": True,
             "can_create": True
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_country_page(request: Request):
+    form = CountryCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Country",
+            "model_name": "Country",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_country", response_class=HTMLResponse)
+async def create_country_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = CountryCreateForm(form_data)
+
+    if form.validate():
+        country_data = CreateCountry(**form_data)
+
+        country = await crud.create_country(session, country_data)
+
+        return RedirectResponse(url=request.url_for("admin_countries_list"), status_code=status.HTTP_303_SEE_OTHER)
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Country",
+            "model_name": "Country"
         }
     )
 

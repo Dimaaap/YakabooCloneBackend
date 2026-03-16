@@ -1,11 +1,13 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from admin.authors.errors import NotFoundInDbError
-from admin.cities.schema import CitiesListForAdmin, EditCity
+from admin.cities.schema import CitiesListForAdmin, EditCity, CreateCity
 from core.models import City
+from admin.countries.crud import get_countries_list_for_admin_page
 
 
 async def get_cities_list_for_admin_page(session: AsyncSession) -> list[CitiesListForAdmin]:
@@ -63,3 +65,20 @@ async def update_city(session: AsyncSession, city_id: int, data: EditCity) -> bo
     await session.commit()
     await session.refresh(city)
     return True
+
+
+async def create_city(session: AsyncSession, data: CreateCity) -> City | bool:
+    city = City(**data.model_dump())
+    try:
+        session.add(city)
+        await session.commit()
+        await session.refresh(city)
+    except SQLAlchemyError:
+        return False
+    return city
+
+
+async def set_countries_in_choices(session: AsyncSession, form):
+    countries = await get_countries_list_for_admin_page(session)
+    choices = [(country.id, country.title) for country in countries]
+    form.country_id.choices = choices

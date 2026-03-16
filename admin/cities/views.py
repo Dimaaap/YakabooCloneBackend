@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import CityEditForm
-from .schema import CitiesListForAdmin, EditCity
+from .forms import CityEditForm, CityCreateForm
+from .schema import CitiesListForAdmin, EditCity, CreateCity
 from ..config import templates
 from . import crud
 
 router = APIRouter()
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_cities_list", response_class=HTMLResponse)
 async def cities_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
 
     cities = await crud.get_cities_list_for_admin_page(session)
@@ -32,6 +32,48 @@ async def cities_list(request: Request, session: AsyncSession = Depends(db_helpe
             "is_deletable": True,
             "can_create": True,
             "link_fields": link_fields,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_country_page(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    form = CityCreateForm()
+
+    await crud.set_countries_in_choices(session, form)
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create City",
+            "model_name": "City",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_city", response_class=HTMLResponse)
+async def create_country_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = CityCreateForm(form_data)
+
+    await crud.set_countries_in_choices(session, form)
+
+    if form.validate():
+        city_data = CreateCity(**form_data)
+
+        city = await crud.create_city(session, city_data)
+
+        return RedirectResponse(url=request.url_for("admin_cities_list"), status_code=status.HTTP_303_SEE_OTHER)
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create City",
+            "model_name": "City"
         }
     )
 
@@ -59,7 +101,10 @@ async def edit_city_by_id(request: Request, city_id: int,
     city = await crud.get_city_field_data(session, city_id)
 
     identifier = city.title
+
     form = CityEditForm(data=city.model_dump())
+
+    await crud.set_countries_in_choices(session, form)
 
     return templates.TemplateResponse(
         "pages/edit.html",
@@ -77,7 +122,9 @@ async def edit_city_by_id(request: Request, city_id: int,
 async def edit_city_submit(request: Request, city_id: int,
                            session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
-    form = CityEditForm(data=form_data)
+    form = CityEditForm(form_data)
+
+    await crud.set_countries_in_choices(session, form)
 
     city = await crud.get_city_field_data(session, city_id)
     identifier = city.title

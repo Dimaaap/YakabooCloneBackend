@@ -361,10 +361,16 @@ td img {
 }
 
 .submit-btn {
-    padding: 1%;
+    padding: 10px;
     height: 45px;
     width: max-content;
     padding-inline: 4%;
+}
+
+.save-btn {
+    width: 60px;
+    color: green;
+    border-color: green;
 }
 
 .edit-form__btns-group {

@@ -7,3 +7,7 @@ class BannerEditForm(Form):
     link = StringField("Link: ")
     visible = BooleanField("Is Visible: ")
     in_all_books_page = BooleanField("Is In All Book Page: ")
+
+
+class BannerCreateForm(BannerEditForm):
+    ...

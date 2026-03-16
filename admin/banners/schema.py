@@ -3,9 +3,9 @@ from pydantic import BaseModel, ConfigDict
 
 class BannersList(BaseModel):
     image_src: str
-    visible: bool
+    visible: bool = True
     link: str = ""
-    in_all_books_page: bool
+    in_all_books_page: bool = False
 
 
 class BannersListForAdmin(BannersList):
@@ -19,3 +19,7 @@ class EditBanner(BannersList):
     visible: bool | None = None
     link: str | None = None
     in_all_books_page: bool | None = None
+
+
+class CreateBanner(BannersList):
+    ...

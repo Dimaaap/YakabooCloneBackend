@@ -11,16 +11,23 @@ class CitiesList(BaseModel):
 class CitiesListForAdmin(CitiesList):
     model_config = ConfigDict(from_attributes=True)
 
+    country_id: int
     id: int
 
 
 class CitiesListAdminWithSlug(CitiesListForAdmin):
-
-    country_slug: int
+    country_slug: str
 
 
 class EditCity(BaseModel):
     title: str | None = None
     is_visible: bool | None = None
     region: str | None = None
-    country_slug: str | None = None
+    country_id: int | None = None
+
+
+class CreateCity(BaseModel):
+    title: str
+    is_visible: bool = True
+    region: str | None = None
+    country_id: int

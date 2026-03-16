@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create {{ model_name | capitalize }}
+{% endblock %}
+
+{% block body %}
+    <div class="entities">
+        <div class="entities__header">
+            <h3 class="entities__text">
+                Create New {{ model_name | capitalize }}
+            </h3>
+        </div>
+
+        <div class="entities__body">
+            <form action="{{ request.url.path }}"
+                  class="entities__edit-form edit-form create-form"
+                  method="post">
+                {% for field in form %}
+                    {% if field.type == "BooleanField" %}
+                        <div class="edit-form__checkbox-group">
+                            <label for="{{ field.id }}" class="edit-form__label">
+                                {{ field.label.text }}
+                            </label>
+                            {{ field(class="edit-form__checkbox") }}
+                        </div>
+
+                    {% else %}
+                        <div class="edit-form__field-group">
+                            <label for="{{ field.id }}" class="edit-form__label">
+                                {{ field.label.text }}
+                            </label>
+
+                            {% if field.type == "TextAreaField" %}
+                                {% if field.errors %}
+                                    {{ field(class="edit-form__textarea error-field") }}
+                                {% else %}
+                                    {{ field(class="edit-form__textarea") }}
+                                {% endif %}
+                            {% else %}
+                                {% if field.errors %}
+                                    {{ field(class="edit-form__input error-field") }}
+                                {% else %}
+                                    {{ field(class="edit-form__input") }}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <p class="edit-form__error">
+                                {{ error }}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
+                <div class="edit-form__btns-row">
+                    <div class="edit-form__btns-group">
+                        <button class="edit-form__btn submit-btn save-btn" type="submit">
+                            Save
+                        </button>
+                        <button class="edit-form__btn submit-btn" type="button">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

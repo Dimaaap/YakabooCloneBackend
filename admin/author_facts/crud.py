@@ -1,9 +1,11 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
-from admin.author_facts.schema import AuthorFactsForAdminPage, EditAuthorFact
+from admin.author_facts.schema import AuthorFactsForAdminPage, EditAuthorFact, CreateAuthorFact
+from admin.authors.crud import get_authors_list_for_admin_page
 from admin.authors.errors import NotFoundInDbError
 from core.models import AuthorFacts
 
@@ -63,3 +65,21 @@ async def update_author_fact(session: AsyncSession, fact_id: int, data: EditAuth
     await session.commit()
     await session.refresh(fact)
     return True
+
+
+async def create_author_fact(session: AsyncSession, data: CreateAuthorFact) -> AuthorFacts | bool:
+    fact = AuthorFacts(**data.model_dump())
+
+    try:
+        session.add(fact)
+        await session.commit()
+        await session.refresh(fact)
+    except SQLAlchemyError:
+        return False
+    return fact
+
+
+async def set_author_in_choices(session: AsyncSession, form):
+    authors = await get_authors_list_for_admin_page(session)
+    choices = [(author.id, f"{author.first_name} {author.last_name}") for author in authors]
+    form.author_id.choices = choices
