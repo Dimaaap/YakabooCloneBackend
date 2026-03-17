@@ -66,7 +66,5 @@ async def create_banner(session: AsyncSession, data: CreateBanner) -> Banner | b
         await session.commit()
         await session.refresh(banner)
     except SQLAlchemyError as e:
-        print("here")
-        print(e)
         return False
     return banner

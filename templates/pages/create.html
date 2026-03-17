@@ -31,7 +31,7 @@
                                 {{ field.label.text }}
                             </label>
 
-                            {% if field.type == "TextAreaField" %}
+                            {% if field.type == "TextAreaField" or field.type == "SelectMultipleField" %}
                                 {% if field.errors %}
                                     {{ field(class="edit-form__textarea error-field") }}
                                 {% else %}

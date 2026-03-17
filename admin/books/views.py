@@ -4,8 +4,9 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import BookEditForm
-from .schema import BooksForAdminList, EditBook
+from .crud import FieldsSetter
+from .forms import BookEditForm, BookCreateForm
+from .schema import BooksForAdminList, EditBook, CreateBook
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -13,7 +14,7 @@ from ..utils import convert_alchemy_datetime
 router = APIRouter(tags=["Books For Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_books_list", response_class=HTMLResponse)
 async def books_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     books = await crud.get_books_for_admin_page(session)
     books = [book.model_dump() for book in books]
@@ -44,6 +45,55 @@ async def books_list(request: Request, session: AsyncSession = Depends(db_helper
             "link_fields": link_fields,
         }
     )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_book_page(request: Request,
+                           session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form = BookCreateForm()
+
+    setter_clas = FieldsSetter(session, form)
+    await setter_clas.main()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book",
+            "model_name": "Book"
+        }
+    )
+
+
+@router.post("/create", name="admin_create_book", response_class=HTMLResponse)
+async def create_book_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookCreateForm()
+    setter = FieldsSetter(session, form)
+    await setter.main()
+
+    form.process(await request.form())
+
+    if form.validate():
+        book_data = CreateBook(**form_data)
+        await crud.create_book(session, book_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_books_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book",
+            "model_name": "Book"
+        }
+    )
+
 
 
 @router.get("/{book_id}", response_class=HTMLResponse)
