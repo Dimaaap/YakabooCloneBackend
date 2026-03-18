@@ -14,6 +14,7 @@ from .category import router as category_router
 from .contacts import router as contacts_router
 from .delivery_terms import router as delivery_terms_router
 from .double_subcategories import router as double_subcategories_router
+from .subcategories import router as subcategories_router
 from .email_subs import router as email_subs_router
 from .footer import router as footer_router
 from .interesting import router as interesting_router
@@ -53,6 +54,7 @@ router.include_router(category_router)
 router.include_router(contacts_router)
 router.include_router(delivery_terms_router)
 router.include_router(double_subcategories_router)
+router.include_router(subcategories_router)
 router.include_router(email_subs_router)
 router.include_router(footer_router)
 router.include_router(interesting_router)

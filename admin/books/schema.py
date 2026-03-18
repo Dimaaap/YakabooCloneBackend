@@ -57,3 +57,6 @@ class CreateBook(BaseModel, BaseFieldsMixin):
     literature_period_id: int | None = None
     seria_id: int | None = None
     publishing_id: int
+    edition_group_id: int | None = None
+    notebook_category_id: int | None = None
+    notebook_subcategory_id: int | None = None

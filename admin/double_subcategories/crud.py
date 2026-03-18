@@ -59,7 +59,7 @@ async def update_double_subcategory(session: AsyncSession, double_subcategory_id
     double_subcategory = await get_double_subcategory_by_id(session, double_subcategory_id)
 
     if not double_subcategory:
-        raise NotFoundInDbError("Delivery term not found")
+        raise NotFoundInDbError("Double Subcategory not found")
 
     update_data = data.model_dump(exclude_unset=True)
 

@@ -4,12 +4,13 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .crud import FieldsSetter
+from .fields_setter import FieldsSetter
 from .forms import BookEditForm, BookCreateForm
 from .schema import BooksForAdminList, EditBook, CreateBook
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
+from .helpers import prepare_data_to_db
 
 router = APIRouter(tags=["Books For Admin Page"])
 
@@ -69,21 +70,24 @@ async def create_book_page(request: Request,
 @router.post("/create", name="admin_create_book", response_class=HTMLResponse)
 async def create_book_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     form_data = await request.form()
+    data = dict(form_data)
     form = BookCreateForm()
+
+    prepare_data_to_db(form_data)
+
     setter = FieldsSetter(session, form)
     await setter.main()
 
     form.process(await request.form())
 
     if form.validate():
-        book_data = CreateBook(**form_data)
+        book_data = CreateBook(**data)
         await crud.create_book(session, book_data)
 
         return RedirectResponse(
             url=request.url_for("admin_books_list"),
             status_code=status.HTTP_303_SEE_OTHER
         )
-
     return templates.TemplateResponse(
         "pages/create.html",
         {

@@ -37,3 +37,4 @@ class BookCreateForm(BookEditForm):
                                                validators=[Optional()])
     publishing_id = SelectField("Publishing: ", coerce=int,
                              validators=[DataRequired()])
+

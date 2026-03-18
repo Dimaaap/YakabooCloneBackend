@@ -16,6 +16,7 @@ entities_slug = {
     "Book Categories": {"image_src": "categories.svg", "slug": "categories"},
     "Contacts": {"image_src": "contacts.svg", "slug": "contacts"},
     "Delivery Terms": {"image_src": "delivery.svg", "slug": "delivery_terms"},
+    "Book Subcategories": {"image_src": "categories.svg", "slug": "subcategories"},
     "Book Double Subcategories": {"image_src": "categories.svg", "slug": "double_subcategories"},
     "Email Subs": {"image_src": "email.svg", "slug": "email_subs"},
     "Footers": {"image_src": "footer.svg", "slug": "footers"},
