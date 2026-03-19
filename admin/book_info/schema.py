@@ -8,7 +8,6 @@ class BookInfo(BaseModel):
     in_stock: bool = True
     visible: bool = True
     code: int
-    rate: float = 0
     illustrations: str | None = None
     ISBN: str
     cover_type: CoverTypes
@@ -44,7 +43,7 @@ class BookInfo(BaseModel):
     description: str = ""
     characteristics: str | None = None
 
-    book_title: str
+    book_title: str | None = None
 
 
 class BookInfoListForAdmin(BookInfo):
@@ -57,7 +56,6 @@ class EditBookInfo(BaseModel):
     in_stock: bool = True
     visible: bool = True
     code: int
-    rate: float = 0
     illustrations: str | None = None
     ISBN: str
     cover_type: CoverTypes
@@ -92,16 +90,14 @@ class EditBookInfo(BaseModel):
     description: str | None = None
     characteristics: str | None = None
 
-    @field_validator(
-        "literature_type",
-        "literature_program_class",
-        "pages_format",
-        "papers",
-        mode="before"
-    )
+    @field_validator("*",mode="before")
     @classmethod
     def empty_string_to_none(cls, v):
         if v == "":
             return None
         return v
+
+
+class CreateBookInfo(EditBookInfo):
+    ...
 

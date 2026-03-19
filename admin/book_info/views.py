@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import BookInfoEditForm
-from .schema import BookInfoListForAdmin, EditBookInfo
+from .forms import BookInfoEditForm, BookInfoCreateForm
+from .schema import BookInfoListForAdmin, EditBookInfo, CreateBookInfo
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Book Info List for Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_book_info_list", response_class=HTMLResponse)
 async def book_info_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     book_info = await crud.get_book_info_list_for_admin_page(session)
     book_info = [info.model_dump() for info in book_info]
@@ -34,6 +34,47 @@ async def book_info_list(request: Request, session: AsyncSession = Depends(db_he
             "link_fields": link_fields
         }
     )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_book_info_page(request: Request):
+    form = BookInfoCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Info",
+            "model_name": "Book Info",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_book_info", response_class=HTMLResponse)
+async def create_book_info_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookInfoCreateForm(form_data)
+
+    if form.validate():
+        book_info_data = CreateBookInfo(**form.data)
+        await crud.create_book_info(session, book_info_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_book_info_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Info",
+            "model_name": "Book Info"
+        }
+    )
+
 
 @router.get("/{book_info_id}", response_class=HTMLResponse)
 async def get_book_info_by_id(request: Request, book_info_id: int,

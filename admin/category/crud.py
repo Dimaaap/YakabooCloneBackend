@@ -4,8 +4,8 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.category.schema import CategoryForAdminList, EditCategory
-from core.models import Category
+from admin.category.schema import CategoryForAdminList, EditCategory, CreateCategory
+from core.models import Category, Subcategory
 
 
 async def get_categories_for_admin_page(session: AsyncSession) -> list[CategoryForAdminList]:
@@ -72,3 +72,22 @@ async def update_book_category(session: AsyncSession, category_id: int, data: Ed
     await session.commit()
     await session.refresh(category)
     return True
+
+
+async def create_book_category(session: AsyncSession, data: CreateCategory) -> Category | None:
+    category = Category(
+        title=data.title,
+        slug=data.slug,
+        banners=data.banner_images
+    )
+
+    if data.subcategories_ids:
+        result = await session.execute(select(Subcategory).where(Subcategory.id.in_(data.subcategories_ids)))
+        result = result.scalars().unique().all()
+        category.subcategories = result
+
+    session.add(category)
+
+    await session.commit()
+    await session.refresh(category)
+    return category

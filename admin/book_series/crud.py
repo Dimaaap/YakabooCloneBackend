@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.book_series.schema import BookSeriesForAdminList, EditBookSeria
+from admin.book_series.schema import BookSeriesForAdminList, EditBookSeria, CreateBookSeria
 from core.models import BookSeria
 
 
@@ -57,3 +58,15 @@ async def update_book_seria(session: AsyncSession, seria_id: int, data: EditBook
     await session.commit()
     await session.refresh(book_seria)
     return True
+
+
+async def create_book_seria(session: AsyncSession, data: CreateBookSeria) -> BookSeria | bool:
+    book_seria = BookSeria(**data.model_dump())
+    try:
+        session.add(book_seria)
+        await session.commit()
+        await session.refresh(book_seria)
+    except SQLAlchemyError:
+        return False
+
+    return book_seria

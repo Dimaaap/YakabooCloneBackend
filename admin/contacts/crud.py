@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.contacts.schema import ContactsForAdminList, EditContacts
+from admin.contacts.schema import ContactsForAdminList, EditContacts, CreateContacts
 from core.models import Contacts
 
 
@@ -56,3 +57,15 @@ async def update_contact(session: AsyncSession, contact_id: int, data: EditConta
     await session.commit()
     await session.refresh(contact)
     return True
+
+
+async def create_contact(session: AsyncSession, data: CreateContacts) -> Contacts | bool:
+    contact = Contacts(**data.model_dump())
+
+    try:
+        session.add(contact)
+        await session.commit()
+        await session.refresh(contact)
+    except SQLAlchemyError:
+        return False
+    return contact

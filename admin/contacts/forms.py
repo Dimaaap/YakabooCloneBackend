@@ -7,3 +7,9 @@ class ContactEditForm(Form):
    link = StringField("Link: ", validators=[DataRequired()])
    icon_title = StringField("Icon Title: ")
    is_active = BooleanField("Is Active: ")
+
+
+class ContactCreateForm(ContactEditForm):
+   ...
+
+

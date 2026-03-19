@@ -20,3 +20,7 @@ class EditBookTranslator(BookTranslators):
     last_name: str | None = None
     slug: str | None = None
     is_active: bool | None = None
+
+
+class CreateBookTranslator(BookTranslators):
+    ...

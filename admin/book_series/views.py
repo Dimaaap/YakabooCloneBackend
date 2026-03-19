@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import BookSeriaEditForm
-from .schema import BookSeriesForAdminList, EditBookSeria
+from .forms import BookSeriaEditForm, BookSeriaCreateForm
+from .schema import BookSeriesForAdminList, EditBookSeria, CreateBookSeria
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Book Series for Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_book_series_list", response_class=HTMLResponse)
 async def series_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     series = await crud.get_book_series_for_admin_page(session)
     series = [seria.model_dump() for seria in series]
@@ -30,6 +30,47 @@ async def series_list(request: Request, session: AsyncSession = Depends(db_helpe
             "is_editable": True,
             "is_deletable": True,
             "can_create": True,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_book_seria_page(request: Request):
+    form = BookSeriaCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Seria",
+            "model_name": "Book Seria"
+        }
+    )
+
+
+@router.post("/create", name="admin_create_book_seria", response_class=HTMLResponse)
+async def create_book_seria_submit(request: Request,
+                                   session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookSeriaCreateForm(form_data)
+
+    if form.validate():
+        book_seria_data = CreateBookSeria(**form.data)
+        await crud.create_book_seria(session, book_seria_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_book_series_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Seria",
+            "model_name": "Book Seria"
         }
     )
 

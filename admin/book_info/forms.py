@@ -9,7 +9,6 @@ class BookInfoEditForm(Form):
     in_stock = BooleanField("In Stock: ")
     visible = BooleanField("Visible: ")
     code = IntegerField("Code: ", validators=[DataRequired()])
-    rate = FloatField("Rate: ")
     illustrations = StringField("Illustrations: ")
     ISBN = StringField("ISBN: ", validators=[DataRequired()])
     cover_type = SelectField("Cover Type: ", choices=[(type.value, type.name) for type in CoverTypes],
@@ -58,9 +57,16 @@ class BookInfoEditForm(Form):
     has_color_cut = BooleanField("Has Color Cut: ")
     print = StringField("Print: ")
     publishing_year = IntegerField("Publishing Year: ",
-                                   validators=[NumberRange(min=1000, max=3000, message="Incorrect data format")])
+                                   validators=[Optional(),
+                                               NumberRange(min=1000, max=3000, message="Incorrect data format")])
     first_published_at = IntegerField("First Published At: ",
                                       validators=[Optional()])
     description = TextAreaField("Description: ")
     characteristics = StringField("Characteristics: ")
+
+
+class BookInfoCreateForm(BookInfoEditForm):
+    ...
+
+
 

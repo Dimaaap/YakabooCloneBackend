@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.book_translators.schema import BookTranslatorsListForAdminPage, EditBookTranslator
+from admin.book_translators.schema import BookTranslatorsListForAdminPage, EditBookTranslator, CreateBookTranslator
 from core.models import BookTranslator
 
 
@@ -58,3 +59,15 @@ async def update_book_translator(session: AsyncSession, book_translator_id: int,
     await session.commit()
     await session.refresh(book_translator)
     return True
+
+
+async def create_book_translator(session: AsyncSession, data: CreateBookTranslator) -> BookTranslator | bool:
+    translator = BookTranslator(**data.model_dump())
+    try:
+        session.add(translator)
+        await session.commit()
+        await session.refresh(translator)
+    except SQLAlchemyError:
+        return False
+
+    return translator

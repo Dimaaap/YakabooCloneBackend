@@ -4,15 +4,16 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import BookCategoryEditForm
-from .schema import CategoryForAdminList, EditCategory
+from .forms import BookCategoryEditForm, BookCategoryCreateForm
+from .schema import CategoryForAdminList, EditCategory, CreateCategory
 from ..config import templates
 from . import crud
+from ..subcategories.crud import get_subcategories_for_admin_page
 
 router = APIRouter(tags=["Books Categories for Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_categories_list", response_class=HTMLResponse)
 async def categories_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     categories = await crud.get_categories_for_admin_page(session)
     categories = [category.model_dump() for category in categories]
@@ -31,6 +32,60 @@ async def categories_list(request: Request, session: AsyncSession = Depends(db_h
             "is_deletable": True,
             "can_create": True,
             "link_fields": link_fields
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_category_page(request: Request,
+                               session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form = BookCategoryCreateForm()
+
+    subcategories = await get_subcategories_for_admin_page(session)
+    choices = [(sub.id, sub.title) for sub in subcategories]
+    form.subcategories_ids.choices = choices
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create New Category",
+            "model_name": "Category"
+        }
+    )
+
+
+@router.post("/create", name="admin_create_category", response_class=HTMLResponse)
+async def create_category_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookCategoryCreateForm(form_data)
+
+    subcategories = await get_subcategories_for_admin_page(session)
+    choices = [(sub.id, sub.title) for sub in subcategories]
+    form.subcategories_ids.choices = choices
+
+    if form.validate():
+        data = form.data
+
+        data["banner_images"] = data["banner_images"].split() if data.get("banner_images") else []
+        data["subcategories_ids"] = [int(s) for s in form_data.getlist("subcategories_ids")]
+
+        category_data = CreateCategory(**data)
+        await crud.create_book_category(session, category_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_categories_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create New Category",
+            "model_name": "Category"
         }
     )
 

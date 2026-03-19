@@ -7,3 +7,7 @@ class BookTranslatorEditForm(Form):
     last_name = StringField("Last Name: ")
     slug = StringField("Slug: ", validators=[DataRequired()])
     is_active = BooleanField("Is Active: ")
+
+
+class BookTranslatorCreateForm(BookTranslatorEditForm):
+    ...

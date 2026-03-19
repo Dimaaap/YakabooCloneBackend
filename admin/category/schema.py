@@ -1,11 +1,14 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class Category(BaseModel):
+class CommonFieldsMixin:
     title: str
     slug: str
-    subcategories_titles: list[str] = []
     banner_images: list[str] = []
+
+
+class Category(BaseModel, CommonFieldsMixin):
+    subcategories_titles: list[str] = []
 
 
 class CategoryForAdminList(Category):
@@ -17,3 +20,7 @@ class CategoryForAdminList(Category):
 class EditCategory(BaseModel):
     title: str | None = None
     slug: str | None = None
+
+
+class CreateCategory(BaseModel, CommonFieldsMixin):
+    subcategories_ids: list[int] = []

@@ -7,3 +7,7 @@ class BookSeriaEditForm(Form):
     slug = StringField("Slug: ", validators=[DataRequired()])
     is_active = BooleanField("Is Active: ")
 
+
+class BookSeriaCreateForm(BookSeriaEditForm):
+    ...
+

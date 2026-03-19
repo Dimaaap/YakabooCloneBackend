@@ -38,7 +38,6 @@ async def banners_list(request: Request, session: AsyncSession = Depends(db_help
 async def create_banner_page(request: Request):
     form = BannerCreateForm()
 
-
     return templates.TemplateResponse(
         "pages/create.html",
         {

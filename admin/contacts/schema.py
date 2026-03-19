@@ -18,3 +18,8 @@ class EditContacts(Contacts):
     social_title: str | None = None
     link: str | None = None
     is_active: bool | None = None
+
+
+class CreateContacts(Contacts):
+    ...
+

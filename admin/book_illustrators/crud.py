@@ -1,9 +1,11 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.book_illustrators.schema import BookIllustratorsListForAdmin, EditBookIllustrator
+from admin.book_illustrators.forms import BookIllustratorCreateForm
+from admin.book_illustrators.schema import BookIllustratorsListForAdmin, EditBookIllustrator, CreateBookIllustrator
 from core.models import BookIllustrator, book
 
 
@@ -58,3 +60,14 @@ async def update_book_illustrator(session: AsyncSession, book_illustrator_id: in
     await session.commit()
     await session.refresh(book_illustrator)
     return True
+
+
+async def create_book_illustrator(session: AsyncSession, data: CreateBookIllustrator) -> BookIllustrator | bool:
+    illustrator = BookIllustrator(**data.model_dump())
+    try:
+        session.add(illustrator)
+        await session.commit()
+        await session.refresh(illustrator)
+    except SQLAlchemyError:
+        return False
+    return illustrator

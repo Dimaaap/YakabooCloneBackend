@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import BookTranslatorEditForm
-from .schema import BookTranslatorsListForAdminPage, EditBookTranslator
+from .forms import BookTranslatorEditForm, BookTranslatorCreateForm
+from .schema import BookTranslatorsListForAdminPage, EditBookTranslator, CreateBookTranslator
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Book Translators for Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_book_translators_list", response_class=HTMLResponse)
 async def series_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     series = await crud.get_book_translators_for_admin_page(session)
     series = [seria.model_dump() for seria in series]
@@ -30,6 +30,47 @@ async def series_list(request: Request, session: AsyncSession = Depends(db_helpe
             "is_editable": True,
             "is_deletable": True,
             "can_create": True,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_book_translator_page(request: Request):
+    form = BookTranslatorCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Translator",
+            "model_name": "Book Translator",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_book_translator", response_class=HTMLResponse)
+async def create_book_translator_submit(request: Request,
+                                        session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookTranslatorCreateForm(form_data)
+
+    if form.validate():
+        book_translator_data = CreateBookTranslator(**form.data)
+        await crud.create_book_translator(session, book_translator_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_book_translators_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Translator",
+            "model_name": "Book Translator"
         }
     )
 

@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import BookIllustratorEditForm
-from .schema import BookIllustratorsListForAdmin
+from .forms import BookIllustratorEditForm, BookIllustratorCreateForm
+from .schema import BookIllustratorsListForAdmin, CreateBookIllustrator
 from ..book_translators.schema import EditBookTranslator
 from ..config import templates
 from . import crud
@@ -14,7 +14,7 @@ from . import crud
 router = APIRouter(tags=["Book Illustrators for Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_book_illustrators_list", response_class=HTMLResponse)
 async def book_illustrators_list(request: Request,
                                  session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     illustrators = await crud.get_book_illustrator_for_admin_page(session)
@@ -34,6 +34,47 @@ async def book_illustrators_list(request: Request,
             "can_create": True
         }
     )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_book_illustrator(request: Request):
+    form = BookIllustratorCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Illustrator",
+            "model_name": "Book Illustrator",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_book_illustrator", response_class=HTMLResponse)
+async def create_book_illustrator(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = BookIllustratorCreateForm(form_data)
+
+    if form.validate():
+        illustrator_data = CreateBookIllustrator(**form.data)
+        await crud.create_book_illustrator(session, illustrator_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_book_illustrators_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Book Illustrator",
+            "model_name": "Book Illustrator"
+        }
+    )
+
 
 @router.get("/{illustrator_id}", response_class=HTMLResponse)
 async def get_book_illustrator_by_id(request: Request, illustrator_id: int,

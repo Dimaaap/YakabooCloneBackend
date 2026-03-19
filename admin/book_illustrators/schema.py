@@ -19,3 +19,7 @@ class EditBookIllustrator(BookIllustratorsList):
     last_name: str | None = None
     slug: str | None = None
     is_active: bool | None = None
+
+
+class CreateBookIllustrator(BookIllustratorsList):
+    ...
