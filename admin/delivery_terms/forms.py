@@ -20,3 +20,7 @@ class DeliveryTermEditForm(Form):
     ukrpost_courier_price = IntegerField("Ukrpost Courier Price: ",
                                          validators=positive_num_validator)
 
+
+class DeliveryTermCreateForm(Form):
+    ...
+
