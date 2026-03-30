@@ -1,4 +1,4 @@
-from wtforms import Form, IntegerField
+from wtforms import Form, IntegerField, SelectField
 from wtforms.validators import NumberRange, Optional
 
 
@@ -21,6 +21,7 @@ class DeliveryTermEditForm(Form):
                                          validators=positive_num_validator)
 
 
-class DeliveryTermCreateForm(Form):
-    ...
+class DeliveryTermCreateForm(DeliveryTermEditForm):
+    country_id = SelectField("Country: ", coerce=int, validators=[Optional()])
+    city_id = SelectField("City: ", coerce=int, validators=[Optional()])
 

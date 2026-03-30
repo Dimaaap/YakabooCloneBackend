@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.interesting.schema import InterestingForAdminList, EditInteresting
+from admin.interesting.schema import InterestingForAdminList, EditInteresting, CreateInteresting
 from core.models import Interesting
 
 
@@ -53,3 +54,15 @@ async def update_interesting(session: AsyncSession, interesting_id: int, data: E
     await session.commit()
     await session.refresh(interesting)
     return True
+
+
+async def create_interesting(session: AsyncSession, data: CreateInteresting) -> Interesting | bool:
+    interesting = Interesting(**data.model_dump())
+
+    try:
+        session.add(interesting)
+        await session.commit()
+        await session.refresh(interesting)
+    except SQLAlchemyError:
+        return False
+    return interesting

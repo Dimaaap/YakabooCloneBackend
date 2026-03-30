@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import InterestingEditForm
-from .schema import InterestingForAdminList, EditInteresting
+from .forms import InterestingEditForm, InterestingCreateForm
+from .schema import InterestingForAdminList, EditInteresting, CreateInteresting
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Admin Interesting"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_interesting_list", response_class=HTMLResponse)
 async def interesting_list(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     all_interesting = await crud.get_interesting_list_for_admin_page(session)
     all_interesting = [interesting.model_dump() for interesting in all_interesting]
@@ -30,6 +30,47 @@ async def interesting_list(request: Request, session: AsyncSession=Depends(db_he
             "is_editable": True,
             "is_deletable": True,
             "can_create": True,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_interesting_page(request: Request):
+    form = InterestingCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Interesting",
+            "model_name": "Interesting",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_interesting", response_class=HTMLResponse)
+async def create_interesting_submit(request: Request,
+                                    session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = InterestingCreateForm(form_data)
+
+    if form.validate():
+        interesting_data = CreateInteresting(**form.data)
+        await crud.create_interesting(session, interesting_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_interesting_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Interesting",
+            "model_name": "Interesting",
         }
     )
 

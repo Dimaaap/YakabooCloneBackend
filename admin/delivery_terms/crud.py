@@ -1,10 +1,12 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.delivery_terms.schema import DeliveryTermsForAdminList, EditDeliveryTerm
+from admin.cities.crud import get_cities_list_for_admin_page
+from admin.delivery_terms.schema import DeliveryTermsForAdminList, EditDeliveryTerm, CreateDeliveryTerm
 from core.models import DeliveryTerms
 
 
@@ -70,3 +72,20 @@ async def update_delivery_term(session: AsyncSession, term_id: int, data: EditDe
     await session.commit()
     await session.refresh(delivery_term)
     return True
+
+
+async def create_delivery_term(session: AsyncSession, data: CreateDeliveryTerm) -> DeliveryTerms | bool:
+    delivery_term = DeliveryTerms(**data.model_dump())
+    try:
+        session.add(delivery_term)
+        await session.commit()
+        await session.refresh(delivery_term)
+    except SQLAlchemyError as e:
+        return False
+    return delivery_term
+
+
+async def set_cities_in_choices(session: AsyncSession, form):
+    cities = await get_cities_list_for_admin_page(session)
+    choices = [(city.id, city.title) for city in cities]
+    form.city_id.choices = choices

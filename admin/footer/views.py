@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import FooterEditForm
-from .schema import FooterForAdminList, EditFooter
+from .forms import FooterEditForm, FooterCreateForm
+from .schema import FooterForAdminList, EditFooter, CreateFooter
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Footers For Admin"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_footers_list", response_class=HTMLResponse)
 async def get_email_subs_list(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     footers = await crud.get_footers_for_admin_page(session)
     footers = [footer.model_dump() for footer in footers]
@@ -32,6 +32,47 @@ async def get_email_subs_list(request: Request, session: AsyncSession = Depends(
             "can_create": True,
         }
     )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_footer_page(request: Request):
+    form = FooterCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Footer",
+            "model_name": "Footer"
+        }
+    )
+
+
+@router.post("/create", name="admin_create_footer", response_class=HTMLResponse)
+async def create_footer_submit(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = FooterCreateForm(form_data)
+
+    if form.validate():
+        footer_data = CreateFooter(**form.data)
+        await crud.create_footer(session, footer_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_footers_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Footer",
+            "model_name": "Footer"
+        }
+    )
+
 
 @router.get("/{footer_id}", response_class=HTMLResponse)
 async def get_footer_by_id(request: Request, footer_id: int,

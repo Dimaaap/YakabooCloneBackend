@@ -4,15 +4,16 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import DoubleSubCategoryEditForm
-from .schema import DoubleSubcategoriesForAdminList, EditDoubleSubCategory
+from .crud import set_subcategories_in_choices
+from .forms import DoubleSubCategoryEditForm, DoubleSubCategoryCreateForm
+from .schema import DoubleSubcategoriesForAdminList, EditDoubleSubCategory, CreateDoubleSubCategory
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Admin Double Subcategories"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_double_subcategories_list", response_class=HTMLResponse)
 async def double_subcategories_list(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     double_subcategories = await crud.get_double_subcategories_for_admin_page(session)
     double_subcategories = [subcategory.model_dump() for subcategory in double_subcategories]
@@ -32,6 +33,56 @@ async def double_subcategories_list(request: Request, session: AsyncSession=Depe
             "is_deletable": True,
             "can_create": True,
             "link_fields": link_fields,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_double_subcategory_page(request: Request,
+                                         session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form = DoubleSubCategoryCreateForm()
+
+    await set_subcategories_in_choices(session, form)
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Double Subcategory",
+            "model_name": "Double Subcategory"
+        }
+    )
+
+
+@router.post("/create", name="admin_create_double_subcategory", response_class=HTMLResponse)
+async def create_double_subcategory_submit(request: Request,
+                                           session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = DoubleSubCategoryCreateForm(form_data)
+
+    await set_subcategories_in_choices(session, form)
+
+    if form.validate():
+        data = dict(form_data)
+        data["subcategory_id"] = int(data["subcategory_id"])
+
+        images_raw = data.get("images_src", "")
+        data["images_src"] = images_raw.split() if images_raw else []
+
+        double_subcategories_form_data = CreateDoubleSubCategory(**data)
+
+        await crud.create_double_subcategory(session, double_subcategories_form_data)
+        return RedirectResponse(url=request.url_for("admin_double_subcategories_list"),
+                                status_code=status.HTTP_303_SEE_OTHER)
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Double Subcategory",
+            "model_name": "Double Subcategory"
         }
     )
 

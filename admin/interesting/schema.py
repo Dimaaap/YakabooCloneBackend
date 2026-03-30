@@ -19,3 +19,7 @@ class EditInteresting(Interesting):
     slug: str | None = None
     visible: bool | None = None
     link: str | None = None
+
+
+class CreateInteresting(EditInteresting):
+    ...

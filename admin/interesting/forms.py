@@ -7,3 +7,7 @@ class InterestingEditForm(Form):
     slug = StringField("Slug: ", validators=[DataRequired()])
     visible = BooleanField("Is visible: ")
     link = StringField("Link: ", validators=[DataRequired()])
+
+
+class InterestingCreateForm(InterestingEditForm):
+    ...

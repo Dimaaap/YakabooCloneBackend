@@ -20,3 +20,7 @@ class EditFooter(BaseModel):
     title: str | None = None
     link: str | None = None
     active: bool | None = None
+
+
+class CreateFooter(Footers):
+    ...

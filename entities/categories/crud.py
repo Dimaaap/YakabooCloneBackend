@@ -60,6 +60,8 @@ async def get_all_subcategories(session: AsyncSession) -> list[SubCategorySchema
     statement = select(Subcategory).order_by(Subcategory.id)
     result: Result = await session.execute(statement)
     subcategories = result.scalars().all()
+
+    normalize_images_src(subcategories)
     return [SubCategorySchema.model_validate(subcategory) for subcategory in subcategories]
 
 
@@ -70,6 +72,9 @@ async def get_all_subcategories_by_category_id(session: AsyncSession, category_i
         subcategories = result.scalars().all()
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+
+    normalize_images_src(subcategories)
+
     return [SubCategorySchema.model_validate(subcategory) for subcategory in subcategories]
 
 
@@ -80,6 +85,8 @@ async def get_all_categories(session: AsyncSession) -> list[CategorySchema]:
                  .order_by(Category.id))
     result: Result = await session.execute(statement)
     categories = result.scalars().all()
+
+    normalize_images_src(categories)
     return [CategorySchema.model_validate(category) for category in categories]
 
 
@@ -90,6 +97,8 @@ async def get_category_by_id(session: AsyncSession, category_id: int) -> Categor
                  )
     result: Result = await session.execute(statement)
     category = result.unique().scalars().first()
+
+    normalize_images_src(category)
     return category
 
 
@@ -166,6 +175,18 @@ async def main():
 
         for sub_category in SUB_CATEGORIES:
             await create_sub_category(session, SubCategoryBase.model_validate(sub_category))
+
+
+def normalize_images_src(subcategories):
+    for subcat in getattr(subcategories, "__iter__", lambda: [])():
+        for ds in getattr(subcat, "double_subcategories", []):
+            normalized = []
+            for img in getattr(ds, "images_src", []) or []:
+                if isinstance(img, str):
+                    normalized.append({"image_src": img})
+                elif isinstance(img, dict):
+                    normalized.append(img)
+            ds.images_src = normalized
 
 
 if __name__ == "__main__":

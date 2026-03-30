@@ -6,11 +6,10 @@ class DoubleSubcategoryBase(BaseModel):
     slug: str
     is_visible: bool = True
     subcategory_id: int
-    images_src: list[dict[str, str]] | None = None
 
 
 class DoubleSubcategoryCreate(DoubleSubcategoryBase):
-    ...
+    images_src: list[str] | None = None
 
 
 class DoubleSubcategoryUpdate(DoubleSubcategoryCreate):

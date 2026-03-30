@@ -1,11 +1,14 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.double_subcategories.schema import DoubleSubcategoriesForAdminList, EditDoubleSubCategory
+from admin.double_subcategories.schema import DoubleSubcategoriesForAdminList, EditDoubleSubCategory, \
+    CreateDoubleSubCategory
 from core.models import DoubleSubcategory
+from admin.subcategories.crud import get_subcategories_for_admin_page
 
 
 async def get_double_subcategories_for_admin_page(session: AsyncSession) -> list[DoubleSubcategoriesForAdminList]:
@@ -20,7 +23,10 @@ async def get_double_subcategories_for_admin_page(session: AsyncSession) -> list
 
     for subcategory in double_subcategories:
         subcategory.subcategory_title = subcategory.subcategory.title
-        subcategory.images = [src["image_src"] for src in subcategory.images_src]
+        subcategory.images = [
+            img["image_src"] if isinstance(img, dict) else img
+            for img in (subcategory.images_src or [])
+        ]
 
     return [
         DoubleSubcategoriesForAdminList.model_validate(subcategory)
@@ -40,7 +46,10 @@ async def get_double_subcategory_field_data(session: AsyncSession, double_subcat
     double_subcategory = result.scalars().first()
 
     double_subcategory.subcategory_title = double_subcategory.subcategory.title
-    double_subcategory.images = [src["image_src"] for src in double_subcategory.images_src]
+    double_subcategory.images = [
+        img["image_src"] if isinstance(img, dict) else img
+        for img in (double_subcategory.images_src or [])
+    ]
 
     return DoubleSubcategoriesForAdminList.model_validate(double_subcategory)
 
@@ -69,3 +78,22 @@ async def update_double_subcategory(session: AsyncSession, double_subcategory_id
     await session.commit()
     await session.refresh(double_subcategory)
     return True
+
+
+async def create_double_subcategory(session: AsyncSession, data: CreateDoubleSubCategory) -> DoubleSubcategory | bool:
+    double_subcategory = DoubleSubcategory(**data.model_dump())
+
+    try:
+        session.add(double_subcategory)
+        await session.commit()
+        await session.refresh(double_subcategory)
+    except SQLAlchemyError as e:
+        return False
+    return double_subcategory
+
+
+
+async def set_subcategories_in_choices(session: AsyncSession, form):
+    subcategories = await get_subcategories_for_admin_page(session)
+    choices = [(subcategory.id, subcategory.title) for subcategory in subcategories]
+    form.subcategory_id.choices = choices

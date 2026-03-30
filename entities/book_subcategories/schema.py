@@ -8,15 +8,14 @@ class BookSubcategoryBase(BaseModel):
     slug: str
     is_visible: bool = True
     category_id: int
-    images_src: list[dict[str, str]] | None = None
 
 
 class BookSubcategoryCreate(BookSubcategoryBase):
-    ...
+    images_src: list[str] | None = None
 
 
 class BookSubcategoryUpdate(BookSubcategoryCreate):
-    ...
+    images_src: list[str] | None = None
 
 
 class BookSubcategoryUpdatePartial(BookSubcategoryUpdate):

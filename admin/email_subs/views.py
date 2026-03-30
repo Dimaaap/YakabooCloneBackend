@@ -32,7 +32,6 @@ async def get_email_subs_list(request: Request, session: AsyncSession = Depends(
             "fields": fields,
             "is_editable": False,
             "is_deletable": True,
-            "can_create": True,
         }
     )
 
