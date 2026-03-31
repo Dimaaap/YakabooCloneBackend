@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import KnowledgeEditForm
-from .schema import KnowledgeForAdminPageList, EditKnowledge
+from .forms import KnowledgeEditForm, KnowledgeCreateForm
+from .schema import KnowledgeForAdminPageList, EditKnowledge, CreateKnowledge
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Admin Knowledge"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_knowledge_list", response_class=HTMLResponse)
 async def knowledge_list(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     all_knowledge = await crud.get_knowledge_list_for_admin_page(session)
     all_knowledge = [knowledge.model_dump() for knowledge in all_knowledge]
@@ -30,6 +30,47 @@ async def knowledge_list(request: Request, session: AsyncSession=Depends(db_help
             "is_editable": True,
             "is_deletable": True,
             "can_create": True,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_knowledge_page(request: Request):
+    form = KnowledgeCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create knowledge",
+            "model_name": "Knowledge"
+        }
+    )
+
+
+@router.post("/create", name="admin_create_knowledge", response_class=HTMLResponse)
+async def create_knowledge_submit(request: Request,
+                                  session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = KnowledgeCreateForm(form_data)
+
+    if form.validate():
+        knowledge_data = CreateKnowledge(**form.data)
+        await crud.create_knowledge(session, knowledge_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_knowledge_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create knowledge",
+            "model_name": "Knowledge"
         }
     )
 

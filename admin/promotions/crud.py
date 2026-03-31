@@ -1,10 +1,12 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.promotions.schema import PromotionsForAdminPage, EditPromotion
+from admin.promo_categories.crud import get_promo_categories_for_admin_page
+from admin.promotions.schema import PromotionsForAdminPage, EditPromotion, CreatePromotion
 from core.models import Promotion, PromoCategories
 
 
@@ -71,3 +73,40 @@ async def update_promotion(session: AsyncSession, promo_id: int, data: EditPromo
     await session.commit()
     await session.refresh(promo)
     return True
+
+
+async def create_promotion(session: AsyncSession, data: CreatePromotion) -> Promotion | bool:
+    promotion = Promotion(
+        title=data.title,
+        slug=data.slug,
+        image=data.image,
+        main_description=data.main_description,
+        short_description=data.short_description,
+        long_description=data.long_description,
+        end_date=data.end_date,
+        is_active=data.is_active,
+    )
+
+    session.add(promotion)
+    if data.categories is not None:
+        result = await session.execute(
+            select(PromoCategories).where(PromoCategories.slug.in_(data.categories))
+        )
+
+        result = result.scalars().unique().all()
+        promotion.categories = result
+    else:
+        promotion.categories = []
+    try:
+        await session.commit()
+        await session.refresh(promotion)
+    except SQLAlchemyError:
+        await session.rollback()
+        return False
+    return promotion
+
+
+async def set_promotion_categories_in_choices(session: AsyncSession, form):
+    categories = await get_promo_categories_for_admin_page(session)
+    choices = [(cat.slug, cat.title) for cat in categories]
+    form.categories.choices = choices

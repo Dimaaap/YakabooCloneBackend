@@ -15,6 +15,10 @@ class KnowledgeForAdminPageList(Knowledge):
 
 class EditKnowledge(Knowledge):
     title: str | None = None
-    is_sidebar: bool | None = None
+    in_sidebar: bool | None = None
     is_active: bool | None = None
     content: str | None = None
+
+
+class CreateKnowledge(EditKnowledge):
+    ...

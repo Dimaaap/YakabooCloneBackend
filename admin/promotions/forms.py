@@ -1,8 +1,8 @@
 from wtforms import Form, StringField, DateTimeField, BooleanField, TextAreaField, SelectMultipleField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional
 
 
-class PromotionsEditForm(Form):
+class PromotionsCommonFieldsMixin:
     title = StringField("Title: ", validators=[DataRequired()])
     slug = StringField("Slug: ", validators=[DataRequired()])
     image = StringField("Image: ")
@@ -12,4 +12,10 @@ class PromotionsEditForm(Form):
     end_date = DateTimeField("End Date: ")
     is_active = BooleanField("Is Active: ")
 
+
+class PromotionsEditForm(Form, PromotionsCommonFieldsMixin):
     categories_title = SelectMultipleField("Categories: ")
+
+
+class PromotionsCreateForm(Form, PromotionsCommonFieldsMixin):
+    categories = SelectMultipleField("Categories: ", validators=[Optional()])

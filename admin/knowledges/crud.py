@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.knowledges.schema import KnowledgeForAdminPageList, EditKnowledge
+from admin.knowledges.schema import KnowledgeForAdminPageList, EditKnowledge, CreateKnowledge
 from core.models import Knowledge
 
 
@@ -62,3 +63,15 @@ async def update_knowledge(session: AsyncSession, knowledge_slug: str, data: Edi
     await session.commit()
     await session.refresh(knowledge)
     return True
+
+
+async def create_knowledge(session: AsyncSession, data: CreateKnowledge) -> Knowledge | bool:
+    knowledge = Knowledge(**data.model_dump())
+
+    try:
+        session.add(knowledge)
+        await session.commit()
+        await session.refresh(knowledge)
+    except SQLAlchemyError:
+        return False
+    return knowledge

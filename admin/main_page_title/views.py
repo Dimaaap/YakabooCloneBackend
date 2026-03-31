@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import MainPageTitleEditForm
-from .schema import MainPageTitlesListForAdmin, EditMainPageTitle
+from .forms import MainPageTitleEditForm, MainPageTitleCreateForm
+from .schema import MainPageTitlesListForAdmin, EditMainPageTitle, CreateMainPageTitle
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -13,14 +13,13 @@ from ..utils import convert_alchemy_datetime
 router = APIRouter(tags=["Main Page Titles for Admin"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_main_page_title_list", response_class=HTMLResponse)
 async def get_main_page_titles(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     main_page_titles = await crud.get_main_page_titles_for_admin_page(session)
     main_page_titles = [title.model_dump() for title in main_page_titles]
 
     for title in main_page_titles:
         title["created_at"] = convert_alchemy_datetime(title["created_at"])
-        title["updated_at"] = convert_alchemy_datetime(title["updated_at"])
 
     fields = list(MainPageTitlesListForAdmin.model_fields.keys())
 
@@ -35,6 +34,47 @@ async def get_main_page_titles(request: Request, session: AsyncSession = Depends
             "is_editable": True,
             "is_deletable": True,
             "can_create": True,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_main_page_title_page(request: Request):
+    form = MainPageTitleCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Main Page Title",
+            "model_name": "Main Page Title",
+        }
+    )
+
+
+@router.post("/create", name="admin_create_main_page_title", response_class=HTMLResponse)
+async def create_main_page_title_submit(request: Request,
+                                        session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = MainPageTitleCreateForm(form_data)
+
+    if form.validate():
+        main_page_title_data = CreateMainPageTitle(**form.data)
+        await crud.create_main_page_title(session, main_page_title_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_main_page_title_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Main Page Title",
+            "model_name": "Main Page Title"
         }
     )
 

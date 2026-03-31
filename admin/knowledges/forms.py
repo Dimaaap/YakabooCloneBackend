@@ -9,3 +9,7 @@ class KnowledgeEditForm(Form):
     in_sidebar = BooleanField("Is In Sidebar: ")
     is_active = BooleanField("Is Active: ")
     content = TextAreaField("Content: ", validators=[DataRequired()])
+
+
+class KnowledgeCreateForm(KnowledgeEditForm):
+    ...

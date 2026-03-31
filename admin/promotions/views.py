@@ -4,8 +4,10 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import PromotionsEditForm
-from .schema import PromotionsForAdminPage, EditPromotion
+from entities.meest_post_offices import data
+from .forms import PromotionsEditForm, PromotionsCreateForm
+from .schema import PromotionsForAdminPage, EditPromotion, CreatePromotion
+from ..books.helpers import to_int_list
 from ..config import templates
 from . import crud
 from ..utils import convert_alchemy_datetime
@@ -13,7 +15,7 @@ from ..utils import convert_alchemy_datetime
 router = APIRouter(tags=["Promotions For Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_promotions_list", response_class=HTMLResponse)
 async def get_promotions(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     promotions = await crud.get_promotions_for_admin_page(session)
     promotions = [promotion.model_dump() for promotion in promotions]
@@ -36,6 +38,54 @@ async def get_promotions(request: Request, session: AsyncSession=Depends(db_help
             "is_deletable": True,
             "can_create": True,
             "link_fields": link_fields
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_promotion_page(request: Request,
+                                session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form = PromotionsCreateForm()
+
+    await crud.set_promotion_categories_in_choices(session, form)
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Promotion",
+            "model_name": "Promotion"
+        }
+    )
+
+
+@router.post("/create", response_class=HTMLResponse)
+async def create_promotion_submit(request: Request,
+                                  session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+
+    form = PromotionsCreateForm(form_data)
+    await crud.set_promotion_categories_in_choices(session, form)
+
+    if form.validate():
+        data = dict(form_data)
+        data["categories"] = form_data.getlist("categories")
+        promo_data = CreatePromotion(**data)
+        await crud.create_promotion(session, promo_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_promotions_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Promotion",
+            "model_name": "Promotion"
         }
     )
 

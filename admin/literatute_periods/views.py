@@ -30,7 +30,7 @@ async def literature_periods_list(request: Request,
             "fields": fields,
             "is_editable": True,
             "is_deletable": True,
-            "can_create": True,
+            "can_create": False,
         }
     )
 

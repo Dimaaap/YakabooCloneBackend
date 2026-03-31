@@ -14,3 +14,7 @@ class PromoCategoriesForAdmin(PromoCategories):
 class EditPromoCategory(PromoCategories):
     title: str | None = None
     slug: str | None = None
+
+
+class CreatePromoCategory(PromoCategories):
+    ...

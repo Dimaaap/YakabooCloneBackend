@@ -1,11 +1,14 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class NewPostOffices(BaseModel):
-    number: int
+class NewPostOfficeCommonFieldsMixin:
     address: str
     active: bool = True
     weight_to: int | None = None
+
+
+class NewPostOffices(BaseModel, NewPostOfficeCommonFieldsMixin):
+    number: int
     city_title: str
 
 
@@ -20,3 +23,10 @@ class EditNewPostOffice(BaseModel):
     active: bool | None = None
     weight_to: int | None = None
     city_title: str | None = None
+
+
+class CreateNewPostOffice(BaseModel):
+    address: str
+    active: bool
+    weight_to: int | None = None
+    city_id: int

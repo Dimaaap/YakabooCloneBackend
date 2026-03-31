@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import PromoCategoryEditForm
-from .schema import PromoCategoriesForAdmin, EditPromoCategory
+from .forms import PromoCategoryEditForm, PromoCategoryCreateForm
+from .schema import PromoCategoriesForAdmin, EditPromoCategory, CreatePromoCategory
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Promo Categories For Admin Page"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_promo_categories_list", response_class=HTMLResponse)
 async def get_promo_categories(request: Request, session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     promo_categories = await crud.get_promo_categories_for_admin_page(session)
     promo_categories = [category.model_dump() for category in promo_categories]
@@ -30,6 +30,48 @@ async def get_promo_categories(request: Request, session: AsyncSession=Depends(d
             "is_editable": True,
             "is_deletable": True,
             "can_create": True
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_promo_category_page(request: Request):
+    form = PromoCategoryCreateForm()
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Promotion Category",
+            "model_name": "Promo Category",
+        }
+    )
+
+
+@router.post("/create", response_class=HTMLResponse)
+async def create_promo_category_submit(request: Request,
+                                       session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+
+    form = PromoCategoryCreateForm(form_data)
+
+    if form.validate():
+        promo_category = CreatePromoCategory(**form.data)
+        _ = await crud.create_promo_category(session, promo_category)
+
+        return RedirectResponse(
+            url=request.url_for("admin_promo_categories_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Promotion Category",
+            "model_name": "Promo Category"
         }
     )
 

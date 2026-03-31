@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from core.models import db_helper
-from .forms import PaymentMethodEditForm
-from .schema import PaymentMethodsForAdmin, EditPaymentMethod
+from .forms import PaymentMethodEditForm, PaymentMethodCreateForm
+from .schema import PaymentMethodsForAdmin, EditPaymentMethod, CreatePaymentMethod
 from ..config import templates
 from . import crud
 
 router = APIRouter(tags=["Payment Methods For Admin"])
 
 
-@router.get("/list", response_class=HTMLResponse)
+@router.get("/list", name="admin_payment_methods_list", response_class=HTMLResponse)
 async def get_payment_methods(request: Request, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     payment_methods = await crud.get_payment_methods_for_admin_page(session)
     payment_methods = [method.model_dump() for method in payment_methods]
@@ -32,6 +32,54 @@ async def get_payment_methods(request: Request, session: AsyncSession = Depends(
             "is_deletable": True,
             "can_create": True,
             "link_fields": link_fields,
+        }
+    )
+
+
+@router.get("/create", response_class=HTMLResponse)
+async def create_payment_method(request: Request,
+                                session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form = PaymentMethodCreateForm()
+
+    await crud.set_countries_in_choices(session, form)
+    await crud.set_cities_in_choices(session, form)
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Payment Method",
+            "model_name": "Payment Method"
+        }
+    )
+
+
+@router.post("/create", response_class=HTMLResponse)
+async def create_payment_method_submit(request: Request,
+                                       session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    form_data = await request.form()
+    form = PaymentMethodCreateForm(form_data)
+
+    await crud.set_cities_in_choices(session, form)
+    await crud.set_countries_in_choices(session, form)
+
+    if form.validate():
+        payment_method_data = CreatePaymentMethod(**form.data)
+        _ = await crud.create_payment_method(session, payment_method_data)
+
+        return RedirectResponse(
+            url=request.url_for("admin_payment_methods_list"),
+            status_code=status.HTTP_303_SEE_OTHER
+        )
+
+    return templates.TemplateResponse(
+        "pages/create.html",
+        {
+            "request": request,
+            "form": form,
+            "page_title": "Create Payment Method",
+            "model_name": "Payment Method"
         }
     )
 

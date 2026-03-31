@@ -1,10 +1,12 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.new_post_postomats.schema import NewPostPostomatsForAdmin, EditNewPostPostomat
+from admin.cities.crud import get_cities_list_for_admin_page
+from admin.new_post_postomats.schema import NewPostPostomatsForAdmin, EditNewPostPostomat, CreateNewPostPostomat
 from core.models import NewPostPostomat
 
 
@@ -66,3 +68,21 @@ async def update_new_post_postomat(session: AsyncSession, postomat_id: int, data
     await session.commit()
     await session.refresh(postomat)
     return True
+
+
+async def create_new_post_postomat(session: AsyncSession, data: CreateNewPostPostomat) -> NewPostPostomat | bool:
+    postomat = NewPostPostomat(**data.model_dump())
+
+    try:
+        session.add(postomat)
+        await session.commit()
+        await session.refresh(postomat)
+    except SQLAlchemyError:
+        return False
+    return postomat
+
+
+async def set_cities_in_choices(session: AsyncSession, form) -> None:
+    cities = await get_cities_list_for_admin_page(session)
+    choices = [(city.id, city.title) for city in cities]
+    form.city_id.choices = choices

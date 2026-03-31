@@ -1,9 +1,11 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.main_page_title.schema import MainPageTitlesListForAdmin, EditMainPageTitle
+from admin.knowledges.views import knowledge_list
+from admin.main_page_title.schema import MainPageTitlesListForAdmin, EditMainPageTitle, CreateMainPageTitle
 from core.models import MainPageTitle
 
 
@@ -57,3 +59,15 @@ async def update_main_page_title(session: AsyncSession, main_page_id: int, data:
     await session.commit()
     await session.refresh(title)
     return True
+
+
+async def create_main_page_title(session: AsyncSession, data: CreateMainPageTitle) -> MainPageTitle | bool:
+    title = MainPageTitle(**data.model_dump())
+
+    try:
+        session.add(title)
+        await session.commit()
+        await session.refresh(title)
+    except SQLAlchemyError:
+        return False
+    return title

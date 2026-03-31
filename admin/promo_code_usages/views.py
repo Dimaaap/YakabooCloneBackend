@@ -34,7 +34,7 @@ async def get_promo_code_usages(request: Request, session: AsyncSession = Depend
             "model_name": "Promo Code Usage",
             "is_editable": True,
             "is_deletable": True,
-            "can_create": True,
+            "can_create": False,
             "link_fields": links_list
         }
     )

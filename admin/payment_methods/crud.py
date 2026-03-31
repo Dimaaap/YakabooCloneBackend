@@ -1,10 +1,13 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.payment_methods.schema import PaymentMethodsForAdmin, EditPaymentMethod
+from admin.cities.crud import get_cities_list_for_admin_page
+from admin.countries.crud import get_countries_list_for_admin_page
+from admin.payment_methods.schema import PaymentMethodsForAdmin, EditPaymentMethod, CreatePaymentMethod
 from core.models import PaymentMethod
 
 
@@ -72,3 +75,27 @@ async def update_payment_method(session: AsyncSession, method_id: int, data: Edi
     await session.commit()
     await session.refresh(payment_method)
     return True
+
+
+async def create_payment_method(session: AsyncSession, data: CreatePaymentMethod) -> PaymentMethod | bool:
+    payment_method = PaymentMethod(**data.model_dump())
+
+    try:
+        session.add(payment_method)
+        await session.commit()
+        await session.refresh(payment_method)
+    except SQLAlchemyError:
+        return False
+    return payment_method
+
+
+async def set_cities_in_choices(session: AsyncSession, form) -> None:
+    cities = await get_cities_list_for_admin_page(session)
+    choices = [(0, "----")] + [(city.id, city.title) for city in cities]
+    form.city_id.choices = choices
+
+
+async def set_countries_in_choices(session: AsyncSession, form) -> None:
+    countries = await get_countries_list_for_admin_page(session)
+    choices = [(0, "----")] + [(country.id, country.title) for country in countries]
+    form.country_id.choices = choices

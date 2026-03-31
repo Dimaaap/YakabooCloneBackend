@@ -25,3 +25,7 @@ class PromoCodesEditForm(Form):
 )
 
     expires_at = DateTimeField("Expires at: ", validators=[DataRequired()])
+
+
+class PromoCodeCreateForm(PromoCodesEditForm):
+    ...

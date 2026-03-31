@@ -3,7 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
 
-class Promotions(BaseModel):
+class PromotionsCommonFieldsMixin:
     title: str
     slug: str
     image: str | None = None
@@ -13,6 +13,8 @@ class Promotions(BaseModel):
     end_date: datetime | None = None
     is_active: bool | None = None
 
+
+class Promotions(BaseModel, PromotionsCommonFieldsMixin):
     categories_title: list[str]
 
 
@@ -27,3 +29,7 @@ class EditPromotion(Promotions):
     slug: str | None = None
     main_description: str | None = None
     categories_title: list[str] | None = None
+
+
+class CreatePromotion(BaseModel, PromotionsCommonFieldsMixin):
+    categories: list[str] | None = None

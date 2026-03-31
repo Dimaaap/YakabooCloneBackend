@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict
 class MainPageTitle(BaseModel):
     title: str
     active: bool = True
+    created_at: datetime
 
 
 class MainPageTitlesListForAdmin(MainPageTitle):
@@ -14,6 +15,10 @@ class MainPageTitlesListForAdmin(MainPageTitle):
     id: int
 
 
-class EditMainPageTitle(MainPageTitle):
+class EditMainPageTitle(BaseModel):
     title: str | None = None
     active: bool | None = None
+
+
+class CreateMainPageTitle(EditMainPageTitle):
+    ...

@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.promo_categories.schema import PromoCategoriesForAdmin, EditPromoCategory
+from admin.promo_categories.schema import PromoCategoriesForAdmin, EditPromoCategory, CreatePromoCategory
 from core.models import PromoCategories
 
 
@@ -59,3 +60,15 @@ async def update_promo_category(session: AsyncSession, category_slug: str, data:
     await session.commit()
     await session.refresh(promo_category)
     return True
+
+
+async def create_promo_category(session: AsyncSession, data: CreatePromoCategory) -> PromoCategories | bool:
+    category = PromoCategories(**data.model_dump())
+
+    try:
+        session.add(category)
+        await session.commit()
+        await session.refresh(category)
+    except SQLAlchemyError:
+        return False
+    return category

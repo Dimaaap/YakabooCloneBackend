@@ -1,9 +1,10 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from admin.authors.errors import NotFoundInDbError
-from admin.promo_codes.schema import PromoCodesAdminList, EditPromoCode
+from admin.promo_codes.schema import PromoCodesAdminList, EditPromoCode, CreatePromoCode
 from core.models import PromoCode
 
 
@@ -58,3 +59,15 @@ async def update_promo_code(session: AsyncSession, promo_code_id: int, data: Edi
     await session.commit()
     await session.refresh(promo_code)
     return True
+
+
+async def create_promo_code(session: AsyncSession, data: CreatePromoCode) -> PromoCode | bool:
+    promo_code = PromoCode(**data.model_dump())
+
+    try:
+        session.add(promo_code)
+        await session.commit()
+        await session.refresh(promo_code)
+    except SQLAlchemyError:
+        return False
+    return promo_code

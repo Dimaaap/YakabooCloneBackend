@@ -8,3 +8,7 @@ class PromoCategoryEditForm(Form):
     is_active = BooleanField("Is active: ")
 
 
+class PromoCategoryCreateForm(PromoCategoryEditForm):
+    ...
+
+

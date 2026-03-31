@@ -25,3 +25,7 @@ class EditPromoCode(PromoCodes):
     code: str | None = None
     max_uses: int | None = None
     discount_type: DiscountTypes | None = None
+
+
+class CreatePromoCode(PromoCodes):
+    ...
