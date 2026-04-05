@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from entities.books.services import BookFilter
 from core.models import Book, db_helper, BookImage, Author, BookTranslator
-from entities.books.schemas import BookSchema, BookCreate, BookUpdate
+from entities.books.schemas import BookSchema, BookCreate, BookUpdate, TopBooksList
 from data_strorage import BOOKS
 
 
@@ -113,6 +113,24 @@ async def get_all_notebooks(session: AsyncSession) -> list[BookSchema]:
     result: Result = await session.execute(statement)
     notebooks = result.scalars().all()
     return [BookSchema.model_validate(notebook) for notebook in notebooks]
+
+
+async def get_top_books(session: AsyncSession) -> list[TopBooksList]:
+    statement = (
+        select(Book)
+        .where(Book.is_top == True, Book.is_notebook == False)
+        .options(
+            joinedload(Book.book_info),
+            selectinload(Book.authors),
+            selectinload(Book.images),
+            selectinload(Book.reviews)
+        )
+        .order_by(Book.id)
+    )
+
+    result: Result = await session.execute(statement)
+    books = result.unique().scalars().all()
+    return [TopBooksList.model_validate(book) for book in books]
 
 
 async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:

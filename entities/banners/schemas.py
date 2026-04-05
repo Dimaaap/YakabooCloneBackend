@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict
 
 
@@ -6,6 +8,8 @@ class BannerBase(BaseModel):
     visible: bool = True
     link: str
     in_all_books_page: bool = False
+    is_new_books_banner: bool = False
+    created_date: datetime | None = None
 
 
 class BannerCreate(BannerBase):

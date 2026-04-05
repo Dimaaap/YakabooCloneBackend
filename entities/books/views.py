@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import BookSchema, PaginatedBookSchema, BookFilters
+from .schemas import BookSchema, PaginatedBookSchema, BookFilters, TopBooksList
 from core.models import db_helper
 from . import crud
 
@@ -21,6 +21,12 @@ async def get_all_books(
         "has_more": filter.offset + filter.limit < total,
         "results": books
     }
+
+
+@router.get("/top", response_model=list[TopBooksList])
+async def get_top_books(session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    books = await crud.get_top_books(session=session)
+    return books
 
 
 @router.get('/notebooks/all', response_model=list[BookSchema])

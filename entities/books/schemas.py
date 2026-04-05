@@ -90,6 +90,25 @@ class BookSchemaWithoutWishlists(BookBase):
     edition_group: BookEditionGroupSchema | None = None
 
 
+class TopBooksList(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    title: str = ""
+    slug: str = ""
+    price: int = 0
+    is_top: bool = False
+    promo_price: int | None = None
+    is_promo: bool = False
+    is_in_chart: bool = False
+    is_notebook: bool = False
+    stars: int = 0
+    book_info: BookInfoSchema | None = None
+    images: list[BookImageCreate] | None = None
+    authors: list[AuthorSchema] = []
+    reviews: list[ReviewSchema] = []
+
+
 class BookSchema(BookSchemaWithoutWishlists):
     wishlists: list[WishlistSchema] = []
     related_books: list["BookSchemaWithoutWishlists"] = Field(default_factory=list)
