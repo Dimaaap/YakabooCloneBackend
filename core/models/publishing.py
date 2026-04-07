@@ -14,8 +14,7 @@ class Publishing(Base):
     title: Mapped[str] = mapped_column(String(200), unique=True)
     slug: Mapped[str] = mapped_column(String(200), unique=True)
     logo: Mapped[str] = mapped_column(String(255), default="", server_default="")
-    short_description: Mapped[str] = mapped_column(Text, default="", server_default="")
-    long_description: Mapped[str] = mapped_column(Text, default="", server_default="")
+    description: Mapped[str] = mapped_column(Text, default="", server_default="")
     visible: Mapped[bool] = mapped_column(Boolean, server_default="1", default=True)
 
     search_vector: Mapped[str] = mapped_column(TSVECTOR, nullable=True, default=None)

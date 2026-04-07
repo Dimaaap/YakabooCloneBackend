@@ -17,9 +17,14 @@ SIX_DAYS = 24 * 3600 * 6
 async def get_all_banners(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     cached_banners = await redis_client.get("banners")
     if cached_banners:
-        return json.loads(cached_banners)
+        cached_banners = json.loads(cached_banners)
+        res = []
+        for banner in cached_banners:
+            if banner.get("visible", None) and not banner.get("is_new_books_banner", None):
+                res.append(banner)
+        return res
     banners = await crud.get_all_banners_for_main_page(session)
-    await redis_client.set("banners", json.dumps([banner.model_dump() for banner in banners]),
+    await redis_client.set("banners", json.dumps([banner.model_dump(mode="json") for banner in banners]),
                            ex=SIX_DAYS)
     return banners
 
@@ -30,9 +35,28 @@ async def get_all_books_page_banners(session: AsyncSession = Depends(db_helper.s
     if cached_banners:
         return json.loads(cached_banners)
     banners = await crud.get_all_banners_for_all_books_page(session)
-    await redis_client.set("all_books_banners", json.dumps([banner.model_dump() for banner in banners]),
+    await redis_client.set("all_books_banners", json.dumps([banner.model_dump(mode="json") for banner in banners]),
                            ex=SIX_DAYS)
     return banners
+
+
+@router.get("/all/news", response_model=list[BannerSchema])
+async def get_all_new_banners(session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
+    cached_banners = await redis_client.get("all_books_banners")
+
+    if cached_banners:
+        cached_banners = json.loads(cached_banners)
+        res = []
+        for banner in cached_banners:
+            if banner.get("visible") and banner.get("is_new_books_banner"):
+                res.append(banner)
+        return res
+    banners = await crud.get_all_new_banners(session)
+    await redis_client.set("all_books_banners", json.dumps([banner.model_dump(mode="json") for banner in banners]),
+                           ex=SIX_DAYS)
+    return banners
+
+
 
 @router.post("/create")
 async def create_banner(banner: BannerCreate,

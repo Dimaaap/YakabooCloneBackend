@@ -123,7 +123,7 @@ class PaginatedBookSchema(BaseModel):
 
 
 class BookFilters(BaseModel):
-    limit: conint(ge=1, le=100) = 100
+    limit: conint(ge=1, le=500) = 100
     offset: conint(ge=0) = 0
     categories: list[str] | None = None
     publishers: list[str] | None = None
