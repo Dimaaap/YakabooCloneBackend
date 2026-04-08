@@ -34,7 +34,7 @@ async def delete_publishing(
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     try:
-        redis_client.delete("publishing")
+        await redis_client.delete("publishing")
         await crud.delete_publishing_by_slug(slug, session)
         return {"success": True}
     except Exception as e:

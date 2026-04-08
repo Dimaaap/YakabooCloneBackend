@@ -82,7 +82,8 @@ __all__ = (
     "UserSeenBook",
     "ReviewReaction",
     "BooksText",
-    "UserSearchHistory"
+    "UserSearchHistory",
+    "PublishingBanners"
 )
 
 
@@ -171,3 +172,4 @@ from .user_seen_books import UserSeenBook
 from .review_reactions import ReviewReaction
 from .books_text import BooksText
 from .user_search_history import UserSearchHistory
+from .publishing_banners import PublishingBanners

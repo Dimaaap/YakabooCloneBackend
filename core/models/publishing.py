@@ -8,6 +8,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .book import Book
+    from .publishing_banners import PublishingBanners
 
 
 class Publishing(Base):
@@ -21,6 +22,11 @@ class Publishing(Base):
 
     books: Mapped[list["Book"]] = relationship("Book",
                                                back_populates="publishing", cascade="all, delete-orphan")
+    banners: Mapped[list["PublishingBanners"]] = relationship(
+        "PublishingBanners",
+        back_populates="publishing",
+        lazy="joined",
+    )
 
     def __str__(self):
         return f"{self.__class__.__name__}(title={self.title}, slug={self.slug})"

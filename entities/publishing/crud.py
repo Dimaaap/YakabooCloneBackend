@@ -23,7 +23,9 @@ async def create_publishing(session: AsyncSession, publishing: PublishingCreate)
 
 
 async def get_all_publishing(session: AsyncSession) -> list[PublishingSchema]:
-    statement = select(Publishing).order_by(Publishing.title).where(Publishing.visible)
+    statement = (select(Publishing).order_by(Publishing.title)
+                 .options(selectinload(Publishing.banners))
+                 .where(Publishing.visible))
     result: Result = await session.execute(statement)
     publishing = result.scalars().all()
     return publishing
@@ -83,7 +85,9 @@ async def delete_publishing_by_slug(slug: str, session: AsyncSession):
 
 
 async def get_publishing_by_slug(slug: str, session: AsyncSession) -> Publishing:
-    statement = select(Publishing).where(Publishing.slug == slug, Publishing.visible)
+    statement = (select(Publishing)
+                 .options(selectinload(Publishing.banners))
+                 .where(Publishing.slug == slug, Publishing.visible))
     result: Result = await session.execute(statement)
     publishing: Result = result.scalars().first()
 
@@ -93,7 +97,9 @@ async def get_publishing_by_slug(slug: str, session: AsyncSession) -> Publishing
 
 
 async def get_publishing_by_title_first_letter(letter: str, session: AsyncSession) -> list[Publishing]:
-    statement = select(Publishing).where(Publishing.title.like(f"{letter.upper()}%"), Publishing.visible)
+    statement = (select(Publishing)
+                 .options(selectinload(Publishing.banners))
+                 .where(Publishing.title.like(f"{letter.upper()}%"), Publishing.visible))
     result: Result = await session.execute(statement)
     publishing = result.scalars().all()
     return list(publishing)
@@ -103,6 +109,7 @@ async def get_publishing_by_query(query: str, session: AsyncSession) -> list[Pub
     query = query.strip()
     similarity = func.similarity(Publishing.title, query)
     statement = (select(Publishing)
+                .options(selectinload(Publishing.banners))
                  .where(
                     or_(similarity > 0.1,
                         Publishing.title.like(f"%{query}%")))

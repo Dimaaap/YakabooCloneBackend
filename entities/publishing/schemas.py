@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict, conint
 
+from ..publishing_banners.schema import PublishingBannerSchema
+
 
 class PublishingBase(BaseModel):
     title: str
@@ -7,6 +9,7 @@ class PublishingBase(BaseModel):
     logo: str = ""
     description: str = ""
     visible: bool = True
+    banners: list[PublishingBannerSchema] = []
 
 
 class SearchQuery(BaseModel):
