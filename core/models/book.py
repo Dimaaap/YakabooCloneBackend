@@ -34,6 +34,8 @@ if TYPE_CHECKING:
     from .double_subcategory_book_association import DoubleSubcategoryBookAssociation
     from .reviews import Review
     from .user_seen_books import UserSeenBook
+    from .promotions import Promotion
+    from .promotion_book_association import PromotionBookAssociation
 
 
 class Book(Base):
@@ -63,27 +65,27 @@ class Book(Base):
         secondary="author_book_association",
         back_populates="book",
         overlaps="author,book",
-        lazy="joined"
+        lazy="selectin"
     )
 
     translators: Mapped[list["BookTranslator"]] = relationship(
         secondary="translator_book_association",
         back_populates="book",
         overlaps="translator,book",
-        lazy="joined"
+        lazy="selectin"
     )
 
     illustrators: Mapped[list["BookIllustrator"]] = relationship(
         secondary="illustrator_book_association",
         back_populates="book",
         overlaps="illustrator,book",
-        lazy="joined"
+        lazy="selectin"
     )
 
     seen_by_user: Mapped[list["UserSeenBook"]] = relationship(
         back_populates="book",
         cascade="all, delete-orphan",
-        lazy="joined"
+        lazy="noload"
     )
 
     literature_period_id: Mapped[int] = mapped_column(
@@ -121,7 +123,8 @@ class Book(Base):
     subcategories: Mapped[list["Subcategory"]] = relationship(
         secondary="subcategory_book_association",
         back_populates="books",
-        overlaps="books_details"
+        overlaps="books_details",
+        lazy="selectin"
     )
 
     double_subcategories: Mapped[list["DoubleSubcategory"]] = relationship(
@@ -134,6 +137,15 @@ class Book(Base):
         "Category",
         secondary="category_book_association",
         back_populates="books",
+        lazy="selectin"
+    )
+
+    promotions: Mapped[list["Promotion"]] = relationship(
+        "Promotion",
+        secondary="promotion_book_association",
+        back_populates="books",
+        overlaps="promotion_details",
+        lazy="selectin"
     )
 
     publishing_id: Mapped[int] = mapped_column(
@@ -166,6 +178,12 @@ class Book(Base):
         back_populates="book",
         cascade="all, delete-orphan",
         overlaps="categories"
+    )
+
+    promotion_details: Mapped[list["PromotionBookAssociation"]] = relationship(
+        "PromotionBookAssociation",
+        back_populates="book",
+        cascade="all, delete-orphan",
     )
 
     author_details: Mapped[list["AuthorBookAssociation"]] = relationship(

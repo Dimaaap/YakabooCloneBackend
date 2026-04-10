@@ -35,8 +35,10 @@ async def get_author_by_first_name(
         authors_list = json.loads(cached_authors)
         res = []
         for author in authors_list:
-            if author["first_name"][0].lower() == letter.lower() or author["last_name"][0].lower() == letter.lower():
-                res.append(author)
+            if author["first_name"] and author["last_name"]:
+                if (author["first_name"][0].lower() == letter.lower()
+                        or author["last_name"][0].lower() == letter.lower()):
+                    res.append(author)
         return res
     else:
         authors = await crud.get_all_authors(session)

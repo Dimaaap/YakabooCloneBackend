@@ -9,6 +9,8 @@ from .base import Base
 if TYPE_CHECKING:
     from .promo_categories import PromoCategories
     from .promo_category_association import PromoCategoryAssociation
+    from .book import Book
+    from .promotion_book_association import PromotionBookAssociation
 
 
 class Promotion(Base):
@@ -30,6 +32,18 @@ class Promotion(Base):
     category_details: Mapped[list["PromoCategoryAssociation"]] = relationship(
         back_populates="promotion",
         overlaps="categories"
+    )
+
+    books: Mapped[list["Book"]] = relationship(
+        "Book",
+        secondary="promotion_book_association",
+        back_populates="promotions"
+    )
+
+    book_details: Mapped[list["PromotionBookAssociation"]] = relationship(
+        "PromotionBookAssociation",
+        back_populates="promotion",
+        cascade="all, delete-orphan",
     )
 
     def __str__(self):
