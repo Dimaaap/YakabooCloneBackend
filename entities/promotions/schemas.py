@@ -2,6 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict
 
+from entities.books.schemas import BookSchemaForProductCard
+
 
 class PromotionBase(BaseModel):
     title: str
@@ -32,3 +34,4 @@ class PromotionSchema(PromotionBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    books: list[BookSchemaForProductCard] = []

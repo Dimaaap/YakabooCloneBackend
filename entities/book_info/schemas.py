@@ -65,3 +65,18 @@ class BookInfoSchema(BookInfoBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class SimpleBookInfoSchema(BaseModel):
+    in_stock: bool | None = None
+    visible: bool | None = None
+    code: int
+    is_has_cashback: bool | None = None
+    is_has_winter_esupport: bool | None = None
+    is_has_esupport: bool | None = None
+    is_for_war: bool | None = None
+    format: BookFormats | None = None
+    waiting_from: str | None = None
+    is_free_delivery: bool | None = None
+    delivery_time: int | None = None
+    uk_delivery_time: int | None = None

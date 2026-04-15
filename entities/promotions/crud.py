@@ -45,9 +45,11 @@ async def get_all_promotions(session: AsyncSession) -> list[Promotion]:
 
 async def get_promotions_by_slug(promotion_slug: str,
                                  session: AsyncSession) -> Promotion:
-    statement = select(Promotion).where(Promotion.slug == promotion_slug)
+    statement = (select(Promotion)
+                 .options(selectinload(Promotion.books))
+                 .where(Promotion.slug == promotion_slug))
     result: Result = await session.execute(statement)
-    promotion = result.scalars().first()
+    promotion = result.scalars().unique().first()
     if not promotion:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Promotion not found")
     return promotion
@@ -55,7 +57,9 @@ async def get_promotions_by_slug(promotion_slug: str,
 
 async def get_promotion_by_id(promotion_id: int,
                               session: AsyncSession) -> Promotion:
-    statement = select(Promotion).where(Promotion.id == promotion_id)
+    statement = (select(Promotion)
+                 .options(selectinload(Promotion.books))
+                 .where(Promotion.id == promotion_id))
     result: Result = await session.execute(statement)
     promotion = result.scalars().first()
     if not promotion:

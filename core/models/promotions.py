@@ -37,7 +37,8 @@ class Promotion(Base):
     books: Mapped[list["Book"]] = relationship(
         "Book",
         secondary="promotion_book_association",
-        back_populates="promotions"
+        back_populates="promotions",
+        lazy="selectin"
     )
 
     book_details: Mapped[list["PromotionBookAssociation"]] = relationship(

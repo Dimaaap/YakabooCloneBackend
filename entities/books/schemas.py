@@ -1,13 +1,12 @@
 from datetime import datetime
-from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, ConfigDict, Field, conint
 from fastapi import Query
 
 from ..book_edition_group.schemas import BookEditionGroupSchema
 from entities.book_illustrators.schemas import BookIllustratorSchema
-from entities.book_info.schemas import BookInfoSchema
-from ..authors.schemas import AuthorSchema
+from entities.book_info.schemas import BookInfoSchema, SimpleBookInfoSchema
+from ..authors.schemas import AuthorSchema, SimpleBookAuthorSchema
 from entities.book_series.schema import BookSeriaSchema
 from core.models.book_image import BookImageType
 from ..notebook_subcategories.schemas import NotebookSubcategoryShortSchema
@@ -135,3 +134,18 @@ class BookFilters(BaseModel):
     price_min: int | None = None
     price_max: int | None = None
     filters: list[str] | None = None
+
+
+class BookSchemaForProductCard(BaseModel):
+    title: str = ""
+    slug: str = ""
+    price: int = 0
+    is_top: bool = False
+    is_promo: bool = False
+    is_in_chart: bool = False
+    stars: int = 0
+    promo_price: int | None = None
+    book_info: SimpleBookInfoSchema | None = None
+    authors: list[SimpleBookAuthorSchema] = []
+    images: list[BookImageSchema] = []
+    created_date: datetime | None = None

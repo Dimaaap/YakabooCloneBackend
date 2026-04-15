@@ -55,3 +55,8 @@ class BookFilters(BaseModel):
     price_min: int | None = None
     price_max: int | None = None
     filters: list[str] | None = None
+
+
+class SimpleBookAuthorSchema(BaseModel):
+    first_name: str
+    last_name: str
