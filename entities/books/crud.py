@@ -147,6 +147,7 @@ async def get_book_by_id(book_id: int, session: AsyncSession) -> BookSchema:
             selectinload(Book.translators),
             joinedload(Book.literature_period),
             joinedload(Book.edition_group),
+            selectinload(Book.categories),
             selectinload(Book.illustrators),
             selectinload(Book.reviews)
         )
@@ -198,6 +199,9 @@ async def get_book_by_slug(slug: str, session: AsyncSession) -> BookSchema:
             selectinload(Book.translators),
             joinedload(Book.seria),
             joinedload(Book.literature_period),
+            selectinload(Book.categories),
+            selectinload(Book.subcategories),
+            selectinload(Book.double_subcategories),
             joinedload(Book.edition_group),
             selectinload(Book.illustrators),
             selectinload(Book.reviews)

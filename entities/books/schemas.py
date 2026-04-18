@@ -16,6 +16,7 @@ from entities.wishlists.schemas import WishlistSchema
 from ..notebook_categories.schema import NotebookCategoryShortSchema
 from entities.book_translators.schemas import BookTranslatorSchema
 from entities.literature_periods.schemas import LiteraturePeriodSchema
+from entities.shared.schemas import CategoryShortSchema, SubcategoryShortSchema, DoubleSubcategoryShortSchema
 
 
 class BookImageSchema(BaseModel):
@@ -111,6 +112,9 @@ class TopBooksList(BaseModel):
 class BookSchema(BookSchemaWithoutWishlists):
     wishlists: list[WishlistSchema] = []
     related_books: list["BookSchemaWithoutWishlists"] = Field(default_factory=list)
+    categories: list[CategoryShortSchema] = []
+    subcategories: list[SubcategoryShortSchema] = []
+    double_subcategories: list[DoubleSubcategoryShortSchema] = []
 
 
 class PaginatedBookSchema(BaseModel):

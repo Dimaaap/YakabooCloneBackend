@@ -130,7 +130,8 @@ class Book(Base):
     double_subcategories: Mapped[list["DoubleSubcategory"]] = relationship(
         secondary="double_subcategory_book_association",
         back_populates="books",
-        overlaps="books_details"
+        overlaps="books_details",
+        lazy="selectin"
     )
 
     categories: Mapped[list["Category"]] = relationship(
