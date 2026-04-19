@@ -16,7 +16,6 @@ class SubcategoryShortSchema(BaseModel):
     category: CategoryShortSchema
 
 
-
 class DoubleSubcategoryShortSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
