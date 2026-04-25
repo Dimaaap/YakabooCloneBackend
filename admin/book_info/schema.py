@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict, field_validator
 
-from core.models.book_info import CoverTypes, LiteratureTypes, LiteratureProgramClasses, BookFormats, PageFormats, \
+from core.models.book_info import CoverTypes, BookFormats, PageFormats, \
     BookLanguages, PagesType, SizeTypes
 
 
@@ -17,8 +17,8 @@ class BookInfo(BaseModel):
     is_has_esupport: bool = False
     is_for_war: bool = False
     bonuses: int = 0
-    literature_type: LiteratureTypes | None = None
-    literature_program_class: LiteratureProgramClasses | None = None
+    literature_type: str | None = None
+    literature_program_class: str | None = None
     present_edition_and_sets: str | None = None
     weight: int = 0
     original_name: str | None = None
@@ -65,8 +65,8 @@ class EditBookInfo(BaseModel):
     is_has_esupport: bool = False
     is_for_war: bool = False
     bonuses: int | None = None
-    literature_type: LiteratureTypes | None = None
-    literature_program_class: LiteratureProgramClasses | None = None
+    literature_type: str | None = None
+    literature_program_class: str | None = None
     present_edition_and_sets: str | None = None
     weight: int | None = None
     original_name: str | None = None

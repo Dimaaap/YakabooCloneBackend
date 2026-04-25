@@ -1,7 +1,7 @@
 from wtforms import Form, BooleanField, StringField, SelectField, IntegerField, FloatField, TextAreaField
 from wtforms.validators import DataRequired, NumberRange, Optional
 
-from core.models.book_info import CoverTypes, LiteratureTypes, LiteratureProgramClasses, BookFormats, PageFormats, \
+from core.models.book_info import CoverTypes, BookFormats, PageFormats, \
     BookLanguages, PagesType, SizeTypes
 
 
@@ -20,13 +20,8 @@ class BookInfoEditForm(Form):
     is_has_esupport = BooleanField("Has esupport: ")
     is_for_war = BooleanField("Is Charity For War: ")
     bonuses = IntegerField("Bonuses: ", validators=[NumberRange(min=0, message="Bonuses count can't be < 0")])
-    literature_type = SelectField("Literature Type: ",
-                                  choices=[("", "---")] + [(type.value, type.name) for type in LiteratureTypes],
-                                  validators=[Optional()])
-    literature_program_class = SelectField("Literature Program Class: ",
-                                           choices=[("", "---")] + [(program.value, program.name)
-                                                    for program in LiteratureProgramClasses ],
-                                           validators=[Optional()])
+    literature_type = StringField("Literature Type: ")
+    literature_program_class = StringField("Literature Program Class: ")
     present_edition_and_sets = StringField("Present Edition or Set: ")
     weight = IntegerField("Weight: ", validators=[NumberRange(min=0, message="Weight can`t be < 0")])
     original_name = StringField("Original Name: ")

@@ -13,8 +13,17 @@ from .config import SEARCH_CACHE_EXPIRATION_SECONDS
 
 router = APIRouter(tags=["Global Search"])
 
-@router.get("/{user_email}", response_model=SearchResponse)
-async def global_search(
+
+@router.get('/', response_model=SearchResponse)
+async def global_search_no_user(
+        q: str = Query(..., min_length=2),
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency)
+):
+    return await global_search_with_user(None, q, session)
+
+
+@router.get("/", response_model=SearchResponse)
+async def global_search_with_user(
         user_email,
         q: str = Query(..., min_length=2),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
@@ -26,7 +35,7 @@ async def global_search(
     if cached_term:
         return json.loads(cached_term)
 
-    response = await crud.search_response(q, user_email, session)
+    response = await crud.search_response(q, session, user_email)
     data = jsonable_encoder(response)
 
     await redis_client.set(key, json.dumps(data), ex=SEARCH_CACHE_EXPIRATION_SECONDS)

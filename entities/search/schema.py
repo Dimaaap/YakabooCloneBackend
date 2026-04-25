@@ -2,6 +2,8 @@ from enum import Enum
 
 from pydantic import BaseModel, ConfigDict
 
+from core.models.book_info import BookStatusEnum
+
 
 class BookFormatsEnum(str, Enum):
     PAPER = "Паперова"
@@ -25,8 +27,6 @@ class SearchBook(BaseSearch):
     image: str | None = None
     promo_price: int | None = None
     format: BookFormatsEnum
-    in_stock: bool
-    stars: int
     comments_count: int | None = None
     is_top: bool = False
     is_new: bool = False
@@ -36,6 +36,8 @@ class SearchBook(BaseSearch):
     is_has_esupport: bool = False
     uk_delivery_time: int | None = None
     delivery_time: int | None = None
+    status: BookStatusEnum
+    has_legal_restrictions: bool = False
 
 
 class SearchAuthors(BaseSearch):

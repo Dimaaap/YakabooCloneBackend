@@ -12,8 +12,8 @@ router = APIRouter(prefix="/search", tags=["Search"])
 
 
 async def search_response(q: str,
-                          user_email: str,
-                          session: AsyncSession):
+                          session: AsyncSession,
+                          user_email: str | None = None):
     q = q.strip()
     if not q:
         return {
@@ -101,8 +101,7 @@ async def search_response(q: str,
             "promo_price": book.promo_price,
             "image": image.image_url if image else None,
             "format": book_info.format if book_info else None,
-            "in_stock": book_info.in_stock,
-            "stars": book.stars,
+            "status": book_info.status,
             "comments_count": book_comments,
             "is_top": book.is_top,
             "is_new": False,
@@ -112,6 +111,7 @@ async def search_response(q: str,
             "is_has_esupport": book_info.is_has_esupport,
             "uk_delivery_time": book_info.uk_delivery_time,
             "delivery_time": book_info.delivery_time,
+            "has_legal_restrictions": book_info.has_legal_restrictions
         })
 
     authors_data = []
@@ -124,9 +124,11 @@ async def search_response(q: str,
             "slug": author.slug,
             "image": author.images[0].image_path if author.images else None,
         })
-
-    await entities.user_history.crud.add_term_to_search_history(session, user_email=user_email, term=q)
-    also_searched = await also_search_term(q, session)
+    if user_email and user_email != "null":
+        await entities.user_history.crud.add_term_to_search_history(session, user_email=user_email, term=q)
+        also_searched = await also_search_term(q, session)
+    else:
+        also_searched = []
     return {
         "books": books_data,
         "authors": authors_data,
