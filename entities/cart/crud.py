@@ -9,6 +9,7 @@ from core.models import CartItem, Cart
 
 async def get_cart(session: AsyncSession, user_email: str):
     user = await get_user_by_email(session, user_email)
+    print(user)
 
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -29,7 +30,7 @@ async def get_cart(session: AsyncSession, user_email: str):
                 "price": item.book.price,
                 "images": item.book.images,
                 "slug": item.book.slug,
-                "is_in_stock": item.book.book_info.in_stock,
+                "status": item.book.book_info.status,
                 "format": item.book.book_info.format,
                 "code": item.book.book_info.code,
                 "quantity": item.quantity,

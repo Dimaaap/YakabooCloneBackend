@@ -8,6 +8,7 @@ router = APIRouter(tags=["Cart"])
 
 @router.get("/cart-items/all")
 async def get_cart(user_email: str, session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    user_email = user_email.strip()
     return await crud.get_cart(session, user_email)
 
 
