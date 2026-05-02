@@ -60,6 +60,7 @@ from .search import router as search_router
 from .books_text import router as books_text_router
 from .user_history import router as user_history_router
 from .publishing_banners import router as publishing_banners_router
+from .additional_text import router as additional_text_router
 
 router = APIRouter()
 
@@ -123,3 +124,4 @@ router.include_router(search_router)
 router.include_router(books_text_router)
 router.include_router(user_history_router)
 router.include_router(publishing_banners_router)
+router.include_router(additional_text_router)

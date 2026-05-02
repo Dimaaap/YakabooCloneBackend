@@ -84,7 +84,8 @@ __all__ = (
     "BooksText",
     "UserSearchHistory",
     "PublishingBanners",
-    "PromotionBookAssociation"
+    "PromotionBookAssociation",
+    "AdditionalText"
 )
 
 
@@ -175,3 +176,4 @@ from .books_text import BooksText
 from .user_search_history import UserSearchHistory
 from .publishing_banners import PublishingBanners
 from .promotion_book_association import PromotionBookAssociation
+from .additional_text import AdditionalText

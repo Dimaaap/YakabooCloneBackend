@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import select, Result, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import MainPageTitle, db_helper
+from core.models import MainPageTitle
 from entities.main_page_title.schema import MainPageTitleSchema, MainPageTitleCreate, MainPageTitleUpdate
 
 

@@ -6,7 +6,7 @@ from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from entities.books.services import BookFilter
-from core.models import Book, db_helper, BookImage, Author, BookTranslator
+from core.models import Book, db_helper, BookImage, Author, BookTranslator, DoubleSubcategory
 from entities.books.schemas import BookSchema, BookCreate, BookUpdate, TopBooksList
 from data_strorage import BOOKS
 
@@ -22,8 +22,7 @@ BOOK_OPTIONS = (
     joinedload(Book.seria),
     selectinload(Book.images),
     joinedload(Book.edition_group),
-    selectinload(Book.illustrators),
-    selectinload(Book.reviews)
+    selectinload(Book.illustrators)
 )
 
 BASE_FILTER = Book.is_notebook.is_(False)
