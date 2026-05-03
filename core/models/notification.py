@@ -17,3 +17,6 @@ class Notification(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, server_default=func.now())
     expires_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+
+    def __str__(self):
+        return f"{self.__class__.__name__}(title={self.title}, is_active={self.is_active})"
