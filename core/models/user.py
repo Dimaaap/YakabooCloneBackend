@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from .user_seen_books import UserSeenBook
     from .review_reactions import ReviewReaction
     from .user_search_history import UserSearchHistory
+    from .notification_user_association import UserNotification
 
 
 class UserStatusEnum(str, enum.Enum):
@@ -44,7 +45,7 @@ class User(Base):
                                                   default=UserStatusEnum.READER,
                                                   server_default=UserStatusEnum.READER.name)
 
-    date_joined: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), server_default=str(datetime.now()))
+    date_joined: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, server_default=str(datetime.now()))
     wishlists: Mapped[list["Wishlist"]] = relationship("Wishlist", back_populates="user")
     reviews: Mapped[list["Review"]] = relationship("Review", back_populates="user")
     orders: Mapped[list["Order"]] = relationship("Order", back_populates="user")
@@ -57,6 +58,10 @@ class User(Base):
                                                                    cascade="all, delete-orphan")
     review_reactions: Mapped[list["ReviewReaction"]] = relationship(
         "ReviewReaction",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+    user_notifications: Mapped[list["UserNotification"]] = relationship(
         back_populates="user",
         cascade="all, delete-orphan"
     )
