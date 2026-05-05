@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, status, Body
+from fastapi import APIRouter, Depends, Response, Request, HTTPException, status, Body
 from sqlalchemy.ext.asyncio import AsyncSession
 from twilio.jwt import JwtDecodeError
 from jwt import ExpiredSignatureError
@@ -132,6 +132,7 @@ async def subscribe_user_to_news(
 @router.post("/jwt/login")
 async def login_for_access_token(
         login: LoginRequest,
+        response: Response,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     user = await crud.authenticate_user(email=login.email, password=login.password, session=session)
@@ -147,7 +148,25 @@ async def login_for_access_token(
     access_token, refresh_token = crud.create_access_refresh_token_pair(data={"sub": str(user.id)},
                                                                         access_expires_delta=access_token_expires,
                                                                         refresh_expires_delta=refresh_token_expires)
-    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "Bearer", "user": user}
+
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        max_age=1800,
+        path="/",
+        secure=False,
+        samesite="lax",
+    )
+
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        max_age=7 * 24 * 60 * 60,
+        samesite="lax",
+    )
+    return {"user": user}
 
 
 @router.get("/by-email/{user_email}")
@@ -158,8 +177,15 @@ async def get_user_by_email(user_email: str,
 
 
 @router.get("/jwt/verify-token")
-async def verify_access_token(session: AsyncSession = Depends(db_helper.scoped_session_dependency),
-                              token: str = Depends(oauth2_scheme)):
+async def verify_access_token(
+        request: Request,
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    token = request.cookies.get("access_token")
+
+    if not token:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="Not authenticated")
+
     try:
         payload = auth_utils.decode_jwt(token)
         user_id = int(payload.get("sub"))
@@ -177,10 +203,17 @@ async def verify_access_token(session: AsyncSession = Depends(db_helper.scoped_s
 
 
 @router.post("/jwt/refresh")
-async def refresh_access_token(request: RefreshRequest,
+async def refresh_access_token(response: Response,
+                               request: Request,
                                session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    refresh_token = request.cookies.get("refresh_token")
+
+    if not refresh_token:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="Not authenticated")
+
     try:
-        payload = auth_utils.decode_jwt(request.refresh_token)
+        payload = auth_utils.decode_jwt(refresh_token)
         if payload.get("type") != "refresh":
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type")
         user_id = int(payload["sub"])
@@ -193,7 +226,14 @@ async def refresh_access_token(request: RefreshRequest,
         access_token, _ = crud.create_access_refresh_token_pair(data={"sub": str(user.id)},
                                                                 access_expires_delta=access_token_expires,
                                                                 refresh_expires_delta=timedelta(days=7))
-        return {"access_token": access_token, "token_type": "bearer"}
+        response.set_cookie(
+            "access_token",
+            value=access_token,
+            httponly=True,
+            max_age=1800,
+            samesite="lax",
+        )
+        return {"message": "refreshed"}
     except Exception as e:
         print(e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f"Invalid refresh token {e}")
@@ -201,9 +241,11 @@ async def refresh_access_token(request: RefreshRequest,
 
 @router.post("/jwt/logout", status_code=status.HTTP_200_OK)
 async def logout_user(
+        request: Request,
+        response: Response,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
-        refresh_token: str = Depends(oauth2_scheme)
 ):
+    refresh_token = request.cookies.get("refresh_token")
     try:
         payload = auth_utils.decode_jwt(refresh_token)
 
@@ -224,6 +266,8 @@ async def logout_user(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="User not found"
             )
+        response.delete_cookie("access_token")
+        response.delete_cookie("refresh_token")
         return {"message": "Successfully logged out"}
 
     except JwtDecodeError:

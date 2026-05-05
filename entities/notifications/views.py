@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .schema import NotificationCreate, NotificationUpdatePartial
 from core.models import db_helper
 from . import crud
+from ..resolvers import get_user_id_by_email, get_current_user_id
 
 router = APIRouter(tags=["notifications"])
 
@@ -24,17 +25,17 @@ async def get_all_notifications(
     return await crud.get_all_notifications(session)
 
 
-@router.get("/user/{user_id}")
+@router.get("/user")
 async def get_all_notifications_for_user(
-        user_id: int,
+        user_id: int = Depends(get_current_user_id),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     return await crud.get_all_notifications_by_user_id(session, user_id)
 
 
-@router.get("/user/{user_id}/unread")
+@router.get("/user/unread")
 async def get_all_user_unread_notifications(
-        user_id: int,
+        user_id: int = Depends(get_current_user_id),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     return await crud.get_unread_notifications_by_user_id(session, user_id)
@@ -43,7 +44,7 @@ async def get_all_user_unread_notifications(
 @router.post("/{notification_id}/read")
 async def mark_as_read(
         notification_id: int,
-        user_id: int,
+        user_id: int = Depends(get_current_user_id),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency)
 ):
     await crud.mark_notification_as_read(session, user_id, [notification_id])
@@ -53,7 +54,7 @@ async def mark_as_read(
 @router.post("/read")
 async def mark_multiple_as_read_view(
         notification_ids: list[int],
-        user_id: int,
+        user_id: int = Depends(get_current_user_id),
         session: AsyncSession=Depends(db_helper.scoped_session_dependency)
 ):
     await crud.mark_notification_as_read(session, user_id, notification_ids)
@@ -62,7 +63,7 @@ async def mark_multiple_as_read_view(
 
 @router.post("user/{user_id}/read-all")
 async def mark_all_as_read(
-        user_id: int,
+        user_id: int = Depends(get_current_user_id),
         session: AsyncSession=Depends(db_helper.scoped_session_dependency)
 ):
     await crud.mark_all_notifications_as_read(session, user_id)
