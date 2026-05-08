@@ -61,7 +61,7 @@ async def mark_multiple_as_read_view(
     return {"success": True}
 
 
-@router.post("user/{user_id}/read-all")
+@router.post("/user/read-all")
 async def mark_all_as_read(
         user_id: int = Depends(get_current_user_id),
         session: AsyncSession=Depends(db_helper.scoped_session_dependency)

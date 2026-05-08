@@ -25,6 +25,21 @@ BOOK_OPTIONS = (
     selectinload(Book.illustrators)
 )
 
+BOOK_OPTIONS_WITH_CATEGORIES = (
+    joinedload(Book.book_info),
+    selectinload(Book.authors).selectinload(Author.images),
+    selectinload(Book.authors).joinedload(Author.interesting_fact),
+    joinedload(Book.publishing),
+    selectinload(Book.double_subcategories).joinedload(DoubleSubcategory.subcategory),
+    selectinload(Book.wishlists),
+    selectinload(Book.translators),
+    joinedload(Book.literature_period),
+    joinedload(Book.seria),
+    selectinload(Book.images),
+    joinedload(Book.edition_group),
+    selectinload(Book.illustrators)
+)
+
 BASE_FILTER = Book.is_notebook.is_(False)
 
 
@@ -77,7 +92,7 @@ async def get_all_books(session: AsyncSession, limit: int, offset: int, filters)
 
     statement = (
         base_query
-        .options(*BOOK_OPTIONS)
+        .options(*BOOK_OPTIONS_WITH_CATEGORIES)
         .offset(offset)
         .limit(limit)
     )

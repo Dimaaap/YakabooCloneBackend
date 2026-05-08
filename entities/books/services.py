@@ -85,7 +85,10 @@ class BookFilter:
         if self.filters.in_stock is None:
             return None
 
-        return Book.book_info.has(BookInfo.in_stock == self.filters.in_stock)
+        if(self.filters.in_stock):
+            return Book.book_info.has(
+                BookInfo.status == "IN_STOCK"
+            )
 
     def price_min(self):
         if self.filters.price_min is None:
