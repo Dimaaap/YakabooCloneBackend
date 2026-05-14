@@ -23,7 +23,6 @@ async def get_all_books(
     }
 
 
-
 @router.get("/top", response_model=list[TopBooksList])
 async def get_top_books(session: AsyncSession=Depends(db_helper.scoped_session_dependency)):
     books = await crud.get_top_books(session=session)
