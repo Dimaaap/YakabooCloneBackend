@@ -87,6 +87,7 @@ async def get_all_categories(session: AsyncSession) -> list[CategorySchema]:
     categories = result.scalars().all()
 
     normalize_images_src(categories)
+    print(categories)
     return [CategorySchema.model_validate(category) for category in categories]
 
 

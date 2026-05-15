@@ -7,7 +7,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .subcategories import Subcategory
-    from .subcategory_banners import SubcategoryBanner
+    from .category_banners import SubcategoryBanner
     from .category_book_association import CategoryBookAssociation
     from .book import Book
 
