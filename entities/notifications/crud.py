@@ -33,6 +33,7 @@ async def create_notification(session: AsyncSession, data: NotificationCreate,
     return new_notification
 
 
+
 async def get_all_notifications(session: AsyncSession) -> list[NotificationSchema]:
     statement = select(Notification).order_by(Notification.id)
     result: Result = await session.execute(statement)
